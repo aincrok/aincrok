@@ -60,8 +60,8 @@ Apache 2.0 - See [LICENSE](LICENSE) for details.
 
 AINCROK is built upon the excellent foundation of:
 - [Kilocode](https://github.com/Kilo-Org/kilocode) - Original codebase
-- [Cline](https://github.com/cline/cline) - Inspiration for features
-- [Roo Coder](https://github.com/roo-coder/roo-coder) - Documentation structure
+- [Cline](https://github.com/cline/cline)
+- [Roo Code](https://github.com/RooCodeInc/Roo-Code)
 
 ## 📬 Support
 
