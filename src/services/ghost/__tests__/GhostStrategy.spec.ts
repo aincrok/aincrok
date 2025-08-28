@@ -416,7 +416,7 @@ function add(a, b) {
 			const jsonWithEscapedQuotes = `\`\`\`json
 [
 	 {
-	   "path": "file:///Users/catrielmuller/Dev/Kilo-Org/example/projects/match-me/script.js",
+	   "path": "file:///Users/catrielmuller/Dev/aincrok/example/projects/match-me/script.js",
 	   "content": "const MATCH_QUOTES = [\\n  \\"Frankly, Horizon — we saw that prompt leak coming.\\",\\n  \\"The model may generalize, but it can't hide.\\",\\n  \\"Abagnale, but make it AI.\\"\\n];"
 	 }
 ]
@@ -454,7 +454,7 @@ function add(a, b) {
 			const problematicJson = `\`\`\`json
 [
 		{
-		  "path": "file:///Users/catrielmuller/Dev/Kilo-Org/example/projects/match-me/script.js",
+		  "path": "file:///Users/catrielmuller/Dev/aincrok/example/projects/match-me/script.js",
 		  "content": "/**\\n * Catch Me If You Can — Memory Match Game\\n * Drag tiles to find matching pairs. Features collision detection, scoring, timer, and multiple difficulty levels.\\n */\\n\\n// Game configuration\\nconst CONFIG = {\\n  difficulties: {\\n    easy: { pairs: 6, timeBonus: 10 },\\n    medium: { pairs: 8, timeBonus: 15 },\\n    hard: { pairs: 12, timeBonus: 20 }\\n  },\\n  matchDistance: 60, // pixels - how close tiles need to be to match\\n  pointsPerMatch: 100,\\n  timeBonusMultiplier: 2\\n};\\n\\n// Character images for the memory game\\nconst CHARACTERS = [\\n  { id: 'leo1', name: 'DiCaprio 1', url: 'https://ianfarrington.wordpress.com/wp-content/uploads/2015/01/catch-me-if-you-can.jpg' },\\n  { id: 'leo2', name: 'DiCaprio 2', url: 'https://www.thomasmason.co.uk/wp-content/uploads/2021/03/TF09_Copertina_Hero.jpg' },\\n  { id: 'detective1', name: 'Detective 1', url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6Ib904My-AODlMZcFIxHxBAudDbgNOFbSRCmGDcEAtTQwusYuQLT3RdV3OhLV8MisvDg&usqp=CAU' },\\n  { id: 'detective2', name: 'Detective 2', url: 'https://www.slashfilm.com/img/gallery/tom-hanks-catch-me-if-you-can-casting-completely-changed-the-story/needing-a-cat-for-the-mouse-1650304879.jpg' }\\n];\\n\\n// Fun match quotes that reference the movie and AI theme\\nconst MATCH_QUOTES = [\\n  \\"Frankly, Horizon — we saw that prompt leak coming.\\",\\n  \\"The model may generalize, but it can't hide.\\",\\n  \\"Abagnale, but make it AI.\\",\\n  \\"Outrun the past? Not when it's trained on you.\\",\\n  \\"Detective GPT-5 doesn't bluff — it benchmarks.\\",\\n  \\"Nice try, but your patterns are showing.\\",\\n  \\"Catch me if you can? Already caught in the training data.\\",\\n  \\"Some connections can't be encrypted.\\",\\n  \\"Even neural networks leave digital fingerprints.\\",\\n  \\"Plot twist: the AI was the detective all along.\\"\\n];"
 		}
 ]
@@ -505,7 +505,7 @@ function test() {
 			const newProblematicJson = `\`\`\`json
 [
 		{
-			 "path": "file:///Users/catrielmuller/Dev/Kilo-Org/example/projects/match-me/script.js",
+			 "path": "file:///Users/catrielmuller/Dev/aincrok/example/projects/match-me/script.js",
 			 "content": "/**
 	* Catch Me If You Can — Memory Match Game
 	* Drag tiles to find matching pairs. Features collision detection, scoring, timer, and multiple difficulty levels.

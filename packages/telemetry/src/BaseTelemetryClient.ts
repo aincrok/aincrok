@@ -69,7 +69,7 @@ export abstract class BaseTelemetryClient implements TelemetryClient {
 	// kilocode_change start
 	public async captureException(_error: Error, _properties?: Record<string | number, unknown>): Promise<void> {}
 
-	public updateIdentity(_kilocodeToken: string): Promise<void> {
+	public updateIdentity(_aincrokToken: string): Promise<void> {
 		return Promise.resolve()
 	}
 	// kilocode_change end

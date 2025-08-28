@@ -192,7 +192,7 @@ describe("UnboundHandler", () => {
 
 				expect.objectContaining({
 					headers: {
-						"X-Unbound-Metadata": expect.stringContaining("kilo-code"),
+						"X-Unbound-Metadata": expect.stringContaining("aincrok"),
 					},
 				}),
 			)
@@ -233,7 +233,7 @@ describe("UnboundHandler", () => {
 				}),
 				expect.objectContaining({
 					headers: expect.objectContaining({
-						"X-Unbound-Metadata": expect.stringContaining("kilo-code"),
+						"X-Unbound-Metadata": expect.stringContaining("aincrok"),
 					}),
 				}),
 			)
@@ -269,7 +269,7 @@ describe("UnboundHandler", () => {
 				}),
 				expect.objectContaining({
 					headers: expect.objectContaining({
-						"X-Unbound-Metadata": expect.stringContaining("kilo-code"),
+						"X-Unbound-Metadata": expect.stringContaining("aincrok"),
 					}),
 				}),
 			)
@@ -295,7 +295,7 @@ describe("UnboundHandler", () => {
 				}),
 				expect.objectContaining({
 					headers: expect.objectContaining({
-						"X-Unbound-Metadata": expect.stringContaining("kilo-code"),
+						"X-Unbound-Metadata": expect.stringContaining("aincrok"),
 					}),
 				}),
 			)

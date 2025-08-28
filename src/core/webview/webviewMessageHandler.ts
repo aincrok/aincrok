@@ -6,7 +6,7 @@ import pWaitFor from "p-wait-for"
 import * as vscode from "vscode"
 import axios from "axios" // kilocode_change
 import * as yaml from "yaml"
-import { getKiloBaseUriFromToken } from "../../shared/kilocode/token" // kilocode_change
+import { getKiloBaseUriFromToken } from "../../shared/aincrok/token" // kilocode_change
 import { ProfileData } from "../../shared/WebviewMessage" // kilocode_change
 
 import {
@@ -58,7 +58,7 @@ import { generateSystemPrompt } from "./generateSystemPrompt"
 import { getCommand } from "../../utils/commands"
 import { toggleWorkflow, toggleRule, createRuleFile, deleteRuleFile } from "./kilorules"
 import { mermaidFixPrompt } from "../prompts/utilities/mermaid" // kilocode_change
-import { editMessageHandler, fetchKilocodeNotificationsHandler } from "../kilocode/webview/webviewMessageHandlerUtils" // kilocode_change
+import { editMessageHandler, fetchAINCROKNotificationsHandler } from "../aincrok/webview/webviewMessageHandlerUtils" // kilocode_change
 
 const ALLOWED_VSCODE_SETTINGS = new Set(["terminal.integrated.inheritEnv"])
 
@@ -295,7 +295,7 @@ export const webviewMessageHandler = async (
 				const { telemetrySetting } = state
 				const isOptedIn = telemetrySetting === "enabled"
 				TelemetryService.instance.updateTelemetryState(isOptedIn)
-				await TelemetryService.instance.updateIdentity(state.apiConfiguration.kilocodeToken ?? "") // kilocode_change
+				await TelemetryService.instance.updateIdentity(state.apiConfiguration.aincrokToken ?? "") // kilocode_change
 			})
 
 			provider.isViewLaunched = true
@@ -568,7 +568,7 @@ export const webviewMessageHandler = async (
 				glama: {},
 				unbound: {},
 				litellm: {},
-				"kilocode-openrouter": {}, // kilocode_change
+				"aincrok-openrouter": {}, // kilocode_change
 				ollama: {},
 				lmstudio: {},
 			}
@@ -605,11 +605,11 @@ export const webviewMessageHandler = async (
 				{ key: "glama", options: { provider: "glama" } },
 				{ key: "unbound", options: { provider: "unbound", apiKey: apiConfiguration.unboundApiKey } },
 				{
-					key: "kilocode-openrouter",
+					key: "aincrok-openrouter",
 					options: {
-						provider: "kilocode-openrouter",
-						kilocodeToken: apiConfiguration.kilocodeToken,
-						kilocodeOrganizationId: apiConfiguration.kilocodeOrganizationId,
+						provider: "aincrok-openrouter",
+						aincrokToken: apiConfiguration.aincrokToken,
+						aincrokOrganizationId: apiConfiguration.aincrokOrganizationId,
 					},
 				},
 				{ key: "ollama", options: { provider: "ollama", baseUrl: apiConfiguration.ollamaBaseUrl } },
@@ -878,7 +878,7 @@ export const webviewMessageHandler = async (
 			}
 
 			const workspaceFolder = vscode.workspace.workspaceFolders[0]
-			const rooDir = path.join(workspaceFolder.uri.fsPath, ".kilocode")
+			const rooDir = path.join(workspaceFolder.uri.fsPath, ".aincrok")
 			const mcpPath = path.join(rooDir, "mcp.json")
 
 			try {
@@ -993,7 +993,7 @@ export const webviewMessageHandler = async (
 			break
 		// kilocode_change begin
 		case "openGlobalKeybindings":
-			vscode.commands.executeCommand("workbench.action.openGlobalKeybindings", message.text ?? "kilo-code.")
+			vscode.commands.executeCommand("workbench.action.openGlobalKeybindings", message.text ?? "aincrok.")
 			break
 		case "showSystemNotification":
 			const isSystemNotificationsEnabled = getGlobalState("systemNotificationsEnabled") ?? true
@@ -1470,7 +1470,7 @@ export const webviewMessageHandler = async (
 			const ghostServiceSettings = ghostServiceSettingsSchema.parse(message.values)
 			await updateGlobalState("ghostServiceSettings", ghostServiceSettings)
 			await provider.postStateToWebview()
-			vscode.commands.executeCommand("kilo-code.ghost.reload")
+			vscode.commands.executeCommand("aincrok.ghost.reload")
 			break
 		// kilocode_change end
 		case "includeTaskHistoryInEnhance":
@@ -1604,7 +1604,7 @@ export const webviewMessageHandler = async (
 			)
 
 			if (answer === githubIssuesText) {
-				await vscode.env.openExternal(vscode.Uri.parse("https://github.com/Kilo-Org/kilocode/issues"))
+				await vscode.env.openExternal(vscode.Uri.parse("https://github.com/aincrok/aincrok/issues"))
 			} else if (answer === discordText) {
 				await vscode.env.openExternal(vscode.Uri.parse("https://discord.gg/fxrhCFGhkP"))
 			} else if (answer === customerSupport) {
@@ -1676,26 +1676,26 @@ export const webviewMessageHandler = async (
 			}
 			break
 		case "upsertApiConfiguration":
-			// kilocode_change start: check for kilocodeToken change to remove organizationId
+			// kilocode_change start: check for aincrokToken change to remove organizationId
 			if (message.text && message.apiConfiguration) {
 				let configToSave = message.apiConfiguration
 				try {
 					const { ...currentConfig } = await provider.providerSettingsManager.getProfile({
 						name: message.text,
 					})
-					if (currentConfig.kilocodeToken !== message.apiConfiguration.kilocodeToken) {
-						configToSave = { ...message.apiConfiguration, kilocodeOrganizationId: undefined }
+					if (currentConfig.aincrokToken !== message.apiConfiguration.aincrokToken) {
+						configToSave = { ...message.apiConfiguration, aincrokOrganizationId: undefined }
 					}
-					if (currentConfig.kilocodeOrganizationId !== message.apiConfiguration.kilocodeOrganizationId) {
-						await flushModels("kilocode-openrouter")
+					if (currentConfig.aincrokOrganizationId !== message.apiConfiguration.aincrokOrganizationId) {
+						await flushModels("aincrok-openrouter")
 						const models = await getModels({
-							provider: "kilocode-openrouter",
-							kilocodeOrganizationId: message.apiConfiguration.kilocodeOrganizationId,
-							kilocodeToken: message.apiConfiguration.kilocodeToken,
+							provider: "aincrok-openrouter",
+							aincrokOrganizationId: message.apiConfiguration.aincrokOrganizationId,
+							aincrokToken: message.apiConfiguration.aincrokToken,
 						})
 						provider.postMessageToWebview({
 							type: "routerModels",
-							routerModels: { "kilocode-openrouter": models } as Record<RouterName, ModelRecord>,
+							routerModels: { "aincrok-openrouter": models } as Record<RouterName, ModelRecord>,
 						})
 					}
 				} catch (error) {
@@ -2169,9 +2169,9 @@ export const webviewMessageHandler = async (
 		case "fetchProfileDataRequest":
 			try {
 				const { apiConfiguration } = await provider.getState()
-				const kilocodeToken = apiConfiguration?.kilocodeToken
+				const aincrokToken = apiConfiguration?.aincrokToken
 
-				if (!kilocodeToken) {
+				if (!aincrokToken) {
 					provider.log("KiloCode token not found in extension state.")
 					provider.postMessageToWebview({
 						type: "profileDataResponse",
@@ -2181,11 +2181,11 @@ export const webviewMessageHandler = async (
 				}
 
 				// Changed to /api/profile
-				const response = await axios.get<Omit<ProfileData, "kilocodeToken">>(
-					`${getKiloBaseUriFromToken(kilocodeToken)}/api/profile`,
+				const response = await axios.get<Omit<ProfileData, "aincrokToken">>(
+					`${getKiloBaseUriFromToken(aincrokToken)}/api/profile`,
 					{
 						headers: {
-							Authorization: `Bearer ${kilocodeToken}`,
+							Authorization: `Bearer ${aincrokToken}`,
 							"Content-Type": "application/json",
 						},
 					},
@@ -2193,20 +2193,20 @@ export const webviewMessageHandler = async (
 
 				// Go back to Personal when no longer part of the current set organization
 				if (
-					apiConfiguration?.kilocodeOrganizationId &&
+					apiConfiguration?.aincrokOrganizationId &&
 					!(response.data.organizations ?? []).some(
-						({ id }) => id === apiConfiguration?.kilocodeOrganizationId,
+						({ id }) => id === apiConfiguration?.aincrokOrganizationId,
 					)
 				) {
 					provider.upsertProviderProfile(provider.providerSettingsManager.activateProfile.name, {
 						...apiConfiguration,
-						kilocodeOrganizationId: undefined,
+						aincrokOrganizationId: undefined,
 					})
 				}
 
 				provider.postMessageToWebview({
 					type: "profileDataResponse", // Assuming this response type is still appropriate for /api/profile
-					payload: { success: true, data: { kilocodeToken, ...response.data } },
+					payload: { success: true, data: { aincrokToken, ...response.data } },
 				})
 			} catch (error: any) {
 				const errorMessage =
@@ -2223,9 +2223,9 @@ export const webviewMessageHandler = async (
 		case "fetchBalanceDataRequest": // New handler
 			try {
 				const { apiConfiguration } = await provider.getState()
-				const { kilocodeToken, kilocodeOrganizationId } = apiConfiguration ?? {}
+				const { aincrokToken, aincrokOrganizationId } = apiConfiguration ?? {}
 
-				if (!kilocodeToken) {
+				if (!aincrokToken) {
 					provider.log("KiloCode token not found in extension state for balance data.")
 					provider.postMessageToWebview({
 						type: "balanceDataResponse", // New response type
@@ -2235,15 +2235,15 @@ export const webviewMessageHandler = async (
 				}
 
 				const headers: Record<string, string> = {
-					Authorization: `Bearer ${kilocodeToken}`,
+					Authorization: `Bearer ${aincrokToken}`,
 					"Content-Type": "application/json",
 				}
 
-				if (kilocodeOrganizationId) {
-					headers["X-KiloCode-OrganizationId"] = kilocodeOrganizationId
+				if (aincrokOrganizationId) {
+					headers["X-KiloCode-OrganizationId"] = aincrokOrganizationId
 				}
 
-				const response = await axios.get(`${getKiloBaseUriFromToken(kilocodeToken)}/api/profile/balance`, {
+				const response = await axios.get(`${getKiloBaseUriFromToken(aincrokToken)}/api/profile/balance`, {
 					// Original path for balance
 					headers,
 				})
@@ -2264,8 +2264,8 @@ export const webviewMessageHandler = async (
 		case "shopBuyCredits": // New handler
 			try {
 				const { apiConfiguration } = await provider.getState()
-				const kilocodeToken = apiConfiguration?.kilocodeToken
-				if (!kilocodeToken) {
+				const aincrokToken = apiConfiguration?.aincrokToken
+				if (!aincrokToken) {
 					provider.log("KiloCode token not found in extension state for buy credits.")
 					break
 				}
@@ -2274,13 +2274,13 @@ export const webviewMessageHandler = async (
 				const uiKind = message.values?.uiKind || "Desktop"
 				const source = uiKind === "Web" ? "web" : uriScheme
 
-				const baseUrl = getKiloBaseUriFromToken(kilocodeToken)
+				const baseUrl = getKiloBaseUriFromToken(aincrokToken)
 				const response = await axios.post(
 					`${baseUrl}/payments/topup?origin=extension&source=${source}&amount=${credits}`,
 					{},
 					{
 						headers: {
-							Authorization: `Bearer ${kilocodeToken}`,
+							Authorization: `Bearer ${aincrokToken}`,
 							"Content-Type": "application/json",
 						},
 						maxRedirects: 0, // Prevent axios from following redirects automatically
@@ -2900,8 +2900,8 @@ export const webviewMessageHandler = async (
 			await editMessageHandler(provider, message)
 			break
 		}
-		case "fetchKilocodeNotifications": {
-			await fetchKilocodeNotificationsHandler(provider)
+		case "fetchAINCROKNotifications": {
+			await fetchAINCROKNotificationsHandler(provider)
 			break
 		}
 		case "dismissNotificationId": {

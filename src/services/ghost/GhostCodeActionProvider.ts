@@ -18,7 +18,7 @@ export class GhostCodeActionProvider implements vscode.CodeActionProvider {
 			this.providedCodeActionKinds["quickfix"],
 		)
 		action.command = {
-			command: "kilo-code.ghost.generateSuggestions",
+			command: "aincrok.ghost.generateSuggestions",
 			title: "",
 			arguments: [document.uri, range],
 		}

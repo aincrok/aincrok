@@ -312,9 +312,9 @@ const sambaNovaSchema = apiModelIdProviderModelSchema.extend({
 
 // kilocode_change start
 const kilocodeSchema = baseProviderSettingsSchema.extend({
-	kilocodeToken: z.string().optional(),
-	kilocodeOrganizationId: z.string().optional(),
-	kilocodeModel: z.string().optional(),
+	aincrokToken: z.string().optional(),
+	aincrokOrganizationId: z.string().optional(),
+	aincrokModel: z.string().optional(),
 	openRouterSpecificProvider: z.string().optional(),
 	openRouterProviderDataCollection: openRouterProviderDataCollectionSchema.optional(),
 	openRouterProviderSort: openRouterProviderSortSchema.optional(),
@@ -427,7 +427,7 @@ export const providerSettingsSchema = z.object({
 	...geminiSchema.shape,
 	// kilocode_change start
 	...geminiCliSchema.shape,
-	...kilocodeSchema.shape,
+	...aincrokSchema.shape,
 	...virtualQuotaFallbackSchema.shape,
 	...qwenCodeSchema.shape,
 	// kilocode_change end
@@ -595,7 +595,7 @@ export const MODELS_BY_PROVIDER: Record<
 	unbound: { id: "unbound", label: "Unbound", models: [] },
 
 	// kilocode_change start
-	kilocode: { id: "kilocode", label: "Kilocode", models: [] },
+	kilocode: { id: "kilocode", label: "AINCROK", models: [] },
 	"virtual-quota-fallback": { id: "virtual-quota-fallback", label: "Virtual Quota Fallback", models: [] },
 	"qwen-code": { id: "qwen-code", label: "Qwen Code", models: [] },
 	// kilocode_change end

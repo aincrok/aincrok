@@ -255,7 +255,7 @@ export interface WebviewMessage {
 		| "checkRulesDirectoryResult"
 		| "saveCodeIndexSettingsAtomic"
 		| "requestCodeIndexSecretStatus"
-		| "fetchKilocodeNotifications"
+		| "fetchAINCROKNotifications"
 		| "requestCommands"
 		| "openCommandFile"
 		| "deleteCommand"
@@ -355,7 +355,7 @@ export type UserOrganizationWithApiKey = {
 }
 
 export type ProfileData = {
-	kilocodeToken: string
+	aincrokToken: string
 	user: {
 		id: string
 		name: string

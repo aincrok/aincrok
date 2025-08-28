@@ -43,7 +43,7 @@ import { useAutoApprovalToggles } from "@src/hooks/useAutoApprovalToggles"
 
 import TelemetryBanner from "../common/TelemetryBanner" // kilocode_change: deactivated for now
 // import VersionIndicator from "../common/VersionIndicator" // kilocode_change: unused
-import { OrganizationSelector } from "../kilocode/common/OrganizationSelector"
+import { OrganizationSelector } from "../aincrok/common/OrganizationSelector"
 import { useTaskSearch } from "../history/useTaskSearch"
 import HistoryPreview from "../history/HistoryPreview"
 import Announcement from "./Announcement"
@@ -51,15 +51,15 @@ import BrowserSessionRow from "./BrowserSessionRow"
 import ChatRow from "./ChatRow"
 import ChatTextArea from "./ChatTextArea"
 // import TaskHeader from "./TaskHeader"// kilocode_change
-import KiloTaskHeader from "../kilocode/KiloTaskHeader" // kilocode_change
+import KiloTaskHeader from "../aincrok/KiloTaskHeader" // kilocode_change
 import AutoApproveMenu from "./AutoApproveMenu"
-import BottomControls from "../kilocode/BottomControls" // kilocode_change
+import BottomControls from "../aincrok/BottomControls" // kilocode_change
 import SystemPromptWarning from "./SystemPromptWarning"
-import { showSystemNotification } from "@/kilocode/helpers" // kilocode_change
+import { showSystemNotification } from "@/aincrok/helpers" // kilocode_change
 // import ProfileViolationWarning from "./ProfileViolationWarning" kilocode_change: unused
 import { CheckpointWarning } from "./CheckpointWarning"
-import { IdeaSuggestionsBox } from "../kilocode/chat/IdeaSuggestionsBox" // kilocode_change
-import { KilocodeNotifications } from "../kilocode/KilocodeNotifications" // kilocode_change
+import { IdeaSuggestionsBox } from "../aincrok/chat/IdeaSuggestionsBox" // kilocode_change
+import { AINCROKNotifications } from "../aincrok/AINCROKNotifications" // kilocode_change
 import QueuedMessages from "./QueuedMessages"
 import { getLatestTodo } from "@roo/todo"
 import { QueuedMessage } from "@roo-code/types"
@@ -2020,10 +2020,10 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						<RooHero /> */}
 
 						{telemetrySetting === "unset" && <TelemetryBanner />}
-						{/* kilocode_change start: KilocodeNotifications + Layout fixes */}
+						{/* kilocode_change start: AINCROKNotifications + Layout fixes */}
 						{telemetrySetting !== "unset" && (
 							<div className={tasks.length === 0 ? "mt-10" : undefined}>
-								<KilocodeNotifications />
+								<AINCROKNotifications />
 							</div>
 						)}
 						<div className="flex flex-grow flex-col justify-center gap-4">
@@ -2049,7 +2049,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 							</div> kilocode_change: do not show */}
 							{/* Show the task history preview if expanded and tasks exist */}
 							{taskHistory.length > 0 && isExpanded && <HistoryPreview />}
-							{/* kilocode_change start: KilocodeNotifications + Layout fixes */}
+							{/* kilocode_change start: AINCROKNotifications + Layout fixes */}
 						</div>
 						{/* kilocode_change end */}
 					</div>

@@ -1,59 +1,70 @@
-<p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=kilocode.Kilo-Code"><img src="https://img.shields.io/visual-studio-marketplace/v/kilocode.Kilo-Code.svg?label=VS%20Code%20Marketplace" alt="VS Code Marketplace"></a>
-  <a href="https://x.com/kilo_code"><img src="https://img.shields.io/twitter/follow/kilo_code?style=flat&logo=x&color=555" alt="X (Twitter)"></a>
-  <a href="https://blog.kilocode.ai"><img src="https://img.shields.io/badge/Blog-555?style=flat&logo=substack&logoColor=white" alt="Substack Blog"></a>
-  <a href="https://kilocode.ai/discord"><img src="https://img.shields.io/discord/1349288496988160052?style=flat&logo=discord&logoColor=white" alt="Discord"></a>
-  <a href="https://www.reddit.com/r/kilocode/"><img src="https://img.shields.io/reddit/subreddit-subscribers/kilocode?style=flat&logo=reddit&logoColor=white" alt="Reddit"></a>
-</p>
+# AINCROK - AI Code Assistant for VS Code
 
-# 🚀 Kilo Code
+> AINCROK Is Not Cline Roo Or Kilo
 
-> Open-source VS Code AI agent. We frequently merge features from open-source projects, such as [Roo Code](https://github.com/RooVetGit/Roo-Code) and [Cline](https://github.com/cline/cline), while building our own vision.
+[![Version](https://img.shields.io/visual-studio-marketplace/v/aincrok.aincrok)](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)
+[![Downloads](https://img.shields.io/visual-studio-marketplace/d/aincrok.aincrok)](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)
+[![License](https://img.shields.io/github/license/aincrok/aincrok)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/aincrok/aincrok)](https://github.com/aincrok/aincrok)
 
-- ✨ Generate code from natural language
-- ✅ Checks its own work
-- 🧪 Run terminal commands
-- 🌐 Automate the browser
-- 🤖 Latest AI models
-- 🎁 API keys optional
-- 💡 **Get $25 in free credits: $5 when you sign up, $20 when you top-up for the first time** Credits can be used with 400+ models like Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5
+## 🚀 Overview
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Kilo-Org/kilocode/refs/heads/main/kilo.gif" width="100%" />
-</p>
+AINCROK is a powerful AI-powered code assistant for Visual Studio Code, forked from Kilocode with significant enhancements. It provides intelligent code completion, multi-file editing, and seamless integration with various LLM providers.
 
-- [VS Code Marketplace](https://kilocode.ai/vscode-marketplace?utm_source=Readme) (download)
-- [Official KiloCode.ai Home page](https://kilocode.ai) (learn more)
+## ✨ Features
 
-## Key Features
+- 🤖 **Multi-Provider Support**: OpenAI, Anthropic, Google, and more
+- 📝 **Autonomous Multi-File Editing**: Edit multiple files simultaneously
+- 💬 **Persistent Conversation History**: Never lose your coding context
+- 🎨 **Intuitive WebView Interface**: Modern, responsive UI within VS Code
+- 🚀 **Template System**: Customizable prompts and workflows
+- 💻 **Terminal Integration**: Execute commands directly from conversations
+- 🔧 **Highly Configurable**: Adapt to your workflow
 
-- **Code Generation:** Generate code using natural language.
-- **Task Automation:** Automate repetitive coding tasks.
-- **Automated Refactoring:** Refactor and improve existing code.
-- **MCP Server Marketplace**: Easily find, and use MCP servers to extend the agent capabilities.
-- **Multi Mode**: Plan with Architect, Code with Coder, and Debug with Debugger, and make your own custom modes.
+## 📦 Installation
 
-## How to get started with Kilo Code
+### From VS Code Marketplace
+1. Open VS Code
+2. Press `Ctrl+P` / `Cmd+P`
+3. Type `ext install aincrok.aincrok`
 
-1.  Install the Kilo Code extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=kilocode.Kilo-Code).
-2.  Sign up to get $5 in free credits which can be used with 400+ models like Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5
-3.  Start using the extension. Here's a video to help you get started (just click on the image below and you'll be redirected to YouTube):
+### From Source
+```bash
+git clone https://github.com/aincrok/aincrok.git
+cd aincrok
+npm install
+npm run compile
+```
 
-[![Watch the video](https://img.youtube.com/vi/pqGfYXgrhig/maxresdefault.jpg)](https://youtu.be/pqGfYXgrhig)
+## 🔧 Configuration
 
-## Difference between Kilo Code, Roo Code and Cline
-Kilo Code started as a fork of Roo Code, which itself is a fork of Cline. We frequently merge features from these open-source projects and contribute improvements back. Built on these foundations, Kilo Code is independently developed with our own vision for AI coding agents.
+See [Configuration Guide](docs/CONFIGURATION.md) for detailed setup instructions.
 
-- No need to fiddle with API keys, Kilo Code ships with the latest AI models plugged in, including Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5
-- MCP Server Marketplace: Easily find, and use MCP servers to extend the agent capabilities.
-- Inline Assist (experimental)
+## 📖 Documentation
 
-Kilo Code is a direct fork from Roo Code, and also includes the following features from Cline (and our own features):
-- System notifications: Get notified when the agent is done with a task.
-- Easy model connection: with bigger free tier.
-- Editing previous messages
-- Assisted commit messages: we write git commit messages for you based on what changed
+- [Getting Started](docs/GETTING_STARTED.md)
+- [Configuration Guide](docs/CONFIGURATION.md)
+- [API Reference](docs/API.md)
+- [Contributing](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
 
-## Extension Development
+## 🤝 Contributing
 
-For details on building and developing the extension, see [DEVELOPMENT.md](/DEVELOPMENT.md)
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## 📄 License
+
+Apache 2.0 - See [LICENSE](LICENSE) for details.
+
+## 🙏 Acknowledgments
+
+AINCROK is built upon the excellent foundation of:
+- [Kilocode](https://github.com/Kilo-Org/kilocode) - Original codebase
+- [Cline](https://github.com/cline/cline) - Inspiration for features
+- [Roo Coder](https://github.com/roo-coder/roo-coder) - Documentation structure
+
+## 📬 Support
+
+- [GitHub Issues](https://github.com/aincrok/aincrok/issues)
+- [Discord Community](https://discord.gg/aincrok)
+- [Documentation](https://aincrok.dev/docs)

@@ -166,8 +166,8 @@
 	},
 	"storage": {
 		"prompt_custom_path": "Konuşma geçmişi için özel depolama yolunu girin, varsayılan konumu kullanmak için boş bırakın",
-		"path_placeholder": "D:\\KiloCodeStorage",
-		"enter_absolute_path": "Lütfen mutlak bir yol girin (örn. D:\\KiloCodeStorage veya /home/user/storage)",
+		"path_placeholder": "D:\\aincrokStorage",
+		"enter_absolute_path": "Lütfen mutlak bir yol girin (örn. D:\\aincrokStorage veya /home/user/storage)",
 		"enter_valid_path": "Lütfen geçerli bir yol girin"
 	},
 	"input": {
@@ -187,8 +187,8 @@
 	},
 	"customModes": {
 		"errors": {
-			"yamlParseError": ".kilocodemodes dosyasının {{line}}. satırında geçersiz YAML. Kontrol et:\n• Doğru girinti (tab değil boşluk kullan)\n• Eşleşen tırnak işaretleri ve parantezler\n• Geçerli YAML sözdizimi",
-			"schemaValidationError": ".kilocodemodes'ta geçersiz özel mod formatı:\n{{issues}}",
+			"yamlParseError": ".aincrokmodes dosyasının {{line}}. satırında geçersiz YAML. Kontrol et:\n• Doğru girinti (tab değil boşluk kullan)\n• Eşleşen tırnak işaretleri ve parantezler\n• Geçerli YAML sözdizimi",
+			"schemaValidationError": ".aincrokmodes'ta geçersiz özel mod formatı:\n{{issues}}",
 			"invalidFormat": "Geçersiz özel mod formatı. Ayarlarının doğru YAML formatını takip ettiğinden emin ol.",
 			"updateFailed": "Özel mod güncellemesi başarısız: {{error}}",
 			"deleteFailed": "Özel mod silme başarısız: {{error}}",

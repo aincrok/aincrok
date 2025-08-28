@@ -90,12 +90,12 @@ import { getNonce } from "./getNonce"
 import { getUri } from "./getUri"
 
 //kilocode_change start
-import { McpDownloadResponse, McpMarketplaceCatalog } from "../../shared/kilocode/mcp"
+import { McpDownloadResponse, McpMarketplaceCatalog } from "../../shared/aincrok/mcp"
 import { McpServer } from "../../shared/mcp"
 import { OpenRouterHandler } from "../../api/providers"
-import { stringifyError } from "../../shared/kilocode/errorUtils"
+import { stringifyError } from "../../shared/aincrok/errorUtils"
 import isWsl from "is-wsl"
-import { getKilocodeDefaultModel } from "../../api/providers/kilocode/getKilocodeDefaultModel"
+import { getAINCROKDefaultModel } from "../../api/providers/aincrok/getAINCROKDefaultModel"
 
 export type ClineProviderState = Awaited<ReturnType<ClineProvider["getState"]>>
 // kilocode_change end
@@ -1223,7 +1223,7 @@ export class ClineProvider
 					task.api = buildApiHandler(providerSettings)
 				}
 
-				await TelemetryService.instance.updateIdentity(providerSettings.kilocodeToken ?? "") // kilocode_change
+				await TelemetryService.instance.updateIdentity(providerSettings.aincrokToken ?? "") // kilocode_change
 			} else {
 				await this.updateGlobalState("listApiConfigMeta", await this.providerSettingsManager.listConfig())
 			}
@@ -1287,7 +1287,7 @@ export class ClineProvider
 		}
 
 		await this.postStateToWebview()
-		await TelemetryService.instance.updateIdentity(providerSettings.kilocodeToken ?? "") // kilocode_change
+		await TelemetryService.instance.updateIdentity(providerSettings.aincrokToken ?? "") // kilocode_change
 	}
 
 	// Task Management
@@ -1347,21 +1347,21 @@ export class ClineProvider
 		// Get platform-specific application data directory
 		let mcpServersDir: string
 		if (process.platform === "win32") {
-			// Windows: %APPDATA%\Kilo-Code\MCP
-			mcpServersDir = path.join(os.homedir(), "AppData", "Roaming", "Kilo-Code", "MCP")
+			// Windows: %APPDATA%\AINCROK\MCP
+			mcpServersDir = path.join(os.homedir(), "AppData", "Roaming", "AINCROK", "MCP")
 		} else if (process.platform === "darwin") {
-			// macOS: ~/Documents/Kilo-Code/MCP
-			mcpServersDir = path.join(os.homedir(), "Documents", "Kilo-Code", "MCP")
+			// macOS: ~/Documents/AINCROK/MCP
+			mcpServersDir = path.join(os.homedir(), "Documents", "AINCROK", "MCP")
 		} else {
-			// Linux: ~/.local/share/Kilo-Code/MCP
-			mcpServersDir = path.join(os.homedir(), ".local", "share", "Kilo-Code", "MCP")
+			// Linux: ~/.local/share/AINCROK/MCP
+			mcpServersDir = path.join(os.homedir(), ".local", "share", "AINCROK", "MCP")
 		}
 
 		try {
 			await fs.mkdir(mcpServersDir, { recursive: true })
 		} catch (error) {
 			// Fallback to a relative path if directory creation fails
-			return path.join(os.homedir(), ".kilocode", "mcp")
+			return path.join(os.homedir(), ".aincrok", "mcp")
 		}
 		return mcpServersDir
 	}
@@ -1458,7 +1458,7 @@ export class ClineProvider
 		await this.upsertProviderProfile(currentApiConfigName, {
 			...apiConfiguration,
 			apiProvider: "kilocode",
-			kilocodeToken: token,
+			aincrokToken: token,
 		})
 
 		vscode.window.showInformationMessage("Kilo Code successfully configured!")
@@ -1466,7 +1466,7 @@ export class ClineProvider
 		if (this.getCurrentTask()) {
 			this.getCurrentTask()!.api = buildApiHandler({
 				apiProvider: kilocode,
-				kilocodeToken: token,
+				aincrokToken: token,
 			})
 		}
 	}
@@ -1842,7 +1842,7 @@ export class ClineProvider
 			remoteControlEnabled,
 		} = await this.getState()
 
-		const telemetryKey = process.env.KILOCODE_POSTHOG_API_KEY
+		const telemetryKey = process.env.AINCROK_POSTHOG_API_KEY
 		const machineId = vscode.env.machineId
 
 		const mergedAllowedCommands = this.mergeAllowedCommands(allowedCommands)
@@ -1874,7 +1874,7 @@ export class ClineProvider
 			autoCondenseContextPercent: autoCondenseContextPercent ?? 100,
 			uriScheme: vscode.env.uriScheme,
 			uiKind: vscode.UIKind[vscode.env.uiKind], // kilocode_change
-			kilocodeDefaultModel: await getKilocodeDefaultModel(apiConfiguration.kilocodeToken),
+			kilocodeDefaultModel: await getAINCROKDefaultModel(apiConfiguration.aincrokToken),
 			currentTaskItem: this.getCurrentTask()?.taskId
 				? (taskHistory || []).find((item: HistoryItem) => item.id === this.getCurrentTask()?.taskId)
 				: undefined,
@@ -2248,10 +2248,10 @@ export class ClineProvider
 
 		// Logout from Kilo Code provider before resetting (same approach as ProfileView logout)
 		const { apiConfiguration, currentApiConfigName } = await this.getState()
-		if (apiConfiguration.kilocodeToken) {
+		if (apiConfiguration.aincrokToken) {
 			await this.upsertProviderProfile(currentApiConfigName, {
 				...apiConfiguration,
-				kilocodeToken: "",
+				aincrokToken: "",
 			})
 		}
 

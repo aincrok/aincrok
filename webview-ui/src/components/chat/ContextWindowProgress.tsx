@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 
 import { formatLargeNumber } from "@/utils/format"
 import { calculateTokenDistribution } from "@/utils/model-utils"
-import { KiloContextWindowProgressTokensUsed } from "../kilocode/chat/KiloContextWindowProgressTokensUsed"
+import { KiloContextWindowProgressTokensUsed } from "../aincrok/chat/KiloContextWindowProgressTokensUsed"
 import { StandardTooltip } from "@/components/ui"
 
 interface ContextWindowProgressProps {

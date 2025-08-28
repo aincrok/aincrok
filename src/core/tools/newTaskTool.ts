@@ -57,7 +57,7 @@ export async function newTaskTool(
 			}
 			const state = await provider.getState()
 			const requireTodos = vscode.workspace
-				.getConfiguration("kilo-code")
+				.getConfiguration("aincrok")
 				.get<boolean>("newTaskRequireTodos", false)
 
 			// Check if todos are required based on VSCode setting

@@ -36,7 +36,7 @@ export const handleUri = async (uri: vscode.Uri) => {
 			break
 		}
 		// kilocode_change start
-		case "/kilocode/profile": {
+		case "/aincrok/profile": {
 			await visibleProvider.postMessageToWebview({
 				type: "action",
 				action: "profileButtonClicked",

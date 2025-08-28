@@ -4,7 +4,7 @@ import { z } from "zod"
 // import { getRooCodeApiUrl } from "@roo-code/cloud" kilocode_change: use our own api
 import type { MarketplaceItem, MarketplaceItemType } from "@roo-code/types"
 import { modeMarketplaceItemSchema, mcpMarketplaceItemSchema } from "@roo-code/types"
-import { getKiloBaseUriFromToken } from "../../shared/kilocode/token"
+import { getKiloBaseUriFromToken } from "../../shared/aincrok/token"
 
 // Response schemas for YAML API responses
 const modeMarketplaceResponse = z.object({

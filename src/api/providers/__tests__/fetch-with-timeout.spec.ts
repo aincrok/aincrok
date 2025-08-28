@@ -25,7 +25,7 @@ vi.mock("undici", () => {
 })
 
 // Import after mocking so the implementation picks up our mocks
-import { fetchWithTimeout } from "../kilocode/fetchWithTimeout"
+import { fetchWithTimeout } from "../aincrok/fetchWithTimeout"
 
 describe("fetchWithTimeout - header precedence and timeout wiring", () => {
 	beforeEach(() => {

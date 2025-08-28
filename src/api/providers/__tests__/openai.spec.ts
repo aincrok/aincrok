@@ -114,7 +114,7 @@ describe("OpenAiHandler", () => {
 					"HTTP-Referer": "https://kilocode.ai",
 					"X-Title": "Kilo Code",
 					"X-KiloCode-Version": Package.version,
-					"User-Agent": `Kilo-Code/${Package.version}`,
+					"User-Agent": `AINCROK/${Package.version}`,
 				},
 				timeout: expect.any(Number),
 			})

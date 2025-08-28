@@ -8,7 +8,7 @@
 		"noMatchFound": "Keine Modi gefunden",
 		"editModesConfig": "Moduskonfiguration bearbeiten",
 		"editGlobalModes": "Globale Modi bearbeiten",
-		"editProjectModes": "Projektmodi bearbeiten (.kilocodemodes)",
+		"editProjectModes": "Projektmodi bearbeiten (.aincrokmodes)",
 		"createModeHelpText": "Modi sind spezialisierte Personas, die Kilo Codes Verhalten anpassen. <0>Erfahre mehr über die Verwendung von Modi</0> oder <1>die Anpassung von Modi.</1>",
 		"selectMode": "Modi suchen"
 	},
@@ -50,11 +50,11 @@
 		"title": "Modusspezifische benutzerdefinierte Anweisungen (optional)",
 		"resetToDefault": "Auf Standardwerte zurücksetzen",
 		"description": "Fügen Sie verhaltensspezifische Richtlinien für den Modus {{modeName}} hinzu.",
-		"loadFromFile": "Benutzerdefinierte Anweisungen für den Modus {{mode}} können auch aus dem Ordner <span>.kilocode/rules-{{slug}}/</span> in deinem Arbeitsbereich oder aus dem globalen <0>.kilocode/rules-{{slug}}/</0> geladen werden (.kilocoderules-{{slug}} und .clinerules-{{slug}} sind veraltet und werden bald nicht mehr funktionieren)."
+		"loadFromFile": "Benutzerdefinierte Anweisungen für den Modus {{mode}} können auch aus dem Ordner <span>.aincrok/rules-{{slug}}/</span> in deinem Arbeitsbereich oder aus dem globalen <0>.aincrok/rules-{{slug}}/</0> geladen werden (.aincrokrules-{{slug}} und .clinerules-{{slug}} sind veraltet und werden bald nicht mehr funktionieren)."
 	},
 	"exportMode": {
 		"title": "Modus exportieren",
-		"description": "Exportiere diesen Modus mit Regeln aus dem .kilocode/rules-{{slug}}/ Ordner kombiniert in eine teilbare YAML-Datei. Die Originaldateien bleiben unverändert.",
+		"description": "Exportiere diesen Modus mit Regeln aus dem .aincrok/rules-{{slug}}/ Ordner kombiniert in eine teilbare YAML-Datei. Die Originaldateien bleiben unverändert.",
 		"exporting": "Exportiere..."
 	},
 	"importMode": {
@@ -63,11 +63,11 @@
 		"importing": "Importiere...",
 		"global": {
 			"label": "Globale Ebene",
-			"description": "Verfügbar in allen Projekten. Wenn der exportierte Modus Regeldateien enthielt, werden diese im globalen .kilocode/rules-{slug}/ Ordner neu erstellt."
+			"description": "Verfügbar in allen Projekten. Wenn der exportierte Modus Regeldateien enthielt, werden diese im globalen .aincrok/rules-{slug}/ Ordner neu erstellt."
 		},
 		"project": {
 			"label": "Projektebene",
-			"description": "Nur in diesem Arbeitsbereich verfügbar. Wenn der exportierte Modus Regeldateien enthielt, werden diese im .kilocode/rules-{slug}/ Ordner neu erstellt."
+			"description": "Nur in diesem Arbeitsbereich verfügbar. Wenn der exportierte Modus Regeldateien enthielt, werden diese im .aincrok/rules-{slug}/ Ordner neu erstellt."
 		}
 	},
 	"advanced": {
@@ -76,7 +76,7 @@
 	"globalCustomInstructions": {
 		"title": "Benutzerdefinierte Anweisungen für alle Modi",
 		"description": "Diese Anweisungen gelten für alle Modi. Sie bieten einen grundlegenden Satz von Verhaltensweisen, die durch modusspezifische Anweisungen unten erweitert werden können. <0>Mehr erfahren</0>",
-		"loadFromFile": "Anweisungen können auch aus dem Ordner <span>.kilocode/rules/</span> in deinem Arbeitsbereich oder aus dem globalen <0>.kilocode/rules/</0> geladen werden (.kilocoderules und .clinerules sind veraltet und werden bald nicht mehr funktionieren)."
+		"loadFromFile": "Anweisungen können auch aus dem Ordner <span>.aincrok/rules/</span> in deinem Arbeitsbereich oder aus dem globalen <0>.aincrok/rules/</0> geladen werden (.aincrokrules und .clinerules sind veraltet und werden bald nicht mehr funktionieren)."
 	},
 	"systemPrompt": {
 		"preview": "System-Prompt Vorschau",
@@ -155,7 +155,7 @@
 	},
 	"advancedSystemPrompt": {
 		"title": "Erweitert: System-Prompt überschreiben",
-		"description": "<2>⚠️ Warnung:</2> Diese erweiterte Funktion umgeht Sicherheitsvorkehrungen. <1>LIES DIES VOR DER VERWENDUNG!</1>Überschreibe den Standard-System-Prompt, indem du eine Datei unter <span>.kilocode/system-prompt-{{slug}}</span> erstellst."
+		"description": "<2>⚠️ Warnung:</2> Diese erweiterte Funktion umgeht Sicherheitsvorkehrungen. <1>LIES DIES VOR DER VERWENDUNG!</1>Überschreibe den Standard-System-Prompt, indem du eine Datei unter <span>.aincrok/system-prompt-{{slug}}</span> erstellst."
 	},
 	"createModeDialog": {
 		"title": "Neuen Modus erstellen",
@@ -176,7 +176,7 @@
 				"description": "Verfügbar in allen Arbeitsbereichen"
 			},
 			"project": {
-				"label": "Projektspezifisch (.kilocodemodes)",
+				"label": "Projektspezifisch (.aincrokmodes)",
 				"description": "Nur in diesem Arbeitsbereich verfügbar, hat Vorrang vor global"
 			}
 		},

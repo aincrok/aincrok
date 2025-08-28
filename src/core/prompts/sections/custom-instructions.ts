@@ -13,7 +13,7 @@ try {
 	// This is acceptable as notifications are a progressive enhancement.
 }
 
-let hasShownNonKilocodeRulesMessage = false
+let hasShownNonAINCROKRulesMessage = false
 // kilocode_change end
 
 import { Dirent } from "fs"
@@ -230,17 +230,17 @@ export async function loadRuleFiles(cwd: string): Promise<string> {
 	}
 
 	// Fall back to existing behavior for legacy .roorules/.clinerules files
-	const ruleFiles = [".kilocoderules", ".roorules", ".clinerules"]
+	const ruleFiles = [".aincrokrules", ".roorules", ".clinerules"]
 
 	for (const file of ruleFiles) {
 		const content = await safeReadFile(path.join(cwd, file))
 		if (content) {
-			if (file !== ".kilocoderules" && vscodeAPI && !hasShownNonKilocodeRulesMessage) {
-				// kilocode_change: show message to move to .kilocode/rules/
+			if (file !== ".aincrokrules" && vscodeAPI && !hasShownNonAINCROKRulesMessage) {
+				// kilocode_change: show message to move to .aincrok/rules/
 				vscodeAPI.window.showWarningMessage(
-					`Loading non-Kilocode rules from ${file}, consider moving to .kilocode/rules/`,
+					`Loading non-AINCROK rules from ${file}, consider moving to .aincrok/rules/`,
 				)
-				hasShownNonKilocodeRulesMessage = true
+				hasShownNonAINCROKRulesMessage = true
 			} // kilocode_change end
 			return `\n# Rules from ${file}:\n${content}\n`
 		}
@@ -337,7 +337,7 @@ export async function addCustomInstructions(
 			usedRuleFile = `rules-${mode} directories`
 		} else {
 			// Fall back to existing behavior for legacy files
-			const rooModeRuleFile = `.kilocoderules-${mode}`
+			const rooModeRuleFile = `.aincrokrules-${mode}`
 			modeRuleContent = await safeReadFile(path.join(cwd, rooModeRuleFile))
 			if (modeRuleContent) {
 				usedRuleFile = rooModeRuleFile
@@ -368,7 +368,7 @@ export async function addCustomInstructions(
 
 	// Add mode-specific rules first if they exist
 	if (modeRuleContent && modeRuleContent.trim()) {
-		if (usedRuleFile.includes(path.join(".kilocode", `rules-${mode}`))) {
+		if (usedRuleFile.includes(path.join(".aincrok", `rules-${mode}`))) {
 			rules.push(modeRuleContent.trim())
 		} else {
 			rules.push(`# Rules from ${usedRuleFile}:\n${modeRuleContent}`)

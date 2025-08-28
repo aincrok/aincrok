@@ -149,7 +149,7 @@
 			},
 			"protected": {
 				"label": "Incloure fitxers protegits",
-				"description": "Permetre a Kilo Code crear i editar fitxers protegits (com .kilocodeignore i fitxers de configuració .kilocode/) sense requerir aprovació."
+				"description": "Permetre a Kilo Code crear i editar fitxers protegits (com .aincrokignore i fitxers de configuració .aincrok/) sense requerir aprovació."
 			}
 		},
 		"browser": {
@@ -572,8 +572,8 @@
 			"description": "Nombre màxim de fitxers a incloure als detalls del directori de treball actual. Valors més alts proporcionen més context però augmenten l'ús de token."
 		},
 		"rooignore": {
-			"label": "Mostrar fitxers .kilocodeignore en llistes i cerques",
-			"description": "Quan està habilitat, els fitxers que coincideixen amb els patrons a .kilocodeignore es mostraran en llistes amb un símbol de cadenat. Quan està deshabilitat, aquests fitxers s'ocultaran completament de les llistes de fitxers i cerques."
+			"label": "Mostrar fitxers .aincrokignore en llistes i cerques",
+			"description": "Quan està habilitat, els fitxers que coincideixen amb els patrons a .aincrokignore es mostraran en llistes amb un símbol de cadenat. Quan està deshabilitat, aquests fitxers s'ocultaran completament de les llistes de fitxers i cerques."
 		},
 		"maxReadFile": {
 			"label": "Llindar d'auto-truncament de lectura de fitxers",
@@ -806,8 +806,8 @@
 		"useCustomModel": "Utilitzar personalitzat: {{modelId}}"
 	},
 	"footer": {
-		"feedback": "Si teniu qualsevol pregunta o comentari, no dubteu a obrir un issue a <githubLink>github.com/Kilo-Org/kilocode</githubLink> o unir-vos a <redditLink>reddit.com/r/kilocode</redditLink> o <discordLink>kilocode.ai/discord</discordLink>",
-		"support": "Per a qüestions financeres, poseu-vos en contacte amb el Suport al Client a <supportLink>https://kilocode.ai/support</supportLink>",
+		"feedback": "Si teniu qualsevol pregunta o comentari, no dubteu a obrir un issue a <githubLink>github.com/aincrok/aincrok</githubLink> o unir-vos a <redditLink>reddit.com/r/aincrok</redditLink> o <discordLink>aincrok.ai/discord</discordLink>",
+		"support": "Per a qüestions financeres, poseu-vos en contacte amb el Suport al Client a <supportLink>https://aincrok.ai/support</supportLink>",
 		"telemetry": {
 			"label": "Permetre informes d'errors i ús",
 			"description": "Ajuda a millorar Kilo Code enviant dades d'ús i informes d'errors. Mai s'envia codi, prompts o informació personal. Consulta la nostra política de privacitat per a més detalls."

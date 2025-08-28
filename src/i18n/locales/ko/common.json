@@ -166,8 +166,8 @@
 	},
 	"storage": {
 		"prompt_custom_path": "대화 내역을 위한 사용자 지정 저장 경로를 입력하세요. 기본 위치를 사용하려면 비워두세요",
-		"path_placeholder": "D:\\KiloCodeStorage",
-		"enter_absolute_path": "절대 경로를 입력하세요 (예: D:\\KiloCodeStorage 또는 /home/user/storage)",
+		"path_placeholder": "D:\\aincrokStorage",
+		"enter_absolute_path": "절대 경로를 입력하세요 (예: D:\\aincrokStorage 또는 /home/user/storage)",
 		"enter_valid_path": "유효한 경로를 입력하세요"
 	},
 	"input": {
@@ -187,8 +187,8 @@
 	},
 	"customModes": {
 		"errors": {
-			"yamlParseError": ".kilocodemodes 파일의 {{line}}번째 줄에서 유효하지 않은 YAML입니다. 다음을 확인하세요:\n• 올바른 들여쓰기 (탭이 아닌 공백 사용)\n• 일치하는 따옴표와 괄호\n• 유효한 YAML 구문",
-			"schemaValidationError": ".kilocodemodes 사용자 정의 모드 형식이 유효하지 않습니다:\n{{issues}}",
+			"yamlParseError": ".aincrokmodes 파일의 {{line}}번째 줄에서 유효하지 않은 YAML입니다. 다음을 확인하세요:\n• 올바른 들여쓰기 (탭이 아닌 공백 사용)\n• 일치하는 따옴표와 괄호\n• 유효한 YAML 구문",
+			"schemaValidationError": ".aincrokmodes 사용자 정의 모드 형식이 유효하지 않습니다:\n{{issues}}",
 			"invalidFormat": "사용자 정의 모드 형식이 유효하지 않습니다. 설정이 올바른 YAML 형식을 따르는지 확인하세요.",
 			"updateFailed": "사용자 정의 모드 업데이트 실패: {{error}}",
 			"deleteFailed": "사용자 정의 모드 삭제 실패: {{error}}",

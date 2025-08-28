@@ -9,7 +9,7 @@ import { XmlMatcher } from "../../utils/xml-matcher"
 import type { SingleCompletionHandler, ApiHandlerCreateMessageMetadata } from "../index"
 
 // kilocode_change start
-import { fetchWithTimeout } from "./kilocode/fetchWithTimeout"
+import { fetchWithTimeout } from "./aincrok/fetchWithTimeout"
 const OLLAMA_TIMEOUT_MS = 3_600_000
 // kilocode_change end
 

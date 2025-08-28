@@ -61,7 +61,7 @@ export const About = ({ telemetrySetting, setTelemetrySetting, className, ...pro
 					<Trans
 						i18nKey="settings:footer.feedback"
 						components={{
-							githubLink: <VSCodeLink href="https://github.com/Kilo-Org/kilocode" />,
+							githubLink: <VSCodeLink href="https://github.com/aincrok/kilocode" />,
 							redditLink: <VSCodeLink href="https://reddit.com/r/kilocode" />,
 							discordLink: <VSCodeLink href="https://kilocode.ai/discord" />,
 						}}

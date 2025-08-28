@@ -110,7 +110,7 @@ describe("CodeActionProvider", () => {
 			const actions = provider.provideCodeActions(mockDocument, mockRange, mockContext)
 
 			expect(actions).toEqual([])
-			expect(vscode.workspace.getConfiguration).toHaveBeenCalledWith("kilo-code")
+			expect(vscode.workspace.getConfiguration).toHaveBeenCalledWith("aincrok")
 			expect(mockGet).toHaveBeenCalledWith("enableCodeActions", true)
 		})
 

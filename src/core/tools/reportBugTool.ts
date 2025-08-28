@@ -49,7 +49,7 @@ export async function reportBugTool(
 			// Derive system information values algorithmically
 			const operatingSystem = os.platform() + " " + os.release()
 			const kilocodeVersion =
-				vscode.extensions.getExtension("kilocode.kilo-code")?.packageJSON.version || "Unknown"
+				vscode.extensions.getExtension("kilocode.aincrok")?.packageJSON.version || "Unknown"
 			const systemInfo = `VSCode: ${vscode.version}, Node.js: ${process.version}, Architecture: ${os.arch()}`
 			const providerAndModel = `${(await cline.providerRef.deref()?.contextProxy.getGlobalState("apiProvider")) as string} / ${cline.api.getModel().id}`
 
@@ -90,7 +90,7 @@ export async function reportBugTool(
 
 					// Use our utility function to create and open the GitHub issue URL
 					// This bypasses VS Code's URI handling issues with special characters
-					await createAndOpenGitHubIssue("Kilo-Org", "kilocode", "bug_report.yml", params)
+					await createAndOpenGitHubIssue("aincrok", "kilocode", "bug_report.yml", params)
 				} catch (error) {
 					console.error(`An error occurred while attempting to report the bug: ${error}`)
 				}

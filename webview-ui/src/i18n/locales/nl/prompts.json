@@ -8,7 +8,7 @@
 		"noMatchFound": "Geen modi gevonden",
 		"editModesConfig": "Modusconfiguratie bewerken",
 		"editGlobalModes": "Globale modi bewerken",
-		"editProjectModes": "Projectmodi bewerken (.kilocodemodes)",
+		"editProjectModes": "Projectmodi bewerken (.aincrokmodes)",
 		"createModeHelpText": "Modi zijn gespecialiseerde persona's die het gedrag van Kilo Code aanpassen. <0>Meer informatie over het gebruik van modi</0> of <1>het aanpassen van modi.</1>",
 		"selectMode": "Modus zoeken"
 	},
@@ -50,11 +50,11 @@
 		"title": "Modusspecifieke instructies (optioneel)",
 		"resetToDefault": "Terugzetten naar standaard",
 		"description": "Voeg gedragsrichtlijnen toe die specifiek zijn voor de modus {{modeName}}.",
-		"loadFromFile": "Aangepaste instructies specifiek voor de {{mode}} modus kunnen ook worden geladen vanuit de map <span>.kilocode/rules-{{slug}}/</span> in je werkruimte of vanuit de globale <0>.kilocode/rules-{{slug}}/</0> (.kilocoderules-{{slug}} en .clinerules-{{slug}} zijn verouderd en zullen binnenkort niet meer werken)."
+		"loadFromFile": "Aangepaste instructies specifiek voor de {{mode}} modus kunnen ook worden geladen vanuit de map <span>.aincrok/rules-{{slug}}/</span> in je werkruimte of vanuit de globale <0>.aincrok/rules-{{slug}}/</0> (.aincrokrules-{{slug}} en .clinerules-{{slug}} zijn verouderd en zullen binnenkort niet meer werken)."
 	},
 	"exportMode": {
 		"title": "Modus exporteren",
-		"description": "Exporteer deze modus met regels uit de .kilocode/rules-{{slug}}/ map gecombineerd in een deelbaar YAML-bestand. De originele bestanden blijven ongewijzigd.",
+		"description": "Exporteer deze modus met regels uit de .aincrok/rules-{{slug}}/ map gecombineerd in een deelbaar YAML-bestand. De originele bestanden blijven ongewijzigd.",
 		"exporting": "Exporteren..."
 	},
 	"importMode": {
@@ -63,11 +63,11 @@
 		"importing": "Importeren...",
 		"global": {
 			"label": "Globaal niveau",
-			"description": "Beschikbaar in alle projecten. Als de geëxporteerde modus regelbestanden bevatte, worden deze opnieuw gemaakt in de globale map .kilocode/rules-{slug}/."
+			"description": "Beschikbaar in alle projecten. Als de geëxporteerde modus regelbestanden bevatte, worden deze opnieuw gemaakt in de globale map .aincrok/rules-{slug}/."
 		},
 		"project": {
 			"label": "Projectniveau",
-			"description": "Alleen beschikbaar in deze werkruimte. Als de geëxporteerde modus regelbestanden bevatte, worden deze opnieuw gemaakt in de map .kilocode/rules-{slug}/."
+			"description": "Alleen beschikbaar in deze werkruimte. Als de geëxporteerde modus regelbestanden bevatte, worden deze opnieuw gemaakt in de map .aincrok/rules-{slug}/."
 		}
 	},
 	"advanced": {
@@ -76,7 +76,7 @@
 	"globalCustomInstructions": {
 		"title": "Aangepaste instructies voor alle modi",
 		"description": "Deze instructies gelden voor alle modi. Ze bieden een basisset aan gedragingen die kunnen worden uitgebreid met modusspecifieke instructies hieronder. <0>Meer informatie</0>",
-		"loadFromFile": "Instructies kunnen ook worden geladen vanuit de map <span>.kilocode/rules/</span> in je werkruimte of vanuit de globale <0>.kilocode/rules/</0> (.kilocoderules en .clinerules zijn verouderd en zullen binnenkort niet meer werken)."
+		"loadFromFile": "Instructies kunnen ook worden geladen vanuit de map <span>.aincrok/rules/</span> in je werkruimte of vanuit de globale <0>.aincrok/rules/</0> (.aincrokrules en .clinerules zijn verouderd en zullen binnenkort niet meer werken)."
 	},
 	"systemPrompt": {
 		"preview": "Systeemprompt bekijken",
@@ -155,7 +155,7 @@
 	},
 	"advancedSystemPrompt": {
 		"title": "Geavanceerd: Systeemprompt overschrijven",
-		"description": "<2>⚠️ Waarschuwing:</2> Deze geavanceerde functie omzeilt beveiligingen. <1>LEES DIT VOOR GEBRUIK!</1>Overschrijf de standaard systeemprompt door een bestand aan te maken op <span>.kilocode/system-prompt-{{slug}}</span>."
+		"description": "<2>⚠️ Waarschuwing:</2> Deze geavanceerde functie omzeilt beveiligingen. <1>LEES DIT VOOR GEBRUIK!</1>Overschrijf de standaard systeemprompt door een bestand aan te maken op <span>.aincrok/system-prompt-{{slug}}</span>."
 	},
 	"createModeDialog": {
 		"title": "Nieuwe modus aanmaken",
@@ -176,7 +176,7 @@
 				"description": "Beschikbaar in alle werkruimtes"
 			},
 			"project": {
-				"label": "Projectspecifiek (.kilocodemodes)",
+				"label": "Projectspecifiek (.aincrokmodes)",
 				"description": "Alleen beschikbaar in deze werkruimte, heeft voorrang op globaal"
 			}
 		},

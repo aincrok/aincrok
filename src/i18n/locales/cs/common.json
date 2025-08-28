@@ -172,8 +172,8 @@
 	},
 	"storage": {
 		"prompt_custom_path": "Zadej vlastní cestu úložiště historie konverzací, ponech prázdné pro použití výchozího umístění",
-		"path_placeholder": "D:\\KiloCodeStorage",
-		"enter_absolute_path": "Prosím zadej absolutní cestu (např. D:\\KiloCodeStorage nebo /home/user/storage)",
+		"path_placeholder": "D:\\aincrokStorage",
+		"enter_absolute_path": "Prosím zadej absolutní cestu (např. D:\\aincrokStorage nebo /home/user/storage)",
 		"enter_valid_path": "Prosím zadej platnou cestu"
 	},
 	"input": {
@@ -182,8 +182,8 @@
 	},
 	"customModes": {
 		"errors": {
-			"yamlParseError": "Neplatný YAML v souboru .kilocodemodes na řádku {{line}}. Zkontroluj prosím:\n• Správné odsazení (použij mezery, ne tabulátory)\n• Odpovídající uvozovky a závorky\n• Platnou YAML syntaxi",
-			"schemaValidationError": "Neplatný formát vlastních režimů v .kilocodemodes:\n{{issues}}",
+			"yamlParseError": "Neplatný YAML v souboru .aincrokmodes na řádku {{line}}. Zkontroluj prosím:\n• Správné odsazení (použij mezery, ne tabulátory)\n• Odpovídající uvozovky a závorky\n• Platnou YAML syntaxi",
+			"schemaValidationError": "Neplatný formát vlastních režimů v .aincrokmodes:\n{{issues}}",
 			"invalidFormat": "Neplatný formát vlastních režimů. Ujisti se prosím, že tvá nastavení dodržují správný YAML formát.",
 			"updateFailed": "Nepodařilo se aktualizovat vlastní režim: {{error}}",
 			"deleteFailed": "Nepodařilo se smazat vlastní režim: {{error}}",

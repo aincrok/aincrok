@@ -1,5 +1,18 @@
 {
-	"name": "kilo-code",
+	"name": "aincrok",
+	"displayName": "AINCROK - AI Code Assistant",
+	"description": "AINCROK Is Not Cline Roo Or Kilo - Advanced AI-powered coding assistant for VS Code",
+	"version": "1.0.0",
+	"publisher": "aincrok",
+	"homepage": "https://aincrok.dev",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/aincrok/aincrok"
+	},
+	"bugs": {
+		"url": "https://github.com/aincrok/aincrok/issues"
+	},
+	"author": "AINCROK Team",
 	"packageManager": "pnpm@10.8.1",
 	"engines": {
 		"node": "20.19.2"
@@ -29,8 +42,8 @@
 		"npm:publish:types": "pnpm --filter @roo-code/types npm:publish",
 		"link-workspace-packages": "tsx scripts/link-packages.ts",
 		"unlink-workspace-packages": "tsx scripts/link-packages.ts --unlink",
-		"docs:start": "pnpm --filter kilocode-docs start",
-		"docs:build": "pnpm --filter kilocode-docs build"
+		"docs:start": "pnpm --filter aincrok-docs start",
+		"docs:build": "pnpm --filter aincrok-docs build"
 	},
 	"devDependencies": {
 		"@changesets/changelog-github": "^0.5.1",

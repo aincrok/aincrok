@@ -149,7 +149,7 @@
 			},
 			"protected": {
 				"label": "保護されたファイルを含める",
-				"description": "Kilo Codeが保護されたファイル（.kilocodeignoreや.kilocode/設定ファイルなど）を承認なしで作成・編集することを許可します。"
+				"description": "Kilo Codeが保護されたファイル（.aincrokignoreや.aincrok/設定ファイルなど）を承認なしで作成・編集することを許可します。"
 			}
 		},
 		"browser": {
@@ -572,8 +572,8 @@
 			"description": "現在の作業ディレクトリの詳細に含めるファイルの最大数。高い値はより多くのコンテキストを提供しますが、token使用量が増加します。"
 		},
 		"rooignore": {
-			"label": "リストと検索で.kilocodeignoreファイルを表示",
-			"description": "有効にすると、.kilocodeignoreのパターンに一致するファイルがロックシンボル付きでリストに表示されます。無効にすると、これらのファイルはファイルリストや検索から完全に非表示になります。"
+			"label": "リストと検索で.aincrokignoreファイルを表示",
+			"description": "有効にすると、.aincrokignoreのパターンに一致するファイルがロックシンボル付きでリストに表示されます。無効にすると、これらのファイルはファイルリストや検索から完全に非表示になります。"
 		},
 		"maxReadFile": {
 			"label": "ファイル読み込み自動切り詰めしきい値",
@@ -807,8 +807,8 @@
 		"useCustomModel": "カスタムを使用: {{modelId}}"
 	},
 	"footer": {
-		"feedback": "質問やフィードバックがある場合は、<githubLink>github.com/Kilo-Org/kilocode</githubLink>で問題を開くか、<redditLink>reddit.com/r/kilocode</redditLink>や<discordLink>kilocode.ai/discord</discordLink>に参加してください",
-		"support": "財務に関するご質問は、<supportLink>https://kilocode.ai/support</supportLink>のカスタマーサポートまでお問い合わせください",
+		"feedback": "質問やフィードバックがある場合は、<githubLink>github.com/aincrok/aincrok</githubLink>で問題を開くか、<redditLink>reddit.com/r/aincrok</redditLink>や<discordLink>aincrok.ai/discord</discordLink>に参加してください",
+		"support": "財務に関するご質問は、<supportLink>https://aincrok.ai/support</supportLink>のカスタマーサポートまでお問い合わせください",
 		"telemetry": {
 			"label": "匿名のエラーと使用状況レポートを許可",
 			"description": "匿名の使用データとエラーレポートを送信してKilo Codeの改善にご協力ください。コード、プロンプト、個人情報が送信されることはありません。詳細については、プライバシーポリシーをご覧ください。"

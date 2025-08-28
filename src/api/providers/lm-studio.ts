@@ -13,7 +13,7 @@ import { ApiStream } from "../transform/stream"
 
 import { BaseProvider } from "./base-provider"
 import type { SingleCompletionHandler, ApiHandlerCreateMessageMetadata } from "../index"
-import { fetchWithTimeout } from "./kilocode/fetchWithTimeout"
+import { fetchWithTimeout } from "./aincrok/fetchWithTimeout"
 
 const LMSTUDIO_TIMEOUT_MS = 3_600_000 // kilocode_change
 import { getModels, getModelsFromCache } from "./fetchers/modelCache"

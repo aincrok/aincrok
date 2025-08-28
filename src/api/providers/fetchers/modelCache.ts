@@ -15,7 +15,7 @@ import { getGlamaModels } from "./glama"
 import { getUnboundModels } from "./unbound"
 import { getLiteLLMModels } from "./litellm"
 import { GetModelsOptions } from "../../../shared/api"
-import { getKiloBaseUriFromToken } from "../../../shared/kilocode/token"
+import { getKiloBaseUriFromToken } from "../../../shared/aincrok/token"
 import { getOllamaModels } from "./ollama"
 import { getLMStudioModels } from "./lmstudio"
 import { getIOIntelligenceModels } from "./io-intelligence"
@@ -79,14 +79,14 @@ export const getModels = async (options: GetModelsOptions): Promise<ModelRecord>
 				models = await getLiteLLMModels(options.apiKey, options.baseUrl)
 				break
 			// kilocode_change start
-			case "kilocode-openrouter":
+			case "aincrok-openrouter":
 				models = await getOpenRouterModels({
 					openRouterBaseUrl:
-						getKiloBaseUriFromToken(options.kilocodeToken ?? "") +
-						(options.kilocodeOrganizationId
-							? `/api/organizations/${options.kilocodeOrganizationId}`
+						getKiloBaseUriFromToken(options.aincrokToken ?? "") +
+						(options.aincrokOrganizationId
+							? `/api/organizations/${options.aincrokOrganizationId}`
 							: "/api/openrouter"),
-					headers: options.kilocodeToken ? { Authorization: `Bearer ${options.kilocodeToken}` } : undefined,
+					headers: options.aincrokToken ? { Authorization: `Bearer ${options.aincrokToken}` } : undefined,
 				})
 				break
 			case "cerebras":

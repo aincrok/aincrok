@@ -1,7 +1,7 @@
 // kilocode_change - new file
 import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { KiloProfileSelector } from "../../../webview-ui/src/components/kilocode/chat/KiloProfileSelector"
+import { KiloProfileSelector } from "../../../webview-ui/src/components/aincrok/chat/KiloProfileSelector"
 import { withI18n } from "../src/decorators/withI18n"
 import { withTheme } from "../src/decorators/withTheme"
 import { withTooltipProvider } from "../src/decorators/withTooltipProvider"

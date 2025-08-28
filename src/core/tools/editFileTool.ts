@@ -9,7 +9,7 @@ import { formatResponse } from "../prompts/responses"
 import { ToolUse, AskApproval, HandleError, PushToolResult, RemoveClosingTag } from "../../shared/tools"
 import { fileExistsAtPath } from "../../utils/fs"
 import { getReadablePath } from "../../utils/path"
-import { getKiloBaseUriFromToken } from "../../shared/kilocode/token"
+import { getKiloBaseUriFromToken } from "../../shared/aincrok/token"
 import { DEFAULT_HEADERS } from "../../api/providers/constants"
 import { TelemetryService } from "@roo-code/telemetry"
 import { type ClineProviderState } from "../webview/ClineProvider"
@@ -334,7 +334,7 @@ function getMorphConfiguration(state: ClineProviderState): MorphConfiguration {
 
 	// Priority 2: Use KiloCode provider
 	if (state.apiConfiguration?.apiProvider === "kilocode") {
-		const token = state.apiConfiguration.kilocodeToken
+		const token = state.apiConfiguration.aincrokToken
 		if (!token) {
 			return { available: false, error: "No KiloCode token available to use Morph" }
 		}

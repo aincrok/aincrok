@@ -149,7 +149,7 @@
 			},
 			"protected": {
 				"label": "संरक्षित फाइलें शामिल करें",
-				"description": "Kilo Code को अनुमोदन की आवश्यकता के बिना संरक्षित फाइलें (.kilocodeignore और .kilocode/ कॉन्फ़िगरेशन फाइलें जैसी) बनाने और संपादित करने की अनुमति दें।"
+				"description": "Kilo Code को अनुमोदन की आवश्यकता के बिना संरक्षित फाइलें (.aincrokignore और .aincrok/ कॉन्फ़िगरेशन फाइलें जैसी) बनाने और संपादित करने की अनुमति दें।"
 			}
 		},
 		"browser": {
@@ -572,8 +572,8 @@
 			"description": "वर्तमान कार्य निर्देशिका विवरण में शामिल करने के लिए फाइलों की अधिकतम संख्या। उच्च मान अधिक संदर्भ प्रदान करते हैं लेकिन token उपयोग बढ़ाते हैं।"
 		},
 		"rooignore": {
-			"label": "सूचियों और खोजों में .kilocodeignore फाइलें दिखाएँ",
-			"description": "जब सक्षम होता है, .kilocodeignore में पैटर्न से मेल खाने वाली फाइलें लॉक प्रतीक के साथ सूचियों में दिखाई जाएंगी। जब अक्षम होता है, ये फाइलें फाइल सूचियों और खोजों से पूरी तरह छिपा दी जाएंगी।"
+			"label": "सूचियों और खोजों में .aincrokignore फाइलें दिखाएँ",
+			"description": "जब सक्षम होता है, .aincrokignore में पैटर्न से मेल खाने वाली फाइलें लॉक प्रतीक के साथ सूचियों में दिखाई जाएंगी। जब अक्षम होता है, ये फाइलें फाइल सूचियों और खोजों से पूरी तरह छिपा दी जाएंगी।"
 		},
 		"maxReadFile": {
 			"label": "फ़ाइल पढ़ने का स्वचालित काटने की सीमा",
@@ -807,8 +807,8 @@
 		"useCustomModel": "कस्टम उपयोग करें: {{modelId}}"
 	},
 	"footer": {
-		"feedback": "यदि आपके कोई प्रश्न या प्रतिक्रिया है, तो <githubLink>github.com/Kilo-Org/kilocode</githubLink> पर एक मुद्दा खोलने या <redditLink>reddit.com/r/kilocode</redditLink> या <discordLink>kilocode.ai/discord</discordLink> में शामिल होने में संकोच न करें",
-		"support": "वित्तीय प्रश्नों के लिए, कृपया <supportLink>https://kilocode.ai/support</supportLink> पर ग्राहक सहायता से संपर्क करें",
+		"feedback": "यदि आपके कोई प्रश्न या प्रतिक्रिया है, तो <githubLink>github.com/aincrok/aincrok</githubLink> पर एक मुद्दा खोलने या <redditLink>reddit.com/r/aincrok</redditLink> या <discordLink>aincrok.ai/discord</discordLink> में शामिल होने में संकोच न करें",
+		"support": "वित्तीय प्रश्नों के लिए, कृपया <supportLink>https://aincrok.ai/support</supportLink> पर ग्राहक सहायता से संपर्क करें",
 		"telemetry": {
 			"label": "त्रुटि और उपयोग रिपोर्टिंग की अनुमति दें",
 			"description": "उपयोग डेटा और त्रुटि रिपोर्ट भेजकर Kilo Code को बेहतर बनाने में मदद करें। कोड, प्रॉम्प्ट, या व्यक्तिगत जानकारी कभी भी नहीं भेजी जाती है। अधिक विवरण के लिए हमारी गोपनीयता नीति देखें।"

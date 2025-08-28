@@ -25,7 +25,7 @@ describe("Model Validation Functions", () => {
 				outputPrice: 5.0,
 			},
 		},
-		"kilocode-openrouter": {
+		"aincrok-openrouter": {
 			"valid-model": {
 				maxTokens: 8192,
 				contextWindow: 200000,

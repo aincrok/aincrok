@@ -166,8 +166,8 @@
 	},
 	"storage": {
 		"prompt_custom_path": "Введите пользовательский путь хранения истории разговоров, оставьте пустым для использования расположения по умолчанию",
-		"path_placeholder": "D:\\KiloCodeStorage",
-		"enter_absolute_path": "Пожалуйста, введите абсолютный путь (например, D:\\KiloCodeStorage или /home/user/storage)",
+		"path_placeholder": "D:\\aincrokStorage",
+		"enter_absolute_path": "Пожалуйста, введите абсолютный путь (например, D:\\aincrokStorage или /home/user/storage)",
 		"enter_valid_path": "Пожалуйста, введите корректный путь"
 	},
 	"input": {
@@ -187,8 +187,8 @@
 	},
 	"customModes": {
 		"errors": {
-			"yamlParseError": "Недопустимый YAML в файле .kilocodemodes на строке {{line}}. Проверь:\n• Правильные отступы (используй пробелы, не табы)\n• Соответствующие кавычки и скобки\n• Допустимый синтаксис YAML",
-			"schemaValidationError": "Недопустимый формат пользовательских режимов в .kilocodemodes:\n{{issues}}",
+			"yamlParseError": "Недопустимый YAML в файле .aincrokmodes на строке {{line}}. Проверь:\n• Правильные отступы (используй пробелы, не табы)\n• Соответствующие кавычки и скобки\n• Допустимый синтаксис YAML",
+			"schemaValidationError": "Недопустимый формат пользовательских режимов в .aincrokmodes:\n{{issues}}",
 			"invalidFormat": "Недопустимый формат пользовательских режимов. Убедись, что твои настройки соответствуют правильному формату YAML.",
 			"updateFailed": "Не удалось обновить пользовательский режим: {{error}}",
 			"deleteFailed": "Не удалось удалить пользовательский режим: {{error}}",

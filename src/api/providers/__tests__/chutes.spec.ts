@@ -1,4 +1,4 @@
-// kilocode_change: this file was updated in https://github.com/Kilo-Org/kilocode/pull/1889, revert to Roo version in case of conflicts
+// kilocode_change: this file was updated in https://github.com/aincrok/aincrok/pull/1889, revert to Roo version in case of conflicts
 
 // npx vitest run api/providers/__tests__/chutes.spec.ts
 

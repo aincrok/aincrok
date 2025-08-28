@@ -1,4 +1,4 @@
-# Kilocode Change Marking Guidelines
+# AINCROK Change Marking Guidelines
 
 We are a fork of Roo. We regularly merge in the Roo codebase. To enable us to merge more easily, we mark all
 our own changes with `kilocode_change` comments.
@@ -51,7 +51,7 @@ let j = 3
 
 ## Special Cases
 
-### Kilocode specific file
+### AINCROK specific file
 
 if the filename or directory name contains kilocode no marking with comments is required
 

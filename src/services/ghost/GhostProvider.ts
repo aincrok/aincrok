@@ -389,16 +389,16 @@ export class GhostProvider {
 
 	private async updateGlobalContext() {
 		const hasSuggestions = this.suggestions.hasSuggestions()
-		await vscode.commands.executeCommand("setContext", "kilocode.ghost.hasSuggestions", hasSuggestions)
-		await vscode.commands.executeCommand("setContext", "kilocode.ghost.isProcessing", this.isProcessing)
+		await vscode.commands.executeCommand("setContext", "aincrok.ghost.hasSuggestions", hasSuggestions)
+		await vscode.commands.executeCommand("setContext", "aincrok.ghost.isProcessing", this.isProcessing)
 		await vscode.commands.executeCommand(
 			"setContext",
-			"kilocode.ghost.enableQuickInlineTaskKeybinding",
+			"aincrok.ghost.enableQuickInlineTaskKeybinding",
 			this.settings?.enableQuickInlineTaskKeybinding || false,
 		)
 		await vscode.commands.executeCommand(
 			"setContext",
-			"kilocode.ghost.enableSmartInlineTaskKeybinding",
+			"aincrok.ghost.enableSmartInlineTaskKeybinding",
 			this.settings?.enableSmartInlineTaskKeybinding || false,
 		)
 	}
@@ -579,7 +579,7 @@ export class GhostProvider {
 		if (response === disableCopilot) {
 			await vscode.commands.executeCommand<any>("github.copilot.completions.disable")
 		} else if (response === disableInlineAssist) {
-			await vscode.commands.executeCommand<any>("kilo-code.ghost.disable")
+			await vscode.commands.executeCommand<any>("aincrok.ghost.disable")
 		}
 	}
 

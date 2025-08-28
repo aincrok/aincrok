@@ -18,7 +18,7 @@ import { CheckpointServiceOptions, RepoPerTaskCheckpointService } from "../../se
 
 // kilocode_change start
 import { TelemetryEventName } from "@roo-code/types"
-import { stringifyError } from "../../shared/kilocode/errorUtils"
+import { stringifyError } from "../../shared/aincrok/errorUtils"
 
 function reportError(callsite: string, error: unknown) {
 	TelemetryService.instance.captureEvent(TelemetryEventName.CHECKPOINT_FAILURE, {

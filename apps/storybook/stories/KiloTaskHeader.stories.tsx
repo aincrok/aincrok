@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { fn } from "storybook/test"
 
-import KiloTaskHeader from "../../../webview-ui/src/components/kilocode/KiloTaskHeader"
+import KiloTaskHeader from "../../../webview-ui/src/components/aincrok/KiloTaskHeader"
 import { createTaskHeaderMessages, createMockTask } from "../src/mockData/clineMessages"
 import { withTooltipProvider } from "../src/decorators/withTooltipProvider"
 import { withExtensionState } from "../src/decorators/withExtensionState"

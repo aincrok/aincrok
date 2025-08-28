@@ -1,8 +1,8 @@
 {
 	"$schema": "https://unpkg.com/@changesets/config@3.0.4/schema.json",
-	"changelog": ["@changesets/changelog-github", { "repo": "Kilo-Org/kilocode" }],
+	"changelog": ["@changesets/changelog-github", { "repo": "aincrok/aincrok" }],
 	"commit": false,
-	"fixed": [["kilo-code"]],
+	"fixed": [["aincrok"]],
 	"linked": [],
 	"access": "restricted",
 	"baseBranch": "main",

@@ -8,7 +8,7 @@
 		"noMatchFound": "Mod bulunamadı",
 		"editModesConfig": "Mod yapılandırmasını düzenle",
 		"editGlobalModes": "Global modları düzenle",
-		"editProjectModes": "Proje modlarını düzenle (.kilocodemodes)",
+		"editProjectModes": "Proje modlarını düzenle (.aincrokmodes)",
 		"createModeHelpText": "Modlar, Kilo Code'nun davranışını uyarlayan özel kişiliklerdir. <0>Modları Kullanma Hakkında Bilgi Edinin</0> veya <1>Modları Özelleştirme.</1>",
 		"selectMode": "Modları Ara"
 	},
@@ -50,17 +50,17 @@
 		"title": "Moda özgü özel talimatlar (isteğe bağlı)",
 		"resetToDefault": "Varsayılana sıfırla",
 		"description": "{{modeName}} modu için özel davranış yönergeleri ekleyin.",
-		"loadFromFile": "{{mode}} moduna özgü özel talimatlar, çalışma alanınızdaki <span>.kilocode/rules-{{slug}}/</span> klasöründen veya global <0>.kilocode/rules-{{slug}}/</0> klasöründen de yüklenebilir (.kilocoderules-{{slug}} ve .clinerules-{{slug}} kullanımdan kaldırılmıştır ve yakında çalışmayı durduracaktır)."
+		"loadFromFile": "{{mode}} moduna özgü özel talimatlar, çalışma alanınızdaki <span>.aincrok/rules-{{slug}}/</span> klasöründen veya global <0>.aincrok/rules-{{slug}}/</0> klasöründen de yüklenebilir (.aincrokrules-{{slug}} ve .clinerules-{{slug}} kullanımdan kaldırılmıştır ve yakında çalışmayı durduracaktır)."
 	},
 	"exportMode": {
 		"title": "Modu Dışa Aktar",
-		"description": "Bu modu .kilocode/rules-{{slug}}/ klasöründeki kurallarla birlikte paylaşılabilir bir YAML dosyasına dışa aktar. Orijinal dosyalar değişmeden kalır.",
+		"description": "Bu modu .aincrok/rules-{{slug}}/ klasöründeki kurallarla birlikte paylaşılabilir bir YAML dosyasına dışa aktar. Orijinal dosyalar değişmeden kalır.",
 		"exporting": "Dışa aktarılıyor..."
 	},
 	"globalCustomInstructions": {
 		"title": "Tüm Modlar için Özel Talimatlar",
 		"description": "Bu talimatlar tüm modlara uygulanır. Aşağıdaki moda özgü talimatlarla geliştirilebilen temel davranış seti sağlarlar. <0>Daha fazla bilgi edinin</0>",
-		"loadFromFile": "Talimatlar, çalışma alanınızdaki <span>.kilocode/rules/</span> klasöründen veya global <0>.kilocode/rules/</0> klasöründen de yüklenebilir (.kilocoderules ve .clinerules kullanımdan kaldırılmıştır ve yakında çalışmayı durduracaktır)."
+		"loadFromFile": "Talimatlar, çalışma alanınızdaki <span>.aincrok/rules/</span> klasöründen veya global <0>.aincrok/rules/</0> klasöründen de yüklenebilir (.aincrokrules ve .clinerules kullanımdan kaldırılmıştır ve yakında çalışmayı durduracaktır)."
 	},
 	"importMode": {
 		"selectLevel": "Bu modu nereye içe aktaracağınızı seçin:",
@@ -68,11 +68,11 @@
 		"importing": "İçe aktarılıyor...",
 		"global": {
 			"label": "Genel Seviye",
-			"description": "Tüm projelerde kullanılabilir. Dışa aktarılan mod kural dosyaları içeriyorsa, bunlar genel .kilocode/rules-{slug}/ klasöründe yeniden oluşturulur."
+			"description": "Tüm projelerde kullanılabilir. Dışa aktarılan mod kural dosyaları içeriyorsa, bunlar genel .aincrok/rules-{slug}/ klasöründe yeniden oluşturulur."
 		},
 		"project": {
 			"label": "Proje Seviyesi",
-			"description": "Yalnızca bu çalışma alanında kullanılabilir. Dışa aktarılan mod kural dosyaları içeriyorsa, bunlar .kilocode/rules-{slug}/ klasöründe yeniden oluşturulur."
+			"description": "Yalnızca bu çalışma alanında kullanılabilir. Dışa aktarılan mod kural dosyaları içeriyorsa, bunlar .aincrok/rules-{slug}/ klasöründe yeniden oluşturulur."
 		}
 	},
 	"systemPrompt": {
@@ -152,7 +152,7 @@
 	},
 	"advancedSystemPrompt": {
 		"title": "Gelişmiş: Sistem Promptunu Geçersiz Kıl",
-		"description": "<2>⚠️ Uyarı:</2> Bu gelişmiş özellik güvenlik önlemlerini atlar. <1>KULLANMADAN ÖNCE BUNU OKUYUN!</1>Çalışma alanınızda <span>.kilocode/system-prompt-{{slug}}</span> adresinde bir dosya oluşturarak varsayılan sistem istemini geçersiz kılın."
+		"description": "<2>⚠️ Uyarı:</2> Bu gelişmiş özellik güvenlik önlemlerini atlar. <1>KULLANMADAN ÖNCE BUNU OKUYUN!</1>Çalışma alanınızda <span>.aincrok/system-prompt-{{slug}}</span> adresinde bir dosya oluşturarak varsayılan sistem istemini geçersiz kılın."
 	},
 	"createModeDialog": {
 		"title": "Yeni Mod Oluştur",
@@ -173,7 +173,7 @@
 				"description": "Tüm çalışma alanlarında kullanılabilir"
 			},
 			"project": {
-				"label": "Projeye özgü (.kilocodemodes)",
+				"label": "Projeye özgü (.aincrokmodes)",
 				"description": "Yalnızca bu çalışma alanında kullanılabilir, globale göre önceliklidir"
 			}
 		},

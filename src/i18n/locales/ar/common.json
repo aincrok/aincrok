@@ -172,8 +172,8 @@
 	},
 	"storage": {
 		"prompt_custom_path": "أدخل مسار مخصص لتخزين محادثاتك، أو خلّه فاضي لاستخدام الموقع الافتراضي",
-		"path_placeholder": "D:\\KiloCodeStorage",
-		"enter_absolute_path": "رجاءً أدخل مسار مطلق (مثال: D:\\KiloCodeStorage أو /home/user/storage)",
+		"path_placeholder": "D:\\aincrokStorage",
+		"enter_absolute_path": "رجاءً أدخل مسار مطلق (مثال: D:\\aincrokStorage أو /home/user/storage)",
 		"enter_valid_path": "رجاءً أدخل مسار صحيح"
 	},
 	"input": {
@@ -182,8 +182,8 @@
 	},
 	"customModes": {
 		"errors": {
-			"yamlParseError": "خطأ في تنسيق YAML في ملف .kilocodemodes عند السطر {{line}}. تحقق من:\n• المسافات (استخدم فراغات مو تبويبات)\n• تنسيق الاقتباسات والأقواس\n• صحة التنسيق العام",
-			"schemaValidationError": "تنسيق أوضاع مخصصة غير صالح في .kilocodemodes:\n{{issues}}",
+			"yamlParseError": "خطأ في تنسيق YAML في ملف .aincrokmodes عند السطر {{line}}. تحقق من:\n• المسافات (استخدم فراغات مو تبويبات)\n• تنسيق الاقتباسات والأقواس\n• صحة التنسيق العام",
+			"schemaValidationError": "تنسيق أوضاع مخصصة غير صالح في .aincrokmodes:\n{{issues}}",
 			"invalidFormat": "تنسيق الأوضاع المخصصة غير صحيح. تأكد إن الإعدادات بصيغة YAML سليمة.",
 			"updateFailed": "فشل تحديث الوضع المخصص: {{error}}",
 			"deleteFailed": "فشل حذف الوضع المخصص: {{error}}",

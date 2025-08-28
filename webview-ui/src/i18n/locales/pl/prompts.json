@@ -8,7 +8,7 @@
 		"noMatchFound": "Nie znaleziono trybów",
 		"editModesConfig": "Edytuj konfigurację trybów",
 		"editGlobalModes": "Edytuj tryby globalne",
-		"editProjectModes": "Edytuj tryby projektu (.kilocodemodes)",
+		"editProjectModes": "Edytuj tryby projektu (.aincrokmodes)",
 		"createModeHelpText": "Tryby to wyspecjalizowane persony, które dostosowują zachowanie Kilo Code. <0>Dowiedz się o używaniu trybów</0> lub <1>dostosowywaniu trybów.</1>",
 		"selectMode": "Szukaj trybów"
 	},
@@ -50,11 +50,11 @@
 		"title": "Niestandardowe instrukcje dla trybu (opcjonalne)",
 		"resetToDefault": "Przywróć domyślne",
 		"description": "Dodaj wytyczne dotyczące zachowania specyficzne dla trybu {{modeName}}.",
-		"loadFromFile": "Niestandardowe instrukcje specyficzne dla trybu {{mode}} można również załadować z folderu <span>.kilocode/rules-{{slug}}/</span> w twoim obszarze roboczym lub z globalnego <0>.kilocode/rules-{{slug}}/</0> (.kilocoderules-{{slug}} i .clinerules-{{slug}} są przestarzałe i wkrótce przestaną działać)."
+		"loadFromFile": "Niestandardowe instrukcje specyficzne dla trybu {{mode}} można również załadować z folderu <span>.aincrok/rules-{{slug}}/</span> w twoim obszarze roboczym lub z globalnego <0>.aincrok/rules-{{slug}}/</0> (.aincrokrules-{{slug}} i .clinerules-{{slug}} są przestarzałe i wkrótce przestaną działać)."
 	},
 	"exportMode": {
 		"title": "Eksportuj tryb",
-		"description": "Eksportuj ten tryb z regułami z folderu .kilocode/rules-{{slug}}/ połączonymi w udostępnialny plik YAML. Oryginalne pliki pozostają niezmienione.",
+		"description": "Eksportuj ten tryb z regułami z folderu .aincrok/rules-{{slug}}/ połączonymi w udostępnialny plik YAML. Oryginalne pliki pozostają niezmienione.",
 		"exporting": "Eksportowanie..."
 	},
 	"importMode": {
@@ -63,11 +63,11 @@
 		"importing": "Importowanie...",
 		"global": {
 			"label": "Poziom globalny",
-			"description": "Dostępne we wszystkich projektach. Jeśli wyeksportowany tryb zawierał pliki reguł, zostaną one odtworzone w globalnym folderze .kilocode/rules-{slug}/."
+			"description": "Dostępne we wszystkich projektach. Jeśli wyeksportowany tryb zawierał pliki reguł, zostaną one odtworzone w globalnym folderze .aincrok/rules-{slug}/."
 		},
 		"project": {
 			"label": "Poziom projektu",
-			"description": "Dostępne tylko w tym obszarze roboczym. Jeśli wyeksportowany tryb zawierał pliki reguł, zostaną one odtworzone w folderze .kilocode/rules-{slug}/."
+			"description": "Dostępne tylko w tym obszarze roboczym. Jeśli wyeksportowany tryb zawierał pliki reguł, zostaną one odtworzone w folderze .aincrok/rules-{slug}/."
 		}
 	},
 	"advanced": {
@@ -76,7 +76,7 @@
 	"globalCustomInstructions": {
 		"title": "Niestandardowe instrukcje dla wszystkich trybów",
 		"description": "Te instrukcje dotyczą wszystkich trybów. Zapewniają podstawowy zestaw zachowań, które mogą być rozszerzone przez instrukcje specyficzne dla trybów poniżej. <0>Dowiedz się więcej</0>",
-		"loadFromFile": "Instrukcje można również załadować z folderu <span>.kilocode/rules/</span> w twoim obszarze roboczym lub z globalnego <0>.kilocode/rules/</0> (.kilocoderules i .clinerules są przestarzałe i wkrótce przestaną działać)."
+		"loadFromFile": "Instrukcje można również załadować z folderu <span>.aincrok/rules/</span> w twoim obszarze roboczym lub z globalnego <0>.aincrok/rules/</0> (.aincrokrules i .clinerules są przestarzałe i wkrótce przestaną działać)."
 	},
 	"systemPrompt": {
 		"preview": "Podgląd podpowiedzi systemowej",
@@ -155,7 +155,7 @@
 	},
 	"advancedSystemPrompt": {
 		"title": "Zaawansowane: Zastąp podpowiedź systemową",
-		"description": "<2>⚠️ Ostrzeżenie:</2> Ta zaawansowana funkcja omija zabezpieczenia. <1>PRZECZYTAJ TO PRZED UŻYCIEM!</1>Zastąp domyślną podpowiedź systemową, tworząc plik w <span>.kilocode/system-prompt-{{slug}}</span>."
+		"description": "<2>⚠️ Ostrzeżenie:</2> Ta zaawansowana funkcja omija zabezpieczenia. <1>PRZECZYTAJ TO PRZED UŻYCIEM!</1>Zastąp domyślną podpowiedź systemową, tworząc plik w <span>.aincrok/system-prompt-{{slug}}</span>."
 	},
 	"createModeDialog": {
 		"title": "Utwórz nowy tryb",
@@ -176,7 +176,7 @@
 				"description": "Dostępny we wszystkich obszarach roboczych"
 			},
 			"project": {
-				"label": "Specyficzny dla projektu (.kilocodemodes)",
+				"label": "Specyficzny dla projektu (.aincrokmodes)",
 				"description": "Dostępny tylko w tym obszarze roboczym, ma pierwszeństwo przed globalnym"
 			}
 		},

@@ -23,8 +23,8 @@ import { DropdownOptionType, Button, StandardTooltip } from "@/components/ui" //
 
 import Thumbnails from "../common/Thumbnails"
 import ModeSelector from "./ModeSelector"
-import KiloModeSelector from "../kilocode/KiloModeSelector"
-import { KiloProfileSelector } from "../kilocode/chat/KiloProfileSelector" // kilocode_change
+import KiloModeSelector from "../aincrok/KiloModeSelector"
+import { KiloProfileSelector } from "../aincrok/chat/KiloProfileSelector" // kilocode_change
 import { MAX_IMAGES_PER_MESSAGE } from "./ChatView"
 import ContextMenu from "./ContextMenu"
 import {

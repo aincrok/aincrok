@@ -17,7 +17,7 @@ import { RouterProvider } from "./router-provider"
 const ORIGIN_APP = "roo-code"
 
 const DEFAULT_HEADERS = {
-	"X-Unbound-Metadata": JSON.stringify({ labels: [{ key: "app", value: "kilo-code" }] }),
+	"X-Unbound-Metadata": JSON.stringify({ labels: [{ key: "app", value: "aincrok" }] }),
 }
 
 interface UnboundUsage extends OpenAI.CompletionUsage {

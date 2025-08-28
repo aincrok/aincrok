@@ -51,9 +51,9 @@ export class TelemetryService {
 		this.clients.forEach((client) => client.captureException(error, properties))
 	}
 
-	public async updateIdentity(kilocodeToken: string) {
+	public async updateIdentity(aincrokToken: string) {
 		for (const client of this.clients) {
-			await client.updateIdentity(kilocodeToken)
+			await client.updateIdentity(aincrokToken)
 		}
 	}
 	// kilocode_change end

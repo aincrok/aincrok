@@ -28,7 +28,7 @@ export class PostHogTelemetryClient extends BaseTelemetryClient {
 			debug,
 		)
 
-		this.client = new PostHog(process.env.KILOCODE_POSTHOG_API_KEY || "", {
+		this.client = new PostHog(process.env.AINCROK_POSTHOG_API_KEY || "", {
 			host: "https://us.i.posthog.com",
 			disableGeoip: false, // kilocode_change
 		})
@@ -114,24 +114,24 @@ export class PostHogTelemetryClient extends BaseTelemetryClient {
 	}
 
 	private counter = 0
-	private kilocodeToken = ""
+	private aincrokToken = ""
 
-	public override async updateIdentity(kilocodeToken: string) {
-		if (kilocodeToken === this.kilocodeToken) {
+	public override async updateIdentity(aincrokToken: string) {
+		if (aincrokToken === this.aincrokToken) {
 			console.debug("KILOTEL: Identity up-to-date")
 			return
 		}
-		if (!kilocodeToken) {
+		if (!aincrokToken) {
 			console.debug("KILOTEL: Updating identity to machine ID")
 			this.distinctId = vscode.env.machineId
-			this.kilocodeToken = ""
+			this.aincrokToken = ""
 			return
 		}
 		const id = ++this.counter
 		try {
-			const response = await fetch("https://api.kilocode.ai/api/profile", {
+			const response = await fetch("https://api.aincrok.ai/api/profile", {
 				headers: {
-					Authorization: `Bearer ${kilocodeToken}`,
+					Authorization: `Bearer ${aincrokToken}`,
 					"Content-Type": "application/json",
 				},
 			})
@@ -141,7 +141,7 @@ export class PostHogTelemetryClient extends BaseTelemetryClient {
 			}
 			if (id === this.counter) {
 				this.distinctId = data.user.email
-				this.kilocodeToken = kilocodeToken
+				this.aincrokToken = aincrokToken
 				console.debug("KILOTEL: Identity updated to:", this.distinctId)
 			} else {
 				console.debug("KILOTEL: Identity update ignored, newer request in progress")
@@ -150,7 +150,7 @@ export class PostHogTelemetryClient extends BaseTelemetryClient {
 			console.error("KILOTEL: Failed to update identity", error)
 			if (id === this.counter) {
 				this.distinctId = vscode.env.machineId
-				this.kilocodeToken = ""
+				this.aincrokToken = ""
 			}
 		}
 	}

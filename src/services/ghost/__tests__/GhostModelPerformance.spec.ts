@@ -7,7 +7,7 @@ import { GhostModel } from "../GhostModel"
 import { allowNetConnect } from "../../../vitest.setup"
 
 const KEYS = {
-	KILOCODE: null,
+	AINCROK: null,
 	OPENROUTER: null,
 	MISTRAL: null,
 }
@@ -52,26 +52,26 @@ describe("GhostModelPerformance", () => {
 
 	describe("Kilo Code", () => {
 		it("google/gemini-2.5-flash", async () => {
-			if (!KEYS.KILOCODE) {
+			if (!KEYS.AINCROK) {
 				return
 			}
-			allowNetConnect("api.kilocode.ai")
+			allowNetConnect("api.aincrok.ai")
 			const apiHandler = buildApiHandler({
 				apiProvider: "kilocode",
-				kilocodeModel: "google/gemini-2.5-flash",
-				kilocodeToken: KEYS.KILOCODE,
+				aincrokModel: "google/gemini-2.5-flash",
+				aincrokToken: KEYS.AINCROK,
 			})
 			await performTestBattery(apiHandler)
 		})
 		it("mistralai/codestral-2501", async () => {
-			if (!KEYS.KILOCODE) {
+			if (!KEYS.AINCROK) {
 				return
 			}
-			allowNetConnect("api.kilocode.ai")
+			allowNetConnect("api.aincrok.ai")
 			const apiHandler = buildApiHandler({
 				apiProvider: "kilocode",
-				kilocodeModel: "mistralai/codestral-2501",
-				kilocodeToken: KEYS.KILOCODE,
+				aincrokModel: "mistralai/codestral-2501",
+				aincrokToken: KEYS.AINCROK,
 			})
 			await performTestBattery(apiHandler)
 		})

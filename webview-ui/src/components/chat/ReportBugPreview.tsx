@@ -48,10 +48,10 @@ const ReportBugPreview: React.FC<ReportBugPreviewProps> = ({ data }) => {
 					</div>
 				)}
 
-				{bugData.kilocode_version && (
+				{bugData.aincrok_version && (
 					<div>
 						<div className="font-semibold">Kilo Code Version</div>
-						<MarkdownBlock markdown={bugData.kilocode_version} />
+						<MarkdownBlock markdown={bugData.aincrok_version} />
 					</div>
 				)}
 			</div>

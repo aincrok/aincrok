@@ -1,5 +1,5 @@
 import { type Language, isLanguage } from "@roo-code/types"
-import { kiloLanguages } from "./kilocode/kiloLanguages"
+import { kiloLanguages } from "./aincrok/kiloLanguages"
 
 /**
  * Language name mapping from ISO codes to full language names.

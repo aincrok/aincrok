@@ -268,7 +268,7 @@ export interface TelemetryClient {
 	updateTelemetryState(didUserOptIn: boolean): void
 	// kilocode_change start
 	captureException(error: Error, properties?: Record<string | number, unknown>): void
-	updateIdentity(kilocodeToken: string): Promise<void>
+	updateIdentity(aincrokToken: string): Promise<void>
 	// kilocode_change end
 	isTelemetryEnabled(): boolean
 	shutdown(): Promise<void>

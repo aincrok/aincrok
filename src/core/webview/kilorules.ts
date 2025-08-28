@@ -9,7 +9,7 @@ import type { ContextProxy } from "../config/ContextProxy"
 import type { ClineRulesToggles } from "../../shared/cline-rules"
 import { t } from "../../i18n"
 import { GlobalFileNames } from "../../shared/globalFileNames"
-import { allowedExtensions } from "../../shared/kilocode/rules"
+import { allowedExtensions } from "../../shared/aincrok/rules"
 
 export interface RulesData {
 	globalRules: ClineRulesToggles

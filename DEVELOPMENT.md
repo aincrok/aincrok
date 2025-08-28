@@ -1,13 +1,13 @@
-# Kilo Code Development Guide
+# AINCROK Development Guide
 
-Welcome to the Kilo Code development guide! This document will help you set up your development environment and understand how to work with the codebase. Whether you're fixing bugs, adding features, or just exploring the code, this guide will get you started.
+Welcome to the AINCROK development guide! This document will help you set up your development environment and understand how to work with the codebase. Whether you're fixing bugs, adding features, or just exploring the code, this guide will get you started.
 
 ## Prerequisites
 
 Before you begin, make sure you have the following installed:
 
 1. **Git** - For version control
-2. **Node.js** (version [v20.19.2](https://github.com/Kilo-Org/kilocode/blob/main/.nvmrc) recommended)
+2. **Node.js** (version [v20.19.2](https://github.com/aincrok/aincrok/blob/main/.nvmrc) recommended)
 3. **pnpm** - Package manager (https://pnpm.io/)
 4. **Visual Studio Code** - Our recommended IDE for development
 
@@ -18,12 +18,12 @@ Before you begin, make sure you have the following installed:
 1. **Fork and Clone the Repository**:
 
     - **Fork the Repository**:
-        - Visit the [Kilo Code GitHub repository](https://github.com/Kilo-Org/kilocode)
+        - Visit the [AINCROK GitHub repository](https://github.com/aincrok/aincrok)
         - Click the "Fork" button in the top-right corner to create your own copy.
     - **Clone Your Fork**:
         ```bash
-        git clone https://github.com/[YOUR-USERNAME]/kilocode.git
-        cd kilocode
+        git clone https://github.com/[YOUR-USERNAME]/aincrok.git
+        cd aincrok
         ```
         Replace `[YOUR-USERNAME]` with your actual GitHub username.
 
@@ -43,7 +43,7 @@ While not strictly necessary for running the extension, these extensions are rec
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Integrates ESLint into VS Code.
 - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - Integrates Prettier into VS Code.
 
-The full list of recommended extensions is [here](https://github.com/Kilo-Org/kilocode/blob/main/.vscode/extensions.json)
+The full list of recommended extensions is [here](https://github.com/aincrok/aincrok/blob/main/.vscode/extensions.json)
 
 ### Project Structure
 
@@ -64,7 +64,7 @@ The project is organized into several key directories:
 To run the extension in development mode:
 
 1. Press `F5` (or select **Run** → **Start Debugging**) in VSCode
-2. This will open a new VSCode window with Kilo Code loaded
+2. This will open a new VSCode window with AINCROK loaded
 
 ### Hot Reloading
 
@@ -101,14 +101,14 @@ This will:
 To install your built extension:
 
 ```bash
-code --install-extension "$(ls -1v bin/kilo-code-*.vsix | tail -n1)"
+code --install-extension "$(ls -1v bin/aincrok-*.vsix | tail -n1)"
 ```
 
 Replace `[version]` with the current version number.
 
 ## Testing
 
-Kilo Code uses several types of tests to ensure quality:
+AINCROK uses several types of tests to ensure quality:
 
 ### Unit Tests
 
@@ -142,7 +142,7 @@ This project uses [Husky](https://typicode.github.io/husky/) to manage Git hooks
 Before a commit is finalized, the `.husky/pre-commit` hook runs:
 
 1.  **Branch Check**: Prevents committing directly to the `main` branch.
-2.  **Type Generation**: Runs `pnpm --filter kilo-code generate-types`.
+2.  **Type Generation**: Runs `pnpm --filter aincrok generate-types`.
 3.  **Type File Check**: Ensures that any changes made to `src/exports/roo-code.d.ts` by the type generation are staged.
 4.  **Linting**: Runs `lint-staged` to lint and format staged files.
 
@@ -167,18 +167,18 @@ These hooks help maintain code quality and consistency. If you encounter issues 
 ### Debugging Tips
 
 - Use `console.log()` statements in your code for debugging
-- Check the Output panel in VSCode (View > Output) and select "Kilo Code" from the dropdown
+- Check the Output panel in VSCode (View > Output) and select "AINCROK" from the dropdown
 - For webview issues, use the browser developer tools in the webview (right-click > "Inspect Element")
 
 ## Contributing
 
-We welcome contributions to Kilo Code! Here's how you can help:
+We welcome contributions to AINCROK! Here's how you can help:
 
-1. **Report an issue** using [GitHub Issues](https://github.com/Kilo-Org/kilocode/issues)
+1. **Report an issue** using [GitHub Issues](https://github.com/aincrok/aincrok/issues)
 2. **Find an issue** and submit a Pull Request with your fix
 3. **Write tests** to improve Code Coverage
-4. **Improve Documentation** at [kilocode.ai/docs](https://kilocode.ai/docs)
-5. **Suggest a new feature** using [GitHub Discussions](https://github.com/Kilo-Org/kilocode/discussions/categories/ideas)!
+4. **Improve Documentation** at [aincrok.ai/docs](https://aincrok.ai/docs)
+5. **Suggest a new feature** using [GitHub Discussions](https://github.com/aincrok/aincrok/discussions/categories/ideas)!
 6. Want to **implement something new**? Awesome! We'd be glad to support you on [Discord](https://discord.gg/Ja6BkfyTzJ)!
 
 ## Community

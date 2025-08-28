@@ -149,7 +149,7 @@
 			},
 			"protected": {
 				"label": "Incluir arquivos protegidos",
-				"description": "Permitir que o Kilo Code crie e edite arquivos protegidos (como .kilocodeignore e arquivos de configuração .kilocode/) sem exigir aprovação."
+				"description": "Permitir que o Kilo Code crie e edite arquivos protegidos (como .aincrokignore e arquivos de configuração .aincrok/) sem exigir aprovação."
 			}
 		},
 		"browser": {
@@ -572,8 +572,8 @@
 			"description": "Número máximo de arquivos a incluir nos detalhes do diretório de trabalho atual. Valores mais altos fornecem mais contexto, mas aumentam o uso de token."
 		},
 		"rooignore": {
-			"label": "Mostrar arquivos .kilocodeignore em listas e pesquisas",
-			"description": "Quando ativado, os arquivos que correspondem aos padrões em .kilocodeignore serão mostrados em listas com um símbolo de cadeado. Quando desativado, esses arquivos serão completamente ocultos das listas de arquivos e pesquisas."
+			"label": "Mostrar arquivos .aincrokignore em listas e pesquisas",
+			"description": "Quando ativado, os arquivos que correspondem aos padrões em .aincrokignore serão mostrados em listas com um símbolo de cadeado. Quando desativado, esses arquivos serão completamente ocultos das listas de arquivos e pesquisas."
 		},
 		"maxReadFile": {
 			"label": "Limite de auto-truncamento de leitura de arquivo",
@@ -807,8 +807,8 @@
 		"useCustomModel": "Usar personalizado: {{modelId}}"
 	},
 	"footer": {
-		"feedback": "Se tiver alguma dúvida ou feedback, sinta-se à vontade para abrir um problema em <githubLink>github.com/Kilo-Org/kilocode</githubLink> ou juntar-se a <redditLink>reddit.com/r/kilocode</redditLink> ou <discordLink>kilocode.ai/discord</discordLink>",
-		"support": "Para questões financeiras, entre em contato com o Suporte ao Cliente em <supportLink>https://kilocode.ai/support</supportLink>",
+		"feedback": "Se tiver alguma dúvida ou feedback, sinta-se à vontade para abrir um problema em <githubLink>github.com/aincrok/aincrok</githubLink> ou juntar-se a <redditLink>reddit.com/r/aincrok</redditLink> ou <discordLink>aincrok.ai/discord</discordLink>",
+		"support": "Para questões financeiras, entre em contato com o Suporte ao Cliente em <supportLink>https://aincrok.ai/support</supportLink>",
 		"telemetry": {
 			"label": "Permitir relatórios de erros e uso",
 			"description": "Ajude a melhorar o Kilo Code enviando dados de uso e relatórios de erros. Nunca são enviados código, prompts ou informações pessoais. Consulte nossa política de privacidade para mais detalhes."

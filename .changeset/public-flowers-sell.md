@@ -1,5 +1,5 @@
 ---
-"kilo-code": minor
+"aincrok": minor
 ---
 
 Include changes from Roo Code v3.25.23

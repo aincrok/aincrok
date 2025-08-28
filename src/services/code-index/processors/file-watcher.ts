@@ -509,7 +509,7 @@ export class FileWatcher implements IFileWatcher {
 				return {
 					path: filePath,
 					status: "skipped" as const,
-					reason: "File is ignored by .kilocodeignore or .gitignore",
+					reason: "File is ignored by .aincrokignore or .gitignore",
 				}
 			}
 

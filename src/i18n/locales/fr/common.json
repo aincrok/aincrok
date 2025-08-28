@@ -166,8 +166,8 @@
 	},
 	"storage": {
 		"prompt_custom_path": "Entrez le chemin de stockage personnalisé pour l'historique des conversations, laissez vide pour utiliser l'emplacement par défaut",
-		"path_placeholder": "D:\\KiloCodeStorage",
-		"enter_absolute_path": "Veuillez entrer un chemin absolu (ex. D:\\KiloCodeStorage ou /home/user/storage)",
+		"path_placeholder": "D:\\aincrokStorage",
+		"enter_absolute_path": "Veuillez entrer un chemin absolu (ex. D:\\aincrokStorage ou /home/user/storage)",
 		"enter_valid_path": "Veuillez entrer un chemin valide"
 	},
 	"input": {
@@ -187,8 +187,8 @@
 	},
 	"customModes": {
 		"errors": {
-			"yamlParseError": "YAML invalide dans le fichier .kilocodemodes à la ligne {{line}}. Vérifier :\n• L'indentation correcte (utilise des espaces, pas de tabulations)\n• Les guillemets et crochets correspondants\n• La syntaxe YAML valide",
-			"schemaValidationError": "Format invalide des modes personnalisés dans .kilocodemodes :\n{{issues}}",
+			"yamlParseError": "YAML invalide dans le fichier .aincrokmodes à la ligne {{line}}. Vérifier :\n• L'indentation correcte (utilise des espaces, pas de tabulations)\n• Les guillemets et crochets correspondants\n• La syntaxe YAML valide",
+			"schemaValidationError": "Format invalide des modes personnalisés dans .aincrokmodes :\n{{issues}}",
 			"invalidFormat": "Format invalide des modes personnalisés. Assurez-vous que vos paramètres suivent le format YAML correct.",
 			"updateFailed": "Échec de la mise à jour du mode personnalisé : {{error}}",
 			"deleteFailed": "Échec de la suppression du mode personnalisé : {{error}}",

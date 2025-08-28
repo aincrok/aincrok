@@ -150,7 +150,7 @@
 			},
 			"protected": {
 				"label": "包含受保护的文件",
-				"description": "允许 Kilo Code 创建和编辑受保护的文件（如 .kilocodeignore 和 .kilocode/ 配置文件），无需批准。"
+				"description": "允许 Kilo Code 创建和编辑受保护的文件（如 .aincrokignore 和 .aincrok/ 配置文件），无需批准。"
 			}
 		},
 		"browser": {
@@ -573,8 +573,8 @@
 			"description": "允许纳入上下文的最大文件数（值越大消耗token越多）"
 		},
 		"rooignore": {
-			"label": "在列表和搜索中显示 .kilocodeignore 文件",
-			"description": "启用后，与 .kilocodeignore 中模式匹配的文件将在列表中显示锁定符号。禁用时，这些文件将从文件列表和搜索中完全隐藏。"
+			"label": "在列表和搜索中显示 .aincrokignore 文件",
+			"description": "启用后，与 .aincrokignore 中模式匹配的文件将在列表中显示锁定符号。禁用时，这些文件将从文件列表和搜索中完全隐藏。"
 		},
 		"maxReadFile": {
 			"label": "文件读取自动截断阈值",
@@ -812,8 +812,8 @@
 		"useCustomModel": "使用自定义：{{modelId}}"
 	},
 	"footer": {
-		"feedback": "如果您有任何问题或反馈，请随时在 <githubLink>github.com/Kilo-Org/kilocode</githubLink> 上提出问题或加入 <redditLink>reddit.com/r/kilocode</redditLink> 或 <discordLink>kilocode.ai/discord</discordLink>",
-		"support": "如有财务问题，请联系客户支持 <supportLink>https://kilocode.ai/support</supportLink>",
+		"feedback": "如果您有任何问题或反馈，请随时在 <githubLink>github.com/aincrok/aincrok</githubLink> 上提出问题或加入 <redditLink>reddit.com/r/aincrok</redditLink> 或 <discordLink>aincrok.ai/discord</discordLink>",
+		"support": "如有财务问题，请联系客户支持 <supportLink>https://aincrok.ai/support</supportLink>",
 		"telemetry": {
 			"label": "允许错误和使用情况报告",
 			"description": "通过发送使用数据和错误报告帮助改进 Kilo Code。绝不会发送代码、提示词或个人信息。详情请查看我们的隐私政策。"

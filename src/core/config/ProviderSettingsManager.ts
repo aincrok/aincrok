@@ -13,7 +13,7 @@ import {
 import { TelemetryService } from "@roo-code/telemetry"
 
 import { Mode, modes } from "../../shared/modes"
-import { migrateMorphApiKey } from "./kilocode/migrateMorphApiKey"
+import { migrateMorphApiKey } from "./aincrok/migrateMorphApiKey"
 
 export interface SyncCloudProfilesResult {
 	hasChanges: boolean

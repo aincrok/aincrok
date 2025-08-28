@@ -8,7 +8,7 @@ import { type ProviderSettings, type ModelInfo } from "@roo-code/types"
 
 import { useAppTranslation } from "@src/i18n/TranslationContext"
 import { useSelectedModel } from "@/components/ui/hooks/useSelectedModel"
-import { usePreferredModels } from "@/components/ui/hooks/kilocode/usePreferredModels" // kilocode_change
+import { usePreferredModels } from "@/components/ui/hooks/aincrok/usePreferredModels" // kilocode_change
 // import { filterModels } from "./utils/organizationFilters" // kilocode_change: not doing this
 import { cn } from "@src/lib/utils"
 import {
@@ -28,7 +28,7 @@ import { useEscapeKey } from "@src/hooks/useEscapeKey"
 
 import { ModelInfoView } from "./ModelInfoView"
 import { ApiErrorMessage } from "./ApiErrorMessage"
-import { KiloModelInfoView } from "../kilocode/settings/KiloModelInfoView"
+import { KiloModelInfoView } from "../aincrok/settings/KiloModelInfoView"
 
 type ModelIdKey = keyof Pick<
 	ProviderSettings,
@@ -38,7 +38,7 @@ type ModelIdKey = keyof Pick<
 	| "requestyModelId"
 	| "openAiModelId"
 	| "litellmModelId"
-	| "kilocodeModel"
+	| "aincrokModel"
 	| "ioIntelligenceModelId"
 >
 

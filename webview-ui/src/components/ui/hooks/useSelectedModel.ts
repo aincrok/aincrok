@@ -73,13 +73,13 @@ export const useModelProviders = (kilocodeDefaultModel: string, apiConfiguration
 	const provider = apiConfiguration?.apiProvider
 	return useOpenRouterModelProviders(
 		provider === "kilocode"
-			? (apiConfiguration?.kilocodeModel ?? kilocodeDefaultModel)
+			? (apiConfiguration?.aincrokModel ?? kilocodeDefaultModel)
 			: provider === "openrouter"
 				? (apiConfiguration?.openRouterModelId ?? openRouterDefaultModelId)
 				: undefined,
 		provider === "openrouter" ? apiConfiguration?.openRouterBaseUrl : undefined,
 		apiConfiguration?.apiKey,
-		apiConfiguration?.kilocodeOrganizationId ?? "personal",
+		apiConfiguration?.aincrokOrganizationId ?? "personal",
 	)
 }
 // kilocode_change end
@@ -91,7 +91,7 @@ export const useSelectedModel = (apiConfiguration?: ProviderSettings) => {
 	const routerModels = useRouterModels({
 		openRouterBaseUrl: apiConfiguration?.openRouterBaseUrl,
 		openRouterApiKey: apiConfiguration?.apiKey, // kilocode_change
-		kilocodeOrganizationId: apiConfiguration?.kilocodeOrganizationId, // kilocode_change
+		aincrokOrganizationId: apiConfiguration?.aincrokOrganizationId, // kilocode_change
 	})
 	const openRouterModelProviders = useModelProviders(kilocodeDefaultModel, apiConfiguration)
 	// kilocode_change end
@@ -307,11 +307,11 @@ function getSelectedModel({
 		// kilocode_change begin
 		case "kilocode": {
 			// Use the fetched models from routerModels
-			if (routerModels["kilocode-openrouter"] && apiConfiguration.kilocodeModel) {
+			if (routerModels["aincrok-openrouter"] && apiConfiguration.aincrokModel) {
 				// Find the model in the fetched models
-				const modelEntries = Object.entries(routerModels["kilocode-openrouter"])
+				const modelEntries = Object.entries(routerModels["aincrok-openrouter"])
 
-				const selectedModelId = apiConfiguration.kilocodeModel.toLowerCase()
+				const selectedModelId = apiConfiguration.aincrokModel.toLowerCase()
 
 				// Prefer exact match
 				const selectedModel =
@@ -335,7 +335,7 @@ function getSelectedModel({
 			// Fallback to anthropic model if no match found
 			return {
 				id: kilocodeDefaultModel,
-				info: routerModels["kilocode-openrouter"][kilocodeDefaultModel],
+				info: routerModels["aincrok-openrouter"][kilocodeDefaultModel],
 			}
 		}
 		case "gemini-cli": {

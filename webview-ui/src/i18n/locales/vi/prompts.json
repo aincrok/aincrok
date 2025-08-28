@@ -8,7 +8,7 @@
 		"noMatchFound": "Không tìm thấy chế độ nào",
 		"editModesConfig": "Chỉnh sửa cấu hình chế độ",
 		"editGlobalModes": "Chỉnh sửa chế độ toàn cục",
-		"editProjectModes": "Chỉnh sửa chế độ dự án (.kilocodemodes)",
+		"editProjectModes": "Chỉnh sửa chế độ dự án (.aincrokmodes)",
 		"createModeHelpText": "Chế độ là các vai trò chuyên biệt điều chỉnh hành vi của Kilo Code. <0>Tìm hiểu về Sử dụng Chế độ</0> hoặc <1>Tùy chỉnh Chế độ.</1>",
 		"selectMode": "Tìm kiếm chế độ"
 	},
@@ -50,17 +50,17 @@
 		"title": "Hướng dẫn tùy chỉnh dành riêng cho chế độ (tùy chọn)",
 		"resetToDefault": "Đặt lại về mặc định",
 		"description": "Thêm hướng dẫn hành vi dành riêng cho chế độ {{modeName}}.",
-		"loadFromFile": "Hướng dẫn tùy chỉnh cụ thể cho chế độ {{mode}} cũng có thể được tải từ thư mục <span>.kilocode/rules-{{slug}}/</span> trong không gian làm việc của bạn hoặc từ toàn cục <0>.kilocode/rules-{{slug}}/</0> (.kilocoderules-{{slug}} và .clinerules-{{slug}} đã lỗi thời và sẽ ngừng hoạt động sớm)."
+		"loadFromFile": "Hướng dẫn tùy chỉnh cụ thể cho chế độ {{mode}} cũng có thể được tải từ thư mục <span>.aincrok/rules-{{slug}}/</span> trong không gian làm việc của bạn hoặc từ toàn cục <0>.aincrok/rules-{{slug}}/</0> (.aincrokrules-{{slug}} và .clinerules-{{slug}} đã lỗi thời và sẽ ngừng hoạt động sớm)."
 	},
 	"exportMode": {
 		"title": "Xuất chế độ",
-		"description": "Xuất chế độ này với các quy tắc từ thư mục .kilocode/rules-{{slug}}/ được kết hợp thành tệp YAML có thể chia sẻ. Các tệp gốc vẫn không thay đổi.",
+		"description": "Xuất chế độ này với các quy tắc từ thư mục .aincrok/rules-{{slug}}/ được kết hợp thành tệp YAML có thể chia sẻ. Các tệp gốc vẫn không thay đổi.",
 		"exporting": "Đang xuất..."
 	},
 	"globalCustomInstructions": {
 		"title": "Hướng dẫn tùy chỉnh cho tất cả các chế độ",
 		"description": "Những hướng dẫn này áp dụng cho tất cả các chế độ. Chúng cung cấp một bộ hành vi cơ bản có thể được nâng cao bởi hướng dẫn dành riêng cho chế độ bên dưới. <0>Tìm hiểu thêm</0>",
-		"loadFromFile": "Hướng dẫn cũng có thể được tải từ thư mục <span>.kilocode/rules/</span> trong không gian làm việc của bạn hoặc từ toàn cục <0>.kilocode/rules/</0> (.kilocoderules và .clinerules đã lỗi thời và sẽ ngừng hoạt động sớm)."
+		"loadFromFile": "Hướng dẫn cũng có thể được tải từ thư mục <span>.aincrok/rules/</span> trong không gian làm việc của bạn hoặc từ toàn cục <0>.aincrok/rules/</0> (.aincrokrules và .clinerules đã lỗi thời và sẽ ngừng hoạt động sớm)."
 	},
 	"importMode": {
 		"selectLevel": "Chọn nơi để nhập chế độ này:",
@@ -68,11 +68,11 @@
 		"importing": "Đang nhập...",
 		"global": {
 			"label": "Cấp độ toàn cục",
-			"description": "Có sẵn trong tất cả các dự án. Nếu chế độ đã xuất có chứa tệp quy tắc, chúng sẽ được tạo lại trong thư mục toàn cục .kilocode/rules-{slug}/."
+			"description": "Có sẵn trong tất cả các dự án. Nếu chế độ đã xuất có chứa tệp quy tắc, chúng sẽ được tạo lại trong thư mục toàn cục .aincrok/rules-{slug}/."
 		},
 		"project": {
 			"label": "Cấp độ dự án",
-			"description": "Chỉ có sẵn trong không gian làm việc này. Nếu chế độ đã xuất có chứa tệp quy tắc, chúng sẽ được tạo lại trong thư mục .kilocode/rules-{slug}/."
+			"description": "Chỉ có sẵn trong không gian làm việc này. Nếu chế độ đã xuất có chứa tệp quy tắc, chúng sẽ được tạo lại trong thư mục .aincrok/rules-{slug}/."
 		}
 	},
 	"systemPrompt": {
@@ -173,7 +173,7 @@
 				"description": "Có sẵn trong tất cả các không gian làm việc"
 			},
 			"project": {
-				"label": "Dành riêng cho dự án (.kilocodemodes)",
+				"label": "Dành riêng cho dự án (.aincrokmodes)",
 				"description": "Chỉ có sẵn trong không gian làm việc này, được ưu tiên hơn toàn cục"
 			}
 		},
