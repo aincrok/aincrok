@@ -57,8 +57,8 @@ if the filename or directory name contains kilocode no marking with comments is 
 
 ### New Files
 
-If you're creating a completely new file that doesn't exist in Roo, add this comment at the top:
+If you're creating a completely new file that doesn't exist in Roo or Kilo, add this comment at the top:
 
 ```
-// kilocode_change - new file
+// aincrok_change - new file
 ```

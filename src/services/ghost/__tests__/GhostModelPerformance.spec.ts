@@ -68,7 +68,7 @@ describe("GhostModelPerformance", () => {
 			if (!KEYS.AINCROK) {
 				return
 			}
-			allowNetConnect("api.aincrok.ai")
+			allowNetConnect("api.kilocode.ai")
 			const apiHandler = buildApiHandler({
 				apiProvider: "kilocode",
 				aincrokModel: "google/gemini-2.5-flash",
@@ -80,7 +80,7 @@ describe("GhostModelPerformance", () => {
 			if (!KEYS.AINCROK) {
 				return
 			}
-			allowNetConnect("api.aincrok.ai")
+			allowNetConnect("api.kilocode.ai")
 			const apiHandler = buildApiHandler({
 				apiProvider: "kilocode",
 				aincrokModel: "mistralai/codestral-2501",
