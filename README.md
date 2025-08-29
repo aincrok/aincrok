@@ -1,5 +1,9 @@
 # AINCROK - AI Code Assistant for VS Code
 
+<div align="center">
+  <img src="readme-banner.svg" alt="AINCROK Banner" width="600">
+</div>
+
 > AINCROK Is Not Cline Roo Or Kilo
 
 [![Version](https://img.shields.io/visual-studio-marketplace/v/aincrok.aincrok)](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)
@@ -24,11 +28,13 @@ AINCROK is a powerful AI-powered code assistant for Visual Studio Code, forked f
 ## 📦 Installation
 
 ### From VS Code Marketplace
+
 1. Open VS Code
 2. Press `Ctrl+P` / `Cmd+P`
 3. Type `ext install aincrok.aincrok`
 
 ### From Source
+
 ```bash
 git clone https://github.com/aincrok/aincrok.git
 cd aincrok
@@ -59,6 +65,7 @@ Apache 2.0 - See [LICENSE](LICENSE) for details.
 ## 🙏 Acknowledgments
 
 AINCROK is built upon the excellent foundation of:
+
 - [Kilocode](https://github.com/Kilo-Org/kilocode) - Original codebase
 - [Cline](https://github.com/cline/cline)
 - [Roo Code](https://github.com/RooCodeInc/Roo-Code)
