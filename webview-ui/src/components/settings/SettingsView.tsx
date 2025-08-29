@@ -73,7 +73,7 @@ import { About } from "./About"
 import { Section } from "./Section"
 import PromptsSettings from "./PromptsSettings"
 import { cn } from "@/lib/utils"
-import McpView from "../kilocodeMcp/McpView" // kilocode_change
+import McpView from "../aincrokMcp/McpView" // kilocode_change
 import deepEqual from "fast-deep-equal" // kilocode_change
 import { GhostServiceSettingsView } from "../aincrok/settings/GhostServiceSettings" // kilocode_change
 

@@ -23095,7 +23095,7 @@ snapshots:
 
   caniuse-api@3.0.0:
     dependencies:
-      browserslist: 4.25.3
+      browserslist: 4.25.4
       caniuse-lite: 1.0.30001737
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
@@ -23695,7 +23695,7 @@ snapshots:
   cssnano-preset-advanced@6.1.2(postcss@8.5.4):
     dependencies:
       autoprefixer: 10.4.21(postcss@8.5.4)
-      browserslist: 4.25.3
+      browserslist: 4.25.4
       cssnano-preset-default: 6.1.2(postcss@8.5.4)
       postcss: 8.5.4
       postcss-discard-unused: 6.0.5(postcss@8.5.4)
@@ -23705,7 +23705,7 @@ snapshots:
 
   cssnano-preset-default@6.1.2(postcss@8.5.4):
     dependencies:
-      browserslist: 4.25.3
+      browserslist: 4.25.4
       css-declaration-sorter: 7.2.0(postcss@8.5.4)
       cssnano-utils: 4.0.2(postcss@8.5.4)
       postcss: 8.5.4
@@ -29136,7 +29136,7 @@ snapshots:
 
   postcss-colormin@6.1.0(postcss@8.5.4):
     dependencies:
-      browserslist: 4.25.3
+      browserslist: 4.25.4
       caniuse-api: 3.0.0
       colord: 2.9.3
       postcss: 8.5.4
@@ -29144,7 +29144,7 @@ snapshots:
 
   postcss-convert-values@6.1.0(postcss@8.5.4):
     dependencies:
-      browserslist: 4.25.3
+      browserslist: 4.25.4
       postcss: 8.5.4
       postcss-value-parser: 4.2.0
 
@@ -29296,7 +29296,7 @@ snapshots:
 
   postcss-merge-rules@6.1.1(postcss@8.5.4):
     dependencies:
-      browserslist: 4.25.3
+      browserslist: 4.25.4
       caniuse-api: 3.0.0
       cssnano-utils: 4.0.2(postcss@8.5.4)
       postcss: 8.5.4
@@ -29316,7 +29316,7 @@ snapshots:
 
   postcss-minify-params@6.1.0(postcss@8.5.4):
     dependencies:
-      browserslist: 4.25.3
+      browserslist: 4.25.4
       cssnano-utils: 4.0.2(postcss@8.5.4)
       postcss: 8.5.4
       postcss-value-parser: 4.2.0
@@ -29390,7 +29390,7 @@ snapshots:
 
   postcss-normalize-unicode@6.1.0(postcss@8.5.4):
     dependencies:
-      browserslist: 4.25.3
+      browserslist: 4.25.4
       postcss: 8.5.4
       postcss-value-parser: 4.2.0
 
@@ -29510,7 +29510,7 @@ snapshots:
 
   postcss-reduce-initial@6.1.0(postcss@8.5.4):
     dependencies:
-      browserslist: 4.25.3
+      browserslist: 4.25.4
       caniuse-api: 3.0.0
       postcss: 8.5.4
 
@@ -31315,7 +31315,7 @@ snapshots:
 
   stylehacks@6.1.1(postcss@8.5.4):
     dependencies:
-      browserslist: 4.25.3
+      browserslist: 4.25.4
       postcss: 8.5.4
       postcss-selector-parser: 6.1.2
 
@@ -32574,7 +32574,7 @@ snapshots:
       '@webassemblyjs/wasm-parser': 1.14.1
       acorn: 8.15.0
       acorn-import-phases: 1.0.4(acorn@8.15.0)
-      browserslist: 4.25.3
+      browserslist: 4.25.4
       chrome-trace-event: 1.0.4
       enhanced-resolve: 5.18.1
       es-module-lexer: 1.7.0

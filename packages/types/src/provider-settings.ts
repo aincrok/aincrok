@@ -427,7 +427,7 @@ export const providerSettingsSchema = z.object({
 	...geminiSchema.shape,
 	// kilocode_change start
 	...geminiCliSchema.shape,
-	...aincrokSchema.shape,
+	...kilocodeSchema.shape,
 	...virtualQuotaFallbackSchema.shape,
 	...qwenCodeSchema.shape,
 	// kilocode_change end
@@ -465,7 +465,7 @@ export type ProviderSettingsWithId = z.infer<typeof providerSettingsWithIdSchema
 
 export const PROVIDER_SETTINGS_KEYS = providerSettingsSchema.keyof().options
 
-export const MODEL_ID_KEYS: Partial<keyof ProviderSettings>[] = [
+export const MODEL_ID_KEYS: Array<Extract<keyof ProviderSettings, string>> = [
 	"apiModelId",
 	"glamaModelId",
 	"openRouterModelId",

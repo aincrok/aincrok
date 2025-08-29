@@ -59,7 +59,7 @@ import { showSystemNotification } from "@/aincrok/helpers" // kilocode_change
 // import ProfileViolationWarning from "./ProfileViolationWarning" kilocode_change: unused
 import { CheckpointWarning } from "./CheckpointWarning"
 import { IdeaSuggestionsBox } from "../aincrok/chat/IdeaSuggestionsBox" // kilocode_change
-import { AINCROKNotifications } from "../aincrok/AINCROKNotifications" // kilocode_change
+import { AINCROKNotifications } from "../aincrok/KilocodeNotifications" // kilocode_change
 import QueuedMessages from "./QueuedMessages"
 import { getLatestTodo } from "@roo/todo"
 import { QueuedMessage } from "@roo-code/types"

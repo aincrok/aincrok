@@ -233,7 +233,7 @@ export const GLOBAL_STATE_KEYS = [...GLOBAL_SETTINGS_KEYS, ...PROVIDER_SETTINGS_
 	(key: Keys<RooCodeSettings>) => !SECRET_STATE_KEYS.includes(key as Keys<SecretState>),
 ) as Keys<GlobalState>[]
 
-export const isGlobalStateKey = (key: string): key is Keys<GlobalState> =>
+export const isGlobalStateKey = (key: string): key is Extract<Keys<GlobalState>, string> =>
 	GLOBAL_STATE_KEYS.includes(key as Keys<GlobalState>)
 
 /**

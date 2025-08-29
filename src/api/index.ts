@@ -45,7 +45,7 @@ import {
 	FeatherlessHandler,
 } from "./providers"
 // kilocode_change start
-import { AINCROKOpenrouterHandler } from "./providers/aincrok-openrouter"
+import { AincrokOpenrouterHandler } from "./providers/aincrok-openrouter"
 // kilocode_change end
 import { NativeOllamaHandler } from "./providers/native-ollama"
 
@@ -91,7 +91,7 @@ export function buildApiHandler(configuration: ProviderSettings): ApiHandler {
 	switch (apiProvider) {
 		// kilocode_change start
 		case "kilocode":
-			return new AINCROKOpenrouterHandler(options)
+			return new AincrokOpenrouterHandler(options)
 		case "gemini-cli":
 			return new GeminiCliHandler(options)
 		case "virtual-quota-fallback":

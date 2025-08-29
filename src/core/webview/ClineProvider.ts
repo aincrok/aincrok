@@ -95,7 +95,7 @@ import { McpServer } from "../../shared/mcp"
 import { OpenRouterHandler } from "../../api/providers"
 import { stringifyError } from "../../shared/aincrok/errorUtils"
 import isWsl from "is-wsl"
-import { getAINCROKDefaultModel } from "../../api/providers/aincrok/getAINCROKDefaultModel"
+import { getAincrokDefaultModel } from "../../api/providers/aincrok/getAincrokDefaultModel"
 
 export type ClineProviderState = Awaited<ReturnType<ClineProvider["getState"]>>
 // kilocode_change end
@@ -1874,7 +1874,7 @@ export class ClineProvider
 			autoCondenseContextPercent: autoCondenseContextPercent ?? 100,
 			uriScheme: vscode.env.uriScheme,
 			uiKind: vscode.UIKind[vscode.env.uiKind], // kilocode_change
-			kilocodeDefaultModel: await getAINCROKDefaultModel(apiConfiguration.aincrokToken),
+			kilocodeDefaultModel: await getAincrokDefaultModel(apiConfiguration.aincrokToken),
 			currentTaskItem: this.getCurrentTask()?.taskId
 				? (taskHistory || []).find((item: HistoryItem) => item.id === this.getCurrentTask()?.taskId)
 				: undefined,

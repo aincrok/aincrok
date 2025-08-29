@@ -109,7 +109,7 @@ export class AincrokOpenrouterHandler extends OpenRouterHandler {
 				modelId: this.options.aincrokModel,
 				endpoint: this.options.openRouterSpecificProvider,
 			}),
-			getAINCROKDefaultModel(this.options.aincrokToken),
+			getAincrokDefaultModel(this.options.aincrokToken),
 		])
 
 		this.models = models
