@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2025-01-28
 
 ### Added
+
 - Initial fork from Kilocode v4.84.1
 - Complete rebranding to AINCROK (AINCROK Is Not Cline Roo Or Kilo)
 - Comprehensive documentation structure
@@ -16,17 +17,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub issue and PR templates
 
 ### Changed
+
 - Updated all references from Kilocode to AINCROK
 - Rebranded extension ID to aincrok.aincrok
 - Updated provider names and API endpoints
 - Enhanced project metadata and descriptions
 
 ### Origin
+
 AINCROK is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with significant enhancements.
 
 ---
 
 ## Previous Kilocode History
+
+## [v4.85.0]
+
+- [#2119](https://github.com/Kilo-Org/kilocode/pull/2119) [`19dc45d`](https://github.com/Kilo-Org/kilocode/commit/19dc45d1b1578a41c41ecb787e7945513f6554d9) Thanks [@kevinvandijk](https://github.com/kevinvandijk)! - Include changes from Roo Code v3.25.23
+
+    - feat: add custom base URL support for Requesty provider (thanks @requesty-JohnCosta27!)
+    - feat: add DeepSeek V3.1 model to Chutes AI provider (#7294 by @dmarkey, PR by @app/roomote)
+    - Add prompt caching support for Kimi K2 on Groq (thanks @daniel-lxs and @benank!)
+    - Add documentation links for global custom instructions in UI (thanks @app/roomote!)
+    - Ensure subtask results are provided to GPT-5 in OpenAI Responses API
+    - Promote the experimental AssistantMessageParser to the default parser
+    - Update DeepSeek models context window to 128k (thanks @JuanPerezReal)
+    - Enable grounding features for Vertex AI (thanks @anguslees)
+    - Allow orchestrator to pass TODO lists to subtasks
+    - Improved MDM handling
+    - Handle nullish token values in ContextCondenseRow to prevent UI crash (thanks @s97712)
+    - Improved context window error handling for OpenAI and other providers
+    - Add "installed" filter to Marketplace (thanks @semidark)
+    - Improve filesystem access checks (thanks @elianiva)
+    - Add Featherless provider (thanks @DarinVerheijke)
+
+### Patch Changes
+
+- [#2184](https://github.com/Kilo-Org/kilocode/pull/2184) [`0be6743`](https://github.com/Kilo-Org/kilocode/commit/0be6743e08540d1671c10f79b49f17eeac82397e) Thanks [@kevinvandijk](https://github.com/kevinvandijk)! - Fix: add favorite button back to tasks
+
+- [#2125](https://github.com/Kilo-Org/kilocode/pull/2125) [`5828254`](https://github.com/Kilo-Org/kilocode/commit/5828254d47e9073c0f0fc9c9db5ef38eb6358036) Thanks [@nitinprajwal](https://github.com/nitinprajwal)! - Added support to Qwen Code for a custom OAuth credential storage path
 
 ## [v4.84.1]
 
