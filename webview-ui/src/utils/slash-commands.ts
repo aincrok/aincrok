@@ -25,9 +25,9 @@ export function getSupportedSlashCommands(
 		},
 		{
 			name: "newrule",
-			description: "Create a new Kilo rule with context from your conversation",
+			description: "Create a new Aincrok rule with context from your conversation",
 		},
-		{ name: "reportbug", description: "Create a KiloCode GitHub issue" },
+		{ name: "reportbug", description: "Create an Aincrok GitHub issue" },
 		{ name: "smol", description: "Condenses your current context window" },
 	]
 

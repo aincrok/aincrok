@@ -14,13 +14,13 @@
 		"node": "20.19.2"
 	},
 	"author": {
-		"name": "AINCROK"
+		"name": "Aincrok"
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/aincrok/aincrok"
 	},
-	"homepage": "https://aincrok.ai",
+	"homepage": "https://aincrok.dev",
 	"categories": [
 		"AI",
 		"Chat",
@@ -30,22 +30,24 @@
 		"Testing"
 	],
 	"keywords": [
+		"aincrok",
+		"Aincrok",
 		"cline",
+		"kilocode",
+		"roo code",
+		"roocode",
+		"ai",
 		"claude",
+		"coding",
+		"assistant",
 		"dev",
 		"mcp",
 		"openrouter",
-		"coding",
 		"agent",
 		"autonomous",
 		"chatgpt",
 		"sonnet",
-		"ai",
-		"llama",
-		"AINCROK",
-		"aincrok",
-		"roo code",
-		"roocode"
+		"llama"
 	],
 	"activationEvents": [
 		"onLanguage",

@@ -1,6 +1,6 @@
-# AINCROK Changelog
+# Aincrok Changelog
 
-All notable changes to AINCROK will be documented in this file.
+All notable changes to Aincrok will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Initial fork from Kilocode v4.84.1
-- Complete rebranding to AINCROK (AINCROK Is Not Cline Roo Or Kilo)
+- Complete rebranding to Aincrok (Aincrok Is Not Cline Roo Or Kilo)
 - Comprehensive documentation structure
 - Professional open-source project setup
 - Security policy and contribution guidelines
@@ -18,14 +18,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated all references from Kilocode to AINCROK
+- Updated all references from Kilocode to Aincrok
 - Rebranded extension ID to aincrok.aincrok
 - Updated provider names and API endpoints
 - Enhanced project metadata and descriptions
 
 ### Origin
 
-AINCROK is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with significant enhancements.
+Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with significant enhancements.
 
 ---
 
