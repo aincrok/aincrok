@@ -112,8 +112,8 @@
 				{
 					"id": "aincrok-ActivityBar",
 					"title": "%views.activitybar.title%",
-					"icon": "assets/icons/icon.png",
-					"darkIcon": "assets/icons/icon-dark.png",
+					"icon": "assets/icons/icon-light.svg",
+					"darkIcon": "assets/icons/icon-dark.svg",
 					"when": "isMac"
 				}
 			]

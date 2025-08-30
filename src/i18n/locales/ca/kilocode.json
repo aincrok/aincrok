@@ -43,16 +43,16 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Generador de missatges de commit de Kilo Code activat",
+		"activated": "Generador de missatges de commit de Aincrok activat",
 		"gitNotFound": "⚠️ No s'ha trobat el repositori Git o git no està disponible",
 		"gitInitError": "⚠️ Error d'inicialització de Git: {{error}}",
-		"generating": "Kilo: Generant missatge de commit...",
-		"noChanges": "Kilo: No s'han trobat canvis per analitzar",
-		"generated": "Kilo: Missatge de commit generat!",
-		"generationFailed": "Kilo: No s'ha pogut generar el missatge de confirmació: {{errorMessage}}",
-		"generatingFromUnstaged": "Kilo: Generant missatge utilitzant canvis no preparats",
-		"providerRegistered": "Kilo: Proveïdor de missatges de «commit» registrat",
-		"activationFailed": "Kilo: No s'ha pogut activar el generador de missatges: {{error}}"
+		"generating": "Aincrok: Generant missatge de commit...",
+		"noChanges": "Aincrok: No s'han trobat canvis per analitzar",
+		"generated": "Aincrok: Missatge de commit generat!",
+		"generationFailed": "Aincrok: No s'ha pogut generar el missatge de confirmació: {{errorMessage}}",
+		"generatingFromUnstaged": "Aincrok: Generant missatge utilitzant canvis no preparats",
+		"providerRegistered": "Aincrok: Proveïdor de missatges de «commit» registrat",
+		"activationFailed": "Aincrok: No s'ha pogut activar el generador de missatges: {{error}}"
 	},
 	"ghost": {
 		"progress": {
@@ -60,39 +60,39 @@
 			"generating": "Generant suggeriments d'edició...",
 			"processing": "Processant les edicions suggerides...",
 			"showing": "Mostrant edicions suggerides...",
-			"title": "Kilo Code"
+			"title": "Aincrok"
 		},
 		"input": {
-			"title": "Kilo Code: Tasca Ràpida",
+			"title": "Aincrok: Tasca Ràpida",
 			"placeholder": "p. ex., 'refactora aquesta funció perquè sigui més eficient'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Genera suggeriments d'edició",
+			"generateSuggestions": "Aincrok: Genera suggeriments d'edició",
 			"displaySuggestions": "Mostrar Suggeriments d'Edició",
 			"cancelSuggestions": "Cancel·la les edicions suggerides",
 			"applyAllSuggestions": "Aplica totes les edicions suggerides",
 			"applyCurrentSuggestion": "Aplica l'edició suggerida actual",
 			"promptCodeSuggestion": "Petició de Tasca Ràpida",
-			"category": "Kilo Code"
+			"category": "Aincrok"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Edicions suggerides"
+			"title": "Aincrok: Edicions suggerides"
 		},
 		"chatParticipant": {
 			"name": "Agent",
-			"fullName": "Kilo Code Agent",
+			"fullName": "Aincrok Agent",
 			"description": "Et puc ajudar amb tasques ràpides i edicions suggerides."
 		},
 		"messages": {
 			"provideCodeSuggestions": "S'estan proporcionant suggeriments de codi..."
 		},
 		"statusBar": {
-			"enabled": "$(sparkle) Assistència en línia de Kilo",
-			"disabled": "$(circle-slash) Kilo Inline Assist",
-			"warning": "$(warning) Assistència de Kilo en línia",
+			"enabled": "$(sparkle) Assistència en línia de Aincrok",
+			"disabled": "$(circle-slash) Aincrok Inline Assist",
+			"warning": "$(warning) Assistència de Aincrok en línia",
 			"tooltip": {
-				"disabled": "Assistència en línia de Kilo Code (desactivat)",
-				"basic": "Assistència en línia Kilo Code",
+				"disabled": "Assistència en línia de Aincrok (desactivat)",
+				"basic": "Assistència en línia Aincrok",
 				"tokenError": "S'ha d'establir un token vàlid per utilitzar l'Assistència Integrada",
 				"lastCompletion": "Última suggerència:",
 				"sessionTotal": "Cost total de la sessió:",
@@ -103,26 +103,26 @@
 				"lessThanCent": "<0,01 €"
 			}
 		},
-		"toggleMessage": "Assistència en línia Kilo {{status}}",
+		"toggleMessage": "Assistència en línia Aincrok {{status}}",
 		"incompatibilityExtensionPopup": {
-			"message": "L'Assistència en línia de Kilo Code està bloquejada per un conflicte amb GitHub Copilot. Per solucionar-ho, has de desactivar els suggeriments en línia de Copilot.",
+			"message": "L'Assistència en línia de Aincrok està bloquejada per un conflicte amb GitHub Copilot. Per solucionar-ho, has de desactivar els suggeriments en línia de Copilot.",
 			"disableCopilot": "Desactivar Copilot",
 			"disableInlineAssist": "Desactivar Assistència en línia"
 		}
 	},
 	"terminalCommandGenerator": {
-		"inputPrompt": "Kilo: Descriu l'ordre que vols generar",
-		"generatingProgress": "Kilo: Generant ordre de terminal...",
-		"noActiveTerminal": "Kilo: No s'ha trobat cap terminal actiu. Si us plau, obriu primer un terminal.",
+		"inputPrompt": "Aincrok: Descriu l'ordre que vols generar",
+		"generatingProgress": "Aincrok: Generant ordre de terminal...",
+		"noActiveTerminal": "Aincrok: No s'ha trobat cap terminal actiu. Si us plau, obriu primer un terminal.",
 		"inputPlaceholder": "p. ex., matar el procés que s'executa al port 3001, trobar fitxers grans, etc.",
-		"commandGenerated": "Kilo: Ordre generada: {{command}}",
-		"generationFailed": "Kilo: Error en generar l'ordre: {{error}}",
+		"commandGenerated": "Aincrok: Ordre generada: {{command}}",
+		"generationFailed": "Aincrok: Error en generar l'ordre: {{error}}",
 		"warningDialog": {
 			"title": "Advertència de Seguretat del Terminal",
 			"message": "Comproveu detingudament totes les comandes generades abans d'executar-les. Les accions al terminal no sempre es poden desfer — executar comandes sense verificar pot provocar la pèrdua irreversible de dades o danys al sistema. Reviseu i entengueu completament la comanda abans de continuar!",
 			"okButton": "Ho entenc",
 			"cancelButton": "Cancel·lar"
 		},
-		"tipMessage": "Kilo: Premeu {{shortcut}} per a generar ordres del terminal"
+		"tipMessage": "Aincrok: Premeu {{shortcut}} per a generar ordres del terminal"
 	}
 }
