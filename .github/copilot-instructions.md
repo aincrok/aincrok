@@ -1,7 +1,7 @@
 # AINCROK Change Marking Guidelines
 
-We are a fork of Roo. We regularly merge in the Roo codebase. To enable us to merge more easily, we mark all
-our own changes with `kilocode_change` comments.
+We are a fork of Kilocode. We regularly merge in the Kilocode codebase. To enable us to merge more easily, we mark all
+our own changes with `aincrok_change` comments.
 
 ## Basic Usage
 
@@ -10,7 +10,7 @@ our own changes with `kilocode_change` comments.
 For single line changes, add the comment at the end of the line:
 
 ```typescript
-let i = 2 // kilocode_change
+let i = 2 // aincrok_change
 ```
 
 ### Multi-line Changes
@@ -18,10 +18,10 @@ let i = 2 // kilocode_change
 For multiple consecutive lines, wrap them with start/end comments:
 
 ```typescript
-// kilocode_change start
+// aincrok_change start
 let i = 2
 let j = 3
-// kilocode_change end
+// aincrok_change end
 ```
 
 ## Language-Specific Examples
@@ -29,35 +29,35 @@ let j = 3
 ### HTML/JSX/TSX
 
 ```html
-{/* kilocode_change start */}
-<CustomKiloComponent />
-{/* kilocode_change end */}
+{/* aincrok_change start */}
+<CustomAincrokComponent />
+{/* aincrok_change end */}
 ```
 
 ### CSS/SCSS
 
 ```css
-/* kilocode_change */
-.kilocode-specific-class {
+/* aincrok_change */
+.aincrok-specific-class {
 	color: blue;
 }
 
-/* kilocode_change start */
+/* aincrok_change start */
 .another-class {
 	background: red;
 }
-/* kilocode_change end */
+/* aincrok_change end */
 ```
 
 ## Special Cases
 
 ### AINCROK specific file
 
-if the filename or directory name contains kilocode no marking with comments is required
+if the filename or directory name contains aincrok no marking with comments is required
 
 ### New Files
 
-If you're creating a completely new file that doesn't exist in Roo or Kilo, add this comment at the top:
+If you're creating a completely new file that doesn't exist in Kilocode, add this comment at the top:
 
 ```
 // aincrok_change - new file

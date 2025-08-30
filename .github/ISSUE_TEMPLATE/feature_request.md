@@ -1,10 +1,9 @@
 ---
 name: Feature request
-about: Suggest an idea for AINCROK
-title: '[FEATURE] '
-labels: 'enhancement'
-assignees: ''
-
+about: Suggest an idea for Aincrok
+title: "[FEATURE] "
+labels: "enhancement"
+assignees: ""
 ---
 
 **Is your feature request related to a problem? Please describe.**
