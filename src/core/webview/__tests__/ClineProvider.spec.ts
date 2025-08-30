@@ -517,8 +517,8 @@ describe("ClineProvider", () => {
 			apiConfiguration: {
 				// kilocode_change start
 				apiProvider: "kilocode",
-				aincrokModel: openRouterDefaultModelId,
-				aincrokToken: "kilocode-token",
+				kilocodeModel: openRouterDefaultModelId,
+				kilocodeToken: "kilocode-token",
 				// kilocode_change end
 			},
 			kilocodeDefaultModel: openRouterDefaultModelId,
@@ -2725,7 +2725,7 @@ describe("ClineProvider - Router Models", () => {
 				glama: mockModels,
 				unbound: mockModels,
 				litellm: mockModels,
-				"aincrok-openrouter": mockModels,
+				"kilocode-openrouter": mockModels,
 				ollama: mockModels, // kilocode_change
 				lmstudio: {},
 			},
@@ -2758,7 +2758,7 @@ describe("ClineProvider - Router Models", () => {
 			.mockRejectedValueOnce(new Error("Requesty API error")) // requesty fail
 			.mockResolvedValueOnce(mockModels) // glama success
 			.mockRejectedValueOnce(new Error("Unbound API error")) // unbound fail
-			.mockRejectedValueOnce(new Error("AINCROK-OpenRouter API error")) // aincrok-openrouter fail
+			.mockRejectedValueOnce(new Error("AINCROK-OpenRouter API error")) // kilocode-openrouter fail
 			.mockRejectedValueOnce(new Error("Ollama API error")) // kilocode_change
 			.mockRejectedValueOnce(new Error("LiteLLM connection failed")) // litellm fail
 
@@ -2775,7 +2775,7 @@ describe("ClineProvider - Router Models", () => {
 				ollama: {},
 				lmstudio: {},
 				litellm: {},
-				"aincrok-openrouter": {},
+				"kilocode-openrouter": {},
 			},
 		})
 
@@ -2798,7 +2798,7 @@ describe("ClineProvider - Router Models", () => {
 			type: "singleRouterModelFetchResponse",
 			success: false,
 			error: "AINCROK-OpenRouter API error",
-			values: { provider: "aincrok-openrouter" },
+			values: { provider: "kilocode-openrouter" },
 		})
 
 		expect(mockPostMessage).toHaveBeenCalledWith({
@@ -2891,7 +2891,7 @@ describe("ClineProvider - Router Models", () => {
 				glama: mockModels,
 				unbound: mockModels,
 				litellm: {},
-				"aincrok-openrouter": mockModels,
+				"kilocode-openrouter": mockModels,
 				ollama: mockModels, // kilocode_change
 				lmstudio: {},
 			},

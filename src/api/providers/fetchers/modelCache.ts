@@ -79,14 +79,14 @@ export const getModels = async (options: GetModelsOptions): Promise<ModelRecord>
 				models = await getLiteLLMModels(options.apiKey, options.baseUrl)
 				break
 			// kilocode_change start
-			case "aincrok-openrouter":
+			case "kilocode-openrouter":
 				models = await getOpenRouterModels({
 					openRouterBaseUrl:
-						getKiloBaseUriFromToken(options.aincrokToken ?? "") +
-						(options.aincrokOrganizationId
-							? `/api/organizations/${options.aincrokOrganizationId}`
+						getKiloBaseUriFromToken(options.kilocodeToken ?? "") +
+						(options.kilocodeOrganizationId
+							? `/api/organizations/${options.kilocodeOrganizationId}`
 							: "/api/openrouter"),
-					headers: options.aincrokToken ? { Authorization: `Bearer ${options.aincrokToken}` } : undefined,
+					headers: options.kilocodeToken ? { Authorization: `Bearer ${options.kilocodeToken}` } : undefined,
 				})
 				break
 			case "cerebras":

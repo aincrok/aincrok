@@ -94,7 +94,7 @@ export const KiloModelInfoView = ({
 		queryFn: async () => {
 			try {
 				return (
-					await fetch(`${getKiloBaseUriFromToken(apiConfiguration.aincrokToken ?? "")}/api/modelstats`)
+					await fetch(`${getKiloBaseUriFromToken(apiConfiguration.kilocodeToken ?? "")}/api/modelstats`)
 				).json()
 			} catch (err) {
 				if (err instanceof Error) {

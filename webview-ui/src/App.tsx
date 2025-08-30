@@ -21,7 +21,9 @@ import { MarketplaceView } from "./components/marketplace/MarketplaceView"
 import ModesView from "./components/modes/ModesView"
 import { HumanRelayDialog } from "./components/human-relay/HumanRelayDialog"
 import BottomControls from "./components/aincrok/BottomControls" // kilocode_change
-import { MemoryService } from "./services/MemoryService" // kilocode_change
+import { MemoryService, type MemoryUsageInfo } from "./services/MemoryService" // aincrok_change
+import { TimerService, UI_TIMERS } from "./services/TimerService" // aincrok_change
+import { IncrementalMessageProcessor, INCREMENTAL_CONFIGS } from "./services/IncrementalMessageProcessor" // aincrok_change
 import { DeleteMessageDialog, EditMessageDialog } from "./components/chat/MessageModificationConfirmationDialog"
 import ErrorBoundary from "./components/ErrorBoundary"
 // import { AccountView } from "./components/account/AccountView" // kilocode_change: we have our own profile view
@@ -137,6 +139,16 @@ const App = () => {
 		(e: MessageEvent) => {
 			const message: ExtensionMessage = e.data
 
+			// aincrok_change: Reset UI activity timer on any message activity
+			const timerService = TimerService.getInstance()
+			const activeTimers = timerService.getActiveTimerIds()
+			const uiActivityTimer = activeTimers.find((id) =>
+				timerService.getTimerStats().timers.find((t) => t.id === id && t.name === "UI Activity Timeout"),
+			)
+			if (uiActivityTimer) {
+				timerService.restartTimer(uiActivityTimer)
+			}
+
 			if (message.type === "action" && message.action) {
 				// kilocode_change begin
 				if (message.action === "focusChatInput") {
@@ -204,16 +216,112 @@ const App = () => {
 	}, [shouldShowAnnouncement])
 
 	// kilocode_change start
-	const telemetryDistinctId = useKiloIdentity(apiConfiguration?.aincrokToken ?? "", machineId ?? "")
+	const telemetryDistinctId = useKiloIdentity(apiConfiguration?.kilocodeToken ?? "", machineId ?? "")
 	useEffect(() => {
 		if (didHydrateState) {
 			telemetryClient.updateTelemetryState(telemetrySetting, telemetryKey, telemetryDistinctId)
 
-			// kilocode_change start
+			// aincrok_change start - enhanced memory service with cleanup callbacks
 			const memoryService = new MemoryService()
+
+			// Set up memory pressure cleanup callbacks (H2 hypothesis testing)
+			memoryService.onMemoryPressure("moderate", async (info: MemoryUsageInfo) => {
+				console.log(`[App] Moderate pressure cleanup: ${info.heapUsedMb}MB`)
+				// aincrok_change: Use enhanced DOM cleanup
+				memoryService.clearDomCaches()
+			})
+
+			memoryService.onMemoryPressure("high", async (info: MemoryUsageInfo) => {
+				console.log(`[App] High pressure cleanup: ${info.heapUsedMb}MB`)
+				// Clear DOM caches, force re-renders to free memory
+				// Notify extension to reduce state transfer size
+				vscode.postMessage({
+					type: "memoryPressure",
+					level: "high",
+					heapUsedMb: info.heapUsedMb,
+				})
+			})
+
+			memoryService.onMemoryPressure("critical", async (info: MemoryUsageInfo) => {
+				console.warn(`[App] Critical pressure emergency cleanup: ${info.heapUsedMb}MB`)
+				// aincrok_change: Use enhanced emergency cleanup
+				await memoryService.performEmergencyCleanup()
+				// Request extension to aggressively reduce message history
+				vscode.postMessage({
+					type: "memoryPressure",
+					level: "critical",
+					heapUsedMb: info.heapUsedMb,
+					emergency: true,
+				})
+			})
+
 			memoryService.start()
-			return () => memoryService.stop()
-			// kilocode_change end
+
+			// aincrok_change: Timer Management System setup (H3 hypothesis - connection health monitoring)
+			const timerService = TimerService.getInstance()
+
+			// Connection health monitoring timer
+			const connectionHealthTimerId = timerService.startTimer({
+				...UI_TIMERS.CONNECTION_HEALTH,
+				onTimeout: () => {
+					// Send heartbeat to extension and check responsiveness
+					console.log("[App] Connection health check - sending heartbeat to extension")
+					// Use generic message type to avoid WebviewMessage type errors
+					;(vscode as any).postMessage({
+						type: "healthCheck",
+						timestamp: Date.now(),
+					})
+				},
+			})
+
+			// UI activity monitoring to prevent grey screen during long operations
+			const uiActivityTimerId = timerService.startTimer({
+				...UI_TIMERS.UI_ACTIVITY,
+				onTimeout: () => {
+					console.warn("[TimerService] Long UI inactivity detected - checking for grey screen condition")
+					// Use generic message type to avoid WebviewMessage type errors
+					;(vscode as any).postMessage({
+						type: "activityTimeout",
+						timestamp: Date.now(),
+					})
+				},
+			})
+
+			// aincrok_change: Incremental Message Processing System setup (H4 hypothesis - prevent UI freezing)
+			const memoryStats = memoryService.getMemoryStats()
+			const messageProcessorConfig =
+				memoryStats.pressureLevel === "critical" || memoryStats.pressureLevel === "high"
+					? INCREMENTAL_CONFIGS.CONSERVATIVE
+					: memoryStats.pressureLevel === "moderate"
+						? INCREMENTAL_CONFIGS.BALANCED
+						: INCREMENTAL_CONFIGS.HIGH_PERFORMANCE
+
+			const messageProcessor = IncrementalMessageProcessor.getInstance({
+				...messageProcessorConfig,
+				debugMode: process.env.NODE_ENV === "development",
+			})
+
+			// Register default message processor
+			messageProcessor.registerProcessor("default", async (chunk) => {
+				if (chunk.isComplete) {
+					console.debug(`[MessageProcessor] Processing complete message: ${chunk.id}`)
+				} else {
+					console.debug(
+						`[MessageProcessor] Processing chunk ${chunk.chunkIndex + 1}/${chunk.totalChunks} of ${chunk.id}`,
+					)
+				}
+				// Message processing will be handled by specific components
+			})
+
+			messageProcessor.start()
+
+			return () => {
+				memoryService.stop()
+				timerService.stopTimer(connectionHealthTimerId)
+				timerService.stopTimer(uiActivityTimerId)
+				messageProcessor.stop()
+			}
+			// aincrok_change end
 		}
 	}, [telemetrySetting, telemetryKey, telemetryDistinctId, didHydrateState])
 	// kilocode_change end

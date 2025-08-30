@@ -328,7 +328,7 @@
 			"copy_code": "Copy code"
 		}
 	},
-	"systemPromptWarning": "WARNING: Custom system prompt override active. This can severely break functionality and cause unpredictable behavior.",
+	"systemPromptWarning": "Custom System Prompt Active",
 	"profileViolationWarning": "The current profile isn't compatible with your organization's settings",
 	"shellIntegration": {
 		"title": "Command Execution Warning",

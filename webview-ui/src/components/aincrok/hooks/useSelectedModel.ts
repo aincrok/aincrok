@@ -12,7 +12,7 @@ export const getModelIdKey = ({
 	| "requestyModelId"
 	| "openAiModelId"
 	| "litellmModelId"
-	| "aincrokModel"
+	| "kilocodeModel"
 	| "ollamaModelId"
 	| "lmStudioModelId"
 	| "vsCodeLmModelSelector"
@@ -47,7 +47,7 @@ export const getModelIdKey = ({
 			return "vsCodeLmModelSelector"
 		}
 		case "kilocode": {
-			return "aincrokModel"
+			return "kilocodeModel"
 		}
 		default: {
 			return "apiModelId"

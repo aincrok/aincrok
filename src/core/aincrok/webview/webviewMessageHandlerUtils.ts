@@ -72,9 +72,9 @@ const resendMessageSequence = async (
 export const fetchAINCROKNotificationsHandler = async (provider: ClineProvider) => {
 	try {
 		const { apiConfiguration } = await provider.getState()
-		const aincrokToken = apiConfiguration?.aincrokToken
+		const kilocodeToken = apiConfiguration?.kilocodeToken
 
-		if (!aincrokToken || apiConfiguration?.apiProvider !== "kilocode") {
+		if (!kilocodeToken || apiConfiguration?.apiProvider !== "kilocode") {
 			provider.postMessageToWebview({
 				type: "kilocodeNotificationsResponse",
 				notifications: [],
@@ -82,9 +82,9 @@ export const fetchAINCROKNotificationsHandler = async (provider: ClineProvider) 
 			return
 		}
 
-		const response = await axios.get(`${getKiloBaseUriFromToken(aincrokToken)}/api/users/notifications`, {
+		const response = await axios.get(`${getKiloBaseUriFromToken(kilocodeToken)}/api/users/notifications`, {
 			headers: {
-				Authorization: `Bearer ${aincrokToken}`,
+				Authorization: `Bearer ${kilocodeToken}`,
 				"Content-Type": "application/json",
 			},
 			timeout: 5000,

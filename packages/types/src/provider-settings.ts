@@ -312,9 +312,9 @@ const sambaNovaSchema = apiModelIdProviderModelSchema.extend({
 
 // kilocode_change start
 const kilocodeSchema = baseProviderSettingsSchema.extend({
-	aincrokToken: z.string().optional(),
-	aincrokOrganizationId: z.string().optional(),
-	aincrokModel: z.string().optional(),
+	kilocodeToken: z.string().optional(),
+	kilocodeOrganizationId: z.string().optional(),
+	kilocodeModel: z.string().optional(),
 	openRouterSpecificProvider: z.string().optional(),
 	openRouterProviderDataCollection: openRouterProviderDataCollectionSchema.optional(),
 	openRouterProviderSort: openRouterProviderSortSchema.optional(),

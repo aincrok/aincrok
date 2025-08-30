@@ -28,6 +28,9 @@ export enum TelemetryEventName {
 	EXCESSIVE_RECURSION = "Excessive Recursion",
 	NOTIFICATION_CLICKED = "Notification Clicked",
 	WEBVIEW_MEMORY_USAGE = "Webview Memory Usage",
+	DIALOG_ERROR_BOUNDARY_TRIGGERED = "Dialog Error Boundary Triggered", // aincrok_change
+	DIALOG_ERROR_RECOVERY_ATTEMPTED = "Dialog Error Recovery Attempted", // aincrok_change
+	DIALOG_ERROR_RECOVERY_FAILED = "Dialog Error Recovery Failed", // aincrok_change
 	FREE_MODELS_LINK_CLICKED = "Free Models Link Clicked",
 	SUGGESTION_BUTTON_CLICKED = "Suggestion Button Clicked",
 	NO_ASSISTANT_MESSAGES = "No Assistant Messages",
@@ -176,6 +179,9 @@ export const rooCodeTelemetryEventSchema = z.discriminatedUnion("type", [
 			TelemetryEventName.INLINE_ASSIST_ACCEPT_SUGGESTION, // kilocode_change
 			TelemetryEventName.INLINE_ASSIST_REJECT_SUGGESTION, // kilocode_change
 			TelemetryEventName.WEBVIEW_MEMORY_USAGE, // kilocode_change
+			TelemetryEventName.DIALOG_ERROR_BOUNDARY_TRIGGERED, // aincrok_change
+			TelemetryEventName.DIALOG_ERROR_RECOVERY_ATTEMPTED, // aincrok_change
+			TelemetryEventName.DIALOG_ERROR_RECOVERY_FAILED, // aincrok_change
 			// kilocode_change end
 
 			TelemetryEventName.TASK_CREATED,

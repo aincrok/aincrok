@@ -2442,7 +2442,8 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		}
 
 		if (truncateResult.summary) {
-			const { summary, cost, prevContextTokens, newContextTokens = 0 } = truncateResult
+			// aincrok_change: Use prevContextTokens as fallback to prevent token counter reset
+			const { summary, cost, prevContextTokens, newContextTokens = prevContextTokens } = truncateResult
 			const contextCondense: ContextCondense = { summary, cost, newContextTokens, prevContextTokens }
 			await this.say(
 				"condense_context",
@@ -2563,7 +2564,8 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 				// send previous_response_id so the request reflects the fresh condensed context.
 				this.skipPrevResponseIdOnce = true
 
-				const { summary, cost, prevContextTokens, newContextTokens = 0 } = truncateResult
+				// aincrok_change: Use prevContextTokens as fallback to prevent token counter reset
+				const { summary, cost, prevContextTokens, newContextTokens = prevContextTokens } = truncateResult
 				const contextCondense: ContextCondense = { summary, cost, newContextTokens, prevContextTokens }
 				await this.say(
 					"condense_context",

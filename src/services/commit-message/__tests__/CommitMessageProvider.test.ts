@@ -9,7 +9,7 @@ import type { Mock } from "vitest"
 vi.mock("../../../core/config/ContextProxy", () => {
 	const mockContextProxy = {
 		getProviderSettings: vi.fn().mockReturnValue({
-			aincrokToken: "mock-token",
+			kilocodeToken: "mock-token",
 		}),
 		getValue: vi.fn().mockImplementation((key: string) => {
 			switch (key) {
@@ -296,7 +296,7 @@ describe("CommitMessageProvider", () => {
 				}
 			})
 
-			const defaultConfig = { aincrokToken: "mock-token" }
+			const defaultConfig = { kilocodeToken: "mock-token" }
 			mockInstance.getProviderSettings.mockReturnValue(defaultConfig)
 
 			await commitMessageProvider.generateCommitMessage()

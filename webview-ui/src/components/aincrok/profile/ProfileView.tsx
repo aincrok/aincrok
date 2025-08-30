@@ -35,7 +35,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onDone }) => {
 		vscode.postMessage({
 			type: "fetchBalanceDataRequest",
 		})
-	}, [apiConfiguration?.aincrokToken, apiConfiguration?.aincrokOrganizationId])
+	}, [apiConfiguration?.kilocodeToken, apiConfiguration?.kilocodeOrganizationId])
 
 	useEffect(() => {
 		const handleMessage = (event: MessageEvent<WebviewMessage>) => {
@@ -83,8 +83,8 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onDone }) => {
 			text: currentApiConfigName,
 			apiConfiguration: {
 				...apiConfiguration,
-				aincrokToken: "",
-				aincrokOrganizationId: undefined,
+				kilocodeToken: "",
+				kilocodeOrganizationId: undefined,
 			},
 		})
 	}
@@ -211,7 +211,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onDone }) => {
 									</div>
 
 									{/* Buy Credits Section - Only show for personal accounts */}
-									{!apiConfiguration?.aincrokOrganizationId && (
+									{!apiConfiguration?.kilocodeOrganizationId && (
 										<div className="w-full mt-8">
 											<div className="text-lg font-semibold text-[var(--vscode-foreground)] mb-4 text-center">
 												{t("kilocode:profile.shop.title")}

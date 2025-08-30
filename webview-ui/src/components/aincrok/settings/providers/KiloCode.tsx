@@ -54,20 +54,20 @@ export const KiloCode = ({
 				<label className="block font-medium -mb-2">{t("kilocode:settings.provider.account")}</label>
 			</div>
 			{!hideKiloCodeButton &&
-				(apiConfiguration.aincrokToken ? (
+				(apiConfiguration.kilocodeToken ? (
 					<div>
 						<Button
 							variant="secondary"
 							onClick={async () => {
-								setApiConfigurationField("aincrokToken", "")
+								setApiConfigurationField("kilocodeToken", "")
 
 								vscode.postMessage({
 									type: "upsertApiConfiguration",
 									text: currentApiConfigName,
 									apiConfiguration: {
 										...apiConfiguration,
-										aincrokToken: "",
-										aincrokOrganizationId: undefined,
+										kilocodeToken: "",
+										kilocodeOrganizationId: undefined,
 									},
 								})
 							}}>
@@ -81,9 +81,9 @@ export const KiloCode = ({
 				))}
 
 			<VSCodeTextField
-				value={apiConfiguration?.aincrokToken || ""}
+				value={apiConfiguration?.kilocodeToken || ""}
 				type="password"
-				onInput={handleInputChange("aincrokToken")}
+				onInput={handleInputChange("kilocodeToken")}
 				placeholder={t("kilocode:settings.provider.apiKey")}
 				className="w-full">
 				<div className="flex justify-between items-center mb-1">
@@ -97,8 +97,8 @@ export const KiloCode = ({
 				apiConfiguration={apiConfiguration}
 				setApiConfigurationField={setApiConfigurationField}
 				defaultModelId={kilocodeDefaultModel}
-				models={routerModels?.["aincrok-openrouter"] ?? {}}
-				modelIdKey="aincrokModel"
+				models={routerModels?.["kilocode-openrouter"] ?? {}}
+				modelIdKey="kilocodeModel"
 				serviceName="Kilo Code"
 				serviceUrl="https://kilocode.ai"
 				organizationAllowList={organizationAllowList}

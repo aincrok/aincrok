@@ -2,18 +2,18 @@ import { useEffect, useState } from "react"
 import { ProfileDataResponsePayload } from "@roo/WebviewMessage"
 import { vscode } from "@/utils/vscode"
 
-export function useKiloIdentity(aincrokToken: string, machineId: string) {
+export function useKiloIdentity(kilocodeToken: string, machineId: string) {
 	const [kiloIdentity, setKiloIdentity] = useState("")
 	useEffect(() => {
 		const handleMessage = (event: MessageEvent) => {
 			if (event.data.type === "profileDataResponse") {
 				const payload = event.data.payload as ProfileDataResponsePayload | undefined
 				const success = payload?.success || false
-				const tokenFromMessage = payload?.data?.aincrokToken || ""
+				const tokenFromMessage = payload?.data?.kilocodeToken || ""
 				const email = payload?.data?.user?.email || ""
 				if (!success) {
 					console.error("KILOTEL: Failed to identify Kilo user, message doesn't indicate success:", payload)
-				} else if (tokenFromMessage !== aincrokToken) {
+				} else if (tokenFromMessage !== kilocodeToken) {
 					console.error("KILOTEL: Failed to identify Kilo user, token mismatch:", payload)
 				} else if (!email) {
 					console.error("KILOTEL: Failed to identify Kilo user, email missing:", payload)
@@ -25,7 +25,7 @@ export function useKiloIdentity(aincrokToken: string, machineId: string) {
 			}
 		}
 
-		if (aincrokToken) {
+		if (kilocodeToken) {
 			console.debug("KILOTEL: fetching profile...")
 			window.addEventListener("message", handleMessage)
 			vscode.postMessage({
@@ -39,6 +39,6 @@ export function useKiloIdentity(aincrokToken: string, machineId: string) {
 		return () => {
 			window.removeEventListener("message", handleMessage)
 		}
-	}, [aincrokToken])
+	}, [kilocodeToken])
 	return kiloIdentity || machineId
 }
