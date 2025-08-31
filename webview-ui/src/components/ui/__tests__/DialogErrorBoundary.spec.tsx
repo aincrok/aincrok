@@ -5,12 +5,15 @@ import React from "react"
 import { DialogErrorBoundary } from "../DialogErrorBoundary"
 
 // Mock telemetry client
-const mockTelemetryCapture = vi.fn()
 vi.mock("../../../utils/TelemetryClient", () => ({
 	telemetryClient: {
-		capture: mockTelemetryCapture,
+		capture: vi.fn(),
 	},
 }))
+
+// Import the mocked module to get access to the mock function
+import { telemetryClient } from "../../../utils/TelemetryClient"
+const mockTelemetryCapture = telemetryClient.capture as ReturnType<typeof vi.fn>
 
 // Test component that throws an error
 const ThrowError = ({ shouldThrow }: { shouldThrow: boolean }) => {
@@ -63,8 +66,8 @@ describe("DialogErrorBoundary", () => {
 				</DialogErrorBoundary>,
 			)
 
-			expect(screen.getByText("Recovering dialog...")).toBeInTheDocument()
-			expect(screen.getByText("(Attempt 1/3)")).toBeInTheDocument()
+			expect(screen.getByText(/Recovering dialog\.\.\./)).toBeInTheDocument()
+			expect(screen.getByText(/\(Attempt 1\/3\)/)).toBeInTheDocument()
 
 			consoleSpy.mockRestore()
 		})
@@ -79,7 +82,7 @@ describe("DialogErrorBoundary", () => {
 			)
 
 			expect(mockTelemetryCapture).toHaveBeenCalledWith(
-				expect.stringContaining("DIALOG_ERROR_BOUNDARY_TRIGGERED"),
+				"Dialog Error Boundary Triggered",
 				expect.objectContaining({
 					errorMessage: "Test error",
 					errorStack: expect.any(String),
@@ -101,10 +104,10 @@ describe("DialogErrorBoundary", () => {
 			)
 
 			// Initial error state
-			expect(screen.getByText("Recovering dialog...")).toBeInTheDocument()
+			expect(screen.getByText(/Recovering dialog\.\.\./)).toBeInTheDocument()
 
 			// Simulate max retries reached by calling attemptRecovery multiple times
-			const _boundary = screen.getByText("Recovering dialog...").closest(".dialog-error-retry")?.parentElement
+			const _boundary = screen.getByText(/Recovering dialog\.\.\./).closest(".dialog-error-retry")?.parentElement
 
 			// We need to simulate the internal retry logic
 			// Since we can't directly access the component instance, we'll test the final state
@@ -291,7 +294,7 @@ describe("DialogErrorBoundary", () => {
 				</DialogErrorBoundary>,
 			)
 
-			expect(screen.getByText("(Attempt 1/5)")).toBeInTheDocument()
+			expect(screen.getByText(/\(Attempt 1\/5\)/)).toBeInTheDocument()
 
 			consoleSpy.mockRestore()
 		})
@@ -312,7 +315,7 @@ describe("DialogErrorBoundary", () => {
 
 			await waitFor(() => {
 				expect(mockTelemetryCapture).toHaveBeenCalledWith(
-					expect.stringContaining("DIALOG_ERROR_RECOVERY_ATTEMPTED"),
+					"Dialog Error Recovery Attempted",
 					expect.objectContaining({
 						retryCount: 1,
 						maxRetries: 3,
@@ -339,7 +342,7 @@ describe("DialogErrorBoundary", () => {
 
 			await waitFor(() => {
 				expect(mockTelemetryCapture).toHaveBeenCalledWith(
-					expect.stringContaining("DIALOG_ERROR_RECOVERY_FAILED"),
+					"Dialog Error Recovery Failed",
 					expect.objectContaining({
 						maxRetries: 1,
 						finalError: "Test error",

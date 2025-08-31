@@ -1,7 +1,7 @@
 # AINCROK - AI Code Assistant for VS Code
 
 <div align="center">
-  <img src="readme-banner.svg" alt="AINCROK Banner" width="600">
+  <img src="readme-banner.png" alt="AINCROK Banner" width="600">
 </div>
 > AINCROK Is Not Cline Roo Or Kilo
 [![Version](https://img.shields.io/visual-studio-marketplace/v/aincrok.aincrok)](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)
