@@ -69,7 +69,7 @@ export const test = base.extend<TestFixtures>({
 				"--disable-crash-reporter",
 				"--enable-logging",
 				"--log-level=0",
-				"--disable-extensions-except=kilocode.aincrok",
+				"--disable-extensions-except=aincrok.aincrok",
 				"--disable-extension-recommendations",
 				"--disable-extension-update-check",
 				"--disable-default-apps",
@@ -79,7 +79,7 @@ export const test = base.extend<TestFixtures>({
 				`--extensionDevelopmentPath=${path.resolve(__dirname, "..", "..", "..", "src")}`,
 				`--extensions-dir=${path.join(defaultCachePath, "extensions")}`,
 				`--user-data-dir=${userDataDir}`,
-				"--enable-proposed-api=kilocode.aincrok",
+				"--enable-proposed-api=aincrok.aincrok",
 				await createProject(),
 			],
 		})
