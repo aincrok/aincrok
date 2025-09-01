@@ -2,228 +2,166 @@
 sidebar_label: Welcome
 ---
 
-import { DISCORD_URL, REDDIT_URL, GITHUB_ISSUES_MAIN_URL, GITHUB_FEATURES_URL, YOUTUBE_URL } from '@site/src/constants.ts'
+import { PostHogProvider, ABTestProvider } from '@site/src/components/Analytics';
+import { HeroSection, InteractiveDemo, FeatureShowcase } from '@site/src/components/LandingPage';
+import { DISCORD_URL, REDDIT_URL, GITHUB_ISSUES_MAIN_URL, GITHUB_FEATURES_URL, YOUTUBE_URL } from '@site/src/constants.ts';
 import Image from '@site/src/components/Image';
 
-<div style={{textAlign: 'center', marginBottom: '2rem'}}>
-  <Image src="/docs/img/aincrok-logo.png" alt="Aincrok Logo" width="120" style={{marginBottom: '1rem'}} />
-  <h1 style={{fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'}}>
-    Aincrok Documentation
-  </h1>
-  <p style={{fontSize: '1.25rem', color: '#6b7280', maxWidth: '600px', margin: '0 auto'}}>
-    AI-powered coding assistant that accelerates development with intelligent code generation, task automation, and seamless VS Code integration.
-  </p>
-</div>
-
-<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', margin: '2rem 0'}}>
-  <div style={{padding: '1.5rem', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', backgroundColor: '#f9fafb'}}>
-    <div style={{fontSize: '2.5rem', marginBottom: '0.5rem'}}>🚀</div>
-    <h3 style={{marginBottom: '0.5rem'}}>Generate Code</h3>
-    <p style={{fontSize: '0.875rem', color: '#6b7280'}}>Transform natural language descriptions into working code</p>
-  </div>
-  <div style={{padding: '1.5rem', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', backgroundColor: '#f9fafb'}}>
-    <div style={{fontSize: '2.5rem', marginBottom: '0.5rem'}}>🔧</div>
-    <h3 style={{marginBottom: '0.5rem'}}>Refactor & Debug</h3>
-    <p style={{fontSize: '0.875rem', color: '#6b7280'}}>Improve existing code quality and fix bugs intelligently</p>
-  </div>
-  <div style={{padding: '1.5rem', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', backgroundColor: '#f9fafb'}}>
-    <div style={{fontSize: '2.5rem', marginBottom: '0.5rem'}}>📝</div>
-    <h3 style={{marginBottom: '0.5rem'}}>Smart Documentation</h3>
-    <p style={{fontSize: '0.875rem', color: '#6b7280'}}>Generate and maintain comprehensive documentation</p>
-  </div>
-  <div style={{padding: '1.5rem', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', backgroundColor: '#f9fafb'}}>
-    <div style={{fontSize: '2.5rem', marginBottom: '0.5rem'}}>🤔</div>
-    <h3 style={{marginBottom: '0.5rem'}}>Codebase Intelligence</h3>
-    <p style={{fontSize: '0.875rem', color: '#6b7280'}}>Understand and navigate complex codebases with ease</p>
-  </div>
-  <div style={{padding: '1.5rem', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', backgroundColor: '#f9fafb'}}>
-    <div style={{fontSize: '2.5rem', marginBottom: '0.5rem'}}>🔄</div>
-    <h3 style={{marginBottom: '0.5rem'}}>Task Automation</h3>
-    <p style={{fontSize: '0.875rem', color: '#6b7280'}}>Automate repetitive development workflows</p>
-  </div>
-  <div style={{padding: '1.5rem', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', backgroundColor: '#f9fafb'}}>
-    <div style={{fontSize: '2.5rem', marginBottom: '0.5rem'}}>🏗️</div>
-    <h3 style={{marginBottom: '0.5rem'}}>Project Creation</h3>
-    <p style={{fontSize: '0.875rem', color: '#6b7280'}}>Scaffold new projects and create file structures</p>
-  </div>
-</div>
-
-<div style={{textAlign: 'center', margin: '3rem 0'}}>
-  <div style={{display: 'inline-flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center'}}>
-    <a href="/getting-started/installing" style={{
-      display: 'inline-block',
-      padding: '0.75rem 2rem',
-      backgroundColor: '#667eea',
-      color: 'white',
-      borderRadius: '8px',
-      textDecoration: 'none',
-      fontWeight: 'bold',
-      fontSize: '1.1rem',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-      transition: 'all 0.2s'
-    }}>
-      Get Started →
-    </a>
-    <a href="/tutorial-videos" style={{
-      display: 'inline-block',
-      padding: '0.75rem 2rem',
-      backgroundColor: 'transparent',
-      color: '#667eea',
-      borderRadius: '8px',
-      textDecoration: 'none',
-      fontWeight: 'bold',
-      fontSize: '1.1rem',
-      border: '2px solid #667eea',
-      transition: 'all 0.2s'
-    }}>
-      Watch Tutorials
-    </a>
-  </div>
-</div>
-
-## See Aincrok in Action
-
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
-  <Image src="/docs/img/aincrokgif.gif" alt="GIF showing some of the capabilities of Aincrok" width="700" style={{borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'}} />
-</div>
-
-## Why Choose Aincrok?
-
-<div style={{display: 'grid', gridTemplateColumns: '1fr', gap: '2rem', margin: '2rem 0'}}>
-  <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem'}}>
-    <div>
-      <h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem'}}>
-        <span style={{fontSize: '1.5rem'}}>🎯</span>
-        Multiple Specialized Modes
-      </h3>
-      <p>Aincrok adapts to your needs with specialized modes:</p>
-      <ul>
-        <li><strong>Code Mode:</strong> General-purpose coding tasks</li>
-        <li><strong>Architect Mode:</strong> Planning and technical leadership</li>
-        <li><strong>Ask Mode:</strong> Questions and information</li>
-        <li><strong>Debug Mode:</strong> Systematic problem diagnosis</li>
-        <li><strong>Custom Modes:</strong> Unlimited specialized personas</li>
-      </ul>
-      <a href="/basic-usage/using-modes">Learn about modes →</a>
-    </div>
+<PostHogProvider apiKey={process.env.POSTHOG_API_KEY}>
+  <ABTestProvider>
+    <HeroSection />
     
-    <div>
-      <h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem'}}>
-        <span style={{fontSize: '1.5rem'}}>🛠️</span>
-        Powerful Tool Ecosystem
-      </h3>
-      <p>Comprehensive tools for every development need:</p>
-      <ul>
-        <li><strong>File Operations:</strong> Read, write, and organize project files</li>
-        <li><strong>Terminal Integration:</strong> Execute commands seamlessly</li>
-        <li><strong>Browser Control:</strong> Automate web interactions</li>
-        <li><strong>Code Intelligence:</strong> Search and understand codebases</li>
-        <li><strong>MCP Support:</strong> Extend with external services</li>
-      </ul>
-      <a href="/features/tools/tool-use-overview">Explore tools →</a>
-    </div>
-  </div>
-  
-  <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem'}}>
-    <div>
-      <h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem'}}>
-        <span style={{fontSize: '1.5rem'}}>🔗</span>
-        Extensible & Customizable
-      </h3>
-      <ul>
-        <li><strong>MCP Integration:</strong> Connect to external APIs and databases</li>
-        <li><strong>Local Models:</strong> Run AI models offline for privacy</li>
-        <li><strong>Custom Rules:</strong> Project-specific guidelines</li>
-        <li><strong>30+ AI Providers:</strong> Choose your preferred models</li>
-      </ul>
-      <a href="/features/mcp/overview">Discover extensions →</a>
-    </div>
+    <InteractiveDemo />
     
-    <div>
-      <h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem'}}>
-        <span style={{fontSize: '1.5rem'}}>⚡</span>
-        Developer Experience
-      </h3>
-      <ul>
-        <li><strong>Auto-Approval:</strong> Streamline trusted operations</li>
-        <li><strong>Checkpoints:</strong> Safe experimentation with rollbacks</li>
-        <li><strong>Context Mentions:</strong> Reference files and problems easily</li>
-        <li><strong>Shell Integration:</strong> Native terminal workflows</li>
-      </ul>
-      <a href="/features/auto-approving-actions">Optimize workflow →</a>
-    </div>
-  </div>
-</div>
+    <FeatureShowcase />
+    
+    <section style={{padding: '4rem 2rem', background: '#f8fafc'}}>
+      <div style={{maxWidth: '1200px', margin: '0 auto'}}>
+        ## See Aincrok in Action
 
-## Quick Start Guide
+        <div style={{textAlign: 'center', margin: '2rem 0'}}>
+          <Image 
+            src="/docs/img/aincrokgif.gif" 
+            alt="GIF showing some of the capabilities of Aincrok" 
+            width="700" 
+            style={{borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'}} 
+          />
+        </div>
 
-<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', margin: '2rem 0'}}>
-  <div style={{padding: '1.5rem', border: '1px solid #e5e7eb', borderRadius: '8px', textAlign: 'center'}}>
-    <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#667eea', marginBottom: '0.5rem'}}>1</div>
-    <h4>Install</h4>
-    <p style={{fontSize: '0.875rem', color: '#6b7280', marginBottom: '1rem'}}>Get Aincrok from the VS Code marketplace</p>
-    <a href="/getting-started/installing">Install Guide →</a>
-  </div>
-  
-  <div style={{padding: '1.5rem', border: '1px solid #e5e7eb', borderRadius: '8px', textAlign: 'center'}}>
-    <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#667eea', marginBottom: '0.5rem'}}>2</div>
-    <h4>Setup</h4>
-    <p style={{fontSize: '0.875rem', color: '#6b7280', marginBottom: '1rem'}}>Configure your AI provider and preferences</p>
-    <a href="/getting-started/setting-up">Setup Guide →</a>
-  </div>
-  
-  <div style={{padding: '1.5rem', border: '1px solid #e5e7eb', borderRadius: '8px', textAlign: 'center'}}>
-    <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#667eea', marginBottom: '0.5rem'}}>3</div>
-    <h4>Code</h4>
-    <p style={{fontSize: '0.875rem', color: '#6b7280', marginBottom: '1rem'}}>Start your first AI-assisted coding task</p>
-    <a href="/getting-started/your-first-task">Try It Now →</a>
-  </div>
-</div>
+        ## Quick Start Guide
 
-## Community & Resources
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', margin: '2rem 0'}}>
+          <div style={{padding: '2rem', background: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'}}>
+            <div style={{fontSize: '3rem', fontWeight: 'bold', color: '#667eea', marginBottom: '1rem'}}>1</div>
+            <h3 style={{marginBottom: '1rem'}}>Install</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem', lineHeight: '1.6'}}>Get Aincrok from the VS Code marketplace in seconds</p>
+            <a href="/getting-started/installing" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              backgroundColor: '#667eea',
+              color: 'white',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Install Guide →
+            </a>
+          </div>
+          
+          <div style={{padding: '2rem', background: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'}}>
+            <div style={{fontSize: '3rem', fontWeight: 'bold', color: '#667eea', marginBottom: '1rem'}}>2</div>
+            <h3 style={{marginBottom: '1rem'}}>Setup</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem', lineHeight: '1.6'}}>Configure your AI provider and preferences</p>
+            <a href="/getting-started/setting-up" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              backgroundColor: '#667eea',
+              color: 'white',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Setup Guide →
+            </a>
+          </div>
+          
+          <div style={{padding: '2rem', background: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'}}>
+            <div style={{fontSize: '3rem', fontWeight: 'bold', color: '#667eea', marginBottom: '1rem'}}>3</div>
+            <h3 style={{marginBottom: '1rem'}}>Code</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem', lineHeight: '1.6'}}>Start your first AI-assisted coding task</p>
+            <a href="/getting-started/your-first-task" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              backgroundColor: '#667eea',
+              color: 'white',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Try It Now →
+            </a>
+          </div>
+        </div>
 
-<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', margin: '2rem 0', textAlign: 'center'}}>
-  <div style={{padding: '1rem', backgroundColor: '#f3f4f6', borderRadius: '8px'}}>
-    <h4>💬 Discord</h4>
-    <p style={{fontSize: '0.875rem', marginBottom: '1rem'}}>Join our community for real-time help</p>
-    <a href={DISCORD_URL} target="_blank" style={{color: '#667eea'}}>Join Discord →</a>
-  </div>
-  
-  <div style={{padding: '1rem', backgroundColor: '#f3f4f6', borderRadius: '8px'}}>
-    <h4>📺 YouTube</h4>
-    <p style={{fontSize: '0.875rem', marginBottom: '1rem'}}>Video tutorials and demos</p>
-    <a href={YOUTUBE_URL} target="_blank" style={{color: '#667eea'}}>Watch Videos →</a>
-  </div>
-  
-  <div style={{padding: '1rem', backgroundColor: '#f3f4f6', borderRadius: '8px'}}>
-    <h4>🐛 GitHub</h4>
-    <p style={{fontSize: '0.875rem', marginBottom: '1rem'}}>Report issues and request features</p>
-    <a href={GITHUB_ISSUES_MAIN_URL} target="_blank" style={{color: '#667eea'}}>Report Issues →</a>
-  </div>
-  
-  <div style={{padding: '1rem', backgroundColor: '#f3f4f6', borderRadius: '8px'}}>
-    <h4>💡 Ideas</h4>
-    <p style={{fontSize: '0.875rem', marginBottom: '1rem'}}>Share and discuss feature ideas</p>
-    <a href={GITHUB_FEATURES_URL} target="_blank" style={{color: '#667eea'}}>Share Ideas →</a>
-  </div>
-</div>
+        ## Community & Resources
 
----
-
-<div style={{textAlign: 'center', padding: '2rem', backgroundColor: '#f9fafb', borderRadius: '12px', margin: '2rem 0'}}>
-  <h2 style={{marginBottom: '1rem'}}>Ready to Transform Your Development Workflow?</h2>
-  <p style={{fontSize: '1.1rem', color: '#6b7280', marginBottom: '2rem'}}>Join thousands of developers who are already coding smarter with Aincrok</p>
-  <a href="/getting-started/installing" style={{
-    display: 'inline-block',
-    padding: '1rem 2.5rem',
-    backgroundColor: '#667eea',
-    color: 'white',
-    borderRadius: '8px',
-    textDecoration: 'none',
-    fontWeight: 'bold',
-    fontSize: '1.2rem',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-  }}>
-    Start Building with Aincrok →
-  </a>
-</div>
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', margin: '3rem 0', textAlign: 'center'}}>
+          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
+            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>💬</div>
+            <h3 style={{marginBottom: '1rem'}}>Discord Community</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Join our vibrant community for real-time help and discussions</p>
+            <a href={DISCORD_URL} target="_blank" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              color: '#667eea',
+              border: '2px solid #667eea',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Join Discord →
+            </a>
+          </div>
+          
+          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
+            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>📺</div>
+            <h3 style={{marginBottom: '1rem'}}>Video Tutorials</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Watch comprehensive tutorials and feature demonstrations</p>
+            <a href={YOUTUBE_URL} target="_blank" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              color: '#667eea',
+              border: '2px solid #667eea',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Watch Videos →
+            </a>
+          </div>
+          
+          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
+            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>🐛</div>
+            <h3 style={{marginBottom: '1rem'}}>GitHub Issues</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Report bugs and contribute to development</p>
+            <a href={GITHUB_ISSUES_MAIN_URL} target="_blank" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              color: '#667eea',
+              border: '2px solid #667eea',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Report Issues →
+            </a>
+          </div>
+          
+          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
+            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>💡</div>
+            <h3 style={{marginBottom: '1rem'}}>Feature Requests</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Share ideas and vote on new features</p>
+            <a href={GITHUB_FEATURES_URL} target="_blank" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              color: '#667eea',
+              border: '2px solid #667eea',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Share Ideas →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ABTestProvider>
+</PostHogProvider>
