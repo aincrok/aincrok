@@ -1,6 +1,6 @@
 {
-	"extension.displayName": "Aincrok AI Agent (Roo / Cline fork)",
-	"extension.description": "Open Source AI coding assistant for planning, building, and fixing code.",
+	"extension.displayName": "Aincrok - AI Coding Agent (Roo/Cline/Kilo fork)",
+	"extension.description": "Next-gen AI coding agent with MCP support, auto-planning, and advanced tool use. Fork of Roo/Cline/Kilo with enhanced features.",
 	"views.contextMenu.label": "Aincrok",
 	"views.terminalMenu.label": "Aincrok",
 	"views.activitybar.title": "Aincrok",
