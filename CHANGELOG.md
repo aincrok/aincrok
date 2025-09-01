@@ -1,8 +1,6 @@
 # Aincrok Changelog
 
-## 0.1.0
-
-### Minor Changes
+## [v0.1.0]
 
 - [`1fd698a`](https://github.com/aincrok/aincrok/commit/1fd698ad2025946519a0ce2d516ec528ea92eea4) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Improve Inline Assist model compatibility and performance
 
