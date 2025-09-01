@@ -96,23 +96,34 @@ describe("IncrementalMessageProcessor", () => {
 		})
 
 		it("should handle chunked messages correctly", async () => {
+			// Use a higher limit for messages per interval to process all chunks
+			processor.stop()
+			// @ts-expect-error - reset singleton for clean state
+			IncrementalMessageProcessor.instance = null
+			processor = IncrementalMessageProcessor.getInstance({
+				maxChunkSize: 10,
+				processingIntervalMs: 50,
+				maxMessagesPerInterval: 10, // Increased to handle all chunks
+				debugMode: true,
+			})
+
 			processor.registerProcessor("test", mockProcessor)
 			processor.start()
 
-			processor.queueMessage(
-				"test",
-				"this is a very long message that should definitely be chunked into multiple parts",
-			)
+			const message = "this is a very long message that should definitely be chunked into multiple parts"
+			processor.queueMessage("test", message)
+
+			// With maxChunkSize of 10, this 82-char message should create 9 chunks
+			const expectedTotalChunks = Math.ceil(message.length / 10)
 
 			vi.advanceTimersByTime(500) // Process all chunks
 			await vi.runOnlyPendingTimersAsync()
 
 			// Should have been called multiple times for chunks
-			expect(mockProcessor.mock.calls.length).toBeGreaterThan(1)
+			expect(mockProcessor.mock.calls.length).toBe(expectedTotalChunks)
 
 			// Check that chunks are properly formed
 			const calls = mockProcessor.mock.calls
-			const expectedTotalChunks = calls.length
 			calls.forEach((call, index) => {
 				const chunk: MessageChunk = call[0]
 				expect(chunk.id).toBe(`test_${index}`)

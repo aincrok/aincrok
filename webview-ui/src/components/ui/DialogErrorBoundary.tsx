@@ -107,7 +107,7 @@ export class DialogErrorBoundary extends Component<Props, State> {
 	}
 
 	private attemptRecovery = () => {
-		const maxRetries = this.props.maxRetries || 3
+		const maxRetries = this.props.maxRetries ?? 3
 
 		if (this.state.retryCount < maxRetries) {
 			console.log(`[DialogErrorBoundary] Attempting recovery ${this.state.retryCount + 1}/${maxRetries}`)
@@ -145,7 +145,7 @@ export class DialogErrorBoundary extends Component<Props, State> {
 	render() {
 		if (this.state.hasError) {
 			// Check if we've exceeded max retries
-			const maxRetries = this.props.maxRetries || 3
+			const maxRetries = this.props.maxRetries ?? 3
 			if (this.state.retryCount >= maxRetries) {
 				// Provide fallback UI or user-defined fallback
 				return (
