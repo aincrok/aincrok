@@ -42,7 +42,7 @@ const config: Config = {
 	// may want to replace "en" with "zh-Hans".
 	i18n: {
 		defaultLocale: "en",
-		locales: ["en", "zh-CN"],
+		locales: ["en"],
 	},
 
 	presets: [
@@ -142,7 +142,7 @@ const config: Config = {
 						from: ["/advanced-usage/mcp", "/mcp/overview"],
 					},
 					{
-						to: "/features/mcp/using-mcp-in-aincrok",
+						to: "/features/mcp/using-mcp-in-kilo-code",
 						from: ["/mcp/using-mcp-in-aincrok"],
 					},
 					{

@@ -32,7 +32,7 @@ You can edit both global and project-level MCP configuration files directly from
     - **`Edit Global MCP`**: Opens the global `mcp_settings.json` file.
     - **`Edit Project MCP`**: Opens the project-specific `.aincrok/mcp.json` file. If this file doesn't exist, Aincrok will create it for you.
 
-  <img src="/docs/img/using-mcp-in-aincrok/mcp-installed-config.png" alt="Edit Global MCP and Edit Project MCP buttons" width="600" />
+  <img src="/docs/img/using-mcp-in-kilo-code/mcp-installed-config.png" alt="Edit Global MCP and Edit Project MCP buttons" width="600" />
 
 Both files use a JSON format with a `mcpServers` object containing named server configurations:
 
@@ -120,7 +120,7 @@ SSE configuration example:
 1. Press the <Codicon name="trash" /> next to the MCP server you would like to delete
 2. Press the `Delete` button on the confirmation box
 
-  <img src="/docs/img/using-mcp-in-aincrok/using-mcp-in-aincrok-5.png" alt="Delete confirmation box" width="400" />
+  <img src="/docs/img/using-mcp-in-kilo-code/using-mcp-in-kilo-code-5.png" alt="Delete confirmation box" width="400" />
 
 ### Restarting a Server
 
@@ -136,7 +136,7 @@ To set the maximum time to wait for a response after a tool call to the MCP serv
 
 1. Click the `Network Timeout` pulldown at the bottom of the individual MCP server's config box and change the time. Default is 1 minute but it can be set between 30 seconds and 5 minutes.
 
-<img src="/docs/img/using-mcp-in-aincrok/using-mcp-in-aincrok-6.png" alt="Network Timeout pulldown" width="400" />
+<img src="/docs/img/using-mcp-in-kilo-code/using-mcp-in-kilo-code-6.png" alt="Network Timeout pulldown" width="400" />
 
 ### Auto Approve Tools
 
@@ -146,7 +146,7 @@ MCP tool auto-approval works on a per-tool basis and is disabled by default. To 
 2. In the MCP server settings, locate the specific tool you want to auto-approve
 3. Check the `Always allow` checkbox next to the tool name
 
-<img src="/docs/img/using-mcp-in-aincrok/using-mcp-in-aincrok-7.png" alt="Always allow checkbox for MCP tools" width="120" />
+<img src="/docs/img/using-mcp-in-kilo-code/using-mcp-in-kilo-code-7.png" alt="Always allow checkbox for MCP tools" width="120" />
 
 When enabled, Aincrok will automatically approve this specific tool without prompting. Note that the global "Use MCP servers" setting takes precedence - if it's disabled, no MCP tools will be auto-approved.
 
