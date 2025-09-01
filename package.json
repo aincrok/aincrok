@@ -1,7 +1,7 @@
 {
 	"name": "aincrok",
-	"displayName": "AINCROK - AI Code Assistant",
-	"description": "AINCROK Is Not Cline Roo Or Kilo - Advanced AI-powered coding assistant for VS Code",
+	"displayName": "Aincrok - AI Code Assistant",
+	"description": "Aincrok Is Not Cline Roo Or Kilo - Advanced AI-powered coding assistant for VS Code",
 	"version": "1.0.0",
 	"publisher": "aincrok",
 	"homepage": "https://aincrok.dev",
@@ -12,7 +12,7 @@
 	"bugs": {
 		"url": "https://github.com/aincrok/aincrok/issues"
 	},
-	"author": "AINCROK Team",
+	"author": "Aincrok Team",
 	"packageManager": "pnpm@10.8.1",
 	"engines": {
 		"node": "20.19.2"

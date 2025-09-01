@@ -334,7 +334,7 @@ function getMorphConfiguration(state: ClineProviderState): MorphConfiguration {
 
 	// Priority 2: Use KiloCode provider
 	if (state.apiConfiguration?.apiProvider === "kilocode") {
-		const token = state.apiConfiguration.aincrokToken
+		const token = state.apiConfiguration.kilocodeToken
 		if (!token) {
 			return { available: false, error: "No KiloCode token available to use Morph" }
 		}

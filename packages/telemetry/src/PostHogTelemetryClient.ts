@@ -129,7 +129,7 @@ export class PostHogTelemetryClient extends BaseTelemetryClient {
 		}
 		const id = ++this.counter
 		try {
-			const response = await fetch("https://api.aincrok.ai/api/profile", {
+			const response = await fetch("https://api.kilocode.ai/api/profile", {
 				headers: {
 					Authorization: `Bearer ${aincrokToken}`,
 					"Content-Type": "application/json",

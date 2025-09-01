@@ -17,7 +17,7 @@ interface Notification {
 	action?: NotificationAction
 }
 
-export const AINCROKNotifications: React.FC = () => {
+export const AincrokNotifications: React.FC = () => {
 	const { dismissedNotificationIds } = useExtensionState()
 	const [notifications, setNotifications] = useState<Notification[]>([])
 	const filteredNotifications = notifications.filter(
@@ -43,7 +43,7 @@ export const AINCROKNotifications: React.FC = () => {
 	}, [currentIndex, filteredNotifications.length, dismissedNotificationIds])
 
 	useEffect(() => {
-		vscode.postMessage({ type: "fetchAINCROKNotifications" })
+		vscode.postMessage({ type: "fetchAincrokNotifications" })
 	}, [])
 
 	const handleAction = (action: NotificationAction) => {

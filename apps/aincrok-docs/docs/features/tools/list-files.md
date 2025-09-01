@@ -1,6 +1,6 @@
 # list_files
 
-The `list_files` tool displays the files and directories within a specified location. It helps Kilo Code understand your project structure and navigate your codebase effectively.
+The `list_files` tool displays the files and directories within a specified location. It helps Aincrok understand your project structure and navigate your codebase effectively.
 
 ## Parameters
 
@@ -15,11 +15,11 @@ This tool lists all files and directories in a specified location, providing a c
 
 ## When is it used?
 
-- When Kilo Code needs to understand your project structure
-- When Kilo Code explores what files are available before reading specific ones
-- When Kilo Code maps a codebase to better understand its organization
+- When Aincrok needs to understand your project structure
+- When Aincrok explores what files are available before reading specific ones
+- When Aincrok maps a codebase to better understand its organization
 - Before using more targeted tools like `read_file` or `search_files`
-- When Kilo Code needs to check for specific file types (like configuration files) across a project
+- When Aincrok needs to check for specific file types (like configuration files) across a project
 
 ## Key Features
 
@@ -27,7 +27,7 @@ This tool lists all files and directories in a specified location, providing a c
 - Offers both recursive and non-recursive listing modes
 - Intelligently ignores common large directories like `node_modules` and `.git` in recursive mode
 - Respects `.gitignore` rules when in recursive mode
-- Marks files ignored by `.kilocodeignore` with a lock symbol (🔒) when `showKiloCodeIgnoredFiles` is enabled
+- Marks files ignored by `.aincrokignore` with a lock symbol (🔒) when `showAincrokIgnoredFiles` is enabled
 - Optimizes performance with level-by-level directory traversal
 - Sorts results to show directories before their contents, maintaining a logical hierarchy
 - Presents results in a clean, organized format
@@ -50,19 +50,19 @@ When the `list_files` tool is invoked, it follows this process:
 2. **Path Resolution**: Resolves the relative path to an absolute path
 3. **Security Checks**: Prevents listing files in sensitive locations like root or home directories
 4. **Directory Scanning**:
-   - For non-recursive mode: Lists only the top-level contents
-   - For recursive mode: Traverses the directory structure level by level with a 10-second timeout
-   - If timeout occurs, returns partial results collected up to that point
+    - For non-recursive mode: Lists only the top-level contents
+    - For recursive mode: Traverses the directory structure level by level with a 10-second timeout
+    - If timeout occurs, returns partial results collected up to that point
 5. **Result Filtering**:
-   - In recursive mode, skips common large directories like `node_modules`, `.git`, etc.
-   - Respects `.gitignore` rules when in recursive mode
-   - Handles `.kilocodeignore` patterns, either hiding files or marking them with a lock symbol
+    - In recursive mode, skips common large directories like `node_modules`, `.git`, etc.
+    - Respects `.gitignore` rules when in recursive mode
+    - Handles `.aincrokignore` patterns, either hiding files or marking them with a lock symbol
 6. **Formatting**:
-   - Marks directories with a trailing slash (`/`)
-   - Sorts results to show directories before their contents for logical hierarchy
-   - Marks ignored files with a lock symbol (🔒) when `showKiloCodeIgnored` is enabled
-   - Caps results at 200 files by default with a note about using subdirectories
-   - Organizes results for readability
+    - Marks directories with a trailing slash (`/`)
+    - Sorts results to show directories before their contents for logical hierarchy
+    - Marks ignored files with a lock symbol (🔒) when `showAincrokIgnored` is enabled
+    - Caps results at 200 files by default with a note about using subdirectories
+    - Organizes results for readability
 
 ## File Listing Format
 
@@ -70,11 +70,12 @@ The file listing results include:
 
 - Each file path is displayed on its own line
 - Directories are marked with a trailing slash (`/`)
-- Files ignored by `.kilocodeignore` are marked with a lock symbol (🔒) when `showKiloCodeIgnored` is enabled
+- Files ignored by `.aincrokignore` are marked with a lock symbol (🔒) when `showAincrokIgnored` is enabled
 - Results are sorted logically with directories appearing before their contents
 - When the file limit is reached, a message appears suggesting to use `list_files` on specific subdirectories
 
 Example output format:
+
 ```
 src/
 src/components/
@@ -87,7 +88,8 @@ src/index.ts
 File listing truncated (showing 200 of 543 files). Use list_files on specific subdirectories for more details.
 ```
 
-When `.kilocodeignore` files are used and `showKiloCodeIgnored` is enabled:
+When `.aincrokignore` files are used and `showAincrokIgnored` is enabled:
+
 ```
 src/
 src/components/
@@ -101,14 +103,15 @@ src/index.ts
 
 ## Examples When Used
 
-- When starting a new task, Kilo Code may list the project files to understand its structure before diving into specific code.
-- When asked to find specific types of files (like all JavaScript files), Kilo Code first lists directories to know where to look.
-- When providing recommendations for code organization, Kilo Code examines the current project structure first.
-- When setting up a new feature, Kilo Code lists related directories to understand the project conventions.
+- When starting a new task, Aincrok may list the project files to understand its structure before diving into specific code.
+- When asked to find specific types of files (like all JavaScript files), Aincrok first lists directories to know where to look.
+- When providing recommendations for code organization, Aincrok examines the current project structure first.
+- When setting up a new feature, Aincrok lists related directories to understand the project conventions.
 
 ## Usage Examples
 
 Listing top-level files in the current directory:
+
 ```
 <list_files>
 <path>.</path>
@@ -116,6 +119,7 @@ Listing top-level files in the current directory:
 ```
 
 Recursively listing all files in a source directory:
+
 ```
 <list_files>
 <path>src</path>
@@ -124,6 +128,7 @@ Recursively listing all files in a source directory:
 ```
 
 Examining a specific project subdirectory:
+
 ```
 <list_files>
 <path>src/components</path>

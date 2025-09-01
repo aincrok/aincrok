@@ -25,7 +25,7 @@ describe("Model Validation Functions", () => {
 				outputPrice: 5.0,
 			},
 		},
-		"aincrok-openrouter": {
+		"kilocode-openrouter": {
 			"valid-model": {
 				maxTokens: 8192,
 				contextWindow: 200000,
@@ -59,6 +59,7 @@ describe("Model Validation Functions", () => {
 		ollama: {},
 		lmstudio: {},
 		"io-intelligence": {},
+		cerebras: {},
 	}
 
 	const allowAllOrganization: OrganizationAllowList = {

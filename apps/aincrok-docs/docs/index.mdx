@@ -2,85 +2,166 @@
 sidebar_label: Welcome
 ---
 
-import { DISCORD_URL, REDDIT_URL, GITHUB_ISSUES_MAIN_URL, GITHUB_FEATURES_URL, YOUTUBE_URL } from '@site/src/constants.ts'
+import { PostHogProvider, ABTestProvider } from '@site/src/components/Analytics';
+import { HeroSection, InteractiveDemo, FeatureShowcase } from '@site/src/components/LandingPage';
+import { DISCORD_URL, REDDIT_URL, GITHUB_ISSUES_MAIN_URL, GITHUB_FEATURES_URL, YOUTUBE_URL } from '@site/src/constants.ts';
 import Image from '@site/src/components/Image';
 
-# Kilo Code Documentation
+<PostHogProvider apiKey={process.env.POSTHOG_API_KEY}>
+  <ABTestProvider>
+    <HeroSection />
+    
+    <InteractiveDemo />
+    
+    <FeatureShowcase />
+    
+    <section style={{padding: '4rem 2rem', background: '#f8fafc'}}>
+      <div style={{maxWidth: '1200px', margin: '0 auto'}}>
+        ## See Aincrok in Action
 
-Kilo Code **accelerates** development with AI-driven code generation and task automation. This open source extension plugs directly into VS Code.
+        <div style={{textAlign: 'center', margin: '2rem 0'}}>
+          <Image 
+            src="/docs/img/aincrokgif.gif" 
+            alt="GIF showing some of the capabilities of Aincrok" 
+            width="700" 
+            style={{borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'}} 
+          />
+        </div>
 
-## What Can Kilo Code Do?
+        ## Quick Start Guide
 
-- 🚀 **Generate Code** from natural language descriptions
-- 🔧 **Refactor & Debug** existing code
-- 📝 **Write & Update** documentation
-- 🤔 **Answer Questions** about your codebase
-- 🔄 **Automate** repetitive tasks
-- 🏗️ **Create** new files and projects
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', margin: '2rem 0'}}>
+          <div style={{padding: '2rem', background: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'}}>
+            <div style={{fontSize: '3rem', fontWeight: 'bold', color: '#667eea', marginBottom: '1rem'}}>1</div>
+            <h3 style={{marginBottom: '1rem'}}>Install</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem', lineHeight: '1.6'}}>Get Aincrok from the VS Code marketplace in seconds</p>
+            <a href="/getting-started/installing" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              backgroundColor: '#667eea',
+              color: 'white',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Install Guide →
+            </a>
+          </div>
+          
+          <div style={{padding: '2rem', background: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'}}>
+            <div style={{fontSize: '3rem', fontWeight: 'bold', color: '#667eea', marginBottom: '1rem'}}>2</div>
+            <h3 style={{marginBottom: '1rem'}}>Setup</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem', lineHeight: '1.6'}}>Configure your AI provider and preferences</p>
+            <a href="/getting-started/setting-up" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              backgroundColor: '#667eea',
+              color: 'white',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Setup Guide →
+            </a>
+          </div>
+          
+          <div style={{padding: '2rem', background: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'}}>
+            <div style={{fontSize: '3rem', fontWeight: 'bold', color: '#667eea', marginBottom: '1rem'}}>3</div>
+            <h3 style={{marginBottom: '1rem'}}>Code</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem', lineHeight: '1.6'}}>Start your first AI-assisted coding task</p>
+            <a href="/getting-started/your-first-task" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              backgroundColor: '#667eea',
+              color: 'white',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Try It Now →
+            </a>
+          </div>
+        </div>
 
-## Quick Start
+        ## Community & Resources
 
-1. [Install Kilo Code](/getting-started/installing)
-2. [Set up Kilo Code](/getting-started/setting-up)
-3. [Try Your First Task](/getting-started/your-first-task)
-
-## Features
-
-<Image src="/docs/img/kilogif.gif" alt="GIF showing some of the capabilities of Kilo Code" width="600" />
-
-### Basics
-
-Use [the chat interface](/basic-usage/the-chat-interface) to tell Kilo Code what you need. It relies on coding‑optimized AI models to complete each request.
-
-- Switch [modes](/basic-usage/using-modes) to fit the task
-- Control allowed [actions](/features/auto-approving-actions)
-- Run direct [code actions](/features/code-actions)
-
-### Using Kilo Code
-
-#### Multiple Modes
-Kilo Code adapts to your needs with specialized [modes](/basic-usage/using-modes):
-- [**Code Mode:**](/basic-usage/using-modes#code-mode-default) For general-purpose coding tasks
-- [**Architect Mode:**](/basic-usage/using-modes#architect-mode) For planning and technical leadership
-- [**Ask Mode:**](/basic-usage/using-modes#ask-mode) For answering questions and providing information
-- [**Debug Mode:**](/basic-usage/using-modes#debug-mode) For systematic problem diagnosis
-- **[Custom Modes](/features/custom-modes):** Create unlimited specialized personas for security auditing, performance optimization, documentation, or any other task
-
-#### Core Tools
-Kilo Code comes with powerful [tools](/features/tools/tool-use-overview) that can:
-- [Read](/features/tools/read-file) and [write](/features/tools/write-to-file) files in your project
-- [Execute commands](/features/tools/execute-command) in your VS Code terminal
-- [Control a web browser](/features/tools/browser-action)
-- [Ask follow-up questions](/features/tools/ask-followup-question)
-- [Search your codebase](/features/tools/search-files)
-
-See the complete [Tools Reference](/features/tools/tool-use-overview) for all available tools.
-
-### Extending Kilo Code
-- **[MCP (Model Context Protocol)](/features/mcp/overview):** Add unlimited custom tools, integrate with external APIs, connect to databases, or create specialized development tools
-- **[Local Models](/advanced-usage/local-models):** Run Kilo Code with local AI models for offline use or enhanced privacy
-
-### Customizing Kilo Code
-Make Kilo Code work your way with:
-- [Settings Management](/features/settings-management) for configuring your experience
-- [Custom Modes](/features/custom-modes) for specialized tasks
-- [Custom Rules](/advanced-usage/custom-rules) for project-specific rules
-- [Custom Instructions](/advanced-usage/custom-instructions) for global plugin-wide instructions
-- [API Configuration Profiles](/features/api-configuration-profiles) for different model providers
-- [Auto-Approval Settings](/features/auto-approving-actions) for faster workflows
-
-## Resources
-
-### Documentation
-- [Using Kilo Code](/basic-usage/the-chat-interface) - Learn the basics
-- [Core Concepts](/features/auto-approving-actions) - Master key features
-- [Advanced Usage](/advanced-usage/prompt-engineering) - Take your skills further
-- [Frequently Asked Questions](/faq) - Get answers to common questions
-
-### Community
-- **Discord:** <a href={DISCORD_URL} target="_blank">Join our Discord server</a> for real-time help and discussions
-- **Reddit:** <a href={REDDIT_URL} target="_blank">Visit our subreddit</a> to share experiences and tips
-- **YouTube:** <a href={YOUTUBE_URL} target="_blank">Check out our YouTube</a> to learn hands on skills when using Kilo Code
-- **GitHub:** Report <a href={GITHUB_ISSUES_MAIN_URL} target="_blank">issues</a> or request <a href={GITHUB_FEATURES_URL} target="_blank">features</a>
-
-Ready to get started? Click the **Next** button below to begin your journey with Kilo Code!
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', margin: '3rem 0', textAlign: 'center'}}>
+          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
+            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>💬</div>
+            <h3 style={{marginBottom: '1rem'}}>Discord Community</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Join our vibrant community for real-time help and discussions</p>
+            <a href={DISCORD_URL} target="_blank" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              color: '#667eea',
+              border: '2px solid #667eea',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Join Discord →
+            </a>
+          </div>
+          
+          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
+            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>📺</div>
+            <h3 style={{marginBottom: '1rem'}}>Video Tutorials</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Watch comprehensive tutorials and feature demonstrations</p>
+            <a href={YOUTUBE_URL} target="_blank" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              color: '#667eea',
+              border: '2px solid #667eea',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Watch Videos →
+            </a>
+          </div>
+          
+          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
+            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>🐛</div>
+            <h3 style={{marginBottom: '1rem'}}>GitHub Issues</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Report bugs and contribute to development</p>
+            <a href={GITHUB_ISSUES_MAIN_URL} target="_blank" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              color: '#667eea',
+              border: '2px solid #667eea',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Report Issues →
+            </a>
+          </div>
+          
+          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
+            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>💡</div>
+            <h3 style={{marginBottom: '1rem'}}>Feature Requests</h3>
+            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Share ideas and vote on new features</p>
+            <a href={GITHUB_FEATURES_URL} target="_blank" style={{
+              display: 'inline-block',
+              padding: '0.75rem 1.5rem',
+              color: '#667eea',
+              border: '2px solid #667eea',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}>
+              Share Ideas →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ABTestProvider>
+</PostHogProvider>

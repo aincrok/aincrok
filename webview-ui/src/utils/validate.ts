@@ -113,7 +113,7 @@ function validateModelsAndKeysProvided(apiConfiguration: ProviderSettings): stri
 			break
 		// kilocode_change start
 		case "kilocode":
-			if (!apiConfiguration.aincrokToken) {
+			if (!apiConfiguration.kilocodeToken) {
 				return i18next.t("settings:validation.apiKey")
 			}
 			break

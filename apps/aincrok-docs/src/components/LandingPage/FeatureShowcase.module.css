@@ -1,0 +1,261 @@
+.showcaseContainer {
+	padding: 4rem 2rem;
+	background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.showcaseHeader {
+	text-align: center;
+	margin-bottom: 4rem;
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.showcaseTitle {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+	color: #2d3748;
+}
+
+.showcaseSubtitle {
+	font-size: 1.2rem;
+	color: #718096;
+	line-height: 1.6;
+}
+
+.featuresGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	gap: 2rem;
+	max-width: 1200px;
+	margin: 0 auto 4rem;
+}
+
+.featureCard {
+	background: white;
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	transition: all 0.3s ease;
+	border: 1px solid #e2e8f0;
+}
+
+.featureCard:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.featureHeader {
+	padding: 2rem;
+	color: white;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+
+.featureHeader::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(10px);
+}
+
+.featureIcon {
+	font-size: 3rem;
+	display: block;
+	margin-bottom: 1rem;
+	position: relative;
+	z-index: 1;
+}
+
+.featureTitle {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin: 0;
+	position: relative;
+	z-index: 1;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.featureContent {
+	padding: 2rem;
+}
+
+.featureDescription {
+	font-size: 1rem;
+	color: #4a5568;
+	line-height: 1.6;
+	margin-bottom: 1.5rem;
+}
+
+.benefitsList {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 2rem;
+}
+
+.benefitItem {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.5rem 0;
+	font-size: 0.9rem;
+	color: #2d3748;
+}
+
+.benefitCheck {
+	color: #48bb78;
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+.featureLink {
+	margin-top: auto;
+}
+
+.learnMore {
+	display: inline-flex;
+	align-items: center;
+	color: #667eea;
+	font-weight: 500;
+	text-decoration: none;
+	padding: 0.75rem 1.5rem;
+	border: 2px solid #667eea;
+	border-radius: 8px;
+	transition: all 0.2s ease;
+	background: white;
+}
+
+.learnMore:hover {
+	background: #667eea;
+	color: white;
+	text-decoration: none;
+	transform: translateX(2px);
+}
+
+.showcaseFooter {
+	text-align: center;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	padding: 3rem 2rem;
+	border-radius: 16px;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.footerTitle {
+	font-size: 2rem;
+	font-weight: 600;
+	margin-bottom: 1rem;
+}
+
+.footerDescription {
+	font-size: 1.1rem;
+	opacity: 0.9;
+	margin-bottom: 2rem;
+}
+
+.footerActions {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.footerButton {
+	display: inline-flex;
+	align-items: center;
+	padding: 1rem 2rem;
+	border-radius: 8px;
+	font-weight: 600;
+	text-decoration: none;
+	transition: all 0.3s ease;
+	min-width: 160px;
+	justify-content: center;
+}
+
+.footerButton.primary {
+	background: white;
+	color: #667eea;
+	border: 2px solid white;
+}
+
+.footerButton.primary:hover {
+	background: #f7fafc;
+	color: #667eea;
+	text-decoration: none;
+	transform: translateY(-2px);
+}
+
+.footerButton.secondary {
+	background: transparent;
+	color: white;
+	border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.footerButton.secondary:hover {
+	background: rgba(255, 255, 255, 0.1);
+	border-color: white;
+	color: white;
+	text-decoration: none;
+	transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.showcaseContainer {
+		padding: 2rem 1rem;
+	}
+
+	.showcaseTitle {
+		font-size: 2rem;
+	}
+
+	.featuresGrid {
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+	}
+
+	.featureCard {
+		min-width: auto;
+	}
+
+	.featureHeader {
+		padding: 1.5rem;
+	}
+
+	.featureIcon {
+		font-size: 2.5rem;
+	}
+
+	.featureTitle {
+		font-size: 1.3rem;
+	}
+
+	.featureContent {
+		padding: 1.5rem;
+	}
+
+	.showcaseFooter {
+		padding: 2rem 1rem;
+	}
+
+	.footerTitle {
+		font-size: 1.5rem;
+	}
+
+	.footerActions {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.footerButton {
+		width: 100%;
+		max-width: 280px;
+	}
+}

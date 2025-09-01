@@ -205,7 +205,7 @@ const ApiOptions = ({
 	const { data: routerModels, refetch: refetchRouterModels } = useRouterModels({
 		openRouterBaseUrl: apiConfiguration?.openRouterBaseUrl,
 		openRouterApiKey: apiConfiguration?.openRouterApiKey,
-		aincrokOrganizationId: apiConfiguration?.aincrokOrganizationId ?? "personal",
+		kilocodeOrganizationId: apiConfiguration?.kilocodeOrganizationId ?? "personal",
 	})
 
 	//const { data: openRouterModelProviders } = useOpenRouterModelProviders(
@@ -368,7 +368,7 @@ const ApiOptions = ({
 				ollama: { field: "ollamaModelId" },
 				lmstudio: { field: "lmStudioModelId" },
 				// kilocode_change start
-				kilocode: { field: "aincrokModel", default: kilocodeDefaultModel },
+				kilocode: { field: "kilocodeModel", default: kilocodeDefaultModel },
 				"gemini-cli": { field: "apiModelId", default: geminiCliDefaultModelId },
 				"qwen-code": { field: "apiModelId", default: qwenCodeDefaultModelId },
 				// kilocode_change end

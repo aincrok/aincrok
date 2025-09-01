@@ -7,22 +7,22 @@ import { getKiloBaseUriFromToken } from "../../shared/aincrok/token"
 import { ApiHandlerCreateMessageMetadata } from ".."
 import OpenAI from "openai"
 import { getModelEndpoints } from "./fetchers/modelEndpointCache"
-import { getAincrokDefaultModel } from "./aincrok/getAincrokDefaultModel"
+import { getKilocodeDefaultModel } from "./kilocode/getKilocodeDefaultModel"
 
 /**
  * A custom OpenRouter handler that overrides the getModel function
- * to provide custom model information and fetches models from the AINCROK OpenRouter endpoint.
+ * to provide custom model information and fetches models from the Kilocode OpenRouter endpoint.
  */
-export class AincrokOpenrouterHandler extends OpenRouterHandler {
+export class KilocodeOpenrouterHandler extends OpenRouterHandler {
 	protected override models: ModelRecord = {}
 	defaultModel: string = openRouterDefaultModelId
 
 	constructor(options: ApiHandlerOptions) {
-		const baseUri = getKiloBaseUriFromToken(options.aincrokToken ?? "")
+		const baseUri = getKiloBaseUriFromToken(options.kilocodeToken ?? "")
 		options = {
 			...options,
 			openRouterBaseUrl: `${baseUri}/api/openrouter/`,
-			openRouterApiKey: options.aincrokToken,
+			openRouterApiKey: options.kilocodeToken,
 		}
 
 		super(options)
@@ -32,14 +32,14 @@ export class AincrokOpenrouterHandler extends OpenRouterHandler {
 		const headers: Record<string, string> = {}
 
 		if (metadata?.taskId) {
-			headers["X-AINCROK-TaskId"] = metadata.taskId
+			headers["X-KILOCODE-TaskId"] = metadata.taskId
 		}
 
-		// Cast to access aincrok-specific properties
-		const aincrokOptions = this.options as ApiHandlerOptions
+		// Cast to access kilocode-specific properties
+		const kilocodeOptions = this.options as ApiHandlerOptions
 
-		if (aincrokOptions.aincrokOrganizationId) {
-			headers["X-AINCROK-OrganizationId"] = aincrokOptions.aincrokOrganizationId
+		if (kilocodeOptions.kilocodeOrganizationId) {
+			headers["X-KILOCODE-OrganizationId"] = kilocodeOptions.kilocodeOrganizationId
 		}
 
 		return Object.keys(headers).length > 0 ? { headers } : undefined
@@ -50,7 +50,7 @@ export class AincrokOpenrouterHandler extends OpenRouterHandler {
 		if (!model.inputPrice && !model.outputPrice) {
 			return 0
 		}
-		// https://github.com/aincrok/kilocode-backend/blob/eb3d382df1e933a089eea95b9c4387db0c676e35/src/lib/processUsage.ts#L281
+		// https://github.com/Kilo-Org/kilocode/blob/main/src/lib/processUsage.ts
 		if (lastUsage.is_byok) {
 			return lastUsage.cost_details?.upstream_inference_cost || 0
 		}
@@ -58,7 +58,7 @@ export class AincrokOpenrouterHandler extends OpenRouterHandler {
 	}
 
 	override getModel() {
-		let id = this.options.aincrokModel ?? this.defaultModel
+		let id = this.options.kilocodeModel ?? this.defaultModel
 		let info = this.models[id]
 		let defaultTemperature = 0
 
@@ -94,22 +94,22 @@ export class AincrokOpenrouterHandler extends OpenRouterHandler {
 	}
 
 	public override async fetchModel() {
-		if (!this.options.aincrokToken || !this.options.openRouterBaseUrl) {
+		if (!this.options.kilocodeToken || !this.options.openRouterBaseUrl) {
 			throw new Error("KiloCode token + baseUrl is required to fetch models")
 		}
 
 		const [models, endpoints, defaultModel] = await Promise.all([
 			getModels({
-				provider: "aincrok-openrouter",
-				aincrokToken: this.options.aincrokToken,
-				aincrokOrganizationId: this.options.aincrokOrganizationId,
+				provider: "kilocode-openrouter",
+				kilocodeToken: this.options.kilocodeToken,
+				kilocodeOrganizationId: this.options.kilocodeOrganizationId,
 			}),
 			getModelEndpoints({
 				router: "openrouter",
-				modelId: this.options.aincrokModel,
+				modelId: this.options.kilocodeModel,
 				endpoint: this.options.openRouterSpecificProvider,
 			}),
-			getAincrokDefaultModel(this.options.aincrokToken),
+			getKilocodeDefaultModel(this.options.kilocodeToken),
 		])
 
 		this.models = models

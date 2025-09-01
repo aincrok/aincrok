@@ -1,0 +1,304 @@
+.demoContainer {
+	padding: 4rem 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
+	background: #fafbfc;
+}
+
+.demoHeader {
+	text-align: center;
+	margin-bottom: 3rem;
+}
+
+.demoTitle {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+	color: #2d3748;
+}
+
+.demoSubtitle {
+	font-size: 1.2rem;
+	color: #718096;
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.demoContent {
+	background: white;
+	border-radius: 16px;
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+	overflow: hidden;
+}
+
+.stepTabs {
+	display: flex;
+	background: #f7fafc;
+	border-bottom: 1px solid #e2e8f0;
+	overflow-x: auto;
+}
+
+.stepTab {
+	flex: 1;
+	min-width: 200px;
+	padding: 1rem 1.5rem;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-weight: 500;
+	color: #4a5568;
+}
+
+.stepTab:hover {
+	background: #edf2f7;
+}
+
+.stepTab.active {
+	background: white;
+	color: #667eea;
+	border-bottom: 2px solid #667eea;
+}
+
+.stepIcon {
+	font-size: 1.2rem;
+}
+
+.demoViewer {
+	padding: 2rem;
+	min-height: 500px;
+}
+
+.demoStep {
+	animation: fadeIn 0.5s ease;
+}
+
+.stepHeader {
+	margin-bottom: 2rem;
+}
+
+.stepTitle {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+	color: #2d3748;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.stepDescription {
+	font-size: 1rem;
+	color: #718096;
+}
+
+.codeSection {
+	margin-bottom: 1.5rem;
+	border-radius: 8px;
+	overflow: hidden;
+	border: 1px solid #e2e8f0;
+}
+
+.codeHeader {
+	background: #2d3748;
+	padding: 0.75rem 1rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.windowControls {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.control {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+}
+
+.fileName {
+	color: #a0aec0;
+	font-size: 0.9rem;
+	font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+}
+
+.codeContent {
+	background: #1a202c;
+	color: #e2e8f0;
+	padding: 1.5rem;
+	font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+	font-size: 0.9rem;
+	line-height: 1.6;
+	overflow-x: auto;
+	min-height: 200px;
+}
+
+.codeContent pre {
+	margin: 0;
+	white-space: pre-wrap;
+}
+
+.cursor {
+	animation: blink 1s infinite;
+	color: #667eea;
+	font-weight: bold;
+}
+
+.resultSection {
+	background: #f0fff4;
+	border: 1px solid #9ae6b4;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.resultHeader {
+	background: #68d391;
+	color: white;
+	padding: 0.75rem 1rem;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.resultIcon {
+	font-size: 1.1rem;
+}
+
+.resultContent {
+	padding: 1rem;
+	color: #22543d;
+	font-weight: 500;
+}
+
+.demoActions {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1.5rem 2rem;
+	background: #f7fafc;
+	border-top: 1px solid #e2e8f0;
+}
+
+.prevButton,
+.nextButton {
+	padding: 0.75rem 1.5rem;
+	border: 1px solid #667eea;
+	background: white;
+	color: #667eea;
+	border-radius: 6px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.prevButton:hover,
+.nextButton:hover {
+	background: #667eea;
+	color: white;
+}
+
+.prevButton:disabled,
+.nextButton:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.prevButton:disabled:hover,
+.nextButton:disabled:hover {
+	background: white;
+	color: #667eea;
+}
+
+.stepIndicators {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.indicator {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	border: none;
+	background: #cbd5e0;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.indicator.active {
+	background: #667eea;
+}
+
+.indicator:hover {
+	background: #a0aec0;
+}
+
+.indicator.active:hover {
+	background: #5a67d8;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes blink {
+	0%,
+	50% {
+		opacity: 1;
+	}
+	51%,
+	100% {
+		opacity: 0;
+	}
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.demoContainer {
+		padding: 2rem 1rem;
+	}
+
+	.demoTitle {
+		font-size: 2rem;
+	}
+
+	.stepTabs {
+		flex-direction: column;
+	}
+
+	.stepTab {
+		min-width: auto;
+		justify-content: center;
+	}
+
+	.demoViewer {
+		padding: 1rem;
+	}
+
+	.codeContent {
+		font-size: 0.8rem;
+		padding: 1rem;
+	}
+
+	.demoActions {
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.prevButton,
+	.nextButton {
+		width: 100%;
+	}
+}

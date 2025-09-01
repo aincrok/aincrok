@@ -43,25 +43,25 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Generatore di messaggi di commit Kilo Code attivato",
+		"activated": "Generatore di messaggi di commit Aincrok attivato",
 		"gitNotFound": "⚠️ Repository Git non trovato o git non disponibile",
 		"gitInitError": "⚠️ Errore di inizializzazione Git: {{error}}",
-		"generating": "Kilo: Generazione messaggio di commit...",
-		"noChanges": "Kilo: Nessuna modifica trovata da analizzare",
-		"generated": "Kilo: Messaggio di commit generato!",
-		"generationFailed": "Kilo: Errore durante la generazione del messaggio di commit: {{errorMessage}}",
-		"generatingFromUnstaged": "Kilo: Generazione messaggio utilizzando modifiche non preparate",
-		"activationFailed": "Kilo: Impossibile attivare il generatore di messaggi: {{error}}",
-		"providerRegistered": "Kilo: Provider di messaggi di commit registrato"
+		"generating": "Aincrok: Generazione messaggio di commit...",
+		"noChanges": "Aincrok: Nessuna modifica trovata da analizzare",
+		"generated": "Aincrok: Messaggio di commit generato!",
+		"generationFailed": "Aincrok: Errore durante la generazione del messaggio di commit: {{errorMessage}}",
+		"generatingFromUnstaged": "Aincrok: Generazione messaggio utilizzando modifiche non preparate",
+		"activationFailed": "Aincrok: Impossibile attivare il generatore di messaggi: {{error}}",
+		"providerRegistered": "Aincrok: Provider di messaggi di commit registrato"
 	},
 	"ghost": {
 		"statusBar": {
-			"enabled": "$(sparkle) Assistenza in linea Kilo",
-			"disabled": "$(circle-slash) Assistenza in linea Kilo",
-			"warning": "$(warning) Assistenza in linea Kilo",
+			"enabled": "$(sparkle) Assistenza in linea Aincrok",
+			"disabled": "$(circle-slash) Assistenza in linea Aincrok",
+			"warning": "$(warning) Assistenza in linea Aincrok",
 			"tooltip": {
-				"basic": "Assistenza in linea Kilo Code",
-				"disabled": "Assistenza in linea Kilo Code (disabilitata)",
+				"basic": "Assistenza in linea Aincrok",
+				"disabled": "Assistenza in linea Aincrok (disabilitata)",
 				"tokenError": "È necessario impostare un token valido per utilizzare l'assistenza in linea",
 				"lastCompletion": "Ultimo suggerimento:",
 				"sessionTotal": "Costo totale sessione:",
@@ -72,32 +72,32 @@
 				"lessThanCent": "<$0.01"
 			}
 		},
-		"toggleMessage": "Assistenza in linea Kilo {{status}}",
+		"toggleMessage": "Assistenza in linea Aincrok {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "Aincrok",
 			"analyzing": "Analisi del tuo codice...",
 			"generating": "Generazione modifiche suggerite...",
 			"processing": "Elaborazione modifiche suggerite...",
 			"showing": "Visualizzazione modifiche suggerite..."
 		},
 		"input": {
-			"title": "Kilo Code: Attività Rapida",
+			"title": "Aincrok: Attività Rapida",
 			"placeholder": "es. 'refactorizza questa funzione per renderla più efficiente'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Genera modifiche suggerite",
+			"generateSuggestions": "Aincrok: Genera modifiche suggerite",
 			"displaySuggestions": "Mostra modifiche suggerite",
 			"cancelSuggestions": "Annulla modifiche suggerite",
 			"applyCurrentSuggestion": "Applica modifica suggerita corrente",
 			"applyAllSuggestions": "Applica tutte le modifiche suggerite",
 			"promptCodeSuggestion": "Attività Rapida",
-			"category": "Kilo Code"
+			"category": "Aincrok"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Modifiche suggerite"
+			"title": "Aincrok: Modifiche suggerite"
 		},
 		"chatParticipant": {
-			"fullName": "Agente Kilo Code",
+			"fullName": "Agente Aincrok",
 			"name": "Agente",
 			"description": "Posso aiutarti con attività rapide e modifiche suggerite."
 		},
@@ -105,24 +105,24 @@
 			"provideCodeSuggestions": "Fornitura suggerimenti codice..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "L'assistenza in linea di Kilo Code è bloccata da un conflitto con GitHub Copilot. Per risolvere questo problema, devi disabilitare i suggerimenti in linea di Copilot.",
+			"message": "L'assistenza in linea di Aincrok è bloccata da un conflitto con GitHub Copilot. Per risolvere questo problema, devi disabilitare i suggerimenti in linea di Copilot.",
 			"disableCopilot": "Disabilita Copilot",
 			"disableInlineAssist": "Disabilita Assistenza in Linea"
 		}
 	},
 	"terminalCommandGenerator": {
 		"inputPlaceholder": "ad es., terminare il processo in esecuzione sulla porta 3001, trovare file di grandi dimensioni, ecc.",
-		"inputPrompt": "Kilo: Descrivi il comando che vuoi generare",
-		"noActiveTerminal": "Kilo: Nessun terminale attivo trovato. Apri prima un terminale.",
-		"generatingProgress": "Kilo: Generazione del comando del terminale in corso...",
-		"commandGenerated": "Kilo: Comando generato: {{command}}",
-		"generationFailed": "Kilo: Impossibile generare il comando: {{error}}",
+		"inputPrompt": "Aincrok: Descrivi il comando che vuoi generare",
+		"noActiveTerminal": "Aincrok: Nessun terminale attivo trovato. Apri prima un terminale.",
+		"generatingProgress": "Aincrok: Generazione del comando del terminale in corso...",
+		"commandGenerated": "Aincrok: Comando generato: {{command}}",
+		"generationFailed": "Aincrok: Impossibile generare il comando: {{error}}",
 		"warningDialog": {
 			"title": "Avviso di Sicurezza del Terminale",
 			"okButton": "Ho Capito",
 			"message": "Controlla attentamente tutti i comandi generati prima di eseguirli. Le azioni nel terminale non possono sempre essere annullate—eseguire comandi non verificati può causare una perdita di dati irreversibile o danni al sistema. Esamina e comprendi completamente il comando prima di procedere!",
 			"cancelButton": "Annulla"
 		},
-		"tipMessage": "Kilo: Premi {{shortcut}} per generare comandi del terminale"
+		"tipMessage": "Aincrok: Premi {{shortcut}} per generare comandi del terminale"
 	}
 }

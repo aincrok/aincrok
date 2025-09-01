@@ -1,0 +1,166 @@
+.heroContainer {
+	padding: 4rem 2rem;
+	text-align: center;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	min-height: 600px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.heroContent {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.logoContainer {
+	margin-bottom: 2rem;
+}
+
+.logo {
+	width: 120px;
+	height: 120px;
+	border-radius: 20px;
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease;
+}
+
+.logo:hover {
+	transform: scale(1.05);
+}
+
+.heroTitle {
+	font-size: 3.5rem;
+	font-weight: 700;
+	margin-bottom: 1.5rem;
+	line-height: 1.2;
+	text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.heroSubtitle {
+	font-size: 1.3rem;
+	margin-bottom: 2.5rem;
+	opacity: 0.95;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	line-height: 1.6;
+}
+
+.ctaContainer {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	margin-bottom: 3rem;
+	flex-wrap: wrap;
+}
+
+.ctaButton {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 1rem 2rem;
+	border-radius: 8px;
+	font-weight: 600;
+	font-size: 1.1rem;
+	text-decoration: none;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	min-width: 180px;
+	justify-content: center;
+}
+
+.ctaButton:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+	text-decoration: none;
+}
+
+.ctaButton.primary {
+	background: #fff;
+	color: #667eea;
+	border: 2px solid transparent;
+}
+
+.ctaButton.primary:hover {
+	background: #f8f9ff;
+	color: #667eea;
+}
+
+.ctaButton.secondary {
+	background: transparent;
+	color: white;
+	border: 2px solid white;
+}
+
+.ctaButton.secondary:hover {
+	background: rgba(255, 255, 255, 0.1);
+	color: white;
+}
+
+.ctaIcon {
+	width: 20px;
+	height: 20px;
+}
+
+.quickStats {
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+	flex-wrap: wrap;
+}
+
+.stat {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 100px;
+}
+
+.statNumber {
+	font-size: 2rem;
+	font-weight: 700;
+	margin-bottom: 0.25rem;
+}
+
+.statLabel {
+	font-size: 0.9rem;
+	opacity: 0.8;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.heroContainer {
+		padding: 3rem 1rem;
+		min-height: 500px;
+	}
+
+	.heroTitle {
+		font-size: 2.5rem;
+	}
+
+	.heroSubtitle {
+		font-size: 1.1rem;
+	}
+
+	.ctaContainer {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.ctaButton {
+		width: 100%;
+		max-width: 300px;
+	}
+
+	.quickStats {
+		gap: 1rem;
+	}
+
+	.statNumber {
+		font-size: 1.5rem;
+	}
+}

@@ -295,10 +295,7 @@ describe("RooConfigService", () => {
 			await loadConfiguration("rules/rules.md", "/project/path")
 
 			expect(mockReadFile).toHaveBeenCalledWith(path.join("/mock/home", ".aincrok", "rules/rules.md"), "utf-8")
-			expect(mockReadFile).toHaveBeenCalledWith(
-				path.join("/project/path", ".aincrok", "rules/rules.md"),
-				"utf-8",
-			)
+			expect(mockReadFile).toHaveBeenCalledWith(path.join("/project/path", ".aincrok", "rules/rules.md"), "utf-8")
 		})
 	})
 })

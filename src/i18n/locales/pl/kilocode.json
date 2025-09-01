@@ -43,25 +43,25 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Generator wiadomości commit Kilo Code aktywowany",
+		"activated": "Generator wiadomości commit Aincrok aktywowany",
 		"gitNotFound": "⚠️ Nie znaleziono repozytorium Git lub git jest niedostępny",
 		"gitInitError": "⚠️ Błąd inicjalizacji Git: {{error}}",
-		"generating": "Kilo: Generowanie wiadomości commit...",
-		"noChanges": "Kilo: Nie znaleziono zmian do analizy",
-		"generated": "Kilo: Wiadomość commit wygenerowana!",
-		"generationFailed": "Kilo: Nie udało się wygenerować wiadomości commit: {{errorMessage}}",
-		"generatingFromUnstaged": "Kilo: Generowanie wiadomości przy użyciu niezatwierdzonych zmian",
-		"activationFailed": "Kilo: Nie udało się aktywować generatora wiadomości: {{error}}",
-		"providerRegistered": "Kilo: Zarejestrowano dostawcę wiadomości commit"
+		"generating": "Aincrok: Generowanie wiadomości commit...",
+		"noChanges": "Aincrok: Nie znaleziono zmian do analizy",
+		"generated": "Aincrok: Wiadomość commit wygenerowana!",
+		"generationFailed": "Aincrok: Nie udało się wygenerować wiadomości commit: {{errorMessage}}",
+		"generatingFromUnstaged": "Aincrok: Generowanie wiadomości przy użyciu niezatwierdzonych zmian",
+		"activationFailed": "Aincrok: Nie udało się aktywować generatora wiadomości: {{error}}",
+		"providerRegistered": "Aincrok: Zarejestrowano dostawcę wiadomości commit"
 	},
 	"ghost": {
 		"statusBar": {
-			"enabled": "$(sparkle) Asystent Inline Kilo",
-			"disabled": "$(circle-slash) Asystent Inline Kilo",
-			"warning": "$(warning) Asystent Inline Kilo",
+			"enabled": "$(sparkle) Asystent Inline Aincrok",
+			"disabled": "$(circle-slash) Asystent Inline Aincrok",
+			"warning": "$(warning) Asystent Inline Aincrok",
 			"tooltip": {
-				"basic": "Asystent Inline Kilo Code",
-				"disabled": "Asystent Inline Kilo Code (wyłączony)",
+				"basic": "Asystent Inline Aincrok",
+				"disabled": "Asystent Inline Aincrok (wyłączony)",
 				"tokenError": "Musisz ustawić prawidłowy token, aby korzystać z Asystenta Inline",
 				"lastCompletion": "Ostatnia sugestia:",
 				"sessionTotal": "Całkowity koszt sesji:",
@@ -72,32 +72,32 @@
 				"lessThanCent": "<$0.01"
 			}
 		},
-		"toggleMessage": "Asystent Inline Kilo {{status}}",
+		"toggleMessage": "Asystent Inline Aincrok {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "Aincrok",
 			"analyzing": "Analizowanie Twojego kodu...",
 			"generating": "Generowanie sugerowanych edycji...",
 			"processing": "Przetwarzanie sugerowanych edycji...",
 			"showing": "Wyświetlanie sugerowanych edycji..."
 		},
 		"input": {
-			"title": "Kilo Code: Szybkie Zadanie",
+			"title": "Aincrok: Szybkie Zadanie",
 			"placeholder": "np. 'refaktoryzuj tę funkcję, aby była bardziej wydajna'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Generuj Sugerowane Edycje",
+			"generateSuggestions": "Aincrok: Generuj Sugerowane Edycje",
 			"displaySuggestions": "Wyświetl Sugerowane Edycje",
 			"cancelSuggestions": "Anuluj Sugerowane Edycje",
 			"applyCurrentSuggestion": "Zastosuj Bieżącą Sugerowaną Edycję",
 			"applyAllSuggestions": "Zastosuj Wszystkie Sugerowane Edycje",
 			"promptCodeSuggestion": "Szybkie Zadanie",
-			"category": "Kilo Code"
+			"category": "Aincrok"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Sugerowane Edycje"
+			"title": "Aincrok: Sugerowane Edycje"
 		},
 		"chatParticipant": {
-			"fullName": "Agent Kilo Code",
+			"fullName": "Agent Aincrok",
 			"name": "Agent",
 			"description": "Mogę pomóc w szybkich zadaniach i sugerowanych edycjach."
 		},
@@ -105,24 +105,24 @@
 			"provideCodeSuggestions": "Dostarczanie sugestii kodu..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Asystent Kilo Code Inline jest blokowany przez konflikt z GitHub Copilot. Aby to naprawić, musisz wyłączyć sugestie inline Copilota.",
+			"message": "Asystent Aincrok Inline jest blokowany przez konflikt z GitHub Copilot. Aby to naprawić, musisz wyłączyć sugestie inline Copilota.",
 			"disableCopilot": "Wyłącz Copilota",
 			"disableInlineAssist": "Wyłącz Asystenta Inline"
 		}
 	},
 	"terminalCommandGenerator": {
-		"inputPrompt": "Kilo: Opisz polecenie, które chcesz wygenerować",
+		"inputPrompt": "Aincrok: Opisz polecenie, które chcesz wygenerować",
 		"inputPlaceholder": "np. zakończ proces działający na porcie 3001, znajdź duże pliki, itp.",
-		"generatingProgress": "Kilo: Generowanie polecenia terminala...",
-		"generationFailed": "Kilo: Nie udało się wygenerować polecenia: {{error}}",
-		"commandGenerated": "Kilo: Wygenerowane polecenie: {{command}}",
-		"noActiveTerminal": "Kilo: Nie znaleziono aktywnego terminala. Proszę najpierw otworzyć terminal.",
+		"generatingProgress": "Aincrok: Generowanie polecenia terminala...",
+		"generationFailed": "Aincrok: Nie udało się wygenerować polecenia: {{error}}",
+		"commandGenerated": "Aincrok: Wygenerowane polecenie: {{command}}",
+		"noActiveTerminal": "Aincrok: Nie znaleziono aktywnego terminala. Proszę najpierw otworzyć terminal.",
 		"warningDialog": {
 			"title": "Ostrzeżenie o Bezpieczeństwie Terminala",
 			"okButton": "Rozumiem",
 			"message": "Dokładnie sprawdzaj wszystkie wygenerowane polecenia przed ich uruchomieniem. Działań wykonanych w terminalu nie zawsze można cofnąć – uruchamianie niezweryfikowanych poleceń może spowodować nieodwracalną utratę danych lub uszkodzenie systemu. Przejrzyj i zrozum polecenie w całości zanim przejdziesz dalej!",
 			"cancelButton": "Anuluj"
 		},
-		"tipMessage": "Kilo: Naciśnij {{shortcut}}, aby wygenerować polecenia terminala"
+		"tipMessage": "Aincrok: Naciśnij {{shortcut}}, aby wygenerować polecenia terminala"
 	}
 }

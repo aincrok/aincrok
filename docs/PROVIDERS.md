@@ -1,16 +1,16 @@
 # LLM Provider Setup Guide
 
-AINCROK supports multiple AI providers to give you flexibility in choosing the best model for your needs. This guide covers setup instructions for all supported providers.
+Aincrok supports multiple AI providers to give you flexibility in choosing the best model for your needs. This guide covers setup instructions for all supported providers.
 
 ## Provider Overview
 
-| Provider | Models Available | Strengths | Setup Difficulty |
-|----------|------------------|-----------|-----------------|
-| Anthropic | Claude 3.5 Sonnet, Haiku | Code generation, reasoning | Easy |
-| OpenAI | GPT-4o, GPT-4, GPT-3.5 | General purpose, fast | Easy |
-| Google | Gemini Pro, Gemini Flash | Multimodal, cost-effective | Medium |
-| Local (Ollama) | CodeLlama, Mistral, etc. | Privacy, no API costs | Medium |
-| OpenRouter | 100+ models | Model variety, competitive pricing | Easy |
+| Provider       | Models Available         | Strengths                          | Setup Difficulty |
+| -------------- | ------------------------ | ---------------------------------- | ---------------- |
+| Anthropic      | Claude 3.5 Sonnet, Haiku | Code generation, reasoning         | Easy             |
+| OpenAI         | GPT-4o, GPT-4, GPT-3.5   | General purpose, fast              | Easy             |
+| Google         | Gemini Pro, Gemini Flash | Multimodal, cost-effective         | Medium           |
+| Local (Ollama) | CodeLlama, Mistral, etc. | Privacy, no API costs              | Medium           |
+| OpenRouter     | 100+ models              | Model variety, competitive pricing | Easy             |
 
 ## Anthropic (Claude)
 
@@ -21,13 +21,13 @@ Claude models are excellent for code generation and complex reasoning tasks.
 1. Visit [Anthropic Console](https://console.anthropic.com)
 2. Create an account or sign in
 3. Generate an API key
-4. Configure in AINCROK:
+4. Configure in Aincrok:
 
 ```json
 {
-  "aincrok.apiProvider": "anthropic",
-  "aincrok.anthropicApiKey": "sk-ant-api...",
-  "aincrok.model": "claude-3-5-sonnet-20241022"
+	"aincrok.apiProvider": "anthropic",
+	"aincrok.anthropicApiKey": "sk-ant-api...",
+	"aincrok.model": "claude-3-5-sonnet-20241022"
 }
 ```
 
@@ -47,10 +47,10 @@ Claude models are excellent for code generation and complex reasoning tasks.
 
 ```json
 {
-  "aincrok.anthropic.baseUrl": "https://api.anthropic.com",
-  "aincrok.anthropic.maxRetries": 3,
-  "aincrok.anthropic.timeout": 60000,
-  "aincrok.anthropic.enableCaching": true
+	"aincrok.anthropic.baseUrl": "https://api.anthropic.com",
+	"aincrok.anthropic.maxRetries": 3,
+	"aincrok.anthropic.timeout": 60000,
+	"aincrok.anthropic.enableCaching": true
 }
 ```
 
@@ -63,13 +63,13 @@ OpenAI models provide excellent general-purpose AI capabilities.
 1. Visit [OpenAI Platform](https://platform.openai.com)
 2. Create account and add payment method
 3. Generate API key from API Keys section
-4. Configure in AINCROK:
+4. Configure in Aincrok:
 
 ```json
 {
-  "aincrok.apiProvider": "openai",
-  "aincrok.openaiApiKey": "sk-proj-...",
-  "aincrok.model": "gpt-4o"
+	"aincrok.apiProvider": "openai",
+	"aincrok.openaiApiKey": "sk-proj-...",
+	"aincrok.model": "gpt-4o"
 }
 ```
 
@@ -86,8 +86,8 @@ For team usage:
 
 ```json
 {
-  "aincrok.openai.organization": "org-...",
-  "aincrok.openai.project": "proj_..."
+	"aincrok.openai.organization": "org-...",
+	"aincrok.openai.project": "proj_..."
 }
 ```
 
@@ -95,10 +95,10 @@ For team usage:
 
 ```json
 {
-  "aincrok.apiProvider": "azure-openai",
-  "aincrok.azureOpenai.apiKey": "your-azure-key",
-  "aincrok.azureOpenai.endpoint": "https://your-resource.openai.azure.com",
-  "aincrok.azureOpenai.deploymentName": "gpt-4"
+	"aincrok.apiProvider": "azure-openai",
+	"aincrok.azureOpenai.apiKey": "your-azure-key",
+	"aincrok.azureOpenai.endpoint": "https://your-resource.openai.azure.com",
+	"aincrok.azureOpenai.deploymentName": "gpt-4"
 }
 ```
 
@@ -111,13 +111,13 @@ Google's Gemini models offer strong performance at competitive prices.
 1. Visit [Google AI Studio](https://aistudio.google.com)
 2. Create or select a project
 3. Generate API key
-4. Configure in AINCROK:
+4. Configure in Aincrok:
 
 ```json
 {
-  "aincrok.apiProvider": "gemini",
-  "aincrok.geminiApiKey": "AIza...",
-  "aincrok.model": "gemini-1.5-pro"
+	"aincrok.apiProvider": "gemini",
+	"aincrok.geminiApiKey": "AIza...",
+	"aincrok.model": "gemini-1.5-pro"
 }
 ```
 
@@ -133,10 +133,10 @@ For enterprise use:
 
 ```json
 {
-  "aincrok.apiProvider": "vertex",
-  "aincrok.vertex.projectId": "your-project-id",
-  "aincrok.vertex.location": "us-central1",
-  "aincrok.vertex.credentials": "/path/to/service-account.json"
+	"aincrok.apiProvider": "vertex",
+	"aincrok.vertex.projectId": "your-project-id",
+	"aincrok.vertex.location": "us-central1",
+	"aincrok.vertex.credentials": "/path/to/service-account.json"
 }
 ```
 
@@ -148,24 +148,26 @@ Run models locally for privacy and cost savings.
 
 1. Install [Ollama](https://ollama.ai)
 2. Pull a model: `ollama pull codellama:13b`
-3. Configure AINCROK:
+3. Configure Aincrok:
 
 ```json
 {
-  "aincrok.apiProvider": "ollama",
-  "aincrok.ollama.baseUrl": "http://localhost:11434",
-  "aincrok.model": "codellama:13b"
+	"aincrok.apiProvider": "ollama",
+	"aincrok.ollama.baseUrl": "http://localhost:11434",
+	"aincrok.model": "codellama:13b"
 }
 ```
 
 ### Recommended Models
 
 #### For Coding
+
 - `codellama:13b` - Meta's code-focused model
 - `deepseek-coder:6.7b` - Excellent code generation
 - `starcoder2:15b` - Strong code understanding
 
-#### For General Use  
+#### For General Use
+
 - `mixtral:8x7b` - High performance mixture model
 - `llama3.1:8b` - Latest Llama model
 - `qwen2.5-coder:7b` - Alibaba's coding model
@@ -174,10 +176,10 @@ Run models locally for privacy and cost savings.
 
 ```json
 {
-  "aincrok.ollama.numCtx": 8192,
-  "aincrok.ollama.temperature": 0.1,
-  "aincrok.ollama.topP": 0.9,
-  "aincrok.ollama.repeatPenalty": 1.1
+	"aincrok.ollama.numCtx": 8192,
+	"aincrok.ollama.temperature": 0.1,
+	"aincrok.ollama.topP": 0.9,
+	"aincrok.ollama.repeatPenalty": 1.1
 }
 ```
 
@@ -190,13 +192,13 @@ Access 100+ models through a single API.
 1. Visit [OpenRouter](https://openrouter.ai)
 2. Create account and add credits
 3. Generate API key
-4. Configure AINCROK:
+4. Configure Aincrok:
 
 ```json
 {
-  "aincrok.apiProvider": "openrouter",
-  "aincrok.openrouterApiKey": "sk-or-v1-...",
-  "aincrok.model": "anthropic/claude-3.5-sonnet"
+	"aincrok.apiProvider": "openrouter",
+	"aincrok.openrouterApiKey": "sk-or-v1-...",
+	"aincrok.model": "anthropic/claude-3.5-sonnet"
 }
 ```
 
@@ -211,8 +213,8 @@ Access 100+ models through a single API.
 
 ```json
 {
-  "aincrok.openrouter.enableCreditsTracking": true,
-  "aincrok.openrouter.monthlyBudget": 100
+	"aincrok.openrouter.enableCreditsTracking": true,
+	"aincrok.openrouter.monthlyBudget": 100
 }
 ```
 
@@ -222,9 +224,9 @@ Access 100+ models through a single API.
 
 ```json
 {
-  "aincrok.apiProvider": "groq",
-  "aincrok.groqApiKey": "gsk_...",
-  "aincrok.model": "llama3-70b-8192"
+	"aincrok.apiProvider": "groq",
+	"aincrok.groqApiKey": "gsk_...",
+	"aincrok.model": "llama3-70b-8192"
 }
 ```
 
@@ -232,9 +234,9 @@ Access 100+ models through a single API.
 
 ```json
 {
-  "aincrok.apiProvider": "mistral",
-  "aincrok.mistralApiKey": "...",
-  "aincrok.model": "mistral-large-latest"
+	"aincrok.apiProvider": "mistral",
+	"aincrok.mistralApiKey": "...",
+	"aincrok.model": "mistral-large-latest"
 }
 ```
 
@@ -242,9 +244,9 @@ Access 100+ models through a single API.
 
 ```json
 {
-  "aincrok.apiProvider": "fireworks",
-  "aincrok.fireworksApiKey": "...",
-  "aincrok.model": "accounts/fireworks/models/mixtral-8x22b"
+	"aincrok.apiProvider": "fireworks",
+	"aincrok.fireworksApiKey": "...",
+	"aincrok.model": "accounts/fireworks/models/mixtral-8x22b"
 }
 ```
 
@@ -252,27 +254,30 @@ Access 100+ models through a single API.
 
 ```json
 {
-  "aincrok.apiProvider": "xai",
-  "aincrok.xaiApiKey": "xai-...",
-  "aincrok.model": "grok-beta"
+	"aincrok.apiProvider": "xai",
+	"aincrok.xaiApiKey": "xai-...",
+	"aincrok.model": "grok-beta"
 }
 ```
 
 ## Provider Comparison
 
 ### For Code Generation
+
 1. **Claude 3.5 Sonnet** - Best overall for complex coding
-2. **GPT-4o** - Great general coding capabilities  
+2. **GPT-4o** - Great general coding capabilities
 3. **CodeLlama 13B** - Best local option
 4. **Gemini 1.5 Pro** - Good balance of cost/performance
 
 ### For Fast Responses
+
 1. **Claude 3.5 Haiku** - Fastest commercial option
 2. **Gemini 1.5 Flash** - Very fast, good quality
 3. **Groq models** - Extremely fast inference
 4. **Local small models** - No network latency
 
 ### For Cost Efficiency
+
 1. **Local models** - No per-token costs
 2. **Gemini Flash** - Cheapest commercial option
 3. **Claude Haiku** - Good performance/cost ratio
@@ -284,37 +289,40 @@ Use different providers for different tasks:
 
 ```json
 {
-  "aincrok.providers": {
-    "coding": {
-      "provider": "anthropic",
-      "model": "claude-3-5-sonnet-20241022"
-    },
-    "quickTasks": {
-      "provider": "gemini", 
-      "model": "gemini-1.5-flash"
-    },
-    "local": {
-      "provider": "ollama",
-      "model": "codellama:13b"
-    }
-  }
+	"aincrok.providers": {
+		"coding": {
+			"provider": "anthropic",
+			"model": "claude-3-5-sonnet-20241022"
+		},
+		"quickTasks": {
+			"provider": "gemini",
+			"model": "gemini-1.5-flash"
+		},
+		"local": {
+			"provider": "ollama",
+			"model": "codellama:13b"
+		}
+	}
 }
 ```
 
 ## Security Best Practices
 
 ### API Key Management
+
 - Use environment variables for API keys
 - Rotate keys regularly
 - Never commit keys to version control
 - Use separate keys for development/production
 
 ### Network Security
+
 - Use HTTPS endpoints only
 - Configure firewalls for local models
 - Monitor API usage for anomalies
 
 ### Data Privacy
+
 - Review provider data retention policies
 - Use local models for sensitive code
 - Enable conversation encryption when available
@@ -324,21 +332,25 @@ Use different providers for different tasks:
 ### Common Issues
 
 **API Key Invalid**
+
 - Check key format and permissions
 - Verify billing is set up
 - Test key with provider's direct API
 
 **Rate Limits**
+
 - Check provider rate limits
 - Implement exponential backoff
 - Consider upgrading tier
 
-**Model Not Found**  
+**Model Not Found**
+
 - Verify model name spelling
 - Check model availability in region
 - Update to latest model versions
 
 **Local Model Issues**
+
 - Ensure Ollama is running
 - Check model is downloaded
 - Verify sufficient system memory
@@ -346,11 +358,13 @@ Use different providers for different tasks:
 ### Performance Issues
 
 **Slow Responses**
+
 - Try smaller/faster models
 - Reduce context window size
 - Use regional endpoints when available
 
 **High Costs**
+
 - Monitor token usage
 - Use cheaper models for simple tasks
 - Enable response caching

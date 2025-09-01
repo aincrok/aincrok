@@ -182,7 +182,7 @@ export const getModelsByProvider = ({
 		}
 		case "kilocode": {
 			return {
-				models: routerModels["aincrok-openrouter"],
+				models: routerModels["kilocode-openrouter"],
 				defaultModel: kilocodeDefaultModel,
 			}
 		}
@@ -262,7 +262,7 @@ export const useProviderModels = (apiConfiguration?: ProviderSettings) => {
 	const routerModels = useRouterModels({
 		openRouterBaseUrl: apiConfiguration?.openRouterBaseUrl,
 		openRouterApiKey: apiConfiguration?.apiKey,
-		aincrokOrganizationId: apiConfiguration?.aincrokOrganizationId ?? "personal",
+		kilocodeOrganizationId: apiConfiguration?.kilocodeOrganizationId ?? "personal",
 	})
 
 	const { models, defaultModel } =

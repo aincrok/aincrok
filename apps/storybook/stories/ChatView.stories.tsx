@@ -113,7 +113,7 @@ export const EmptyWithNotificationsAndHistory: Story = {
 	},
 	decorators: [
 		(Story) => {
-			// Mock notifications for AINCROKNotifications component
+			// Mock notifications for AincrokNotifications component
 			React.useEffect(() => {
 				const mockNotifications = [
 					{
@@ -133,7 +133,7 @@ export const EmptyWithNotificationsAndHistory: Story = {
 					},
 				]
 
-				// Simulate the message event that AINCROKNotifications listens for
+				// Simulate the message event that AincrokNotifications listens for
 				const mockEvent = new MessageEvent("message", {
 					data: {
 						type: "kilocodeNotificationsResponse",

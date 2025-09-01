@@ -36,3 +36,6 @@ export { ZAiHandler } from "./zai"
 export { FireworksHandler } from "./fireworks"
 export { RooHandler } from "./roo"
 export { FeatherlessHandler } from "./featherless"
+// kilocode_change start
+export { KilocodeOpenrouterHandler } from "./kilocode-openrouter"
+// kilocode_change end

@@ -56,9 +56,7 @@ export async function newTaskTool(
 				return
 			}
 			const state = await provider.getState()
-			const requireTodos = vscode.workspace
-				.getConfiguration("aincrok")
-				.get<boolean>("newTaskRequireTodos", false)
+			const requireTodos = vscode.workspace.getConfiguration("aincrok").get<boolean>("newTaskRequireTodos", false)
 
 			// Check if todos are required based on VSCode setting
 			// Note: undefined means not provided, empty string is valid

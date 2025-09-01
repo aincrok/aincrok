@@ -30,6 +30,7 @@ import {
 	type TerminalActionPromptType,
 	type HistoryItem,
 	type ClineAsk,
+	type ClineMessage, // aincrok_change - added for message sliding window
 	RooCodeEventName,
 	requestyDefaultModelId,
 	openRouterDefaultModelId,
@@ -1223,7 +1224,7 @@ export class ClineProvider
 					task.api = buildApiHandler(providerSettings)
 				}
 
-				await TelemetryService.instance.updateIdentity(providerSettings.aincrokToken ?? "") // kilocode_change
+				await TelemetryService.instance.updateIdentity(providerSettings.kilocodeToken ?? "") // kilocode_change
 			} else {
 				await this.updateGlobalState("listApiConfigMeta", await this.providerSettingsManager.listConfig())
 			}
@@ -1287,7 +1288,7 @@ export class ClineProvider
 		}
 
 		await this.postStateToWebview()
-		await TelemetryService.instance.updateIdentity(providerSettings.aincrokToken ?? "") // kilocode_change
+		await TelemetryService.instance.updateIdentity(providerSettings.kilocodeToken ?? "") // kilocode_change
 	}
 
 	// Task Management
@@ -1347,14 +1348,14 @@ export class ClineProvider
 		// Get platform-specific application data directory
 		let mcpServersDir: string
 		if (process.platform === "win32") {
-			// Windows: %APPDATA%\AINCROK\MCP
-			mcpServersDir = path.join(os.homedir(), "AppData", "Roaming", "AINCROK", "MCP")
+			// Windows: %APPDATA%\Aincrok\MCP
+			mcpServersDir = path.join(os.homedir(), "AppData", "Roaming", "Aincrok", "MCP")
 		} else if (process.platform === "darwin") {
-			// macOS: ~/Documents/AINCROK/MCP
-			mcpServersDir = path.join(os.homedir(), "Documents", "AINCROK", "MCP")
+			// macOS: ~/Documents/Aincrok/MCP
+			mcpServersDir = path.join(os.homedir(), "Documents", "Aincrok", "MCP")
 		} else {
-			// Linux: ~/.local/share/AINCROK/MCP
-			mcpServersDir = path.join(os.homedir(), ".local", "share", "AINCROK", "MCP")
+			// Linux: ~/.local/share/Aincrok/MCP
+			mcpServersDir = path.join(os.homedir(), ".local", "share", "Aincrok", "MCP")
 		}
 
 		try {
@@ -1458,7 +1459,7 @@ export class ClineProvider
 		await this.upsertProviderProfile(currentApiConfigName, {
 			...apiConfiguration,
 			apiProvider: "kilocode",
-			aincrokToken: token,
+			kilocodeToken: token,
 		})
 
 		vscode.window.showInformationMessage("Kilo Code successfully configured!")
@@ -1466,7 +1467,7 @@ export class ClineProvider
 		if (this.getCurrentTask()) {
 			this.getCurrentTask()!.api = buildApiHandler({
 				apiProvider: kilocode,
-				aincrokToken: token,
+				kilocodeToken: token,
 			})
 		}
 	}
@@ -1615,6 +1616,30 @@ export class ClineProvider
 
 	async postStateToWebview() {
 		const state = await this.getStateToPostToWebview()
+
+		// aincrok_change: State transfer monitoring for grey screen debugging (Phase 1 Critical Fix)
+		const stateJson = JSON.stringify(state)
+		const stateSizeKB = Math.round(stateJson.length / 1024)
+		const messageCount = state.clineMessages?.length || 0
+		const totalMessageCount = this.getCurrentTask()?.clineMessages?.length || 0
+
+		// Log state transfer metrics for hypothesis testing
+		console.log(
+			`[STATE_TRANSFER] Size: ${stateSizeKB}KB, Messages: ${messageCount}/${totalMessageCount} (${totalMessageCount > 150 ? "SLIDING_WINDOW_ACTIVE" : "FULL_ARRAY"})`,
+		)
+
+		// Warning for large state transfers (indicates potential memory pressure)
+		if (stateSizeKB > 500) {
+			console.warn(`[STATE_TRANSFER] Large state detected!`, {
+				totalSize: stateSizeKB,
+				messageCount,
+				totalMessages: totalMessageCount,
+				messagesSize: Math.round(JSON.stringify(state.clineMessages).length / 1024),
+				slidingWindowReduction:
+					totalMessageCount > 150 ? `${Math.round((1 - messageCount / totalMessageCount) * 100)}%` : "0%",
+			})
+		}
+
 		this.postMessageToWebview({ type: "state", state })
 
 		// Check MDM compliance and send user to account tab if not compliant
@@ -1874,11 +1899,11 @@ export class ClineProvider
 			autoCondenseContextPercent: autoCondenseContextPercent ?? 100,
 			uriScheme: vscode.env.uriScheme,
 			uiKind: vscode.UIKind[vscode.env.uiKind], // kilocode_change
-			kilocodeDefaultModel: await getAincrokDefaultModel(apiConfiguration.aincrokToken),
+			kilocodeDefaultModel: await getAincrokDefaultModel(apiConfiguration.kilocodeToken),
 			currentTaskItem: this.getCurrentTask()?.taskId
 				? (taskHistory || []).find((item: HistoryItem) => item.id === this.getCurrentTask()?.taskId)
 				: undefined,
-			clineMessages: this.getCurrentTask()?.clineMessages || [],
+			clineMessages: this.getRecentClineMessages(),
 			currentTaskTodos: this.getCurrentTask()?.todoList || [],
 			taskHistory: (taskHistory || [])
 				.filter((item: HistoryItem) => item.ts && item.task)
@@ -1983,6 +2008,21 @@ export class ClineProvider
 			includeTaskHistoryInEnhance: includeTaskHistoryInEnhance ?? true,
 			remoteControlEnabled: remoteControlEnabled ?? false,
 		}
+	}
+
+	// aincrok_change: Message sliding window implementation for grey screen fix
+	// This method limits message transfer to prevent memory pressure (Phase 1 Critical Fix)
+	private getRecentClineMessages(): ClineMessage[] {
+		const messages = this.getCurrentTask()?.clineMessages || []
+
+		// If we have 150 or fewer messages, send them all
+		if (messages.length <= 150) {
+			return messages
+		}
+
+		// Keep first message (important for context) + 149 most recent
+		// This reduces state transfer size by 60-80% for large conversations
+		return [messages[0], ...messages.slice(-149)]
 	}
 
 	/**
@@ -2248,10 +2288,10 @@ export class ClineProvider
 
 		// Logout from Kilo Code provider before resetting (same approach as ProfileView logout)
 		const { apiConfiguration, currentApiConfigName } = await this.getState()
-		if (apiConfiguration.aincrokToken) {
+		if (apiConfiguration.kilocodeToken) {
 			await this.upsertProviderProfile(currentApiConfigName, {
 				...apiConfiguration,
-				aincrokToken: "",
+				kilocodeToken: "",
 			})
 		}
 

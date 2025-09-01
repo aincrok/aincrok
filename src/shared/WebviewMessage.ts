@@ -52,6 +52,7 @@ export interface WebviewMessage {
 		| "alwaysAllowUpdateTodoList"
 		| "followupAutoApproveTimeoutMs"
 		| "webviewDidLaunch"
+		| "memoryPressure" // aincrok_change - for memory pressure notifications
 		| "newTask"
 		| "askResponse"
 		| "terminalOperation"
@@ -255,7 +256,7 @@ export interface WebviewMessage {
 		| "checkRulesDirectoryResult"
 		| "saveCodeIndexSettingsAtomic"
 		| "requestCodeIndexSecretStatus"
-		| "fetchAINCROKNotifications"
+		| "fetchAincrokNotifications"
 		| "requestCommands"
 		| "openCommandFile"
 		| "deleteCommand"
@@ -341,6 +342,10 @@ export interface WebviewMessage {
 		codebaseIndexGeminiApiKey?: string
 		codebaseIndexMistralApiKey?: string
 	}
+	// aincrok_change - memory pressure message properties
+	level?: "moderate" | "high" | "critical"
+	heapUsedMb?: number
+	emergency?: boolean
 }
 
 // kilocode_change begin
@@ -355,7 +360,7 @@ export type UserOrganizationWithApiKey = {
 }
 
 export type ProfileData = {
-	aincrokToken: string
+	kilocodeToken: string
 	user: {
 		id: string
 		name: string

@@ -1,6 +1,6 @@
-# Contributing to AINCROK
+# Contributing to Aincrok
 
-Thank you for your interest in contributing to AINCROK! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to Aincrok! This document provides guidelines and instructions for contributing.
 
 ## Code of Conduct
 
@@ -9,12 +9,14 @@ Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 ## How to Contribute
 
 ### Reporting Issues
+
 - Check existing issues before creating a new one
 - Use issue templates when available
 - Provide clear reproduction steps
 - Include system information
 
 ### Pull Requests
+
 1. Fork the repository
 2. Create a feature branch (`feature/amazing-feature`)
 3. Commit your changes following conventional commits
@@ -23,6 +25,7 @@ Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 6. Submit a pull request
 
 ### Development Setup
+
 ```bash
 # Clone your fork
 git clone https://github.com/YOUR-USERNAME/aincrok.git
@@ -39,13 +42,16 @@ npm test
 ```
 
 ### Coding Standards
+
 - TypeScript for all new code
 - ESLint and Prettier configurations must pass
 - Maintain test coverage above 80%
 - Document all public APIs
 
 ### Commit Convention
+
 We use [Conventional Commits](https://www.conventionalcommits.org/):
+
 - `feat:` New features
 - `fix:` Bug fixes
 - `docs:` Documentation changes

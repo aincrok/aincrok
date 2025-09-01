@@ -1,6 +1,6 @@
-# AINCROK Development Guide
+# Aincrok Development Guide
 
-Welcome to the AINCROK development guide! This document will help you set up your development environment and understand how to work with the codebase. Whether you're fixing bugs, adding features, or just exploring the code, this guide will get you started.
+Welcome to the Aincrok development guide! This document will help you set up your development environment and understand how to work with the codebase. Whether you're fixing bugs, adding features, or just exploring the code, this guide will get you started.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ Before you begin, make sure you have the following installed:
 1. **Fork and Clone the Repository**:
 
     - **Fork the Repository**:
-        - Visit the [AINCROK GitHub repository](https://github.com/aincrok/aincrok)
+        - Visit the [Aincrok GitHub repository](https://github.com/aincrok/aincrok)
         - Click the "Fork" button in the top-right corner to create your own copy.
     - **Clone Your Fork**:
         ```bash
@@ -64,7 +64,7 @@ The project is organized into several key directories:
 To run the extension in development mode:
 
 1. Press `F5` (or select **Run** → **Start Debugging**) in VSCode
-2. This will open a new VSCode window with AINCROK loaded
+2. This will open a new VSCode window with Aincrok loaded
 
 ### Hot Reloading
 
@@ -108,7 +108,7 @@ Replace `[version]` with the current version number.
 
 ## Testing
 
-AINCROK uses several types of tests to ensure quality:
+Aincrok uses several types of tests to ensure quality:
 
 ### Unit Tests
 
@@ -167,12 +167,12 @@ These hooks help maintain code quality and consistency. If you encounter issues 
 ### Debugging Tips
 
 - Use `console.log()` statements in your code for debugging
-- Check the Output panel in VSCode (View > Output) and select "AINCROK" from the dropdown
+- Check the Output panel in VSCode (View > Output) and select "Aincrok" from the dropdown
 - For webview issues, use the browser developer tools in the webview (right-click > "Inspect Element")
 
 ## Contributing
 
-We welcome contributions to AINCROK! Here's how you can help:
+We welcome contributions to Aincrok! Here's how you can help:
 
 1. **Report an issue** using [GitHub Issues](https://github.com/aincrok/aincrok/issues)
 2. **Find an issue** and submit a Pull Request with your fix

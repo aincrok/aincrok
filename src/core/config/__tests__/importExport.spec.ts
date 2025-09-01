@@ -593,9 +593,7 @@ describe("importExport", () => {
 				defaultUri: expect.anything(),
 			})
 
-			expect(vscode.Uri.file).toHaveBeenCalledWith(
-				path.join("/mock/home", "Documents", "aincrok-settings.json"),
-			)
+			expect(vscode.Uri.file).toHaveBeenCalledWith(path.join("/mock/home", "Documents", "aincrok-settings.json"))
 		})
 
 		describe("codebase indexing export", () => {

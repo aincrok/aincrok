@@ -1,5 +1,5 @@
 {
-	"greeting": "What can Kilo Code do for you?",
+	"greeting": "What can Aincrok do for you?",
 	"task": {
 		"title": "Task",
 		"expand": "Expand task",
@@ -21,7 +21,7 @@
 		"sharePublicly": "Share Publicly",
 		"sharePubliclyDescription": "Anyone with the link can access",
 		"connectToCloud": "Connect to Cloud",
-		"connectToCloudDescription": "Sign in to Kilo Code Cloud to share tasks",
+		"connectToCloudDescription": "Sign in to Aincrok Cloud to share tasks",
 		"sharingDisabledByOrganization": "Sharing disabled by organization",
 		"shareSuccessOrganization": "Organization link copied to clipboard",
 		"shareSuccessPublic": "Public link copied to clipboard"
@@ -128,7 +128,7 @@
 		"title": "Modes",
 		"marketplace": "Mode Marketplace",
 		"settings": "Mode Settings",
-		"description": "Specialized personas that tailor Kilo Code's behavior.",
+		"description": "Specialized personas that tailor Aincrok's behavior.",
 		"searchPlaceholder": "Search modes...",
 		"noResults": "No results found"
 	},
@@ -177,46 +177,46 @@
 		"tokens": "tokens"
 	},
 	"instructions": {
-		"wantsToFetch": "Kilo Code wants to fetch detailed instructions to assist with the current task"
+		"wantsToFetch": "Aincrok wants to fetch detailed instructions to assist with the current task"
 	},
 	"fileOperations": {
-		"wantsToRead": "Kilo Code wants to read this file:",
-		"wantsToReadMultiple": "Kilo Code wants to read multiple files:",
-		"wantsToReadAndXMore": "Kilo Code wants to read this file and {{count}} more:",
-		"wantsToReadOutsideWorkspace": "Kilo Code wants to read this file outside of the workspace:",
-		"didRead": "Kilo Code read this file:",
-		"wantsToEdit": "Kilo Code wants to edit this file:",
-		"wantsToEditOutsideWorkspace": "Kilo Code wants to edit this file outside of the workspace:",
-		"wantsToEditProtected": "Kilo Code wants to edit a protected configuration file:",
-		"wantsToApplyBatchChanges": "Kilo Code wants to apply changes to multiple files:",
-		"wantsToCreate": "Kilo Code wants to create a new file:",
-		"wantsToSearchReplace": "Kilo Code wants to search and replace in this file:",
-		"didSearchReplace": "Kilo Code performed search and replace on this file:",
-		"wantsToInsert": "Kilo Code wants to insert content into this file:",
-		"wantsToInsertWithLineNumber": "Kilo Code wants to insert content into this file at line {{lineNumber}}:",
-		"wantsToInsertAtEnd": "Kilo Code wants to append content to the end of this file:"
+		"wantsToRead": "Aincrok wants to read this file:",
+		"wantsToReadMultiple": "Aincrok wants to read multiple files:",
+		"wantsToReadAndXMore": "Aincrok wants to read this file and {{count}} more:",
+		"wantsToReadOutsideWorkspace": "Aincrok wants to read this file outside of the workspace:",
+		"didRead": "Aincrok read this file:",
+		"wantsToEdit": "Aincrok wants to edit this file:",
+		"wantsToEditOutsideWorkspace": "Aincrok wants to edit this file outside of the workspace:",
+		"wantsToEditProtected": "Aincrok wants to edit a protected configuration file:",
+		"wantsToApplyBatchChanges": "Aincrok wants to apply changes to multiple files:",
+		"wantsToCreate": "Aincrok wants to create a new file:",
+		"wantsToSearchReplace": "Aincrok wants to search and replace in this file:",
+		"didSearchReplace": "Aincrok performed search and replace on this file:",
+		"wantsToInsert": "Aincrok wants to insert content into this file:",
+		"wantsToInsertWithLineNumber": "Aincrok wants to insert content into this file at line {{lineNumber}}:",
+		"wantsToInsertAtEnd": "Aincrok wants to append content to the end of this file:"
 	},
 	"directoryOperations": {
-		"wantsToViewTopLevel": "Kilo Code wants to view the top level files in this directory:",
-		"didViewTopLevel": "Kilo Code viewed the top level files in this directory:",
-		"wantsToViewTopLevelOutsideWorkspace": "Kilo Code wants to view the top level files in this directory (outside workspace):",
-		"didViewTopLevelOutsideWorkspace": "Kilo Code viewed the top level files in this directory (outside workspace):",
-		"wantsToViewRecursive": "Kilo Code wants to recursively view all files in this directory:",
-		"didViewRecursive": "Kilo Code recursively viewed all files in this directory:",
-		"wantsToViewRecursiveOutsideWorkspace": "Kilo Code wants to recursively view all files in this directory (outside workspace):",
-		"didViewRecursiveOutsideWorkspace": "Kilo Code recursively viewed all files in this directory (outside workspace):",
-		"wantsToViewDefinitions": "Kilo Code wants to view source code definition names used in this directory:",
-		"didViewDefinitions": "Kilo Code viewed source code definition names used in this directory:",
-		"wantsToViewDefinitionsOutsideWorkspace": "Kilo Code wants to view source code definition names used in this directory (outside workspace):",
-		"didViewDefinitionsOutsideWorkspace": "Kilo Code viewed source code definition names used in this directory (outside workspace):",
-		"wantsToSearch": "Kilo Code wants to search this directory for <code>{{regex}}</code>:",
-		"didSearch": "Kilo Code searched this directory for <code>{{regex}}</code>:",
-		"wantsToSearchOutsideWorkspace": "Kilo Code wants to search this directory (outside workspace) for <code>{{regex}}</code>:",
-		"didSearchOutsideWorkspace": "Kilo Code searched this directory (outside workspace) for <code>{{regex}}</code>:"
+		"wantsToViewTopLevel": "Aincrok wants to view the top level files in this directory:",
+		"didViewTopLevel": "Aincrok viewed the top level files in this directory:",
+		"wantsToViewTopLevelOutsideWorkspace": "Aincrok wants to view the top level files in this directory (outside workspace):",
+		"didViewTopLevelOutsideWorkspace": "Aincrok viewed the top level files in this directory (outside workspace):",
+		"wantsToViewRecursive": "Aincrok wants to recursively view all files in this directory:",
+		"didViewRecursive": "Aincrok recursively viewed all files in this directory:",
+		"wantsToViewRecursiveOutsideWorkspace": "Aincrok wants to recursively view all files in this directory (outside workspace):",
+		"didViewRecursiveOutsideWorkspace": "Aincrok recursively viewed all files in this directory (outside workspace):",
+		"wantsToViewDefinitions": "Aincrok wants to view source code definition names used in this directory:",
+		"didViewDefinitions": "Aincrok viewed source code definition names used in this directory:",
+		"wantsToViewDefinitionsOutsideWorkspace": "Aincrok wants to view source code definition names used in this directory (outside workspace):",
+		"didViewDefinitionsOutsideWorkspace": "Aincrok viewed source code definition names used in this directory (outside workspace):",
+		"wantsToSearch": "Aincrok wants to search this directory for <code>{{regex}}</code>:",
+		"didSearch": "Aincrok searched this directory for <code>{{regex}}</code>:",
+		"wantsToSearchOutsideWorkspace": "Aincrok wants to search this directory (outside workspace) for <code>{{regex}}</code>:",
+		"didSearchOutsideWorkspace": "Aincrok searched this directory (outside workspace) for <code>{{regex}}</code>:"
 	},
 	"codebaseSearch": {
-		"wantsToSearch": "Kilo Code wants to search the codebase for <code>{{query}}</code>:",
-		"wantsToSearchWithPath": "Kilo Code wants to search the codebase for <code>{{query}}</code> in <code>{{path}}</code>:",
+		"wantsToSearch": "Aincrok wants to search the codebase for <code>{{query}}</code>:",
+		"wantsToSearchWithPath": "Aincrok wants to search the codebase for <code>{{query}}</code> in <code>{{path}}</code>:",
 		"didSearch_one": "Found 1 result",
 		"didSearch_other": "Found {{count}} results",
 		"resultTooltip": "Similarity score: {{score}} (click to open file)"
@@ -241,18 +241,18 @@
 	"response": "Response",
 	"arguments": "Arguments",
 	"mcp": {
-		"wantsToUseTool": "Kilo Code wants to use a tool on the {{serverName}} MCP server:",
-		"wantsToAccessResource": "Kilo Code wants to access a resource on the {{serverName}} MCP server:"
+		"wantsToUseTool": "Aincrok wants to use a tool on the {{serverName}} MCP server:",
+		"wantsToAccessResource": "Aincrok wants to access a resource on the {{serverName}} MCP server:"
 	},
 	"modes": {
-		"wantsToSwitch": "Kilo Code wants to switch to {{mode}} mode",
-		"wantsToSwitchWithReason": "Kilo Code wants to switch to {{mode}} mode because: {{reason}}",
-		"didSwitch": "Kilo Code switched to {{mode}} mode",
-		"didSwitchWithReason": "Kilo Code switched to {{mode}} mode because: {{reason}}"
+		"wantsToSwitch": "Aincrok wants to switch to {{mode}} mode",
+		"wantsToSwitchWithReason": "Aincrok wants to switch to {{mode}} mode because: {{reason}}",
+		"didSwitch": "Aincrok switched to {{mode}} mode",
+		"didSwitchWithReason": "Aincrok switched to {{mode}} mode because: {{reason}}"
 	},
 	"subtasks": {
-		"wantsToCreate": "Kilo Code wants to create a new subtask in {{mode}} mode:",
-		"wantsToFinish": "Kilo Code wants to finish this subtask",
+		"wantsToCreate": "Aincrok wants to create a new subtask in {{mode}} mode:",
+		"wantsToFinish": "Aincrok wants to finish this subtask",
 		"newTaskContent": "Subtask Instructions",
 		"completionContent": "Subtask Completed",
 		"resultContent": "Subtask Results",
@@ -260,21 +260,21 @@
 		"completionInstructions": "Subtask completed! You can review the results and suggest any corrections or next steps. If everything looks good, confirm to return the result to the parent task."
 	},
 	"questions": {
-		"hasQuestion": "Kilo Code has a question:"
+		"hasQuestion": "Aincrok has a question:"
 	},
 	"taskCompleted": "Task Completed",
 	"error": "Error",
 	"diffError": {
 		"title": "Edit Unsuccessful"
 	},
-	"troubleMessage": "Kilo Code is having trouble...",
+	"troubleMessage": "Aincrok is having trouble...",
 	"powershell": {
 		"issues": "It seems like you're having Windows PowerShell issues, please see this"
 	},
 	"autoApprove": {
 		"title": "Auto-approve:",
 		"none": "None",
-		"description": "Auto-approve allows Kilo Code to perform actions without asking for permission. Only enable for actions you fully trust. More detailed configuration available in <settingsLink>Settings</settingsLink>.",
+		"description": "Auto-approve allows Aincrok to perform actions without asking for permission. Only enable for actions you fully trust. More detailed configuration available in <settingsLink>Settings</settingsLink>.",
 		"selectOptionsFirst": "Select at least one option below to enable auto-approval",
 		"toggleAriaLabel": "Toggle auto-approval",
 		"disabledAriaLabel": "Auto-approval disabled - select options first"
@@ -298,7 +298,7 @@
 		"countdownDisplay": "{{count}}s"
 	},
 	"browser": {
-		"rooWantsToUse": "Kilo Code wants to use the browser:",
+		"rooWantsToUse": "Aincrok wants to use the browser:",
 		"consoleLogs": "Console Logs",
 		"noNewLogs": "(No new logs)",
 		"screenshot": "Browser screenshot",
@@ -328,22 +328,22 @@
 			"copy_code": "Copy code"
 		}
 	},
-	"systemPromptWarning": "WARNING: Custom system prompt override active. This can severely break functionality and cause unpredictable behavior.",
+	"systemPromptWarning": "Custom System Prompt Active",
 	"profileViolationWarning": "The current profile isn't compatible with your organization's settings",
 	"shellIntegration": {
 		"title": "Command Execution Warning",
-		"description": "Your command is being executed without VSCode terminal shell integration. To suppress this warning you can disable shell integration in the <strong>Terminal</strong> section of the <settingsLink>Kilo Code settings</settingsLink> or troubleshoot VSCode terminal integration using the link below.",
+		"description": "Your command is being executed without VSCode terminal shell integration. To suppress this warning you can disable shell integration in the <strong>Terminal</strong> section of the <settingsLink>Aincrok settings</settingsLink> or troubleshoot VSCode terminal integration using the link below.",
 		"troubleshooting": "Click here for shell integration documentation."
 	},
 	"ask": {
 		"autoApprovedRequestLimitReached": {
 			"title": "Auto-Approved Request Limit Reached",
-			"description": "Kilo Code has reached the auto-approved limit of {{count}} API request(s). Would you like to reset the count and proceed with the task?",
+			"description": "Aincrok has reached the auto-approved limit of {{count}} API request(s). Would you like to reset the count and proceed with the task?",
 			"button": "Reset and Continue"
 		},
 		"autoApprovedCostLimitReached": {
 			"title": "Auto-Approved Cost Limit Reached",
-			"description": "Kilo has reached the auto-approved cost limit of ${{count}}. Would you like to reset the cost and proceed with the task?",
+			"description": "Aincrok has reached the auto-approved cost limit of ${{count}}. Would you like to reset the cost and proceed with the task?",
 			"button": "Reset and Continue"
 		}
 	},

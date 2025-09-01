@@ -3,7 +3,7 @@
 	"displayName": "%extension.displayName%",
 	"description": "%extension.description%",
 	"publisher": "aincrok",
-	"version": "4.85.0",
+	"version": "0.0.0",
 	"icon": "assets/icons/logo-outline-black.png",
 	"galleryBanner": {
 		"color": "#FFFFFF",
@@ -14,13 +14,13 @@
 		"node": "20.19.2"
 	},
 	"author": {
-		"name": "AINCROK"
+		"name": "aincrok"
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/aincrok/aincrok"
 	},
-	"homepage": "https://aincrok.ai",
+	"homepage": "https://aincrok.dev",
 	"categories": [
 		"AI",
 		"Chat",
@@ -30,22 +30,24 @@
 		"Testing"
 	],
 	"keywords": [
+		"aincrok",
+		"Aincrok",
 		"cline",
+		"kilocode",
+		"roo code",
+		"roocode",
+		"ai",
 		"claude",
+		"coding",
+		"assistant",
 		"dev",
 		"mcp",
 		"openrouter",
-		"coding",
 		"agent",
 		"autonomous",
 		"chatgpt",
 		"sonnet",
-		"ai",
-		"llama",
-		"AINCROK",
-		"aincrok",
-		"roo code",
-		"roocode"
+		"llama"
 	],
 	"activationEvents": [
 		"onLanguage",
@@ -56,13 +58,13 @@
 		"walkthroughs": [
 			{
 				"id": "aincrokWalkthrough",
-				"title": "5 ways AINCROK helps you code",
+				"title": "5 ways Aincrok helps you code",
 				"description": "You now have a personal AI coding assistant.",
 				"steps": [
 					{
 						"id": "welcome",
 						"title": "Write code for you",
-						"description": "Describe what you want to build. AINCROK will write it from scratch, generate the files, and run them for you.",
+						"description": "Describe what you want to build. Aincrok will write it from scratch, generate the files, and run them for you.",
 						"media": {
 							"markdown": "./dist/walkthrough/step1.md"
 						}
@@ -70,7 +72,7 @@
 					{
 						"id": "getting-started",
 						"title": "Understand your codebase",
-						"description": "Need clarity on how something works? Ask AINCROK about any part of your files and get a clear explanation.",
+						"description": "Need clarity on how something works? Ask Aincrok about any part of your files and get a clear explanation.",
 						"media": {
 							"markdown": "./dist/walkthrough/step2.md"
 						},
@@ -81,7 +83,7 @@
 					{
 						"id": "modes",
 						"title": "Get things working again",
-						"description": "Stuck on an error? AINCROK can find the issue, fix it, and get your code running.",
+						"description": "Stuck on an error? Aincrok can find the issue, fix it, and get your code running.",
 						"media": {
 							"markdown": "./dist/walkthrough/step3.md"
 						}
@@ -110,8 +112,8 @@
 				{
 					"id": "aincrok-ActivityBar",
 					"title": "%views.activitybar.title%",
-					"icon": "assets/icons/kilo.png",
-					"darkIcon": "assets/icons/kilo-dark.png",
+					"icon": "assets/icons/icon-light.svg",
+					"darkIcon": "assets/icons/icon-dark.svg",
 					"when": "isMac"
 				}
 			]
@@ -251,8 +253,8 @@
 				"command": "aincrok.generateCommitMessage",
 				"title": "%command.generateCommitMessage.title%",
 				"icon": {
-					"light": "assets/icons/kilo-light.svg",
-					"dark": "assets/icons/kilo-dark.svg"
+					"light": "assets/icons/icon-light.svg",
+					"dark": "assets/icons/icon-dark.svg"
 				},
 				"category": "%configuration.title%"
 			},

@@ -128,7 +128,8 @@ const routerNames = [
 	"glama",
 	"unbound",
 	"litellm",
-	"aincrok-openrouter",
+	"kilocode-openrouter",
+	"cerebras",
 	"ollama",
 	"lmstudio",
 	"io-intelligence",
@@ -253,7 +254,7 @@ export type GetModelsOptions =
 	| { provider: "requesty"; apiKey?: string; baseUrl?: string }
 	| { provider: "unbound"; apiKey?: string }
 	| { provider: "litellm"; apiKey: string; baseUrl: string }
-	| { provider: "aincrok-openrouter"; aincrokToken?: string; aincrokOrganizationId?: string } // kilocode_change
+	| { provider: "kilocode-openrouter"; kilocodeToken?: string; kilocodeOrganizationId?: string } // kilocode_change
 	| { provider: "cerebras"; cerebrasApiKey?: string } // kilocode_change
 	| { provider: "ollama"; baseUrl?: string }
 	| { provider: "lmstudio"; baseUrl?: string }

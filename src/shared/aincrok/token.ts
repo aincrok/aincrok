@@ -11,5 +11,5 @@ export function getKiloBaseUriFromToken(aincrokToken?: string) {
 			console.warn("Failed to get base URL from Kilo Code token")
 		}
 	}
-	return "https://api.aincrok.ai"
+	return "https://api.kilocode.ai"
 }
