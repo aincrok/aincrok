@@ -5,7 +5,7 @@ All notable changes to Aincrok will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2025-01-28
+## [0.0.0] - 2025-01-28
 
 ### Added
 
@@ -65,7 +65,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 - [#2130](https://github.com/aincrok/aincrok/pull/2130) [`78aaf7c`](https://github.com/aincrok/aincrok/commit/78aaf7c4607c5a98174a26b99973e379b87e5893) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Added support for Grok Code Fast to the xAI provider
 
-- [#2109](https://github.com/aincrok/aincrok/pull/2109) [`173ecf4`](https://github.com/aincrok/aincrok/commit/173ecf4983449a4b7766ba900f736a57b7d5d525) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - A solitary "0" that was sometimes shown on the AINCROK and OpenRouter API provider settings page was removed.
+- [#2109](https://github.com/aincrok/aincrok/pull/2109) [`173ecf4`](https://github.com/aincrok/aincrok/commit/173ecf4983449a4b7766ba900f736a57b7d5d525) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - A solitary "0" that was sometimes shown on the Aincrok and OpenRouter API provider settings page was removed.
 
 ## [v4.84.0]
 
@@ -80,15 +80,15 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ### Patch Changes
 
-- [#2095](https://github.com/aincrok/aincrok/pull/2095) [`8623bb8`](https://github.com/aincrok/aincrok/commit/8623bb8516a7453d299512bd11c5000f43ecb952) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - AINCROK provider now falls back to the default model when the selected model no longer exists
+- [#2095](https://github.com/aincrok/aincrok/pull/2095) [`8623bb8`](https://github.com/aincrok/aincrok/commit/8623bb8516a7453d299512bd11c5000f43ecb952) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Aincrok provider now falls back to the default model when the selected model no longer exists
 
 - [#2090](https://github.com/aincrok/aincrok/pull/2090) [`fd147b8`](https://github.com/aincrok/aincrok/commit/fd147b8ed35c8963ec66c5fae89f37829529574f) Thanks [@Mats4k](https://github.com/Mats4k)! - Improvements to German language translation
 
 - [#2030](https://github.com/aincrok/aincrok/pull/2030) [`11e8c7d`](https://github.com/aincrok/aincrok/commit/11e8c7dda9f03b769e22f233b5ea487c9a12bd66) Thanks [@ivanarifin](https://github.com/ivanarifin)! - Show message when Virtual Quota Fallback Provider switches profiles
 
-- [#2100](https://github.com/aincrok/aincrok/pull/2100) [`5ed3d7b`](https://github.com/aincrok/aincrok/commit/5ed3d7be3273fef7ff0eeede8db064fc9bdb4fe0) Thanks [@RSO](https://github.com/RSO)! - Changed the API domain for the AINCROK provider
+- [#2100](https://github.com/aincrok/aincrok/pull/2100) [`5ed3d7b`](https://github.com/aincrok/aincrok/commit/5ed3d7be3273fef7ff0eeede8db064fc9bdb4fe0) Thanks [@RSO](https://github.com/RSO)! - Changed the API domain for the Aincrok provider
 
-- [#1964](https://github.com/aincrok/aincrok/pull/1964) [`6b0dfbf`](https://github.com/aincrok/aincrok/commit/6b0dfbf10a397063f02e0dd6964d1fb1b773cf12) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - The AINCROK API Provider settings now also shows the average cost per request in addition to the average cost per million tokens for a particular model.
+- [#1964](https://github.com/aincrok/aincrok/pull/1964) [`6b0dfbf`](https://github.com/aincrok/aincrok/commit/6b0dfbf10a397063f02e0dd6964d1fb1b773cf12) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - The Aincrok API Provider settings now also shows the average cost per request in addition to the average cost per million tokens for a particular model.
 
 ## [v4.83.1]
 
@@ -194,9 +194,9 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ## [v4.80.0]
 
-- [#1893](https://github.com/aincrok/aincrok/pull/1893) [`d36b1c1`](https://github.com/aincrok/aincrok/commit/d36b1c17fa9d5cb06d13865b4d1ba1e66500a85c) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - More price details are now shown for AINCROK Provider and OpenRouter. Average AINCROK cost is the average cost of a model when using AINCROK, after applying caching discounts. A breakdown of provider prices is also available.
+- [#1893](https://github.com/aincrok/aincrok/pull/1893) [`d36b1c1`](https://github.com/aincrok/aincrok/commit/d36b1c17fa9d5cb06d13865b4d1ba1e66500a85c) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - More price details are now shown for Aincrok Provider and OpenRouter. Average Aincrok cost is the average cost of a model when using Aincrok, after applying caching discounts. A breakdown of provider prices is also available.
 
-- [#1893](https://github.com/aincrok/aincrok/pull/1893) [`d36b1c1`](https://github.com/aincrok/aincrok/commit/d36b1c17fa9d5cb06d13865b4d1ba1e66500a85c) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Provider Routing options have been added to AINCROK and OpenRouter settings. It is now possible to select a sorting preference (e.g. prefer lower price) and data policy (e.g. deny data collection).
+- [#1893](https://github.com/aincrok/aincrok/pull/1893) [`d36b1c1`](https://github.com/aincrok/aincrok/commit/d36b1c17fa9d5cb06d13865b4d1ba1e66500a85c) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Provider Routing options have been added to Aincrok and OpenRouter settings. It is now possible to select a sorting preference (e.g. prefer lower price) and data policy (e.g. deny data collection).
 
 ### Patch Changes
 
@@ -271,7 +271,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 - [#1822](https://github.com/aincrok/aincrok/pull/1822) [`79efaea`](https://github.com/aincrok/aincrok/commit/79efaeaa3da8881310feb4a711f475810df5f84e) Thanks [@tejaschokhawala](https://github.com/tejaschokhawala)! - Thinking Budget value parsing and boundary handling corrected
 
-- [#1850](https://github.com/aincrok/aincrok/pull/1850) [`b9714db`](https://github.com/aincrok/aincrok/commit/b9714dbbdde7e6ec628d32657329fe82c01cfb42) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Fixed "Failed to load AINCROK provider model list" error
+- [#1850](https://github.com/aincrok/aincrok/pull/1850) [`b9714db`](https://github.com/aincrok/aincrok/commit/b9714dbbdde7e6ec628d32657329fe82c01cfb42) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Fixed "Failed to load Aincrok provider model list" error
 
 - [#1829](https://github.com/aincrok/aincrok/pull/1829) [`2bdeaa0`](https://github.com/aincrok/aincrok/commit/2bdeaa05074e5e87ffa2af1bbed149864dbd3785) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Improve memory allocation on webview
 
@@ -444,7 +444,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
     ## Settings
 
-    Navigate to AINCROK settings → Terminal to configure:
+    Navigate to Aincrok settings → Terminal to configure:
 
     - **API Configuration**: Select which AI provider to use for command generation (defaults to your current configuration)
 
@@ -452,7 +452,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ### Patch Changes
 
-- [#1658](https://github.com/aincrok/aincrok/pull/1658) [`962c90a`](https://github.com/aincrok/aincrok/commit/962c90a2d057a72081cb271949cbf780c80a3555) Thanks [@hassoncs](https://github.com/hassoncs)! - Control AINCROK programmatically from the command line using IPC with the `KILO_CODE_IPC_SOCKET_PATH` var
+- [#1658](https://github.com/aincrok/aincrok/pull/1658) [`962c90a`](https://github.com/aincrok/aincrok/commit/962c90a2d057a72081cb271949cbf780c80a3555) Thanks [@hassoncs](https://github.com/hassoncs)! - Control Aincrok programmatically from the command line using IPC with the `KILO_CODE_IPC_SOCKET_PATH` var
 
 - [#1647](https://github.com/aincrok/aincrok/pull/1647) [`12a7a5a`](https://github.com/aincrok/aincrok/commit/12a7a5a21ed34ce68694452d7d6bb67a59ca8904) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Simplify the Welcome/Login screen
 
@@ -567,7 +567,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ## [v4.65.1]
 
-- [#1518](https://github.com/aincrok/aincrok/pull/1518) [`f709388`](https://github.com/aincrok/aincrok/commit/f709388ae1e1b730c06796d0b9ec207532219d6e) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Claude Sonnet 4 is now the default model! Attend the Anthropic x AINCROK workshop [The Art of Prompt Engineering for Software Developers](https://www.eventbrite.nl/e/the-art-of-prompt-engineering-for-software-developers-tickets-1474017238239) Thursday, July 31 2025!
+- [#1518](https://github.com/aincrok/aincrok/pull/1518) [`f709388`](https://github.com/aincrok/aincrok/commit/f709388ae1e1b730c06796d0b9ec207532219d6e) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Claude Sonnet 4 is now the default model! Attend the Anthropic x Aincrok workshop [The Art of Prompt Engineering for Software Developers](https://www.eventbrite.nl/e/the-art-of-prompt-engineering-for-software-developers-tickets-1474017238239) Thursday, July 31 2025!
 
 - [#1521](https://github.com/aincrok/aincrok/pull/1521) [`08ccbea`](https://github.com/aincrok/aincrok/commit/08ccbeaf2c4e5d9ec22c77edc7cea673f75e397c) Thanks [@hassoncs](https://github.com/hassoncs)! - The chat box is no longer cleared when clicking buttons
 
@@ -585,7 +585,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 - [#1512](https://github.com/aincrok/aincrok/pull/1512) [`aea28be`](https://github.com/aincrok/aincrok/commit/aea28bec33d27ad3f824a8a1d44c9d36025adf26) Thanks [@hassoncs](https://github.com/hassoncs)! - Fix a memory leak when opening many documents with different Uris
 
-- [#1515](https://github.com/aincrok/aincrok/pull/1515) [`2b208b3`](https://github.com/aincrok/aincrok/commit/2b208b3320834a847fb3443677d5e7dee3722c41) Thanks [@hassoncs](https://github.com/hassoncs)! - Improve the background color of the "Help Improve AINCROK" banner
+- [#1515](https://github.com/aincrok/aincrok/pull/1515) [`2b208b3`](https://github.com/aincrok/aincrok/commit/2b208b3320834a847fb3443677d5e7dee3722c41) Thanks [@hassoncs](https://github.com/hassoncs)! - Improve the background color of the "Help Improve Aincrok" banner
 
 ## [v4.64.3]
 
@@ -601,13 +601,13 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ## [v4.64.0]
 
-- [#1447](https://github.com/aincrok/aincrok/pull/1447) [`38d135e`](https://github.com/aincrok/aincrok/commit/38d135eafc395fe5c9883fbe9fcd79941a21e0ce) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - (retry) The Task view now shows per-request cost when using the AINCROK provider
+- [#1447](https://github.com/aincrok/aincrok/pull/1447) [`38d135e`](https://github.com/aincrok/aincrok/commit/38d135eafc395fe5c9883fbe9fcd79941a21e0ce) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - (retry) The Task view now shows per-request cost when using the Aincrok provider
 
 ## [v4.63.2]
 
-- [#1462](https://github.com/aincrok/aincrok/pull/1462) [`54f09c6`](https://github.com/aincrok/aincrok/commit/54f09c6edbd9ea13ebbd645fad9de5a448d5a11d) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - AINCROK no longer uses Gemini 2.5 Pro after a fresh install/reset while showing Sonnet 3.7
+- [#1462](https://github.com/aincrok/aincrok/pull/1462) [`54f09c6`](https://github.com/aincrok/aincrok/commit/54f09c6edbd9ea13ebbd645fad9de5a448d5a11d) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Aincrok no longer uses Gemini 2.5 Pro after a fresh install/reset while showing Sonnet 3.7
 
-- [#1471](https://github.com/aincrok/aincrok/pull/1471) [`d95b409`](https://github.com/aincrok/aincrok/commit/d95b40981715fffbfe62d1fc4e54472195db1f2c) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Fix AINCROK profile persist of Routing Provider
+- [#1471](https://github.com/aincrok/aincrok/pull/1471) [`d95b409`](https://github.com/aincrok/aincrok/commit/d95b40981715fffbfe62d1fc4e54472195db1f2c) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Fix Aincrok profile persist of Routing Provider
 
 ## [v4.63.1]
 
@@ -619,9 +619,9 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 - [#1450](https://github.com/aincrok/aincrok/pull/1450) [`077dba2`](https://github.com/aincrok/aincrok/commit/077dba2964ad99bea5f57d9db1718063abd08a18) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Add todo list tool enable checkbox to provider advanced settings (thanks @daniel-lxs, @mrubens!)
 
-- [#1443](https://github.com/aincrok/aincrok/pull/1443) [`eba422a`](https://github.com/aincrok/aincrok/commit/eba422acb01017cc9c7465f414836ff9f14bc86c) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Adds support for changing the AINCROK providers routing strategy
+- [#1443](https://github.com/aincrok/aincrok/pull/1443) [`eba422a`](https://github.com/aincrok/aincrok/commit/eba422acb01017cc9c7465f414836ff9f14bc86c) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Adds support for changing the Aincrok providers routing strategy
 
-    You can now select the OpenRouter provider to process your AINCROK requests.
+    You can now select the OpenRouter provider to process your Aincrok requests.
 
 ### Patch Changes
 
@@ -686,17 +686,17 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ## [v4.61.1]
 
-- [#1435](https://github.com/aincrok/aincrok/pull/1435) [`05b5bf4`](https://github.com/aincrok/aincrok/commit/05b5bf400fd195109aa8b2bada01b843acc58318) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Revert "Show per-request cost for AINCROK provider"
+- [#1435](https://github.com/aincrok/aincrok/pull/1435) [`05b5bf4`](https://github.com/aincrok/aincrok/commit/05b5bf400fd195109aa8b2bada01b843acc58318) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Revert "Show per-request cost for Aincrok provider"
 
 ## [v4.61.0]
 
-- [#1431](https://github.com/aincrok/aincrok/pull/1431) [`97a9b97`](https://github.com/aincrok/aincrok/commit/97a9b97de865e3f2d12a956ceaceda12c13505e3) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - The Task view now shows per-request cost when using the AINCROK provider
+- [#1431](https://github.com/aincrok/aincrok/pull/1431) [`97a9b97`](https://github.com/aincrok/aincrok/commit/97a9b97de865e3f2d12a956ceaceda12c13505e3) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - The Task view now shows per-request cost when using the Aincrok provider
 
 ### Patch Changes
 
 - [#1408](https://github.com/aincrok/aincrok/pull/1408) [`cb5132f`](https://github.com/aincrok/aincrok/commit/cb5132f3faa1f7670c438a201274cbc249a8f68d) Thanks [@markijbema](https://github.com/markijbema)! - Log out kilo code provider when resetting data
 
-- [#1421](https://github.com/aincrok/aincrok/pull/1421) [`841bca9`](https://github.com/aincrok/aincrok/commit/841bca9348434db5d3a5a7fa1c7a821816a23a3f) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Fixed an issue where AINCROK would inadvertently steal focus
+- [#1421](https://github.com/aincrok/aincrok/pull/1421) [`841bca9`](https://github.com/aincrok/aincrok/commit/841bca9348434db5d3a5a7fa1c7a821816a23a3f) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Fixed an issue where Aincrok would inadvertently steal focus
 
 ## [v4.60.0]
 
@@ -704,7 +704,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ### Patch Changes
 
-- [#1377](https://github.com/aincrok/aincrok/pull/1377) [`185f068`](https://github.com/aincrok/aincrok/commit/185f06891fd1b62114252c10c13ca875321ebe42) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - AINCROK no longer binds to the Ctrl+Shift+K combination
+- [#1377](https://github.com/aincrok/aincrok/pull/1377) [`185f068`](https://github.com/aincrok/aincrok/commit/185f06891fd1b62114252c10c13ca875321ebe42) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Aincrok no longer binds to the Ctrl+Shift+K combination
 
 ## [v4.59.2]
 
@@ -712,7 +712,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ## [v4.59.1]
 
-- [#1362](https://github.com/aincrok/aincrok/pull/1362) [`08486c4`](https://github.com/aincrok/aincrok/commit/08486c4ac186da2ab7dc02cc8012e77dcae96cce) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Fixed excessive "AINCROK is having trouble" warnings when the browser tool is scrolling
+- [#1362](https://github.com/aincrok/aincrok/pull/1362) [`08486c4`](https://github.com/aincrok/aincrok/commit/08486c4ac186da2ab7dc02cc8012e77dcae96cce) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Fixed excessive "Aincrok is having trouble" warnings when the browser tool is scrolling
 
 ## [v4.59.0]
 
@@ -829,7 +829,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ## [v4.56.3]
 
-- [#1259](https://github.com/aincrok/aincrok/pull/1259) [`4d55c91`](https://github.com/aincrok/aincrok/commit/4d55c9102cb72e927609b4ce07d78d1f32fe27b0) Thanks [@kevinvandijk](https://github.com/kevinvandijk)! - Fix model dropdown to show AINCROK preferred models for the AINCROK provider first
+- [#1259](https://github.com/aincrok/aincrok/pull/1259) [`4d55c91`](https://github.com/aincrok/aincrok/commit/4d55c9102cb72e927609b4ce07d78d1f32fe27b0) Thanks [@kevinvandijk](https://github.com/kevinvandijk)! - Fix model dropdown to show Aincrok preferred models for the Aincrok provider first
 
 ## [v4.56.2]
 
@@ -855,17 +855,17 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 - [#885](https://github.com/aincrok/aincrok/pull/885) [`02288f5`](https://github.com/aincrok/aincrok/commit/02288f5ca7fde811a0477ba99b6d4c33dc239afb) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Improve UI responsiveness when the user cancel the current operation
 
-- [#1203](https://github.com/aincrok/aincrok/pull/1203) [`5c21b8b`](https://github.com/aincrok/aincrok/commit/5c21b8bcab5d584683c5c643d4075c01cd7265fe) Thanks [@hassoncs](https://github.com/hassoncs)! - AINCROK rules will now be included in the commit message generation prompt
+- [#1203](https://github.com/aincrok/aincrok/pull/1203) [`5c21b8b`](https://github.com/aincrok/aincrok/commit/5c21b8bcab5d584683c5c643d4075c01cd7265fe) Thanks [@hassoncs](https://github.com/hassoncs)! - Aincrok rules will now be included in the commit message generation prompt
 
 ## [v4.55.0]
 
-- [#1197](https://github.com/aincrok/aincrok/pull/1197) [`2ceb643`](https://github.com/aincrok/aincrok/commit/2ceb643a35f4a4c04680c119b14e0072d273ee13) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - AINCROK now optionally sends error and usage data to help us fix bugs and improve the extension. No code, prompts, or personal information is ever sent. You can always opt-out in the Settings.
+- [#1197](https://github.com/aincrok/aincrok/pull/1197) [`2ceb643`](https://github.com/aincrok/aincrok/commit/2ceb643a35f4a4c04680c119b14e0072d273ee13) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Aincrok now optionally sends error and usage data to help us fix bugs and improve the extension. No code, prompts, or personal information is ever sent. You can always opt-out in the Settings.
 
 ### Patch Changes
 
 - [#1191](https://github.com/aincrok/aincrok/pull/1191) [`ce2b45a`](https://github.com/aincrok/aincrok/commit/ce2b45aec7845719754f892717f2c2eee548bff2) Thanks [@NyxJae](https://github.com/NyxJae)! - Improve Chinese translations
 
-- [#1194](https://github.com/aincrok/aincrok/pull/1194) [`dee59c6`](https://github.com/aincrok/aincrok/commit/dee59c6f8d8438fb5c8f7bf15ca7d58ed561f3be) Thanks [@markijbema](https://github.com/markijbema)! - Minor improvement to login process for AINCROK provider
+- [#1194](https://github.com/aincrok/aincrok/pull/1194) [`dee59c6`](https://github.com/aincrok/aincrok/commit/dee59c6f8d8438fb5c8f7bf15ca7d58ed561f3be) Thanks [@markijbema](https://github.com/markijbema)! - Minor improvement to login process for Aincrok provider
 
 - [#1186](https://github.com/aincrok/aincrok/pull/1186) [`e16aded`](https://github.com/aincrok/aincrok/commit/e16aded354d5180fb651767c540267f3fdec70dc) Thanks [@hassoncs](https://github.com/hassoncs)! - Improve the progress bar during commit message generation
 
@@ -883,7 +883,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ### Patch Changes
 
-- [#1158](https://github.com/aincrok/aincrok/pull/1158) [`359cf61`](https://github.com/aincrok/aincrok/commit/359cf61618083546f1da7604480e4147f1e843f9) Thanks [@catrielmuller](https://github.com/catrielmuller)! - AINCROK provider config UI rework
+- [#1158](https://github.com/aincrok/aincrok/pull/1158) [`359cf61`](https://github.com/aincrok/aincrok/commit/359cf61618083546f1da7604480e4147f1e843f9) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Aincrok provider config UI rework
 
 ## [v4.52.0]
 
@@ -970,7 +970,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ## [v4.49.0]
 
-- [#894](https://github.com/aincrok/aincrok/pull/894) [`421d57e`](https://github.com/aincrok/aincrok/commit/421d57e44537b13760551e0a1484aae1e8735bc7) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - AINCROK will no longer process file reads or MCP tool outputs if the estimated size is over 80% of the context window. If this behavior breaks your workflow, it can be re-enabled by checking Settings > Context > Allow very large file reads.
+- [#894](https://github.com/aincrok/aincrok/pull/894) [`421d57e`](https://github.com/aincrok/aincrok/commit/421d57e44537b13760551e0a1484aae1e8735bc7) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Aincrok will no longer process file reads or MCP tool outputs if the estimated size is over 80% of the context window. If this behavior breaks your workflow, it can be re-enabled by checking Settings > Context > Allow very large file reads.
 
 - [#929](https://github.com/aincrok/aincrok/pull/929) [`641d264`](https://github.com/aincrok/aincrok/commit/641d2647d57049b6633664d6f9b31c6986684e00) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Edit and resend user feedback messages
 
@@ -1031,7 +1031,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 - [#889](https://github.com/aincrok/aincrok/pull/889) [`7f72a33`](https://github.com/aincrok/aincrok/commit/7f72a33278100f3a7679d7b2761f1380a54bfc90) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Refresh CodeIndex Services (Qdrant) when change the configuration
 
-- [#911](https://github.com/aincrok/aincrok/pull/911) [`ef17629`](https://github.com/aincrok/aincrok/commit/ef17629f278e759345ae4aa4bb3ea27006ff7918) Thanks [@NyxJae](https://github.com/NyxJae)! - Improve Chinese translation: AINCROK should be a proper noun
+- [#911](https://github.com/aincrok/aincrok/pull/911) [`ef17629`](https://github.com/aincrok/aincrok/commit/ef17629f278e759345ae4aa4bb3ea27006ff7918) Thanks [@NyxJae](https://github.com/NyxJae)! - Improve Chinese translation: Aincrok should be a proper noun
 
 - [#910](https://github.com/aincrok/aincrok/pull/910) [`91ce5a6`](https://github.com/aincrok/aincrok/commit/91ce5a649f7b2d9cb0911b3b5c4fcf3a133b420a) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Fix not being able to open Mermaid diagrams in a tab or save them
 
@@ -1345,7 +1345,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 - [#597](https://github.com/aincrok/aincrok/pull/597) [`7e9789c`](https://github.com/aincrok/aincrok/commit/7e9789ce160f6fa82365b8bc8b5331ea99848f73) Thanks [@hassoncs](https://github.com/hassoncs)! - Experimental Autocomplete
 
-    Introduces early support for "Kilo Complete", AINCROK's new autocomplete engine. In this initial release, the AINCROK provider is required and model selection isn’t yet configurable. Stay tuned for additional features, improvements to the completions, and customization options coming soon!
+    Introduces early support for "Kilo Complete", Aincrok's new autocomplete engine. In this initial release, the Aincrok provider is required and model selection isn’t yet configurable. Stay tuned for additional features, improvements to the completions, and customization options coming soon!
 
 - [#610](https://github.com/aincrok/aincrok/pull/610) [`9aabc2c`](https://github.com/aincrok/aincrok/commit/9aabc2cf5214408d54124c97d0309c06396ad641) Thanks [@kevinvandijk](https://github.com/kevinvandijk)! - Add way to go back to active agent session from profile page, resolves #556 (thanks for the issue @karrots)
 
@@ -1355,7 +1355,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 - [#541](https://github.com/aincrok/aincrok/pull/541) [`6e14fce`](https://github.com/aincrok/aincrok/commit/6e14fce02686c16482b0d5181c8fde9e4c3a7ca5) Thanks [@tru-kilo](https://github.com/tru-kilo)! - Fixed double scrollbars in profile dropdown
 
-- [#584](https://github.com/aincrok/aincrok/pull/584) [`0b8b9ae`](https://github.com/aincrok/aincrok/commit/0b8b9ae0cb4819d93691a6552e140197355fc980) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Fix being unable to select certain AINCROK Provider Models (a similarly named but different model would be selected instead)
+- [#584](https://github.com/aincrok/aincrok/pull/584) [`0b8b9ae`](https://github.com/aincrok/aincrok/commit/0b8b9ae0cb4819d93691a6552e140197355fc980) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Fix being unable to select certain Aincrok Provider Models (a similarly named but different model would be selected instead)
 
 ## [v4.32.0]
 
@@ -1385,11 +1385,11 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 - [#539](https://github.com/aincrok/aincrok/pull/539) [`a5958c9`](https://github.com/aincrok/aincrok/commit/a5958c9b4c361fbd84fac0e03d495f8e0c7b600e) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Include changes from Roo Code v3.18.1
 
-- [#551](https://github.com/aincrok/aincrok/pull/551) [`b6bc484`](https://github.com/aincrok/aincrok/commit/b6bc4845b9e545d913bc76db2dae63fb744f87d1) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - AINCROK now has a menu item label on the right side panel
+- [#551](https://github.com/aincrok/aincrok/pull/551) [`b6bc484`](https://github.com/aincrok/aincrok/commit/b6bc4845b9e545d913bc76db2dae63fb744f87d1) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Aincrok now has a menu item label on the right side panel
 
 ## [v4.29.2]
 
-- [#524](https://github.com/aincrok/aincrok/pull/524) [`e1d59f1`](https://github.com/aincrok/aincrok/commit/e1d59f1278916b98ac4f1fa8a02cb694633b475e) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Fix menu stops working when AINCROK is moved between primary and secondary sidebars
+- [#524](https://github.com/aincrok/aincrok/pull/524) [`e1d59f1`](https://github.com/aincrok/aincrok/commit/e1d59f1278916b98ac4f1fa8a02cb694633b475e) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - Fix menu stops working when Aincrok is moved between primary and secondary sidebars
 
 ## [v4.29.1]
 
@@ -1427,7 +1427,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ### Minor Changes
 
-- [#470](https://github.com/aincrok/aincrok/pull/470) [`1715429`](https://github.com/aincrok/aincrok/commit/17154292feeaa3cb364258a09e1a44916292ec3a) Thanks [@RSO](https://github.com/RSO)! - Added a profile view that shows your current AINCROK balance
+- [#470](https://github.com/aincrok/aincrok/pull/470) [`1715429`](https://github.com/aincrok/aincrok/commit/17154292feeaa3cb364258a09e1a44916292ec3a) Thanks [@RSO](https://github.com/RSO)! - Added a profile view that shows your current Aincrok balance
 
 - [#476](https://github.com/aincrok/aincrok/pull/476) [`262e7a2`](https://github.com/aincrok/aincrok/commit/262e7a23c6c8f28742d11160982454762240940e) Thanks [@kevinvandijk](https://github.com/kevinvandijk)! - Add /smol command (thanks Cline and @0xToshii)
 
@@ -1439,7 +1439,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 - [#437](https://github.com/aincrok/aincrok/pull/437) [`84a7f07`](https://github.com/aincrok/aincrok/commit/84a7f07ef529c4c5a70926ae90fae5023b637fc9) Thanks [@tru-kilo](https://github.com/tru-kilo)! - Added a slash newrule command
 
-- [#442](https://github.com/aincrok/aincrok/pull/442) [`b1b0f58`](https://github.com/aincrok/aincrok/commit/b1b0f5857a5d86ac6b8fd455171c6fcdaef31722) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - The AINCROK Provider now supports web-based IDEs, such as FireBase Studio, through an alternative authentication flow. The user should copy and paste the API Key manually in this case.
+- [#442](https://github.com/aincrok/aincrok/pull/442) [`b1b0f58`](https://github.com/aincrok/aincrok/commit/b1b0f5857a5d86ac6b8fd455171c6fcdaef31722) Thanks [@chrarnoldus](https://github.com/chrarnoldus)! - The Aincrok Provider now supports web-based IDEs, such as FireBase Studio, through an alternative authentication flow. The user should copy and paste the API Key manually in this case.
 
 ## [v4.25.0]
 
@@ -1467,7 +1467,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ### Patch Changes
 
-- [#386](https://github.com/aincrok/aincrok/pull/386) [`5caba61`](https://github.com/aincrok/aincrok/commit/5caba61f49a0f87dabf1e50fcf2b6111452a45e0) Thanks [@kevinvandijk](https://github.com/kevinvandijk)! - Clearly display AINCROK recommended models
+- [#386](https://github.com/aincrok/aincrok/pull/386) [`5caba61`](https://github.com/aincrok/aincrok/commit/5caba61f49a0f87dabf1e50fcf2b6111452a45e0) Thanks [@kevinvandijk](https://github.com/kevinvandijk)! - Clearly display Aincrok recommended models
 
 - [#354](https://github.com/aincrok/aincrok/pull/354) [`106b722`](https://github.com/aincrok/aincrok/commit/106b722e747f98edb15b5a8e7a65e19db31028db) Thanks [@hassoncs](https://github.com/hassoncs)! - Fix wrong model after login (#213)
 
@@ -1477,7 +1477,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 - [#381](https://github.com/aincrok/aincrok/pull/381) [`60892c8`](https://github.com/aincrok/aincrok/commit/60892c86cb88ff509e5fb38a80fdfd6b85b793b7) Thanks [@kevinvandijk](https://github.com/kevinvandijk)! - Include changes from Roo Code v3.16.3
 
-- [#303](https://github.com/aincrok/aincrok/pull/303) [`b69a57e`](https://github.com/aincrok/aincrok/commit/b69a57e316a740470a8be40d77dad50efde5c35c) Thanks [@drakonen](https://github.com/drakonen)! - AINCROK Provider can now do all the OpenRouter models
+- [#303](https://github.com/aincrok/aincrok/pull/303) [`b69a57e`](https://github.com/aincrok/aincrok/commit/b69a57e316a740470a8be40d77dad50efde5c35c) Thanks [@drakonen](https://github.com/drakonen)! - Aincrok Provider can now do all the OpenRouter models
 
 ## [v4.22.0]
 
@@ -1522,7 +1522,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 
 ### Minor Changes
 
-- Add easier way to add AINCROK credit when balance is low
+- Add easier way to add Aincrok credit when balance is low
 
 ### Patch Changes
 
@@ -1570,7 +1570,7 @@ Aincrok is forked from [Kilocode](https://github.com/Kilo-Org/kilocode) with sig
 ### Patch Changes
 
 - Fix confirmation dialog not closing in settings view
-- Add support for Gemini 2.5 Flash Preview for AINCROK provider
+- Add support for Gemini 2.5 Flash Preview for Aincrok provider
 
 ## [v4.15.0]
 

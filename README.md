@@ -1,21 +1,21 @@
-# AINCROK - AI Code Assistant for VS Code
+# Aincrok - AI Code Assistant for VS Code
 
 <div align="center">
-  <img src="readme-banner.png" alt="AINCROK Banner" width="600">
+  <img src="readme-banner.png" alt="Aincrok Banner" width="600">
 </div>
-> AINCROK Is Not Cline Roo Or Kilo
+> Aincrok Is Not Cline Roo Or Kilo
 [![Version](https://img.shields.io/visual-studio-marketplace/v/aincrok.aincrok)](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)
 [![Downloads](https://img.shields.io/visual-studio-marketplace/d/aincrok.aincrok)](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)
 [![License](https://img.shields.io/github/license/aincrok/aincrok)](LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/aincrok/aincrok)](https://github.com/aincrok/aincrok)
 ## 🚀 Overview
-AINCROK is a powerful AI-powered code assistant for Visual Studio Code, forked from Kilocode with significant enhancements. It provides intelligent code completion, multi-file editing, and seamless integration with various LLM providers.
+Aincrok is a powerful AI-powered code assistant for Visual Studio Code, forked from Kilocode with significant enhancements. It provides intelligent code completion, multi-file editing, and seamless integration with various LLM providers.
 
-## 💡 Why Choose AINCROK?
+## 💡 Why Choose Aincrok?
 
 In a landscape filled with AI coding assistants like Kilo Code, Roo Code, and Cline, developers often face frustrating issues: excessive token consumption leading to high costs, subtle bugs and hallucinations in generated code, non-deterministic outputs, poor handling of complex problems, unintended codebase bloat, inefficient context management in large or legacy projects, and instability in agentic workflows (e.g., ignoring linter errors, creating duplicate files, or failing on tool calls).
 
-AINCROK stands out by prioritizing **cost-effectiveness**, **stability**, and **efficiency**. Built with disruptive features inspired by community feedback and best practices (like the 12-factor agents), it reduces token waste through precise LSP integrations, persistent memory layers, and optimized API calls. Unlike competitors that add unnecessary code or hallucinate non-existent functions, AINCROK ensures reliable, targeted edits, better context awareness, and human-in-the-loop safeguards to minimize technical debt and errors. Whether you're a solo developer or managing large codebases, AINCROK empowers you to code smarter, faster, and cheaper—without the headaches.
+Aincrok stands out by prioritizing **cost-effectiveness**, **stability**, and **efficiency**. Built with disruptive features inspired by community feedback and best practices (like the 12-factor agents), it reduces token waste through precise LSP integrations, persistent memory layers, and optimized API calls. Unlike competitors that add unnecessary code or hallucinate non-existent functions, Aincrok ensures reliable, targeted edits, better context awareness, and human-in-the-loop safeguards to minimize technical debt and errors. Whether you're a solo developer or managing large codebases, Aincrok empowers you to code smarter, faster, and cheaper—without the headaches.
 
 Join thousands of adopters who are ditching bloated, unreliable tools for a more robust alternative. Star us on GitHub and see the difference!
 
@@ -31,7 +31,7 @@ Join thousands of adopters who are ditching bloated, unreliable tools for a more
 
 ### 🚧 Coming Soon
 
-We're rapidly evolving AINCROK with features designed to address common pain points in agentic coding. These will further enhance cost savings, precision, and usability:
+We're rapidly evolving Aincrok with features designed to address common pain points in agentic coding. These will further enhance cost savings, precision, and usability:
 
 - **LSP Integration**: Precise file operations and symbol-level edits to eliminate incorrect discoveries and reduce token usage by up to 70%.
 - **Memory Layer & Knowledge Base**: Multi-level persistent memory for context-aware sessions, minimizing repeated API calls and hallucinations.
@@ -45,7 +45,7 @@ We're rapidly evolving AINCROK with features designed to address common pain poi
 - **Efficient Context for Large Codebases**: RAG-like retrieval and vector stores to handle massive projects without token bloat.
 - **Human-in-the-Loop Tools**: Flag uncertainties, pause for approvals, and integrate notifications for safer workflows.
 
-Stay tuned—these features are in active development and will roll out soon to make AINCROK the go-to choice for efficient AI-assisted coding!
+Stay tuned—these features are in active development and will roll out soon to make Aincrok the go-to choice for efficient AI-assisted coding!
 
 ## 📦 Installation
 
@@ -86,7 +86,7 @@ Apache 2.0 - See [LICENSE](LICENSE) for details.
 
 ## 🙏 Acknowledgments
 
-AINCROK is built upon the excellent foundation of:
+Aincrok is built upon the excellent foundation of:
 
 - [Kilocode](https://github.com/Kilo-Org/kilocode) - Original codebase
 - [Cline](https://github.com/cline/cline)

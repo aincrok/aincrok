@@ -69,7 +69,7 @@ const resendMessageSequence = async (
 	return true
 }
 
-export const fetchAINCROKNotificationsHandler = async (provider: ClineProvider) => {
+export const fetchAincrokNotificationsHandler = async (provider: ClineProvider) => {
 	try {
 		const { apiConfiguration } = await provider.getState()
 		const kilocodeToken = apiConfiguration?.kilocodeToken
@@ -95,7 +95,7 @@ export const fetchAINCROKNotificationsHandler = async (provider: ClineProvider) 
 			notifications: response.data?.notifications || [],
 		})
 	} catch (error: any) {
-		provider.log(`Error fetching AINCROK notifications: ${error.message}`)
+		provider.log(`Error fetching Aincrok notifications: ${error.message}`)
 		provider.postMessageToWebview({
 			type: "kilocodeNotificationsResponse",
 			notifications: [],

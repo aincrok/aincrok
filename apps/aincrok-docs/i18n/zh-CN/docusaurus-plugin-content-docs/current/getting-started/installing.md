@@ -54,7 +54,7 @@ Aincrok是一款VS Code扩展，可将AI编程助手直接集成到编辑器中�
 
 [Open VSX注册表](https://open-vsx.org/)是VS Code应用商店的开源替代方案，适用于因许可证限制无法访问官方商店的编辑器。
 
-在VSCodium、Gitpod、Eclipse Theia、Windsurf等兼容编辑器中，可通过[Open VSX上的Aincrok页面](https://open-vsx.org/extension/kilocode/AINCROK)直接安装。
+在VSCodium、Gitpod、Eclipse Theia、Windsurf等兼容编辑器中，可通过[Open VSX上的Aincrok页面](https://open-vsx.org/extension/kilocode/Aincrok)直接安装。
 
 1. 打开编辑器
 2. 进入扩展视图（侧边栏图标或快捷键 `Ctrl+Shift-X` / `Cmd+Shift-X`）

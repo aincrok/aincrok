@@ -1348,14 +1348,14 @@ export class ClineProvider
 		// Get platform-specific application data directory
 		let mcpServersDir: string
 		if (process.platform === "win32") {
-			// Windows: %APPDATA%\AINCROK\MCP
-			mcpServersDir = path.join(os.homedir(), "AppData", "Roaming", "AINCROK", "MCP")
+			// Windows: %APPDATA%\Aincrok\MCP
+			mcpServersDir = path.join(os.homedir(), "AppData", "Roaming", "Aincrok", "MCP")
 		} else if (process.platform === "darwin") {
-			// macOS: ~/Documents/AINCROK/MCP
-			mcpServersDir = path.join(os.homedir(), "Documents", "AINCROK", "MCP")
+			// macOS: ~/Documents/Aincrok/MCP
+			mcpServersDir = path.join(os.homedir(), "Documents", "Aincrok", "MCP")
 		} else {
-			// Linux: ~/.local/share/AINCROK/MCP
-			mcpServersDir = path.join(os.homedir(), ".local", "share", "AINCROK", "MCP")
+			// Linux: ~/.local/share/Aincrok/MCP
+			mcpServersDir = path.join(os.homedir(), ".local", "share", "Aincrok", "MCP")
 		}
 
 		try {

@@ -6,5 +6,5 @@ import * as vscode from "vscode"
  * @returns User-Agent string in format "Roo-Code {version}"
  */
 export function getUserAgent(context?: vscode.ExtensionContext): string {
-	return `AINCROK ${context?.extension?.packageJSON?.version || "unknown"}`
+	return `Aincrok ${context?.extension?.packageJSON?.version || "unknown"}`
 }

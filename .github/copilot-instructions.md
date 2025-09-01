@@ -1,4 +1,4 @@
-# AINCROK Change Marking Guidelines
+# Aincrok Change Marking Guidelines
 
 We are a fork of Kilocode. We regularly merge in the Kilocode codebase. To enable us to merge more easily, we mark all
 our own changes with `aincrok_change` comments.
@@ -51,7 +51,7 @@ let j = 3
 
 ## Special Cases
 
-### AINCROK specific file
+### Aincrok specific file
 
 if the filename or directory name contains aincrok no marking with comments is required
 

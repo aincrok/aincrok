@@ -58,7 +58,7 @@ import { generateSystemPrompt } from "./generateSystemPrompt"
 import { getCommand } from "../../utils/commands"
 import { toggleWorkflow, toggleRule, createRuleFile, deleteRuleFile } from "./kilorules"
 import { mermaidFixPrompt } from "../prompts/utilities/mermaid" // kilocode_change
-import { editMessageHandler, fetchAINCROKNotificationsHandler } from "../aincrok/webview/webviewMessageHandlerUtils" // kilocode_change
+import { editMessageHandler, fetchAincrokNotificationsHandler } from "../aincrok/webview/webviewMessageHandlerUtils" // kilocode_change
 
 const ALLOWED_VSCODE_SETTINGS = new Set(["terminal.integrated.inheritEnv"])
 
@@ -2900,8 +2900,8 @@ export const webviewMessageHandler = async (
 			await editMessageHandler(provider, message)
 			break
 		}
-		case "fetchAINCROKNotifications": {
-			await fetchAINCROKNotificationsHandler(provider)
+		case "fetchAincrokNotifications": {
+			await fetchAincrokNotificationsHandler(provider)
 			break
 		}
 		case "dismissNotificationId": {

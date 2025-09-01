@@ -59,7 +59,7 @@ import { showSystemNotification } from "@/aincrok/helpers" // kilocode_change
 // import ProfileViolationWarning from "./ProfileViolationWarning" kilocode_change: unused
 import { CheckpointWarning } from "./CheckpointWarning"
 import { IdeaSuggestionsBox } from "../aincrok/chat/IdeaSuggestionsBox" // kilocode_change
-import { AINCROKNotifications } from "../aincrok/KilocodeNotifications" // kilocode_change
+import { AincrokNotifications } from "../aincrok/KilocodeNotifications" // kilocode_change
 import QueuedMessages from "./QueuedMessages"
 import { getLatestTodo } from "@roo/todo"
 import { QueuedMessage } from "@roo-code/types"
@@ -2020,10 +2020,10 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						<RooHero /> */}
 
 						{telemetrySetting === "unset" && <TelemetryBanner />}
-						{/* kilocode_change start: AINCROKNotifications + Layout fixes */}
+						{/* kilocode_change start: AincrokNotifications + Layout fixes */}
 						{telemetrySetting !== "unset" && (
 							<div className={tasks.length === 0 ? "mt-10" : undefined}>
-								<AINCROKNotifications />
+								<AincrokNotifications />
 							</div>
 						)}
 						<div className="flex flex-grow flex-col justify-center gap-4">
@@ -2049,7 +2049,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 							</div> kilocode_change: do not show */}
 							{/* Show the task history preview if expanded and tasks exist */}
 							{taskHistory.length > 0 && isExpanded && <HistoryPreview />}
-							{/* kilocode_change start: AINCROKNotifications + Layout fixes */}
+							{/* kilocode_change start: AincrokNotifications + Layout fixes */}
 						</div>
 						{/* kilocode_change end */}
 					</div>

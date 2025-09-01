@@ -595,7 +595,7 @@ export const MODELS_BY_PROVIDER: Record<
 	unbound: { id: "unbound", label: "Unbound", models: [] },
 
 	// kilocode_change start
-	kilocode: { id: "kilocode", label: "AINCROK", models: [] },
+	kilocode: { id: "kilocode", label: "Aincrok", models: [] },
 	"virtual-quota-fallback": { id: "virtual-quota-fallback", label: "Virtual Quota Fallback", models: [] },
 	"qwen-code": { id: "qwen-code", label: "Qwen Code", models: [] },
 	// kilocode_change end

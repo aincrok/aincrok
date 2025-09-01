@@ -106,7 +106,7 @@ npx docusaurus build
 - **Discord**: https://aincrok.dev/discord
 - **Reddit**: https://www.reddit.com/r/kilocode/
 - **Twitter**: https://x.com/Kilo_Code
-- **YouTube**: https://www.youtube.com/@AINCROK
+- **YouTube**: https://www.youtube.com/@Aincrok
 
 ### VS Code Marketplace
 

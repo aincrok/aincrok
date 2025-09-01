@@ -256,7 +256,7 @@ export interface WebviewMessage {
 		| "checkRulesDirectoryResult"
 		| "saveCodeIndexSettingsAtomic"
 		| "requestCodeIndexSecretStatus"
-		| "fetchAINCROKNotifications"
+		| "fetchAincrokNotifications"
 		| "requestCommands"
 		| "openCommandFile"
 		| "deleteCommand"

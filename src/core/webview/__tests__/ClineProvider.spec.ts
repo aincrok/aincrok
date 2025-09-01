@@ -2758,7 +2758,7 @@ describe("ClineProvider - Router Models", () => {
 			.mockRejectedValueOnce(new Error("Requesty API error")) // requesty fail
 			.mockResolvedValueOnce(mockModels) // glama success
 			.mockRejectedValueOnce(new Error("Unbound API error")) // unbound fail
-			.mockRejectedValueOnce(new Error("AINCROK-OpenRouter API error")) // kilocode-openrouter fail
+			.mockRejectedValueOnce(new Error("Aincrok-OpenRouter API error")) // kilocode-openrouter fail
 			.mockRejectedValueOnce(new Error("Ollama API error")) // kilocode_change
 			.mockRejectedValueOnce(new Error("LiteLLM connection failed")) // litellm fail
 
@@ -2797,7 +2797,7 @@ describe("ClineProvider - Router Models", () => {
 		expect(mockPostMessage).toHaveBeenCalledWith({
 			type: "singleRouterModelFetchResponse",
 			success: false,
-			error: "AINCROK-OpenRouter API error",
+			error: "Aincrok-OpenRouter API error",
 			values: { provider: "kilocode-openrouter" },
 		})
 

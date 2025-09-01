@@ -58,13 +58,13 @@
 		"walkthroughs": [
 			{
 				"id": "aincrokWalkthrough",
-				"title": "5 ways AINCROK helps you code",
+				"title": "5 ways Aincrok helps you code",
 				"description": "You now have a personal AI coding assistant.",
 				"steps": [
 					{
 						"id": "welcome",
 						"title": "Write code for you",
-						"description": "Describe what you want to build. AINCROK will write it from scratch, generate the files, and run them for you.",
+						"description": "Describe what you want to build. Aincrok will write it from scratch, generate the files, and run them for you.",
 						"media": {
 							"markdown": "./dist/walkthrough/step1.md"
 						}
@@ -72,7 +72,7 @@
 					{
 						"id": "getting-started",
 						"title": "Understand your codebase",
-						"description": "Need clarity on how something works? Ask AINCROK about any part of your files and get a clear explanation.",
+						"description": "Need clarity on how something works? Ask Aincrok about any part of your files and get a clear explanation.",
 						"media": {
 							"markdown": "./dist/walkthrough/step2.md"
 						},
@@ -83,7 +83,7 @@
 					{
 						"id": "modes",
 						"title": "Get things working again",
-						"description": "Stuck on an error? AINCROK can find the issue, fix it, and get your code running.",
+						"description": "Stuck on an error? Aincrok can find the issue, fix it, and get your code running.",
 						"media": {
 							"markdown": "./dist/walkthrough/step3.md"
 						}

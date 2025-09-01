@@ -1,10 +1,10 @@
-# AINCROK Configuration Guide
+# Aincrok Configuration Guide
 
-This guide covers all configuration options available in AINCROK to customize your AI coding assistant experience.
+This guide covers all configuration options available in Aincrok to customize your AI coding assistant experience.
 
 ## Settings Overview
 
-AINCROK settings can be configured through VS Code settings UI or by editing your `settings.json` file directly.
+Aincrok settings can be configured through VS Code settings UI or by editing your `settings.json` file directly.
 
 ## Core Configuration
 
@@ -12,9 +12,9 @@ AINCROK settings can be configured through VS Code settings UI or by editing you
 
 ```json
 {
-  "aincrok.apiProvider": "anthropic",
-  "aincrok.anthropicApiKey": "your-api-key",
-  "aincrok.model": "claude-3-5-sonnet-20241022"
+	"aincrok.apiProvider": "anthropic",
+	"aincrok.anthropicApiKey": "your-api-key",
+	"aincrok.model": "claude-3-5-sonnet-20241022"
 }
 ```
 
@@ -22,10 +22,10 @@ AINCROK settings can be configured through VS Code settings UI or by editing you
 
 ```json
 {
-  "aincrok.temperature": 0.7,
-  "aincrok.maxTokens": 4096,
-  "aincrok.contextWindow": 200000,
-  "aincrok.enableCaching": true
+	"aincrok.temperature": 0.7,
+	"aincrok.maxTokens": 4096,
+	"aincrok.contextWindow": 200000,
+	"aincrok.enableCaching": true
 }
 ```
 
@@ -35,10 +35,10 @@ AINCROK settings can be configured through VS Code settings UI or by editing you
 
 ```json
 {
-  "aincrok.ui.theme": "auto",
-  "aincrok.ui.fontSize": 14,
-  "aincrok.ui.showLineNumbers": true,
-  "aincrok.ui.enableMarkdownPreview": true
+	"aincrok.ui.theme": "auto",
+	"aincrok.ui.fontSize": 14,
+	"aincrok.ui.showLineNumbers": true,
+	"aincrok.ui.enableMarkdownPreview": true
 }
 ```
 
@@ -46,12 +46,9 @@ AINCROK settings can be configured through VS Code settings UI or by editing you
 
 ```json
 {
-  "aincrok.autoApproval.enabled": false,
-  "aincrok.autoApproval.allowedCommands": [
-    "npm install",
-    "git status"
-  ],
-  "aincrok.autoApproval.maxFileSize": 100000
+	"aincrok.autoApproval.enabled": false,
+	"aincrok.autoApproval.allowedCommands": ["npm install", "git status"],
+	"aincrok.autoApproval.maxFileSize": 100000
 }
 ```
 
@@ -61,9 +58,9 @@ AINCROK settings can be configured through VS Code settings UI or by editing you
 
 ```json
 {
-  "aincrok.codeActions.enabled": true,
-  "aincrok.codeActions.showInlineButtons": true,
-  "aincrok.codeActions.enableGhost": false
+	"aincrok.codeActions.enabled": true,
+	"aincrok.codeActions.showInlineButtons": true,
+	"aincrok.codeActions.enableGhost": false
 }
 ```
 
@@ -71,9 +68,9 @@ AINCROK settings can be configured through VS Code settings UI or by editing you
 
 ```json
 {
-  "aincrok.terminal.enabled": true,
-  "aincrok.terminal.shell": "auto",
-  "aincrok.terminal.workingDirectory": "${workspaceFolder}"
+	"aincrok.terminal.enabled": true,
+	"aincrok.terminal.shell": "auto",
+	"aincrok.terminal.workingDirectory": "${workspaceFolder}"
 }
 ```
 
@@ -81,13 +78,9 @@ AINCROK settings can be configured through VS Code settings UI or by editing you
 
 ```json
 {
-  "aincrok.files.maxFileSize": "1MB",
-  "aincrok.files.excludePatterns": [
-    "**/node_modules/**",
-    "**/dist/**",
-    "**/.git/**"
-  ],
-  "aincrok.files.enableBinaryFiles": false
+	"aincrok.files.maxFileSize": "1MB",
+	"aincrok.files.excludePatterns": ["**/node_modules/**", "**/dist/**", "**/.git/**"],
+	"aincrok.files.enableBinaryFiles": false
 }
 ```
 
@@ -97,13 +90,8 @@ AINCROK settings can be configured through VS Code settings UI or by editing you
 
 ```json
 {
-  "aincrok.modes.default": "code",
-  "aincrok.modes.available": [
-    "code",
-    "architect",
-    "debug",
-    "refactor"
-  ]
+	"aincrok.modes.default": "code",
+	"aincrok.modes.available": ["code", "architect", "debug", "refactor"]
 }
 ```
 
@@ -113,14 +101,14 @@ Create custom modes for specific use cases:
 
 ```json
 {
-  "aincrok.customModes": {
-    "reviewer": {
-      "name": "Code Review",
-      "systemPrompt": "You are a code reviewer...",
-      "temperature": 0.3,
-      "tools": ["readFile", "writeFile"]
-    }
-  }
+	"aincrok.customModes": {
+		"reviewer": {
+			"name": "Code Review",
+			"systemPrompt": "You are a code reviewer...",
+			"temperature": 0.3,
+			"tools": ["readFile", "writeFile"]
+		}
+	}
 }
 ```
 
@@ -130,9 +118,9 @@ Create custom modes for specific use cases:
 
 ```json
 {
-  "aincrok.memoryBank.enabled": true,
-  "aincrok.memoryBank.maxEntries": 1000,
-  "aincrok.memoryBank.autoSave": true
+	"aincrok.memoryBank.enabled": true,
+	"aincrok.memoryBank.maxEntries": 1000,
+	"aincrok.memoryBank.autoSave": true
 }
 ```
 
@@ -140,9 +128,9 @@ Create custom modes for specific use cases:
 
 ```json
 {
-  "aincrok.context.maxFiles": 50,
-  "aincrok.context.enableAutoContext": true,
-  "aincrok.context.similarityThreshold": 0.7
+	"aincrok.context.maxFiles": 50,
+	"aincrok.context.enableAutoContext": true,
+	"aincrok.context.similarityThreshold": 0.7
 }
 ```
 
@@ -150,9 +138,9 @@ Create custom modes for specific use cases:
 
 ```json
 {
-  "aincrok.caching.enabled": true,
-  "aincrok.caching.ttl": 3600,
-  "aincrok.caching.maxSize": "100MB"
+	"aincrok.caching.enabled": true,
+	"aincrok.caching.ttl": 3600,
+	"aincrok.caching.maxSize": "100MB"
 }
 ```
 
@@ -162,9 +150,9 @@ Create custom modes for specific use cases:
 
 ```json
 {
-  "aincrok.anthropic.apiKey": "your-api-key",
-  "aincrok.anthropic.baseUrl": "https://api.anthropic.com",
-  "aincrok.anthropic.enableCaching": true
+	"aincrok.anthropic.apiKey": "your-api-key",
+	"aincrok.anthropic.baseUrl": "https://api.anthropic.com",
+	"aincrok.anthropic.enableCaching": true
 }
 ```
 
@@ -172,9 +160,9 @@ Create custom modes for specific use cases:
 
 ```json
 {
-  "aincrok.openai.apiKey": "your-api-key",
-  "aincrok.openai.organization": "your-org-id",
-  "aincrok.openai.baseUrl": "https://api.openai.com/v1"
+	"aincrok.openai.apiKey": "your-api-key",
+	"aincrok.openai.organization": "your-org-id",
+	"aincrok.openai.baseUrl": "https://api.openai.com/v1"
 }
 ```
 
@@ -182,15 +170,15 @@ Create custom modes for specific use cases:
 
 ```json
 {
-  "aincrok.ollama.baseUrl": "http://localhost:11434",
-  "aincrok.ollama.model": "codellama:latest",
-  "aincrok.ollama.timeout": 30000
+	"aincrok.ollama.baseUrl": "http://localhost:11434",
+	"aincrok.ollama.model": "codellama:latest",
+	"aincrok.ollama.timeout": 30000
 }
 ```
 
 ## Environment Variables
 
-You can also configure AINCROK using environment variables:
+You can also configure Aincrok using environment variables:
 
 ```bash
 export AINCROK_API_KEY="your-api-key"
@@ -204,9 +192,9 @@ Create `.vscode/settings.json` in your project root for workspace-specific setti
 
 ```json
 {
-  "aincrok.model": "gpt-4",
-  "aincrok.temperature": 0.3,
-  "aincrok.customInstructions": "This is a React project using TypeScript..."
+	"aincrok.model": "gpt-4",
+	"aincrok.temperature": 0.3,
+	"aincrok.customInstructions": "This is a React project using TypeScript..."
 }
 ```
 
@@ -216,16 +204,16 @@ Save and switch between different configuration profiles:
 
 ```json
 {
-  "aincrok.profiles": {
-    "development": {
-      "model": "claude-3-5-sonnet-20241022",
-      "temperature": 0.7
-    },
-    "production": {
-      "model": "gpt-4",
-      "temperature": 0.3
-    }
-  }
+	"aincrok.profiles": {
+		"development": {
+			"model": "claude-3-5-sonnet-20241022",
+			"temperature": 0.7
+		},
+		"production": {
+			"model": "gpt-4",
+			"temperature": 0.3
+		}
+	}
 }
 ```
 
@@ -239,12 +227,14 @@ Save and switch between different configuration profiles:
 ## Performance Tuning
 
 ### For Large Projects
+
 - Reduce context window size
 - Limit file inclusion patterns
 - Enable caching
 - Use faster models for simple tasks
 
 ### For Better Accuracy
+
 - Increase temperature for creative tasks
 - Use larger context windows
 - Enable memory bank

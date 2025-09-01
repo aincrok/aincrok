@@ -1,16 +1,16 @@
-# Getting Started with AINCROK
+# Getting Started with Aincrok
 
-Welcome to AINCROK (AINCROK Is Not Cline Roo Or Kilo) - your intelligent AI coding assistant for VS Code.
+Welcome to Aincrok (Aincrok Is Not Cline Roo Or Kilo) - your intelligent AI coding assistant for VS Code.
 
 ## Quick Start
 
 ### 1. Installation
 
-Install AINCROK from the VS Code Marketplace or download the latest VSIX package.
+Install Aincrok from the VS Code Marketplace or download the latest VSIX package.
 
 ### 2. First Setup
 
-1. Open VS Code and activate AINCROK
+1. Open VS Code and activate Aincrok
 2. Configure your preferred AI provider (see [PROVIDERS.md](PROVIDERS.md))
 3. Set your API keys in the settings
 4. Choose your default model and mode
@@ -19,30 +19,35 @@ Install AINCROK from the VS Code Marketplace or download the latest VSIX package
 
 1. Open a project in VS Code
 2. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac) to open the command palette
-3. Type "AINCROK" and select "AINCROK: New Task"
+3. Type "Aincrok" and select "Aincrok: New Task"
 4. Describe what you want to accomplish
-5. Watch AINCROK analyze your codebase and provide assistance
+5. Watch Aincrok analyze your codebase and provide assistance
 
 ## Core Features
 
 ### Chat Interface
+
 - Natural language conversations with your AI assistant
 - Context-aware responses based on your current workspace
 - Support for code snippets, file references, and project context
 
 ### Modes
-AINCROK offers different modes for various use cases:
+
+Aincrok offers different modes for various use cases:
+
 - **Code**: General coding assistance
 - **Architect**: High-level system design and architecture
 - **Debug**: Problem diagnosis and troubleshooting
 - **Refactor**: Code improvement and optimization
 
 ### Context Management
+
 - Automatic workspace analysis
 - Smart file selection for relevant context
 - Memory bank for project-specific knowledge
 
 ### Tool Integration
+
 - File operations (read, write, edit)
 - Terminal command execution
 - Git integration
@@ -51,7 +56,7 @@ AINCROK offers different modes for various use cases:
 ## Basic Workflow
 
 1. **Start a conversation**: Describe your coding problem or goal
-2. **Review suggestions**: AINCROK will analyze your code and propose solutions
+2. **Review suggestions**: Aincrok will analyze your code and propose solutions
 3. **Apply changes**: Accept or modify the suggested code changes
 4. **Iterate**: Continue the conversation to refine the solution
 
@@ -78,4 +83,4 @@ AINCROK offers different modes for various use cases:
 
 ---
 
-Happy coding with AINCROK!
+Happy coding with Aincrok!

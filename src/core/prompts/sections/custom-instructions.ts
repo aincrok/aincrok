@@ -13,7 +13,7 @@ try {
 	// This is acceptable as notifications are a progressive enhancement.
 }
 
-let hasShownNonAINCROKRulesMessage = false
+let hasShownNonAincrokRulesMessage = false
 // kilocode_change end
 
 import { Dirent } from "fs"
@@ -235,12 +235,12 @@ export async function loadRuleFiles(cwd: string): Promise<string> {
 	for (const file of ruleFiles) {
 		const content = await safeReadFile(path.join(cwd, file))
 		if (content) {
-			if (file !== ".aincrokrules" && vscodeAPI && !hasShownNonAINCROKRulesMessage) {
+			if (file !== ".aincrokrules" && vscodeAPI && !hasShownNonAincrokRulesMessage) {
 				// kilocode_change: show message to move to .aincrok/rules/
 				vscodeAPI.window.showWarningMessage(
-					`Loading non-AINCROK rules from ${file}, consider moving to .aincrok/rules/`,
+					`Loading non-Aincrok rules from ${file}, consider moving to .aincrok/rules/`,
 				)
-				hasShownNonAINCROKRulesMessage = true
+				hasShownNonAincrokRulesMessage = true
 			} // kilocode_change end
 			return `\n# Rules from ${file}:\n${content}\n`
 		}

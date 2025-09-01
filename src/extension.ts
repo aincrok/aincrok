@@ -60,7 +60,7 @@ let extensionContext: vscode.ExtensionContext
 // Your extension is activated the very first time the command is executed.
 export async function activate(context: vscode.ExtensionContext) {
 	extensionContext = context
-	outputChannel = vscode.window.createOutputChannel("AINCROK")
+	outputChannel = vscode.window.createOutputChannel("Aincrok")
 	context.subscriptions.push(outputChannel)
 	outputChannel.appendLine(`${Package.name} extension activated - ${JSON.stringify(Package)}`)
 
@@ -199,11 +199,11 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	// kilocode_change start
 	if (!context.globalState.get("firstInstallCompleted")) {
-		outputChannel.appendLine("First installation detected, opening AINCROK sidebar!")
+		outputChannel.appendLine("First installation detected, opening Aincrok sidebar!")
 		try {
 			await vscode.commands.executeCommand("aincrok.SidebarProvider.focus")
 
-			outputChannel.appendLine("Opening AINCROK walkthrough")
+			outputChannel.appendLine("Opening Aincrok walkthrough")
 
 			// this can crash, see:
 			// https://discord.com/channels/1349288496988160052/1395865796026040470
@@ -275,7 +275,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	registerCodeActions(context)
 	registerTerminalActions(context)
 
-	// Allows other extensions to activate once AINCROK is ready.
+	// Allows other extensions to activate once Aincrok is ready.
 	vscode.commands.executeCommand(`${Package.name}.activationCompleted`)
 
 	// Implements the `RooCodeAPI` interface.
