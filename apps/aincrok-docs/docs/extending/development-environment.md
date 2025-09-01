@@ -19,12 +19,12 @@ Before you begin, make sure you have the following installed:
 1. **Fork and Clone the Repository**:
 
     - **Fork the Repository**:
-        - Visit the [Kilo Code GitHub repository](https://github.com/aincrok/kilocode)
+        - Visit the [Aincrok GitHub repository](https://github.com/aincrok/kilocode)
         - Click the "Fork" button in the top-right corner to create your own copy.
     - **Clone Your Fork**:
         ```bash
-        git clone https://github.com/[YOUR-USERNAME]/kilocode.git
-        cd kilocode
+        git clone https://github.com/[YOUR-USERNAME]/aincrok.git
+        cd aincrok
         ```
         Replace `[YOUR-USERNAME]` with your actual GitHub username.
 
@@ -80,7 +80,7 @@ This will:
 To run the extension in development mode:
 
 1. Press `F5` (or select **Run** → **Start Debugging**) in VSCode
-2. This will open a new VSCode window with Kilo Code loaded
+2. This will open a new VSCode window with Aincrok loaded
 
 ### Hot Reloading
 
@@ -109,7 +109,7 @@ Replace `[version]` with the current version number.
 
 ## Testing
 
-Kilo Code uses several types of tests to ensure quality:
+Aincrok uses several types of tests to ensure quality:
 
 ### Unit Tests
 
@@ -188,5 +188,5 @@ These hooks help maintain code quality and consistency. If you encounter issues 
 ### Debugging Tips
 
 - Use `console.log()` statements in your code for debugging
-- Check the Output panel in VSCode (View > Output) and select "Kilo Code" from the dropdown
+- Check the Output panel in VSCode (View > Output) and select "Aincrok" from the dropdown
 - For webview issues, use the browser developer tools in the webview (right-click > "Inspect Element")

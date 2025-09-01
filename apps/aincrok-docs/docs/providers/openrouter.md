@@ -2,25 +2,25 @@
 sidebar_label: OpenRouter
 ---
 
-# Using OpenRouter With Kilo Code
+# Using OpenRouter With Aincrok
 
-OpenRouter is an AI platform that provides access to a wide variety of language models from different providers, all through a single API.  This can simplify setup and allow you to easily experiment with different models.
+OpenRouter is an AI platform that provides access to a wide variety of language models from different providers, all through a single API. This can simplify setup and allow you to easily experiment with different models.
 
 **Website:** [https://openrouter.ai/](https://openrouter.ai/)
 
 ## Getting an API Key
 
-1.  **Sign Up/Sign In:** Go to the [OpenRouter website](https://openrouter.ai/).  Sign in with your Google or GitHub account.
-2.  **Get an API Key:** Go to the [keys page](https://openrouter.ai/keys).  You should see an API key listed.  If not, create a new key.
+1.  **Sign Up/Sign In:** Go to the [OpenRouter website](https://openrouter.ai/). Sign in with your Google or GitHub account.
+2.  **Get an API Key:** Go to the [keys page](https://openrouter.ai/keys). You should see an API key listed. If not, create a new key.
 3.  **Copy the Key:** Copy the API key.
 
 ## Supported Models
 
-OpenRouter supports a large and growing number of models.  Kilo Code automatically fetches the list of available models. Refer to the [OpenRouter Models page](https://openrouter.ai/models) for the complete and up-to-date list.
+OpenRouter supports a large and growing number of models. Aincrok automatically fetches the list of available models. Refer to the [OpenRouter Models page](https://openrouter.ai/models) for the complete and up-to-date list.
 
-## Configuration in Kilo Code
+## Configuration in Aincrok
 
-1.  **Open Kilo Code Settings:** Click the gear icon (<Codicon name="gear" />) in the Kilo Code panel.
+1.  **Open Aincrok Settings:** Click the gear icon (<Codicon name="gear" />) in the Aincrok panel.
 2.  **Select Provider:** Choose "OpenRouter" from the "API Provider" dropdown.
 3.  **Enter API Key:** Paste your OpenRouter API key into the "OpenRouter API Key" field.
 4.  **Select Model:** Choose your desired model from the "Model" dropdown.
@@ -32,6 +32,6 @@ OpenRouter provides an [optional "middle-out" message transform](https://openrou
 
 ## Tips and Notes
 
-* **Model Selection:** OpenRouter offers a wide range of models. Experiment to find the best one for your needs.
-* **Pricing:**  OpenRouter charges based on the underlying model's pricing.  See the [OpenRouter Models page](https://openrouter.ai/models) for details.
-* **Prompt Caching:** Some providers support prompt caching. See the OpenRouter documentation for supported models.
+- **Model Selection:** OpenRouter offers a wide range of models. Experiment to find the best one for your needs.
+- **Pricing:** OpenRouter charges based on the underlying model's pricing. See the [OpenRouter Models page](https://openrouter.ai/models) for details.
+- **Prompt Caching:** Some providers support prompt caching. See the OpenRouter documentation for supported models.

@@ -1,0 +1,48 @@
+{
+	"videos": [
+		{
+			"id": "placeholder1",
+			"title": "Installing Aincrok"
+		},
+		{
+			"id": "placeholder2",
+			"title": "Configuring Profiles"
+		},
+		{
+			"id": "placeholder3",
+			"title": "Setting up MCP Servers"
+		},
+		{
+			"id": "placeholder4",
+			"title": "Auto Approve Feature"
+		},
+		{
+			"id": "placeholder5",
+			"title": "Custom Modes"
+		},
+		{
+			"id": "placeholder6",
+			"title": "Checkpoints"
+		},
+		{
+			"id": "placeholder7",
+			"title": "Codebase Indexing"
+		},
+		{
+			"id": "placeholder8",
+			"title": "Context Management"
+		},
+		{
+			"id": "placeholder9",
+			"title": "Advanced Features"
+		},
+		{
+			"id": "placeholder10",
+			"title": "Provider Setup"
+		},
+		{
+			"id": "placeholder11",
+			"title": "Troubleshooting"
+		}
+	]
+}

@@ -1,0 +1,80 @@
+---
+sidebar_label: Tutorial Videos
+---
+
+import tutorialVideos from './tutorial-videos.json';
+
+# Tutorial Videos
+
+Learn how to use Aincrok effectively with our comprehensive video tutorials. These videos cover everything from basic installation to advanced features and troubleshooting.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginTop: '20px' }}>
+  {tutorialVideos.videos.map((video, index) => (
+    <div key={index} style={{ border: '1px solid #e1e4e8', borderRadius: '8px', padding: '16px', backgroundColor: '#f6f8fa' }}>
+      <h3 style={{ marginTop: 0 }}>{video.title}</h3>
+      {video.id === 'placeholder1' || video.id.startsWith('placeholder') ? (
+        <div style={{ 
+          backgroundColor: '#ddd', 
+          height: '200px', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          borderRadius: '4px',
+          marginBottom: '10px'
+        }}>
+          <p style={{ margin: 0, color: '#666' }}>Tutorial video coming soon!</p>
+        </div>
+      ) : (
+        <iframe
+          width="100%"
+          height="200"
+          src={`https://www.youtube.com/embed/${video.id}`}
+          title={video.title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ borderRadius: '4px', marginBottom: '10px' }}
+        ></iframe>
+      )}
+      <p style={{ fontSize: '14px', color: '#666', margin: 0 }}>
+        {video.title === 'Installing Aincrok' && 'Learn how to install and set up Aincrok in VS Code'}
+        {video.title === 'Configuring Profiles' && 'Set up and manage API configuration profiles'}
+        {video.title === 'Setting up MCP Servers' && 'Connect and configure Model Context Protocol servers'}
+        {video.title === 'Auto Approve Feature' && 'Streamline your workflow with auto-approval settings'}
+        {video.title === 'Custom Modes' && 'Create specialized AI modes for different tasks'}
+        {video.title === 'Checkpoints' && 'Use checkpoints to version and restore your work'}
+        {video.title === 'Codebase Indexing' && 'Enable semantic search across your entire project'}
+        {video.title === 'Context Management' && 'Optimize context usage for better AI interactions'}
+        {video.title === 'Advanced Features' && 'Explore advanced Aincrok capabilities'}
+        {video.title === 'Provider Setup' && 'Configure different AI model providers'}
+        {video.title === 'Troubleshooting' && 'Common issues and how to resolve them'}
+      </p>
+    </div>
+  ))}
+</div>
+
+## Video Topics Overview
+
+### Getting Started
+- **Installing Aincrok**: Complete installation guide for VS Code
+- **Configuring Profiles**: Set up your first API configuration profile
+- **Provider Setup**: Connect to your preferred AI model providers
+
+### Core Features
+- **Custom Modes**: Create specialized AI personas for different development tasks
+- **Auto Approve Feature**: Streamline repetitive tasks with automatic approvals
+- **Checkpoints**: Version control and rollback capabilities for AI-assisted changes
+
+### Advanced Features  
+- **MCP Servers**: Extend Aincrok with external tools and services
+- **Codebase Indexing**: Enable AI to understand your entire project structure
+- **Context Management**: Optimize AI interactions for large projects
+
+### Support
+- **Troubleshooting**: Solutions for common issues and best practices
+
+---
+
+**Note**: Videos are currently in production. Check back soon for complete tutorial content!
+
+For immediate help, visit our [FAQ](/faq) or join our [Discord community](https://aincrok.dev/discord).
