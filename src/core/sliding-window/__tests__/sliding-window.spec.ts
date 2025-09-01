@@ -281,6 +281,8 @@ describe("Sliding Window", () => {
 				summary: "",
 				cost: 0,
 				prevContextTokens: totalTokens,
+				newContextTokens: totalTokens,
+				error: undefined,
 			})
 		})
 
@@ -321,6 +323,8 @@ describe("Sliding Window", () => {
 				summary: "",
 				cost: 0,
 				prevContextTokens: totalTokens,
+				newContextTokens: totalTokens,
+				error: undefined,
 			})
 		})
 
@@ -440,6 +444,8 @@ describe("Sliding Window", () => {
 				summary: "",
 				cost: 0,
 				prevContextTokens: baseTokensForSmall + smallContentTokens,
+				newContextTokens: baseTokensForSmall + smallContentTokens,
+				error: undefined,
 			}) // No truncation
 
 			// Test case 2: Large content that will push us over the threshold
@@ -541,6 +547,8 @@ describe("Sliding Window", () => {
 				summary: "",
 				cost: 0,
 				prevContextTokens: totalTokens,
+				newContextTokens: totalTokens,
+				error: undefined,
 			})
 		})
 
@@ -707,6 +715,8 @@ describe("Sliding Window", () => {
 				summary: "",
 				cost: 0,
 				prevContextTokens: totalTokens,
+				newContextTokens: totalTokens,
+				error: undefined,
 			})
 
 			// Clean up
@@ -816,6 +826,8 @@ describe("Sliding Window", () => {
 				summary: "",
 				cost: 0,
 				prevContextTokens: totalTokens,
+				newContextTokens: totalTokens,
+				error: undefined,
 			})
 
 			// Clean up
@@ -1022,6 +1034,8 @@ describe("Sliding Window", () => {
 				summary: "",
 				cost: 0,
 				prevContextTokens: totalTokens,
+				newContextTokens: totalTokens,
+				error: undefined,
 			})
 
 			// Clean up
@@ -1079,6 +1093,8 @@ describe("Sliding Window", () => {
 				summary: "",
 				cost: 0,
 				prevContextTokens: 39999,
+				newContextTokens: 39999,
+				error: undefined,
 			})
 
 			// Above max tokens - truncate
@@ -1132,6 +1148,8 @@ describe("Sliding Window", () => {
 				summary: "",
 				cost: 0,
 				prevContextTokens: 81807,
+				newContextTokens: 81807,
+				error: undefined,
 			})
 
 			// Above max tokens - truncate
