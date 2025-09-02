@@ -93,11 +93,8 @@ jobs:
         if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != "0" || inputs.force)'
         run: |
           git add .
-          git commit -m "chore: version bump to ${{ steps.new_version.outputs.new_version }}
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>"
+          git commit -m "$(cat <<EOF
+          chore: version bump to ${{ steps.new_version.outputs.new_version }})"
 
       - name: Push changes
         if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != "0" || inputs.force)'

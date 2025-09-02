@@ -3,7 +3,7 @@
 	"displayName": "%extension.displayName%",
 	"description": "%extension.description%",
 	"publisher": "aincrok",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"icon": "assets/icons/logo-outline-black.png",
 	"galleryBanner": {
 		"color": "#FFFFFF",
@@ -726,7 +726,7 @@
 		"execa": "^9.5.2",
 		"glob": "^11.0.1",
 		"mkdirp": "^3.0.1",
-		"nock": "^14.0.4",
+		"nock": "^14.0.10",
 		"npm-run-all2": "^8.0.1",
 		"ovsx": "0.10.4",
 		"rimraf": "^6.0.1",

@@ -123,9 +123,7 @@ jobs:
           CHANGELOG_ENTRY=$(awk "/^## $VERSION/{flag=1;next}/^## [0-9]/{flag=0}flag" CHANGELOG.md | sed '/^$/d')
           
           if [ -z "$CHANGELOG_ENTRY" ]; then
-            CHANGELOG_ENTRY="Release v$VERSION
-
-🤖 Generated with [Claude Code](https://claude.ai/code)"
+            CHANGELOG_ENTRY="Release v$VERSION"
           fi
           
           # Create or update release
