@@ -53,17 +53,41 @@ jobs:
               id: check-changesets
               run: |
                   NEW_CHANGESETS=$(find .changeset -name "*.md" ! -name "README.md" | wc -l | tr -d ' ')
-                  echo "Changesets diff with previous version: $NEW_CHANGESETS"
+                  echo "Changesets found: $NEW_CHANGESETS"
                   echo "new_changesets=$NEW_CHANGESETS" >> $GITHUB_OUTPUT
                   
                   # Check for force-release label
                   FORCE_RELEASE="${{ contains(github.event.pull_request.labels.*.name, 'force-release') }}"
                   echo "force_release=$FORCE_RELEASE" >> $GITHUB_OUTPUT
                   echo "Force release requested: $FORCE_RELEASE"
+                  
+                  # If force-release is requested but no changesets exist, create one
+                  if [ "$FORCE_RELEASE" == "true" ] && [ "$NEW_CHANGESETS" == "0" ]; then
+                    echo "Force release requested but no changesets found. Creating emergency changeset..."
+                    CHANGESET_FILE=".changeset/force-release-$(date +%s).md"
+                    echo '---' > "$CHANGESET_FILE"
+                    echo '"aincrok": patch' >> "$CHANGESET_FILE"
+                    echo '---' >> "$CHANGESET_FILE"
+                    echo '' >> "$CHANGESET_FILE"
+                    echo 'Force release - emergency version bump' >> "$CHANGESET_FILE"
+                    echo "Created emergency changeset: $CHANGESET_FILE"
+                    
+                    # Commit the emergency changeset
+                    git config user.name "aincrok-bot"
+                    git config user.email "github-actions@github.com"
+                    git add "$CHANGESET_FILE"
+                    git commit -m "Add emergency changeset for force release"
+                    echo "Committed emergency changeset"
+                    
+                    # Recount changesets after creation
+                    NEW_CHANGESETS=$(find .changeset -name "*.md" ! -name "README.md" | wc -l | tr -d ' ')
+                    echo "new_changesets=$NEW_CHANGESETS" >> $GITHUB_OUTPUT
+                    echo "Changesets after emergency creation: $NEW_CHANGESETS"
+                  fi
 
-            # Create version bump PR using changesets/action if there are new changesets or force-release is requested
+            # Create version bump PR using changesets/action - now always requires changesets
             - name: Changeset Pull Request
-              if: steps.check-changesets.outputs.new_changesets != '0' || steps.check-changesets.outputs.force_release == 'true'
+              if: steps.check-changesets.outputs.new_changesets != '0'
               id: changesets
               uses: changesets/action@v1
               with:
@@ -109,7 +133,7 @@ jobs:
 
             # Generate AI-enhanced release notes for the new version
             - name: Generate AI Release Notes
-              if: (steps.check-changesets.outputs.new_changesets != '0' || steps.check-changesets.outputs.force_release == 'true') && !contains(github.event.pull_request.labels.*.name, 'changelog-ready')
+              if: steps.check-changesets.outputs.new_changesets != '0' && !contains(github.event.pull_request.labels.*.name, 'changelog-ready')
               id: ai_release_notes
               uses: ./.github/actions/ai-release-notes
               with:
@@ -119,7 +143,7 @@ jobs:
                   custom_instructions: 'Generate release notes for this VS Code extension version. Focus on user-facing features, bug fixes, and improvements. Keep technical details minimal.'
               # Update CHANGELOG.md with proper format
             - name: Update Changelog Format
-              if: ${{ (steps.check-changesets.outputs.new_changesets != '0' || steps.check-changesets.outputs.force_release == 'true') && !contains(github.event.pull_request.labels.*.name, 'changelog-ready') }}
+              if: ${{ steps.check-changesets.outputs.new_changesets != '0' && !contains(github.event.pull_request.labels.*.name, 'changelog-ready') }}
               env:
                   VERSION: ${{ steps.get_version.outputs.version }}
                   PREV_VERSION: ${{ steps.get_version.outputs.prev_version }}
@@ -145,7 +169,7 @@ jobs:
 
             # Commit and push changelog updates
             - name: Push Changelog updates
-              if: ${{ (steps.check-changesets.outputs.new_changesets != '0' || steps.check-changesets.outputs.force_release == 'true') && !contains(github.event.pull_request.labels.*.name, 'changelog-ready') }}
+              if: ${{ steps.check-changesets.outputs.new_changesets != '0' && !contains(github.event.pull_request.labels.*.name, 'changelog-ready') }}
               run: |
                   git config user.name "aincrok-bot"
                   git config user.email github-actions@github.com
@@ -160,7 +184,7 @@ jobs:
 
             # Add label to indicate changelog has been formatted
             - name: Add changelog-ready label
-              if: ${{ steps.changesets.outputs.pullRequestNumber && (steps.check-changesets.outputs.new_changesets != '0' || steps.check-changesets.outputs.force_release == 'true') && !contains(github.event.pull_request.labels.*.name, 'changelog-ready') }}
+              if: ${{ steps.changesets.outputs.pullRequestNumber && steps.check-changesets.outputs.new_changesets != '0' && !contains(github.event.pull_request.labels.*.name, 'changelog-ready') }}
               uses: actions/github-script@v7
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
