@@ -1,0 +1,137 @@
+name: Manual Changeset Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Perform a dry run (do not publish)'
+        required: false
+        default: false
+        type: boolean
+      force:
+        description: 'Force publish even if no changesets'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  NODE_VERSION: 20.19.2
+  PNPM_VERSION: 10.8.1
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  manual-publish:
+    name: Manual Changeset Publish
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Check for changesets
+        id: check-changesets
+        run: |
+          NEW_CHANGESETS=$(find .changeset -name "*.md" ! -name "README.md" | wc -l | tr -d ' ')
+          echo "Found $NEW_CHANGESETS changesets"
+          echo "new_changesets=$NEW_CHANGESETS" >> $GITHUB_OUTPUT
+          if [ "$NEW_CHANGESETS" = "0" ] && [ "${{ inputs.force }}" != "true" ]; then
+            echo "No changesets found and force not enabled. Exiting."
+            exit 1
+          fi
+
+      - name: List changesets
+        if: steps.check-changesets.outputs.new_changesets != '0' || inputs.force
+        run: |
+          echo "Current changesets:"
+          ls -la .changeset/
+
+      - name: Run changeset version (dry run)
+        if: inputs.dry_run
+        run: |
+          echo "=== DRY RUN - Would run the following ==="
+          echo "pnpm changeset:version"
+          echo "This would update version numbers and move changesets to CHANGELOG.md"
+          echo "Current version: $(jq -r '.version' src/package.json)"
+          echo "=========================================="
+
+      - name: Run changeset version
+        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != "0" || inputs.force)'
+        run: |
+          git config user.name "aincrok-bot"
+          git config user.email "github-actions@github.com"
+          pnpm changeset:version
+          
+      - name: Get new version
+        if: '!inputs.dry_run'
+        id: new_version
+        run: |
+          VERSION=$(jq -r '.version' src/package.json)
+          echo "new_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $VERSION"
+
+      - name: Create version commit
+        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != "0" || inputs.force)'
+        run: |
+          git add .
+          git commit -m "chore: version bump to ${{ steps.new_version.outputs.new_version }}
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+
+      - name: Push changes
+        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != "0" || inputs.force)'
+        run: |
+          git push
+
+      - name: Create GitHub Release
+        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != "0" || inputs.force)'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.new_version.outputs.new_version }}"
+          
+          # Extract changelog for this version
+          CHANGELOG_ENTRY=$(awk "/^## $VERSION/{flag=1;next}/^## [0-9]/{flag=0}flag" CHANGELOG.md | sed '/^$/d')
+          
+          if [ -z "$CHANGELOG_ENTRY" ]; then
+            CHANGELOG_ENTRY="Version $VERSION release"
+          fi
+          
+          gh release create "v$VERSION" \
+            --title "Release v$VERSION" \
+            --notes "$CHANGELOG_ENTRY" \
+            --latest
+
+      - name: Summary
+        if: always()
+        run: |
+          if [ "${{ inputs.dry_run }}" == "true" ]; then
+            echo "✅ Dry run completed successfully"
+          elif [ "${{ steps.check-changesets.outputs.new_changesets }}" != "0" ] || [ "${{ inputs.force }}" == "true" ]; then
+            echo "✅ Changeset publish completed successfully"
+            echo "📦 New version: ${{ steps.new_version.outputs.new_version }}"
+            echo "🔗 Release: https://github.com/${{ github.repository }}/releases/tag/v${{ steps.new_version.outputs.new_version }}"
+          else
+            echo "ℹ️ No changesets found and force not enabled"
+          fi
