@@ -60,6 +60,7 @@ describe("Model Validation Functions", () => {
 		lmstudio: {},
 		"io-intelligence": {},
 		cerebras: {},
+		deepinfra: {}, // aincrok_change - added from upstream
 	}
 
 	const allowAllOrganization: OrganizationAllowList = {

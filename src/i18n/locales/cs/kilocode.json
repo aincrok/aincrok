@@ -13,7 +13,13 @@
 	},
 	"task": {
 		"noAssistantMessages": "Odpověď modelu neočekávaně skončila (žádné zprávy asistenta). Může to být známka omezení počtu požadavků.",
-		"notLoggedInError": "Požadavek nelze dokončit, ujisti se, že jsi připojen a přihlášen u vybraného poskytovatele.\n\n{{error}}"
+		"notLoggedInError": "Požadavek nelze dokončit, ujisti se, že jsi připojen a přihlášen u vybraného poskytovatele.\n\n{{error}}",
+		"maxCompletionTokens": "Bylo dosaženo maximálního počtu completion tokenů."
+	},
+	"checkpoints": {
+		"nestedGitRepos": "Checkpointy nejsou k dispozici, protože byly ve workspace detekované vnořené Git repozitáře. Prosím odstraňte nebo přemístěte vnořené Git repozitáře pro použití funkce checkpointů nebo deaktivujte checkpointy v nastavení pro potlačení tohoto varování.",
+		"protectedPaths": "Checkpointy nejsou k dispozici v {{workspaceDir}}. Prosím otevřete podsložku jako workspace pro použití funkce checkpointů nebo deaktivujte checkpointy v nastavení pro potlačení tohoto varování.",
+		"dismissWarning": "Zavřít"
 	},
 	"rules": {
 		"actions": {
@@ -109,6 +115,12 @@
 			"disableCopilot": "Deaktivovat Copilot",
 			"disableInlineAssist": "Deaktivovat Inline asistenta"
 		}
+	},
+	"seeNewChanges": {
+		"title": "Zobrazování nových změn",
+		"checkpointsUnavailable": "Nelze zobrazit nové změny, kontrolní body nejsou dostupné.",
+		"noChanges": "Nelze zobrazit nové změny, nebyly nalezeny žádné změny.",
+		"error": "Nelze zobrazit nové změny, došlo k chybě."
 	},
 	"terminalCommandGenerator": {
 		"inputPrompt": "Aincrok: Popište příkaz, který chcete vygenerovat",

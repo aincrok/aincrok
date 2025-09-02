@@ -13,7 +13,8 @@
 	},
 	"task": {
 		"noAssistantMessages": "Modelin yanıtı beklenmedik şekilde sona erdi (asistan mesajı yok). Bu hız sınırlamasının bir işareti olabilir.",
-		"notLoggedInError": "İstek tamamlanamıyor, seçili sağlayıcıyla bağlantı kurduğunuzdan ve oturum açtığınızdan emin olun.\n\n{{error}}"
+		"notLoggedInError": "İstek tamamlanamıyor, seçili sağlayıcıyla bağlantı kurduğunuzdan ve oturum açtığınızdan emin olun.\n\n{{error}}",
+		"maxCompletionTokens": "Maksimum tamamlama token sayısına ulaşıldı."
 	},
 	"rules": {
 		"actions": {
@@ -110,6 +111,11 @@
 			"disableInlineAssist": "Satır İçi Yardım'ı Devre Dışı Bırak"
 		}
 	},
+	"checkpoints": {
+		"nestedGitRepos": "İç içe Git depoları bulunan çalışma alanları için kontrol noktaları kullanılamaz.",
+		"protectedPaths": "Korumalı çalışma alanı yolları için kontrol noktaları kullanılamaz.",
+		"dismissWarning": "Kapat"
+	},
 	"terminalCommandGenerator": {
 		"noActiveTerminal": "Aincrok: Aktif terminal bulunamadı. Lütfen önce bir terminal açın.",
 		"inputPrompt": "Aincrok: Oluşturmak istediğiniz komutu açıklayın",
@@ -124,5 +130,11 @@
 			"cancelButton": "İptal"
 		},
 		"tipMessage": "Aincrok: Terminal komutları oluşturmak için {{shortcut}} tuşuna basın"
+	},
+	"seeNewChanges": {
+		"title": "Yeni değişiklikler gösteriliyor",
+		"checkpointsUnavailable": "Yeni değişiklikler gösterilemiyor, kontrol noktaları kullanılamıyor.",
+		"noChanges": "Yeni değişiklikler gösterilemiyor, hiçbir değişiklik bulunamadı.",
+		"error": "Yeni değişiklikler gösterilemiyor, bir hata oluştu."
 	}
 }
