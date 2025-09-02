@@ -106,7 +106,7 @@ jobs:
           echo "=================================="
 
       - name: Build VSIX
-        if: '!inputs.dry_run && (inputs.release_type == "vsix" || inputs.release_type == "both")'
+        if: '!inputs.dry_run && (inputs.release_type == ''vsix'' || inputs.release_type == ''both'')'
         run: |
           pnpm vsix:production
 
@@ -185,7 +185,7 @@ jobs:
           echo "====================================================="
 
       - name: Publish to VS Code Marketplace
-        if: '!inputs.dry_run && (inputs.release_type == "marketplace" || inputs.release_type == "both")'
+        if: '!inputs.dry_run && (inputs.release_type == ''marketplace'' || inputs.release_type == ''both'')'
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
@@ -221,7 +221,7 @@ jobs:
           echo "========================================"
 
       - name: Publish to OpenVSX
-        if: '!inputs.dry_run && (inputs.release_type == "marketplace" || inputs.release_type == "both")'
+        if: '!inputs.dry_run && (inputs.release_type == ''marketplace'' || inputs.release_type == ''both'')'
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
         run: |
