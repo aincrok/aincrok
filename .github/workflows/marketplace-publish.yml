@@ -72,16 +72,34 @@ jobs:
                   current_version=$(node -p "require('./src/package.json').version")
                   echo "Current version: $current_version"
                   
-                  # For Aincrok (v1.x.x), look for previous Aincrok tags
-                  # For first release, use 0.0.0 as base for comparison
-                  if [[ "$current_version" == 1.* ]]; then
+                  # For Aincrok first release, we need to find appropriate base version
+                  # Look for previous Aincrok tags (0.x.x or 1.x.x series)
+                  if [[ "$current_version" == 0.* ]]; then
+                    # For 0.x.x versions, look for previous 0.x.x tags
+                    prev_tag=$(git tag -l 'v0.*' | grep -v "v${current_version}" | sort -V | tail -1)
+                    if [ -n "$prev_tag" ]; then
+                      prev_version=${prev_tag#v}
+                      echo "Found previous Aincrok 0.x version: $prev_version"
+                    else
+                      prev_version="0.0.0"
+                      echo "First Aincrok release in 0.x series, using 0.0.0 as base"
+                    fi
+                  elif [[ "$current_version" == 1.* ]]; then
+                    # For 1.x.x versions, look for previous 1.x.x or fall back to latest 0.x.x
                     prev_tag=$(git tag -l 'v1.*' | grep -v "v${current_version}" | sort -V | tail -1)
                     if [ -n "$prev_tag" ]; then
                       prev_version=${prev_tag#v}
-                      echo "Found previous Aincrok version: $prev_version"
+                      echo "Found previous Aincrok 1.x version: $prev_version"
                     else
-                      prev_version="0.0.0"
-                      echo "First Aincrok release, using 0.0.0 as base"
+                      # No 1.x.x tags, look for latest 0.x.x tag
+                      prev_tag=$(git tag -l 'v0.*' | sort -V | tail -1)
+                      if [ -n "$prev_tag" ]; then
+                        prev_version=${prev_tag#v}
+                        echo "First 1.x release, using latest 0.x version: $prev_version"
+                      else
+                        prev_version="0.0.0"
+                        echo "First Aincrok release overall, using 0.0.0 as base"
+                      fi
                     fi
                   else
                     # For other versions, use general logic
