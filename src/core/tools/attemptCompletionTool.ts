@@ -88,7 +88,7 @@ export async function attemptCompletionTool(
 						false,
 						undefined,
 						undefined,
-						await getClineMessageOptions(cline), // kilocode_change
+						await getClineMessageOptions(cline), // aincrok_change
 					)
 
 					TelemetryService.instance.captureTaskCompleted(cline.taskId)
@@ -120,7 +120,7 @@ export async function attemptCompletionTool(
 				false,
 				undefined,
 				undefined,
-				await getClineMessageOptions(cline), //kilocode_change
+				await getClineMessageOptions(cline), // aincrok_change
 			)
 			TelemetryService.instance.captureTaskCompleted(cline.taskId)
 			cline.emit(RooCodeEventName.TaskCompleted, cline.taskId, cline.getTokenUsage(), cline.toolUsage)
