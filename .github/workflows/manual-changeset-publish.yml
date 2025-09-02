@@ -114,9 +114,12 @@ jobs:
             CHANGELOG_ENTRY="Version $VERSION release"
           fi
           
+          # Write changelog to temp file to handle multiline content properly
+          echo "$CHANGELOG_ENTRY" > /tmp/changeset_release_notes.txt
+          
           gh release create "v$VERSION" \
             --title "Release v$VERSION" \
-            --notes "$CHANGELOG_ENTRY" \
+            --notes-file /tmp/changeset_release_notes.txt \
             --latest
 
       - name: Summary

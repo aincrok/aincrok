@@ -93,8 +93,8 @@ jobs:
         uses: ./.github/actions/ai-release-notes
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          base_ref: 'v${{ steps.version.outputs.version }}~1'
-          head_ref: 'v${{ steps.version.outputs.version }}'
+          base_ref: 'HEAD~10'
+          head_ref: 'HEAD'
           custom_instructions: 'Focus on user-facing changes and improvements for this VS Code extension release.'
 
       - name: Build VSIX (dry run)
@@ -136,8 +136,10 @@ jobs:
           fi
           
           # Use AI-generated release notes if available, otherwise extract from changelog
-          if [ -n "${{ steps.ai_release_notes.outputs.release_notes }}" ]; then
-            CHANGELOG_ENTRY="${{ steps.ai_release_notes.outputs.release_notes }}"
+          AI_NOTES='${{ steps.ai_release_notes.outputs.release_notes }}'
+          if [ -n "$AI_NOTES" ]; then
+            # Write AI notes to temporary file to handle multiline content properly
+            echo "$AI_NOTES" > /tmp/release_notes.txt
             echo "Using AI-generated release notes"
           else
             # Extract changelog for this version
@@ -146,20 +148,21 @@ jobs:
             if [ -z "$CHANGELOG_ENTRY" ]; then
               CHANGELOG_ENTRY="Release v$VERSION"
             fi
+            
+            # Write changelog to temp file for consistent handling
+            echo "$CHANGELOG_ENTRY" > /tmp/release_notes.txt
             echo "Using changelog-extracted release notes"
           fi
           
           # Create or update release
           if [ "$RELEASE_ACTION" = "create" ]; then
-            RELEASE_FLAGS="--title \"Release v$VERSION\" --notes \"$CHANGELOG_ENTRY\""
             if [ "${{ inputs.prerelease }}" = "true" ]; then
-              RELEASE_FLAGS="$RELEASE_FLAGS --prerelease"
+              gh release create "v$VERSION" --title "Release v$VERSION" --notes-file /tmp/release_notes.txt --prerelease
             else
-              RELEASE_FLAGS="$RELEASE_FLAGS --latest"
+              gh release create "v$VERSION" --title "Release v$VERSION" --notes-file /tmp/release_notes.txt --latest
             fi
-            gh release create "v$VERSION" $RELEASE_FLAGS
           else
-            gh release edit "v$VERSION" --notes "$CHANGELOG_ENTRY"
+            gh release edit "v$VERSION" --notes-file /tmp/release_notes.txt
           fi
           
           # Upload VSIX if built
