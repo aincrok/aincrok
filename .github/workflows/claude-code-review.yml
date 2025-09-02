@@ -2,21 +2,39 @@ name: Claude Code Review
 
 on:
   pull_request:
-    types: [opened, synchronize]
-    # Optional: Only run on specific file changes
-    # paths:
-    #   - "src/**/*.ts"
-    #   - "src/**/*.tsx"
-    #   - "src/**/*.js"
-    #   - "src/**/*.jsx"
+    types: [opened] # Only on creation, not every push
+    paths:
+      - "src/**/*.ts"
+      - "src/**/*.tsx"
+      - "src/**/*.js"
+      - "src/**/*.jsx"
+      - "webview-ui/src/**/*.ts"
+      - "webview-ui/src/**/*.tsx"
+      - "webview-ui/src/**/*.js"
+      - "webview-ui/src/**/*.jsx"
+      # Exclude non-code files
+      - "!**/*.md"
+      - "!**/*.json"
+      - "!**/*.yml"
+      - "!**/*.yaml"
+      - "!**/*.txt"
+      - "!**/*.config.*"
+  issue_comment:
+    types: [created] # Allow manual trigger via /review comment
 
 jobs:
   claude-review:
-    # Optional: Filter by PR author
-    # if: |
-    #   github.event.pull_request.user.login == 'external-contributor' ||
-    #   github.event.pull_request.user.login == 'new-developer' ||
-    #   github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
+    # Smart triggering: Run for external contributors, first-time contributors, or when manually requested
+    if: |
+      (github.event_name == 'pull_request' && (
+        github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR' ||
+        github.event.pull_request.author_association == 'CONTRIBUTOR' ||
+        contains(github.event.pull_request.labels.*.name, 'needs-review') ||
+        contains(github.event.pull_request.labels.*.name, 'external-review')
+      )) ||
+      (github.event_name == 'issue_comment' && 
+       contains(github.event.comment.body, '/review') &&
+       github.event.issue.pull_request)
     
     runs-on: ubuntu-latest
     permissions:
@@ -29,26 +47,78 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0 # Need full history to analyze changes
+
+      - name: Analyze PR Changes
+        id: analyze
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+          else
+            # For comment trigger, get PR info
+            PR_NUMBER=$(jq -r .issue.number "$GITHUB_EVENT_PATH")
+            BASE_SHA=$(gh pr view $PR_NUMBER --json baseRefOid -q .baseRefOid)
+            HEAD_SHA=$(gh pr view $PR_NUMBER --json headRefOid -q .headRefOid)
+          fi
+          
+          echo "Analyzing changes between $BASE_SHA and $HEAD_SHA for PR #$PR_NUMBER"
+          
+          # Count code file changes
+          CODE_FILES=$(git diff --name-only $BASE_SHA..$HEAD_SHA | grep -E '\.(ts|tsx|js|jsx)$' | wc -l)
+          TOTAL_LINES=$(git diff --numstat $BASE_SHA..$HEAD_SHA | awk '{sum+=$1+$2} END {print sum}')
+          
+          # Get list of changed files for context
+          CHANGED_FILES=$(git diff --name-only $BASE_SHA..$HEAD_SHA | grep -E '\.(ts|tsx|js|jsx)$' | head -10 | tr '\n' ',' | sed 's/,$//')
+          
+          echo "code_files=$CODE_FILES" >> $GITHUB_OUTPUT
+          echo "total_lines=${TOTAL_LINES:-0}" >> $GITHUB_OUTPUT
+          echo "changed_files=$CHANGED_FILES" >> $GITHUB_OUTPUT
+          
+          echo "📊 Analysis Results:"
+          echo "  - Code files changed: $CODE_FILES"
+          echo "  - Total lines changed: ${TOTAL_LINES:-0}"
+          echo "  - Changed files: $CHANGED_FILES"
 
       - name: Run Claude Code Review
+        # Only run if there are significant code changes
+        if: steps.analyze.outputs.code_files > 0 && steps.analyze.outputs.total_lines > 15
         id: claude-review
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
-            Please review this pull request and provide feedback on:
-            - Code quality and best practices
-            - Potential bugs or issues
-            - Performance considerations
-            - Security concerns
-            - Test coverage
+            This PR contains ${{ steps.analyze.outputs.code_files }} code files with ${{ steps.analyze.outputs.total_lines }} total line changes.
+            Changed files: ${{ steps.analyze.outputs.changed_files }}
             
-            Use the repository's CLAUDE.md for guidance on style and conventions. Be constructive and helpful in your feedback.
-
-            Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
+            Please provide focused code review feedback on:
+            - Critical code quality issues or potential bugs
+            - Security concerns that need immediate attention  
+            - Performance implications of significant changes
+            - Adherence to project conventions (see CLAUDE.md)
+            
+            Be concise and focus on the most important feedback. Avoid commenting on minor style issues.
+            Use `gh pr comment` to post your review as a comment on this PR.
           
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://docs.anthropic.com/en/docs/claude-code/sdk#command-line for available options
-          claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"'
+          claude_args: '--allowed-tools "Bash(gh pr comment:*),Bash(gh pr view:*),Bash(gh pr diff:*)" --model claude-3-5-sonnet-20241022'
 
+      - name: Skip Review Notification
+        # Notify when review is skipped due to minimal changes
+        if: steps.analyze.outputs.code_files == 0 || steps.analyze.outputs.total_lines <= 15
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+          else
+            PR_NUMBER=$(jq -r .issue.number "$GITHUB_EVENT_PATH")
+          fi
+          
+          echo "⏭️ Skipping Claude Code Review"
+          echo "Reason: Minimal changes detected (${{ steps.analyze.outputs.code_files }} code files, ${{ steps.analyze.outputs.total_lines }} lines)"
+          echo "To force a review, add the 'needs-review' label or comment '/review' on the PR."
