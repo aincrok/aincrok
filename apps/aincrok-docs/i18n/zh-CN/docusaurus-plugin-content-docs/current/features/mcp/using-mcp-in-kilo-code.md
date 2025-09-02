@@ -32,7 +32,7 @@ MCP服务器配置可以在两个级别进行管理：
     - **`Edit Global MCP`**：打开全局 `mcp_settings.json` 文件。
     - **`Edit Project MCP`**：打开项目特定的 `.aincrok/mcp.json` 文件。如果此文件不存在，Aincrok 将为您创建它。
 
-  <img src="/docs/img/using-mcp-in-aincrok/mcp-installed-config.png" alt="编辑全局 MCP 和编辑项目 MCP 按钮" width="600" />
+  <img src="/img/using-mcp-in-aincrok/mcp-installed-config.png" alt="编辑全局 MCP 和编辑项目 MCP 按钮" width="600" />
 
 两个文件都使用JSON格式，其中包含一个`mcpServers`对象，包含命名的服务器配置：
 
@@ -122,7 +122,7 @@ SSE配置示例：
 1. 点击要删除的MCP服务器旁边的<Codicon name="trash" />
 2. 在确认框中点击`删除`按钮
 
-    <img src="/docs/img/using-mcp-in-aincrok/using-mcp-in-aincrok-5.png" alt="删除确认框" width="400" />
+ <img src="/img/using-mcp-in-aincrok/using-mcp-in-aincrok-5.png" alt="删除确认框" width="400" />
 
 ### 重启服务器
 
@@ -138,7 +138,7 @@ SSE配置示例：
 
 1. 点击单个MCP服务器配置框底部的`网络超时`下拉菜单并更改时间。默认值为1分钟，但可以设置为30秒到5分钟之间。
 
-<img src="/docs/img/using-mcp-in-aincrok/using-mcp-in-aincrok-6.png" alt="网络超时下拉菜单" width="400" />
+<img src="/img/using-mcp-in-aincrok/using-mcp-in-aincrok-6.png" alt="网络超时下拉菜单" width="400" />
 
 ### 自动批准工具
 
@@ -148,7 +148,7 @@ MCP工具自动批准按工具进行，默认禁用。要配置自动批准：
 2. 在MCP服务器设置中，定位要自动批准的特定工具
 3. 勾选工具名称旁边的`始终允许`复选框
 
-<img src="/docs/img/using-mcp-in-aincrok/using-mcp-in-aincrok-7.png" alt="MCP工具的始终允许复选框" width="120" />
+<img src="/img/using-mcp-in-aincrok/using-mcp-in-aincrok-7.png" alt="MCP工具的始终允许复选框" width="120" />
 
 启用后，Aincrok将自动批准此特定工具而无需提示。请注意，全局"使用MCP服务器"设置优先 - 如果它被禁用，则不会自动批准任何MCP工具。
 

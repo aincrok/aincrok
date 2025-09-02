@@ -4,7 +4,7 @@ import Codicon from '@site/src/components/Codicon';
 
 Codebase Indexing enables semantic code search across your entire project using AI embeddings. Instead of searching for exact text matches, it understands the _meaning_ of your queries, helping Aincrok find relevant code even when you don't know specific function names or file locations.
 
-<img src="/docs/img/codebase-indexing/codebase-indexing.png" alt="Codebase Indexing Settings" width="800" />
+<img src="/img/codebase-indexing/codebase-indexing.png" alt="Codebase Indexing Settings" width="800" />
 
 ## What It Does
 

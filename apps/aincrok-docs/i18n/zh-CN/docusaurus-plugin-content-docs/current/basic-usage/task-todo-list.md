@@ -4,7 +4,7 @@
 
 **为什么重要**：复杂的工作流程有很多移动部件。如果没有结构，很容易遗漏步骤、重复工作或忘记下一步是什么。
 
-<img src="/docs/img/task-todo-list/task-todo-list-1.png" alt="任务待办事项列表概述，显示 Aincrok 中的交互式清单" width="500" />
+<img src="/img/task-todo-list/task-todo-list-1.png" alt="任务待办事项列表概述，显示 Aincrok 中的交互式清单" width="500" />
 
 ## 如何触发待办事项列表
 
@@ -36,7 +36,7 @@
 **1. 任务标题摘要**
 快速进度概览，显示您的下一个重要事项
 
-<img src="/docs/img/task-todo-list/task-header.png" alt="任务标题摘要显示待办事项列表进度" width="500" />
+<img src="/img/task-todo-list/task-header.png" alt="任务标题摘要显示待办事项列表进度" width="500" />
 
 **2. 交互式工具块**
 聊天中的完整待办事项界面，您可以在其中：
@@ -52,19 +52,19 @@
 
 **待处理** → 空复选框（未开始）
 
-<img src="/docs/img/task-todo-list/not-started.png" alt="待处理待办事项，带空复选框" width="300" />
+<img src="/img/task-todo-list/not-started.png" alt="待处理待办事项，带空复选框" width="300" />
 
 ---
 
 **进行中** → 黄点（当前正在工作）
 
-<img src="/docs/img/task-todo-list/in-progress.png" alt="进行中待办事项，带黄点指示器" width="300" />
+<img src="/img/task-todo-list/in-progress.png" alt="进行中待办事项，带黄点指示器" width="300" />
 
 ---
 
 **已完成** → 绿勾（已完成）
 
-<img src="/docs/img/task-todo-list/complete.png" alt="已完成待办事项，带绿勾" width="300" />
+<img src="/img/task-todo-list/complete.png" alt="已完成待办事项，带绿勾" width="300" />
 
 ---
 

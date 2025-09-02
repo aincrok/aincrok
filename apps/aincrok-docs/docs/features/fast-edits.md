@@ -12,7 +12,7 @@ Open Settings by clicking the gear icon <Codicon name="gear" /> → Advanced
 
 When **Enable editing through diffs** is checked:
 
-    <img src="/docs/img/fast-edits/fast-edits-5.png" alt="Aincrok settings showing Enable editing through diffs" width="500" />
+    <img src="/img/fast-edits/fast-edits-5.png" alt="Aincrok settings showing Enable editing through diffs" width="500" />
 
 1.  **Faster File Editing**: Aincrok modifies files more quickly by applying only the necessary changes.
 2.  **Prevents Truncated Writes**: The system automatically detects and rejects attempts by the AI to write incomplete file content, which can happen with large files or complex instructions. This helps prevent corrupted files.
@@ -25,7 +25,7 @@ If you uncheck **Enable editing through diffs**, Aincrok will revert to writing 
 
 This slider controls how closely the code sections identified by the AI must match the actual code in your file before a change is applied.
 
-    <img src="/docs/img/fast-edits/fast-edits-4.png" alt="Aincrok settings showing Enable editing through diffs checkbox and Match precision slider" width="500" />
+    <img src="/img/fast-edits/fast-edits-4.png" alt="Aincrok settings showing Enable editing through diffs checkbox and Match precision slider" width="500" />
 
 - **100% (Default)**: Requires an exact match. This is the safest option, minimizing the risk of incorrect changes.
 - **Lower Values (80%-99%)**: Allows for "fuzzy" matching. Aincrok can apply changes even if the code section has minor differences from what the AI expected. This can be useful if the file has been slightly modified, but **increases the risk** of applying changes in the wrong place.

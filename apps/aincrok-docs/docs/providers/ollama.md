@@ -8,7 +8,7 @@ Aincrok supports running models locally using Ollama. This provides privacy, off
 
 **Website:** [https://ollama.com/](https://ollama.com/)
 
-<img src="/docs/img/providers/ollama-devstral-snake.png" alt="Vibe coding a Snake game using devstral" width="500" />
+<img src="/img/providers/ollama-devstral-snake.png" alt="Vibe coding a Snake game using devstral" width="500" />
 *Vibe coding a Snake game using devstral*
 
 ## Managing Expectations
@@ -126,7 +126,7 @@ The following models look like reasonable choices, but were found to **not** wor
     ```
 
 3.  **Configure Aincrok:**
-    - Open the Aincrok sidebar (<img src="/docs/img/aincrok-icon.svg" width="12" /> icon).
+    - Open the Aincrok sidebar (<img src="/img/aincrok-icon.svg" width="12" /> icon).
     - Click the settings gear icon (<Codicon name="gear" />).
     - Select "ollama" as the API Provider.
     - Enter the Model name.

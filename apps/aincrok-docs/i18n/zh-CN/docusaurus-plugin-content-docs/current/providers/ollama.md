@@ -7,7 +7,7 @@
 Aincrok 支持通过 Ollama 在本地运行模型。这提供了隐私保护、离线访问能力，并可能降低成本，但需要更多设置且依赖高性能计算机。  
 **官方网站：** [https://ollama.com/](https://ollama.com/)
 
-<img src="/docs/img/providers/ollama-devstral-snake.png" alt="使用 devstral 编写贪吃蛇游戏" width="500" />
+<img src="/img/providers/ollama-devstral-snake.png" alt="使用 devstral 编写贪吃蛇游戏" width="500" />
 *使用 devstral 编写贪吃蛇游戏*
 
 ## 管理期望
@@ -125,7 +125,7 @@ devstral:24b 产生的结果如下：
     ```
 
 3.  **配置 Aincrok：**
-    - 打开 Aincrok 侧边栏（<img src="/docs/img/kilo-v1.svg" width="12" /> 图标）。
+    - 打开 Aincrok 侧边栏（<img src="/img/kilo-v1.svg" width="12" /> 图标）。
     - 单击设置齿轮图标（<Codicon name="gear" />）。
     - 选择“ollama”作为 API 提供商。
     - 输入模型名称。

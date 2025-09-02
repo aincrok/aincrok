@@ -98,7 +98,7 @@ When both generic rules and mode-specific rules exist, the mode-specific rules a
 
 ### Using the UI Interface
 
-<img src="/docs/img/custom-rules/rules-ui.png" alt="Rules tab in Aincrok" width="400" />
+<img src="/img/custom-rules/rules-ui.png" alt="Rules tab in Aincrok" width="400" />
 
 The easiest way to create and manage rules is through the built-in UI:
 
@@ -153,7 +153,7 @@ Files in the list contain sensitive data, they MUST NOT be read
 
 This rule prevents the AI from reading or accessing sensitive files, even if explicitly requested to do so.
 
-<img src="/docs/img/custom-rules/custom-rules.png" alt="Aincrok ignores request to read sensitive file" width="600" />
+<img src="/img/custom-rules/custom-rules.png" alt="Aincrok ignores request to read sensitive file" width="600" />
 
 ## Use Cases
 
@@ -214,6 +214,6 @@ If your custom rules aren't being properly followed:
 ## Related Features
 
 - [Custom Modes](/docs/features/custom-modes)
-- [Custom Instructions](/advanced-usage/custom-instructions)
+- [Custom Instructions](/docs/advanced-usage/custom-instructions)
 - [Settings Management](/docs/features/settings-management)
 - [Auto-Approval Settings](/docs/features/auto-approving-actions)

@@ -96,7 +96,7 @@ Yes, Aincrok supports running models locally using [Ollama](/providers/ollama) a
 
 ### How do I start a new task?
 
-Open the Aincrok panel (<img src="/docs/img/aincrok-icon.svg" width="12" />) and type your task in the chat box. Be clear and specific about what you want Aincrok to do. See [The Chat Interface](/basic-usage/the-chat-interface) for best practices.
+Open the Aincrok panel (<img src="/img/aincrok-icon.svg" width="12" />) and type your task in the chat box. Be clear and specific about what you want Aincrok to do. See [The Chat Interface](/basic-usage/the-chat-interface) for best practices.
 
 ### What are modes in Aincrok?
 

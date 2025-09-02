@@ -196,4 +196,4 @@ Some scenarios benefit from a hybrid approach:
 
 ## Configuring Transports in Aincrok
 
-For detailed information on configuring STDIO and SSE transports in Aincrok, including example configurations, see the [Understanding Transport Types](/features/mcp/using-mcp-in-kilo-code#understanding-transport-types) section in the Using MCP in Aincrok guide.
+For detailed information on configuring STDIO and SSE transports in Aincrok, including example configurations, see the [Understanding Transport Types](/features/mcp/using-mcp-in-aincrok#understanding-transport-types) section in the Using MCP in Aincrok guide.

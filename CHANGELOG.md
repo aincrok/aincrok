@@ -1,6 +1,6 @@
 # Aincrok Changelog
 
-## [v0.1.0]
+## [0.0.0] - 2025-01-28
 
 - [`1fd698a`](https://github.com/aincrok/aincrok/commit/1fd698ad2025946519a0ce2d516ec528ea92eea4) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Improve Inline Assist model compatibility and performance
 
@@ -8,8 +8,6 @@ All notable changes to Aincrok will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [0.0.0] - 2025-01-28
 
 ### Added
 

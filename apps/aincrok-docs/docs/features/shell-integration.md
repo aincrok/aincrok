@@ -32,19 +32,19 @@ Aincrok provides several settings to fine-tune shell integration. Access these i
 
 #### Terminal Output Limit
 
-<img src="/docs/img/shell-integration/terminal-output-limit.png" alt="Terminal output limit slider set to 500" width="500" />
+<img src="/img/shell-integration/terminal-output-limit.png" alt="Terminal output limit slider set to 500" width="500" />
 Controls the maximum number of lines captured from terminal output. When exceeded, it keeps 20% of the beginning and 80% of the end with a truncation message in between. This prevents excessive token usage while maintaining context. Default: 500 lines.
 Controls the maximum number of lines captured from terminal output. When exceeded, lines are removed from the middle to save tokens. Default: 500 lines.
 
 #### Terminal Shell Integration Timeout
 
-<img src="/docs/img/shell-integration/shell-integration-timeout.png" alt="Terminal shell integration timeout slider set to 15s" width="500" />
+<img src="/img/shell-integration/shell-integration-timeout.png" alt="Terminal shell integration timeout slider set to 15s" width="500" />
 
 Maximum time to wait for shell integration to initialize before executing commands. Increase this value if you experience "Shell Integration Unavailable" errors. Default: 15 seconds.
 
 #### Terminal Command Delay
 
-<img src="/docs/img/shell-integration/terminal-command-delay.png" alt="Terminal command delay slider set to 0ms" width="500" />
+<img src="/img/shell-integration/terminal-command-delay.png" alt="Terminal command delay slider set to 0ms" width="500" />
 
 Adds a small pause after running commands to help Aincrok capture all output correctly. This setting can significantly impact shell integration reliability due to VSCode's implementation of terminal integration across different operating systems and shell configurations:
 
@@ -73,31 +73,31 @@ Always restart all open terminals after changing any of these settings.
 
 #### PowerShell Counter Workaround
 
-<img src="/docs/img/shell-integration/power-shell-workaround.png" alt="PowerShell counter workaround checkbox" width="600" />
+<img src="/img/shell-integration/power-shell-workaround.png" alt="PowerShell counter workaround checkbox" width="600" />
 
 Helps PowerShell run the same command multiple times in a row. Enable this if you notice Aincrok can't run identical commands consecutively in PowerShell.
 
 #### Clear ZSH EOL Mark
 
-<img src="/docs/img/shell-integration/clear-zsh-eol-mark.png" alt="Clear ZSH EOL mark checkbox" width="600" />
+<img src="/img/shell-integration/clear-zsh-eol-mark.png" alt="Clear ZSH EOL mark checkbox" width="600" />
 
 Prevents ZSH from adding special characters at the end of output lines that can confuse Aincrok when reading terminal results.
 
 #### Oh My Zsh Integration
 
-<img src="/docs/img/shell-integration/oh-my-zsh.png" alt="Enable Oh My Zsh integration checkbox" width="600" />
+<img src="/img/shell-integration/oh-my-zsh.png" alt="Enable Oh My Zsh integration checkbox" width="600" />
 
 Makes Aincrok work better with the popular [Oh My Zsh](https://ohmyz.sh/) shell customization framework. Turn this on if you use Oh My Zsh and experience terminal issues.
 
 #### Powerlevel10k Integration
 
-<img src="/docs/img/shell-integration/power10k.png" alt="Enable Powerlevel10k integration checkbox" width="600" />
+<img src="/img/shell-integration/power10k.png" alt="Enable Powerlevel10k integration checkbox" width="600" />
 
 Improves compatibility if you use the Powerlevel10k theme for ZSH. Turn this on if your fancy terminal prompt causes issues with Aincrok.
 
 #### ZDOTDIR Handling
 
-<img src="/docs/img/shell-integration/zdotdir.png" alt="Enable ZDOTDIR handling checkbox" width="600" />
+<img src="/img/shell-integration/zdotdir.png" alt="Enable ZDOTDIR handling checkbox" width="600" />
 
 Helps Aincrok work with custom ZSH configurations without interfering with your personal shell settings and customizations.
 
@@ -409,7 +409,7 @@ The [VSCode Terminal Integration Test Extension](https://github.com/KJ7LNW/vsce-
 
 If you've followed these steps and are still experiencing problems, please:
 
-1. Check the [Aincrok GitHub Issues](https://github.com/aincrok/kilocode/issues) to see if others have reported similar problems
+1. Check the [Aincrok GitHub Issues](https://github.com/aincrok/aincrok/issues) to see if others have reported similar problems
 2. If not, create a new issue with details about your operating system, VSCode/Cursor version, and the steps you've tried
 
 For additional help, join our [Discord](https://aincrok.dev/discord).

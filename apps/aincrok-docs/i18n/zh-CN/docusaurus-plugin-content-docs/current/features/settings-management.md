@@ -10,7 +10,7 @@ Aincrok 允许您通过导出、导入和重置选项有效地管理您的配置
 
 您可以在 Aincrok 设置页面的底部找到这些选项，通过 Aincrok 聊天视图中的齿轮图标（<i class="codicon codicon-gear"></i>）访问。
 
-<img src="/docs/img/settings-management/settings-management.png" alt="Aincrok 设置中的导出、导入和重置按钮" width="400" />
+<img src="/img/settings-management/settings-management.png" alt="Aincrok 设置中的导出、导入和重置按钮" width="400" />
 *图片：导出、导入和重置按钮。*
 
 ## 导出设置

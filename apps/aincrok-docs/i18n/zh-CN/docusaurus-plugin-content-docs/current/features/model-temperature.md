@@ -2,7 +2,7 @@
 
 温度控制 AI 模型输出的随机性。调整此设置可优化不同任务的结果——从精确的代码生成到创意头脑风暴。温度是控制 AI 行为最强大的参数之一。精心调整的温度设置可以显著提高特定任务响应的质量和适用性。
 
-<img src="/docs/img/model-temperature/model-temperature.gif" alt="显示温度滑块调整的动画" width="100%" />
+<img src="/img/model-temperature/model-temperature.gif" alt="显示温度滑块调整的动画" width="100%" />
 
 ## 什么是温度？
 
@@ -40,13 +40,13 @@ Aincrok 对大多数模型使用 0.0 的默认温度，以优化代码生成的�
 
 ## 如何调整温度
 
-1.  **打开 Aincrok 面板：** 单击 VS Code 侧边栏中的 Aincrok 图标（<img src="/docs/img/kilo-v1.svg" width="12" />）
+1.  **打开 Aincrok 面板：** 单击 VS Code 侧边栏中的 Aincrok 图标（<img src="/img/kilo-v1.svg" width="12" />）
 2.  **打开设置：** 单击右上角的 <Codicon name="gear" /> 图标
 3.  **查找温度控制：** 导航到“提供商”部分
 4.  **启用自定义温度：** 选中“使用自定义温度”框
 5.  **设置您的值：** 将滑块调整到您喜欢的值
 
-    <img src="/docs/img/model-temperature/model-temperature.png" alt="Aincrok 设置面板中的温度设置" width="550" />
+    <img src="/img/model-temperature/model-temperature.png" alt="Aincrok 设置面板中的温度设置" width="550" />
     *Aincrok 设置面板中的温度滑块*
 
 ## 使用 API 配置配置文件进行温度设置

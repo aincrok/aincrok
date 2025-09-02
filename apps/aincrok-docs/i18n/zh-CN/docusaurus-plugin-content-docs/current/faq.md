@@ -96,7 +96,7 @@ Aincrok支持多种API提供商，包括：
 
 ### 如何开始新任务？
 
-打开Aincrok面板（<img src="/docs/img/aincrok-icon.svg" width="12" />）并在聊天框中输入你的任务。请清晰具体地描述你希望Aincrok完成的工作。请参阅[输入你的请求](/)获取最佳实践。
+打开Aincrok面板（<img src="/img/aincrok-icon.svg" width="12" />）并在聊天框中输入你的任务。请清晰具体地描述你希望Aincrok完成的工作。请参阅[输入你的请求](/)获取最佳实践。
 
 ### Aincrok有哪些模式？
 

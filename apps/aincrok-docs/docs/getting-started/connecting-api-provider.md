@@ -33,7 +33,7 @@ LLM routers let you access multiple AI models with one API key, simplifying cost
 3. Navigate to the [API keys page](https://openrouter.ai/keys) and create a new key
 4. Copy your API key - you'll need this for Aincrok setup
 
-<img src="/docs/img/connecting-api-provider/connecting-api-provider-4.png" alt="OpenRouter API keys page" width="600" />
+<img src="/img/connecting-api-provider/connecting-api-provider-4.png" alt="OpenRouter API keys page" width="600" />
 
 _OpenRouter dashboard with "Create key" button. Name your key and copy it after creation._
 
@@ -44,7 +44,7 @@ _OpenRouter dashboard with "Create key" button. Name your key and copy it after 
 3. Navigate to the [API management page](https://app.requesty.ai/manage-api) and create a new key
 4. **Important:** Copy your API key immediately as it won't be displayed again
 
-<img src="/docs/img/connecting-api-provider/connecting-api-provider-7.png" alt="Requesty API management page" width="600" />
+<img src="/img/connecting-api-provider/connecting-api-provider-7.png" alt="Requesty API management page" width="600" />
 
 _Requesty API management page with "Create API Key" button. Copy your key immediately - it's shown only once._
 
@@ -59,7 +59,7 @@ For direct access to specific models from their original providers, with full ac
 3. Navigate to the [API keys section](https://console.anthropic.com/settings/keys) and create a new key
 4. **Important:** Copy your API key immediately as it won't be displayed again
 
-<img src="/docs/img/connecting-api-provider/connecting-api-provider-5.png" alt="Anthropic console API Keys section" width="600" />
+<img src="/img/connecting-api-provider/connecting-api-provider-5.png" alt="Anthropic console API Keys section" width="600" />
 
 _Anthropic console API Keys section with "Create key" button. Name your key, set expiration, and copy it immediately._
 
@@ -70,7 +70,7 @@ _Anthropic console API Keys section with "Create key" button. Name your key, set
 3. Navigate to the [API keys section](https://platform.openai.com/api-keys) and create a new key
 4. **Important:** Copy your API key immediately as it won't be displayed again
 
-<img src="/docs/img/connecting-api-provider/connecting-api-provider-6.png" alt="OpenAI API keys page" width="600" />
+<img src="/img/connecting-api-provider/connecting-api-provider-6.png" alt="OpenAI API keys page" width="600" />
 
 _OpenAI platform with "Create new secret key" button. Name your key and copy it immediately after creation._
 
@@ -78,7 +78,7 @@ _OpenAI platform with "Create new secret key" button. Name your key and copy it 
 
 Once you have your API key:
 
-1. Open the Aincrok sidebar by clicking the Aincrok icon (<img src="/docs/img/aincrok-icon.svg" width="12" />) in the VS Code Side Bar
+1. Open the Aincrok sidebar by clicking the Aincrok icon (<img src="/img/aincrok-icon.svg" width="12" />) in the VS Code Side Bar
 2. In the welcome screen, select your API provider from the dropdown
 3. Paste your API key into the appropriate field
 4. Select your model:

@@ -27,9 +27,9 @@ Aincrok是一款VS Code扩展，可将AI编程助手直接集成到编辑器中�
 4. 选择Aincrok发布的扩展并点击**安装**
 5. 根据提示重新加载VS Code
 
-安装完成后，在侧边栏找到Aincrok图标（<img src="/docs/img/aincrok-icon.svg" width="12" />）即可打开面板。
+安装完成后，在侧边栏找到Aincrok图标（<img src="/img/aincrok-icon.svg" width="12" />）即可打开面板。
 
-<img src="/docs/img/installing/installing.png" alt="VS Code应用商店中的Aincrok扩展安装界面" width="400" />
+<img src="/img/installing/installing.png" alt="VS Code应用商店中的Aincrok扩展安装界面" width="400" />
 *VS Code应用商店中的Aincrok扩展安装界面*
 
 ## Cursor应用商店
@@ -48,7 +48,7 @@ Aincrok是一款VS Code扩展，可将AI编程助手直接集成到编辑器中�
 4. 选择Aincrok发布的扩展并点击**安装**
 5. 根据提示重新加载Cursor
 
-安装完成后，在侧边栏找到Aincrok图标（<img src="/docs/img/aincrok-icon.svg" width="12" />）即可打开面板。
+安装完成后，在侧边栏找到Aincrok图标（<img src="/img/aincrok-icon.svg" width="12" />）即可打开面板。
 
 ## Open VSX注册表
 
@@ -83,7 +83,7 @@ Aincrok是一款VS Code扩展，可将AI编程助手直接集成到编辑器中�
     - 选择"从VSIX安装..."
     - 选择已下载的`.vsix`文件
 
-<img src="/docs/img/installing/installing-2.png" alt="VS Code的从VSIX安装对话框" width="400" />
+<img src="/img/installing/installing-2.png" alt="VS Code的从VSIX安装对话框" width="400" />
 *通过VS Code的"从VSIX安装"对话框进行安装*
 
 ## 故障排除

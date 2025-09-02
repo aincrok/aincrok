@@ -57,7 +57,7 @@ git checkout -b your-branch-name
     git push origin your-branch-name
     ```
 
-2. Go to the [Aincrok repository](https://github.com/aincrok/kilocode)
+2. Go to the [Aincrok repository](https://github.com/aincrok/aincrok)
 
 3. Click "New Pull Request" and select "compare across forks"
 
@@ -77,7 +77,7 @@ Custom modes are a powerful way to extend Aincrok's capabilities. To create and 
 
 2. Test your mode thoroughly
 
-3. Share your mode with the community by submitting a [GitHub Discussion](https://github.com/aincrok/kilocode/discussions)
+3. Share your mode with the community by submitting a [GitHub Discussion](https://github.com/aincrok/aincrok/discussions)
 
 ## Documentation Contributions
 
@@ -107,14 +107,14 @@ When participating in the Aincrok community:
 - Be respectful and inclusive
 - Provide constructive feedback
 - Help newcomers get started
-- Follow the [Code of Conduct](https://github.com/aincrok/kilocode/blob/main/CODE_OF_CONDUCT.md)
+- Follow the [Code of Conduct](https://github.com/aincrok/aincrok/blob/main/CODE_OF_CONDUCT.md)
 
 ## Getting Help
 
 If you need help with your contribution:
 
 - Join our [Discord community](https://aincrok.dev/discord) for real-time support
-- Ask questions on [GitHub Discussions](https://github.com/aincrok/kilocode/discussions)
+- Ask questions on [GitHub Discussions](https://github.com/aincrok/aincrok/discussions)
 - Visit our [Reddit community](https://www.reddit.com/r/Aincrok)
 
 ## Recognition

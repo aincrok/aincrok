@@ -4,7 +4,7 @@
 
 **Why it matters**: Complex workflows have lots of moving parts. Without structure, it's easy to miss steps, duplicate work, or forget what comes next.
 
-<img src="/docs/img/task-todo-list/task-todo-list-1.png" alt="Task Todo List overview showing interactive checklist in Aincrok" width="500" />
+<img src="/img/task-todo-list/task-todo-list-1.png" alt="Task Todo List overview showing interactive checklist in Aincrok" width="500" />
 
 ## How to trigger todo lists
 
@@ -36,7 +36,7 @@
 **1. Task Header Summary**
 Quick progress overview with your next important item
 
-<img src="/docs/img/task-todo-list/task-header.png" alt="Task header summary showing todo list progress" width="500" />
+<img src="/img/task-todo-list/task-header.png" alt="Task header summary showing todo list progress" width="500" />
 
 **2. Interactive Tool Block**
 Full todo interface in chat where you can:
@@ -52,19 +52,19 @@ Background "REMINDERS" table that keeps Aincrok informed about current progress
 
 **Pending** → Empty checkbox (not started)
 
-<img src="/docs/img/task-todo-list/not-started.png" alt="Pending todo item with empty checkbox" width="300" />
+<img src="/img/task-todo-list/not-started.png" alt="Pending todo item with empty checkbox" width="300" />
 
 ---
 
 **In Progress** → Yellow dot (currently working)
 
-<img src="/docs/img/task-todo-list/in-progress.png" alt="In progress todo item with yellow dot indicator" width="300" />
+<img src="/img/task-todo-list/in-progress.png" alt="In progress todo item with yellow dot indicator" width="300" />
 
 ---
 
 **Completed** → Green checkmark (finished)
 
-<img src="/docs/img/task-todo-list/complete.png" alt="Completed todo item with green checkmark" width="300" />
+<img src="/img/task-todo-list/complete.png" alt="Completed todo item with green checkmark" width="300" />
 
 ---
 

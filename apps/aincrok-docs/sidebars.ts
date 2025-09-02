@@ -98,6 +98,7 @@ const sidebars: SidebarsConfig = {
 			label: "Advanced Usage",
 			items: [
 				"advanced-usage/prompt-engineering",
+				"advanced-usage/context-poisoning",
 				{
 					type: "category",
 					label: "Customizing Aincrok",
@@ -145,7 +146,7 @@ const sidebars: SidebarsConfig = {
 					label: "Model Context Protocol (MCP)",
 					items: [
 						"features/mcp/overview",
-						"features/mcp/using-mcp-in-kilo-code",
+						"features/mcp/using-mcp-in-aincrok",
 						"features/mcp/what-is-mcp",
 						"features/mcp/server-transports",
 						"features/mcp/mcp-vs-api",
@@ -166,11 +167,14 @@ const sidebars: SidebarsConfig = {
 				"features/tools/ask-followup-question",
 				"features/tools/attempt-completion",
 				"features/tools/browser-action",
+				"features/tools/codebase-search",
 				"features/tools/execute-command",
+				"features/tools/insert-content",
 				"features/tools/list-code-definition-names",
 				"features/tools/list-files",
 				"features/tools/new-task",
 				"features/tools/read-file",
+				"features/tools/search-and-replace",
 				"features/tools/search-files",
 				"features/tools/switch-mode",
 				"features/tools/update-todo-list",

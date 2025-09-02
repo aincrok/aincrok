@@ -12,13 +12,13 @@
 
 ## 自动批准工具栏
 
-<img src="/docs/img/auto-approving-actions/auto-approving-actions.png" alt="自动批准工具栏折叠状态" width="600" />
+<img src="/img/auto-approving-actions/auto-approving-actions.png" alt="自动批准工具栏折叠状态" width="600" />
 
 _提示框和自动批准工具栏显示已启用的权限_
 
 单击工具栏以展开它并配置单个权限：
 
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-1.png" alt="自动批准工具栏展开状态" width="600" />
+<img src="/img/auto-approving-actions/auto-approving-actions-1.png" alt="自动批准工具栏展开状态" width="600" />
 
 _提示文本框和展开的工具栏，包含所有选项_
 
@@ -41,7 +41,7 @@ _提示文本框和展开的工具栏，包含所有选项_
 
 最左侧的复选框作为主开关：
 
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-14.png" alt="自动批准工具栏中的主开关" width="600" />
+<img src="/img/auto-approving-actions/auto-approving-actions-14.png" alt="自动批准工具栏中的主开关" width="600" />
 
 _主开关（复选框）一次控制所有自动批准权限_
 
@@ -62,14 +62,14 @@ _主开关（复选框）一次控制所有自动批准权限_
 1.  单击右上角的 <Codicon name="gear" />
 2.  导航到自动批准设置
 
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-4.png" alt="设置面板自动批准选项" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-4.png" alt="设置面板自动批准选项" width="550" />
 
 _完整的设置面板视图_
 
 ### 读取操作
 
 :::caution 读取操作
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-6.png" alt="只读操作设置" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-6.png" alt="只读操作设置" width="550" />
 
 **设置：** “始终批准只读操作”
 
@@ -83,7 +83,7 @@ _完整的设置面板视图_
 ### 写入操作
 
 :::caution 写入操作
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-7.png" alt="带延迟滑块的写入操作设置" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-7.png" alt="带延迟滑块的写入操作设置" width="550" />
 
 **设置：** “始终批准写入操作”
 
@@ -102,7 +102,7 @@ _完整的设置面板视图_
 
 #### 写入延迟和问题窗格集成
 
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-5.png" alt="显示诊断信息的 VSCode 问题窗格" width="600" />
+<img src="/img/auto-approving-actions/auto-approving-actions-5.png" alt="显示诊断信息的 VSCode 问题窗格" width="600" />
 
 _Aincrok 在写入延迟期间检查的 VSCode 问题窗格_
 
@@ -123,7 +123,7 @@ _Aincrok 在写入延迟期间检查的 VSCode 问题窗格_
 ### 浏览器操作
 
 :::info 浏览器操作
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-8.png" alt="浏览器操作设置" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-8.png" alt="浏览器操作设置" width="550" />
 
 **设置：** “始终批准浏览器操作”
 
@@ -145,7 +145,7 @@ _Aincrok 在写入延迟期间检查的 VSCode 问题窗格_
 ### API 请求
 
 :::info API 请求
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-9.png" alt="带延迟滑块的 API 请求重试设置" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-9.png" alt="带延迟滑块的 API 请求重试设置" width="550" />
 
 **设置：** “始终重试失败的 API 请求”
 
@@ -164,7 +164,7 @@ _Aincrok 在写入延迟期间检查的 VSCode 问题窗格_
 ### MCP 工具
 
 :::caution MCP 工具
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-10.png" alt="MCP 工具设置" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-10.png" alt="MCP 工具设置" width="550" />
 
 **设置：** “始终批准 MCP 工具”
 
@@ -178,7 +178,7 @@ _Aincrok 在写入延迟期间检查的 VSCode 问题窗格_
 ### 模式切换
 
 :::info 模式切换
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-11.png" alt="模式切换设置" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-11.png" alt="模式切换设置" width="550" />
 
 **设置：** “始终批准模式切换”
 
@@ -192,7 +192,7 @@ _Aincrok 在写入延迟期间检查的 VSCode 问题窗格_
 ### 子任务
 
 :::info 子任务
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-12.png" alt="子任务设置" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-12.png" alt="子任务设置" width="550" />
 
 **设置：** “始终批准子任务的创建和完成”
 
@@ -206,7 +206,7 @@ _Aincrok 在写入延迟期间检查的 VSCode 问题窗格_
 ### 命令执行
 
 :::caution 命令执行
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-13.png" alt="带白名单界面的命令执行设置" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-13.png" alt="带白名单界面的命令执行设置" width="550" />
 
 **设置：** “始终批准允许的执行操作”
 

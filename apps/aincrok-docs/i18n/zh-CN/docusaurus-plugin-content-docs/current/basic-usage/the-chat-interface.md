@@ -10,7 +10,7 @@ import Image from '@site/src/components/Image';
 
 ## 快速设置
 
-在 VS Code 的主侧边栏中找到 Aincrok 图标（<img src="/docs/img/aincrok-icon.svg" width="12" />）。单击它以打开聊天面板。
+在 VS Code 的主侧边栏中找到 Aincrok 图标（<img src="/img/aincrok-icon.svg" width="12" />）。单击它以打开聊天面板。
 
 **找不到面板？** 转到“视图”>“打开视图...”并搜索“Aincrok”
 
@@ -18,7 +18,7 @@ import Image from '@site/src/components/Image';
 
 **关键见解：** 只需用普通英语输入您想要的内容。无需特殊命令。
 
-<Image src="/docs/img/typing-your-requests/typing-your-requests.png" alt="在 Aincrok 中输入请求的示例" width="600" />
+<Image src="/img/typing-your-requests/typing-your-requests.png" alt="在 Aincrok 中输入请求的示例" width="600" />
 
 **好的请求：**
 
@@ -44,7 +44,7 @@ import Image from '@site/src/components/Image';
 ## 聊天界面
 
 <Image 
-    src="/docs/img/the-chat-interface/the-chat-interface-1.png" 
+    src="/img/the-chat-interface/the-chat-interface-1.png" 
     alt="带有标注的聊天界面组件" width="750" 
     caption="您需要的一切都在这里"
 />

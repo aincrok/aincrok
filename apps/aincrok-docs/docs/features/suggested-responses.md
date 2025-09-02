@@ -12,7 +12,7 @@ When Aincrok needs more information to complete a task, it uses the [`ask_follow
 
 Suggested Responses appear as clickable buttons directly below Aincrok's question in the chat interface. They offer pre-formulated answers relevant to the question, helping you provide input quickly.
 
-<img src="/docs/img/suggested-responses/suggested-responses.png" alt="Example of Aincrok asking a question with suggested response buttons below it" width="500" />
+<img src="/img/suggested-responses/suggested-responses.png" alt="Example of Aincrok asking a question with suggested response buttons below it" width="500" />
 
 ## How It Works
 
@@ -35,7 +35,7 @@ You have two options for using suggested responses:
         - _Alternatively_, hover over the suggestion button and click the pencil icon (<Codicon name="edit" />) that appears.
     - **Result**: The text of the suggestion is copied into the chat input box. You can then modify the text as needed before pressing Enter to send your customized response. This is useful when a suggestion is close but needs minor adjustments.
 
-<img src="/docs/img/suggested-responses/suggested-responses-1.png" alt="Chat input box showing text copied from a suggested response, ready for editing" width="600" />
+<img src="/img/suggested-responses/suggested-responses-1.png" alt="Chat input box showing text copied from a suggested response, ready for editing" width="600" />
 
 ## Benefits
 

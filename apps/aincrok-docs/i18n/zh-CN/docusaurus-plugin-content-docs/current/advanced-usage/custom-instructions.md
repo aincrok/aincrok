@@ -14,7 +14,7 @@
 
 **如何设置：**
 
-<img src="/docs/img/custom-instructions/custom-instructions.png" alt="Aincrok 提示标签显示全局自定义指令界面" width="600" />
+<img src="/img/custom-instructions/custom-instructions.png" alt="Aincrok 提示标签显示全局自定义指令界面" width="600" />
 1.  **打开提示标签：** 点击 Aincrok 顶部菜单栏中的 <Codicon name="notebook" /> 图标
 2.  **找到部分：** 找到 "所有模式的自定义指令" 部分
 3.  **输入指令：** 在文本区域输入你的指令
@@ -24,7 +24,7 @@
 
 模式特定指令可以使用提示标签设置
 
-    <img src="/docs/img/custom-instructions/custom-instructions-3.png" alt="Aincrok 提示标签显示模式特定自定义指令界面" width="600" />
+    <img src="/img/custom-instructions/custom-instructions-3.png" alt="Aincrok 提示标签显示模式特定自定义指令界面" width="600" />
     * **打开标签：** 点击 Aincrok 顶部菜单栏中的 <Codicon name="notebook" /> 图标
     * **选择模式：** 在模式标题下，点击你想要自定义的模式按钮
     * **输入指令：** 在 "模式特定自定义指令（可选）" 下的文本区域输入你的指令

@@ -7,14 +7,14 @@ Custom Instructions allow you to personalize how Aincrok behaves, providing spec
 Custom Instructions define specific Extension behaviors, preferences, and constraints beyond Aincrok's basic role definition. Examples include coding style, documentation standards, testing requirements, and workflow guidelines.
 
 :::info Custom Instructions vs Rules
-Custom Instructions are IDE-wide and are applied across all workspaces and maintain your preferences regardless of which project you're working on. Unlike Instructions, [Custom Rules](/advanced-usage/custom-rules.md) are project specific and allow you to setup workspace-based ruleset.
+Custom Instructions are IDE-wide and are applied across all workspaces and maintain your preferences regardless of which project you're working on. Unlike Instructions, [Custom Rules](/docs/advanced-usage/custom-rules) are project specific and allow you to setup workspace-based ruleset.
 :::
 
 ## Setting Custom Instructions
 
 **How to set them:**
 
-<img src="/docs/img/custom-instructions/custom-instructions.png" alt="Aincrok Modes tab showing global custom instructions interface" width="600" />
+<img src="/img/custom-instructions/custom-instructions.png" alt="Aincrok Modes tab showing global custom instructions interface" width="600" />
 1.  **Open Modes Tab:** Click the <Codicon name="organization" /> icon in the Aincrok top menu bar
 2.  **Find Section:** Find the "Custom Instructions for All Modes" section
 3.  **Enter Instructions:** Enter your instructions in the text area
@@ -24,7 +24,7 @@ Custom Instructions are IDE-wide and are applied across all workspaces and maint
 
 Mode-specific instructions can be set using the Modes Tab
 
-    <img src="/docs/img/custom-instructions/custom-instructions-3.png" alt="Aincrok Modes tab showing mode-specific custom instructions interface" width="600" />
+    <img src="/img/custom-instructions/custom-instructions-3.png" alt="Aincrok Modes tab showing mode-specific custom instructions interface" width="600" />
     * **Open Tab:** Click the <Codicon name="organization" /> icon in the Aincrok top menu bar
     * **Select Mode:** Under the Modes heading, click the button for the mode you want to customize
     * **Enter Instructions:** Enter your instructions in the text area under "Mode-specific Custom Instructions (optional)"
@@ -37,6 +37,6 @@ Mode-specific instructions can be set using the Modes Tab
 ## Related Features
 
 - [Custom Modes](/docs/features/custom-modes)
-- [Custom Rules](/advanced-usage/custom-rules)
+- [Custom Rules](/docs/advanced-usage/custom-rules)
 - [Settings Management](/docs/features/settings-management)
 - [Auto-Approval Settings](/docs/features/auto-approving-actions)

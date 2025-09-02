@@ -27,9 +27,9 @@ alternatively, you can:
 4. Select "Aincrok" by Aincrok and click **Install**
 5. Reload VS Code if prompted
 
-After installation, find the Aincrok icon (<img src="/docs/img/aincrok-icon.svg" width="12" />) in the Side Bar to open the Aincrok panel.
+After installation, find the Aincrok icon (<img src="/img/aincrok-icon.svg" width="12" />) in the Side Bar to open the Aincrok panel.
 
-<img src="/docs/img/installing/installing.png" alt="VS Code marketplace with Aincrok extension ready to install" width="400" />
+<img src="/img/installing/installing.png" alt="VS Code marketplace with Aincrok extension ready to install" width="400" />
 *VS Code marketplace with Aincrok extension ready to install*
 
 ## Cursor Marketplace
@@ -48,7 +48,7 @@ alternatively, you can:
 4. Select "Aincrok" by Aincrok and click **Install**
 5. Reload Cursor if prompted
 
-After installation, find the Aincrok icon (<img src="/docs/img/aincrok-icon.svg" width="12" />) in the Side Bar to open the Aincrok panel.
+After installation, find the Aincrok icon (<img src="/img/aincrok-icon.svg" width="12" />) in the Side Bar to open the Aincrok panel.
 
 ## Open VSX Registry
 
@@ -83,7 +83,7 @@ If you prefer to download and install the VSIX file directly:
     - Select "Install from VSIX..."
     - Browse to and select your downloaded `.vsix` file
 
-<img src="/docs/img/installing/installing-2.png" alt="VS Code's Install from VSIX dialog" width="400" />
+<img src="/img/installing/installing-2.png" alt="VS Code's Install from VSIX dialog" width="400" />
 *Installing Aincrok using VS Code's "Install from VSIX" dialog*
 
 ## Troubleshooting
