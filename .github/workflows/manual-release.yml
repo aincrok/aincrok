@@ -1,0 +1,236 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Release type'
+        required: true
+        type: choice
+        options:
+          - vsix
+          - marketplace
+          - both
+        default: 'both'
+      version:
+        description: 'Version to release (leave empty for current package.json version)'
+        required: false
+        type: string
+      prerelease:
+        description: 'Mark as prerelease'
+        required: false
+        default: false
+        type: boolean
+      dry_run:
+        description: 'Perform a dry run (do not publish)'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  NODE_VERSION: 20.19.2
+  PNPM_VERSION: 10.8.1
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  manual-release:
+    name: Manual Release
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Get release version
+        id: version
+        run: |
+          if [ -n "${{ inputs.version }}" ]; then
+            VERSION="${{ inputs.version }}"
+            echo "Using input version: $VERSION"
+          else
+            VERSION=$(jq -r '.version' src/package.json)
+            echo "Using package.json version: $VERSION"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Run linting and type checking
+        run: |
+          pnpm lint
+          pnpm check-types
+
+      - name: Run tests
+        run: |
+          pnpm test
+
+      - name: Build VSIX (dry run)
+        if: inputs.dry_run && (inputs.release_type == 'vsix' || inputs.release_type == 'both')
+        run: |
+          echo "=== DRY RUN - Would build VSIX ==="
+          echo "pnpm vsix:production"
+          echo "Version: ${{ steps.version.outputs.version }}"
+          echo "=================================="
+
+      - name: Build VSIX
+        if: '!inputs.dry_run && (inputs.release_type == "vsix" || inputs.release_type == "both")'
+        run: |
+          pnpm vsix:production
+
+      - name: Create GitHub Release (dry run)
+        if: inputs.dry_run
+        run: |
+          echo "=== DRY RUN - Would create GitHub Release ==="
+          echo "Version: v${{ steps.version.outputs.version }}"
+          echo "Prerelease: ${{ inputs.prerelease }}"
+          echo "VSIX file would be attached if built"
+          echo "============================================="
+
+      - name: Create GitHub Release
+        if: '!inputs.dry_run'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          
+          # Check if release already exists
+          if gh release view "v$VERSION" >/dev/null 2>&1; then
+            echo "Release v$VERSION already exists. Updating..."
+            RELEASE_ACTION="edit"
+          else
+            echo "Creating new release v$VERSION"
+            RELEASE_ACTION="create"
+          fi
+          
+          # Extract changelog for this version
+          CHANGELOG_ENTRY=$(awk "/^## $VERSION/{flag=1;next}/^## [0-9]/{flag=0}flag" CHANGELOG.md | sed '/^$/d')
+          
+          if [ -z "$CHANGELOG_ENTRY" ]; then
+            CHANGELOG_ENTRY="Release v$VERSION
+
+🤖 Generated with [Claude Code](https://claude.ai/code)"
+          fi
+          
+          # Create or update release
+          if [ "$RELEASE_ACTION" = "create" ]; then
+            RELEASE_FLAGS="--title \"Release v$VERSION\" --notes \"$CHANGELOG_ENTRY\""
+            if [ "${{ inputs.prerelease }}" = "true" ]; then
+              RELEASE_FLAGS="$RELEASE_FLAGS --prerelease"
+            else
+              RELEASE_FLAGS="$RELEASE_FLAGS --latest"
+            fi
+            gh release create "v$VERSION" $RELEASE_FLAGS
+          else
+            gh release edit "v$VERSION" --notes "$CHANGELOG_ENTRY"
+          fi
+          
+          # Upload VSIX if built
+          if [ "${{ inputs.release_type }}" = "vsix" ] || [ "${{ inputs.release_type }}" = "both" ]; then
+            VSIX_FILE=$(find . -name "*.vsix" -type f | head -1)
+            if [ -n "$VSIX_FILE" ]; then
+              echo "Uploading VSIX: $VSIX_FILE"
+              gh release upload "v$VERSION" "$VSIX_FILE" --clobber
+            else
+              echo "Warning: No VSIX file found to upload"
+            fi
+          fi
+
+      - name: Publish to VS Code Marketplace (dry run)
+        if: inputs.dry_run && (inputs.release_type == 'marketplace' || inputs.release_type == 'both')
+        run: |
+          echo "=== DRY RUN - Would publish to VS Code Marketplace ==="
+          echo "Version: ${{ steps.version.outputs.version }}"
+          echo "Prerelease: ${{ inputs.prerelease }}"
+          echo "====================================================="
+
+      - name: Publish to VS Code Marketplace
+        if: '!inputs.dry_run && (inputs.release_type == "marketplace" || inputs.release_type == "both")'
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          if [ -z "$VSCE_PAT" ]; then
+            echo "Warning: VSCE_PAT secret not set. Skipping marketplace publish."
+            exit 0
+          fi
+          
+          VSIX_FILE=$(find . -name "*.vsix" -type f | head -1)
+          if [ -z "$VSIX_FILE" ]; then
+            echo "No VSIX file found. Building now..."
+            pnpm vsix:production
+            VSIX_FILE=$(find . -name "*.vsix" -type f | head -1)
+          fi
+          
+          if [ -n "$VSIX_FILE" ]; then
+            echo "Publishing to VS Code Marketplace: $VSIX_FILE"
+            if [ "${{ inputs.prerelease }}" = "true" ]; then
+              npx @vscode/vsce publish --packagePath "$VSIX_FILE" --pre-release
+            else
+              npx @vscode/vsce publish --packagePath "$VSIX_FILE"
+            fi
+          else
+            echo "Error: No VSIX file found to publish"
+            exit 1
+          fi
+
+      - name: Publish to OpenVSX (dry run)
+        if: inputs.dry_run && (inputs.release_type == 'marketplace' || inputs.release_type == 'both')
+        run: |
+          echo "=== DRY RUN - Would publish to OpenVSX ==="
+          echo "Version: ${{ steps.version.outputs.version }}"
+          echo "========================================"
+
+      - name: Publish to OpenVSX
+        if: '!inputs.dry_run && (inputs.release_type == "marketplace" || inputs.release_type == "both")'
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: |
+          if [ -z "$OVSX_PAT" ]; then
+            echo "Warning: OVSX_PAT secret not set. Skipping OpenVSX publish."
+            exit 0
+          fi
+          
+          VSIX_FILE=$(find . -name "*.vsix" -type f | head -1)
+          if [ -n "$VSIX_FILE" ]; then
+            echo "Publishing to OpenVSX: $VSIX_FILE"
+            npx ovsx publish "$VSIX_FILE" -p "$OVSX_PAT"
+          else
+            echo "Error: No VSIX file found to publish"
+            exit 1
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          if [ "${{ inputs.dry_run }}" == "true" ]; then
+            echo "✅ Dry run completed successfully"
+            echo "📦 Would release version: ${{ steps.version.outputs.version }}"
+            echo "🎯 Release type: ${{ inputs.release_type }}"
+            echo "🚀 Prerelease: ${{ inputs.prerelease }}"
+          else
+            echo "✅ Release completed successfully"
+            echo "📦 Released version: ${{ steps.version.outputs.version }}"
+            echo "🎯 Release type: ${{ inputs.release_type }}"
+            echo "🚀 Prerelease: ${{ inputs.prerelease }}"
+            echo "🔗 GitHub Release: https://github.com/${{ github.repository }}/releases/tag/v${{ steps.version.outputs.version }}"
+            if [ "${{ inputs.release_type }}" = "marketplace" ] || [ "${{ inputs.release_type }}" = "both" ]; then
+              echo "🛒 VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok"
+              echo "🌐 OpenVSX: https://open-vsx.org/extension/aincrok/aincrok"
+            fi
+          fi
