@@ -20,7 +20,8 @@ jobs:
         if: >
             ( github.event_name == 'pull_request' &&
             github.event.pull_request.base.ref == 'main' &&
-            contains(github.event.pull_request.title, 'Changeset version bump') ) ||
+            (contains(github.event.pull_request.title, 'Changeset version bump') ||
+            contains(github.event.pull_request.labels.*.name, 'force-release')) ) ||
             github.event_name == 'workflow_dispatch'
         steps:
             - name: Checkout code
@@ -69,15 +70,31 @@ jobs:
               id: get_previous_version
               run: |
                   current_version=$(node -p "require('./src/package.json').version")
-                  # Get the previous tag
-                  prev_tag=$(git tag -l 'v*' | grep -v "v${current_version}" | sort -V | tail -1)
-                  if [ -n "$prev_tag" ]; then
-                    prev_version=${prev_tag#v}
+                  echo "Current version: $current_version"
+                  
+                  # For Aincrok (v1.x.x), look for previous Aincrok tags
+                  # For first release, use 0.0.0 as base for comparison
+                  if [[ "$current_version" == 1.* ]]; then
+                    prev_tag=$(git tag -l 'v1.*' | grep -v "v${current_version}" | sort -V | tail -1)
+                    if [ -n "$prev_tag" ]; then
+                      prev_version=${prev_tag#v}
+                      echo "Found previous Aincrok version: $prev_version"
+                    else
+                      prev_version="0.0.0"
+                      echo "First Aincrok release, using 0.0.0 as base"
+                    fi
                   else
-                    prev_version="0.0.0"
+                    # For other versions, use general logic
+                    prev_tag=$(git tag -l 'v*' | grep -v "v${current_version}" | sort -V | tail -1)
+                    if [ -n "$prev_tag" ]; then
+                      prev_version=${prev_tag#v}
+                    else
+                      prev_version="0.0.0"
+                    fi
                   fi
+                  
                   echo "version=$prev_version" >> $GITHUB_OUTPUT
-                  echo "Previous version: $prev_version"
+                  echo "Using previous version: $prev_version for comparison"
 
             # Generate enhanced release notes for the GitHub release
             - name: Generate AI Release Notes
