@@ -1,6 +1,9 @@
 # Aincrok Changelog
 
-## [0.0.0] - 2025-01-28
+## [0.0.0] - 2025-09-02
+
+- Aincrok now shows an error message when a model reaches its maximum output
+- Fixed 500 error with Chutes when no custom temperature is specified
 
 - [`1fd698a`](https://github.com/aincrok/aincrok/commit/1fd698ad2025946519a0ce2d516ec528ea92eea4) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Improve Inline Assist model compatibility and performance
 
