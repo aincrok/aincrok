@@ -11,7 +11,7 @@ export default function CustomHeroSection(): JSX.Element {
 				{/* ATTENTION: Powerful hook with value proposition */}
 				<div className="hero-badge fade-in">
 					<Icon name="zap" size={14} color="#f4f4f5" />
-					<span>AI-Powered VS Code Extension</span>
+					<span>AI Coding Agent for VS Code</span>
 				</div>
 
 				{/* ATTENTION: Problem-focused headline */}
@@ -25,8 +25,8 @@ export default function CustomHeroSection(): JSX.Element {
 
 				{/* INTEREST: Clear value proposition */}
 				<p className="fade-in hero-subtitle">
-					Aincrok reduces your AI coding costs while delivering precise, production-ready code. The smart
-					alternative to ChatGPT, Claude, and GitHub Copilot for professional developers.
+					Aincrok is an AI coding agent that writes, debugs, and refactors code across your codebase.
+					Efficient token usage and precise edits for professional developers.
 				</p>
 
 				{/* INTEREST: Immediate credibility & value */}

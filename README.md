@@ -1,99 +1,262 @@
-# Aincrok - AI Code Assistant for VS Code
+# Aincrok - Stop Wasting Money on AI Tokens
 
 <div align="center">
   <img src="readme-banner.png" alt="Aincrok Banner" width="600">
+  
+  [![Version](https://img.shields.io/visual-studio-marketplace/v/aincrok.aincrok?style=for-the-badge&color=4ade80)](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)
+  [![Downloads](https://img.shields.io/visual-studio-marketplace/d/aincrok.aincrok?style=for-the-badge&color=4ade80)](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)
+  [![GitHub Stars](https://img.shields.io/github/stars/aincrok/aincrok?style=for-the-badge&color=4ade80)](https://github.com/aincrok/aincrok)
+  [![License](https://img.shields.io/github/license/aincrok/aincrok?style=for-the-badge)](LICENSE)
+
+**AI Coding Agent - The smart alternative to ChatGPT, Claude, and GitHub Copilot**
+
+🚀 **[Install Free Extension](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)** • 📚 **[Quick Start](https://aincrok.dev/docs/getting-started/installing)** • 💬 **[Join Community](https://discord.gg/yeYsX7cZUr)**
+
 </div>
-> Aincrok Is Not Cline Roo Or Kilo
-[![Version](https://img.shields.io/visual-studio-marketplace/v/aincrok.aincrok)](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)
-[![Downloads](https://img.shields.io/visual-studio-marketplace/d/aincrok.aincrok)](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)
-[![License](https://img.shields.io/github/license/aincrok/aincrok)](LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/aincrok/aincrok)](https://github.com/aincrok/aincrok)
-## 🚀 Overview
-Aincrok is a powerful AI-powered code assistant for Visual Studio Code, forked from Kilocode with significant enhancements. It provides intelligent code completion, multi-file editing, and seamless integration with various LLM providers.
 
-## 💡 Why Choose Aincrok?
+---
 
-In a landscape filled with AI coding assistants like Kilo Code, Roo Code, and Cline, developers often face frustrating issues: excessive token consumption leading to high costs, subtle bugs and hallucinations in generated code, non-deterministic outputs, poor handling of complex problems, unintended codebase bloat, inefficient context management in large or legacy projects, and instability in agentic workflows (e.g., ignoring linter errors, creating duplicate files, or failing on tool calls).
+## ⚡ Why Choose Aincrok AI Coding Agent
 
-Aincrok stands out by prioritizing **cost-effectiveness**, **stability**, and **efficiency**. Built with disruptive features inspired by community feedback and best practices (like the 12-factor agents), it reduces token waste through precise LSP integrations, persistent memory layers, and optimized API calls. Unlike competitors that add unnecessary code or hallucinate non-existent functions, Aincrok ensures reliable, targeted edits, better context awareness, and human-in-the-loop safeguards to minimize technical debt and errors. Whether you're a solo developer or managing large codebases, Aincrok empowers you to code smarter, faster, and cheaper—without the headaches.
+Aincrok is an **AI coding agent** that writes, debugs, and refactors code across your codebase - not just single-file suggestions.
 
-Join thousands of adopters who are ditching bloated, unreliable tools for a more robust alternative. Star us on GitHub and see the difference!
+- **🤖 Full AI Agent**: Multi-file editing, task execution, and codebase understanding
+- **💰 Efficient Usage**: Smart context management reduces token consumption
+- **🎯 Precise Edits**: Targeted changes without unnecessary code generation
+- **⚡ Fast Performance**: Optimized for quick responses
+- **🔧 Multi-Provider**: Compatible with OpenAI, Anthropic, Google, Ollama and others
+- **🛡️ Reliable**: Built for consistent performance
 
-## ✨ Features
+### 📊 The Problem with Current AI Coding Tools
 
-- 🤖 **Multi-Provider Support**: OpenAI, Anthropic, Google, and more
-- 📝 **Autonomous Multi-File Editing**: Edit multiple files simultaneously
-- 💬 **Persistent Conversation History**: Never lose your coding context
-- 🎨 **Intuitive WebView Interface**: Modern, responsive UI within VS Code
-- 🚀 **Template System**: Customizable prompts and workflows
-- 💻 **Terminal Integration**: Execute commands directly from conversations
-- 🔧 **Highly Configurable**: Adapt to your workflow
+❌ **Limited Scope** - Most tools only suggest code snippets instead of handling complex tasks  
+❌ **Inefficient Token Usage** - Many competitors use excessive tokens for simple operations
+❌ **Code Quality Issues** - May generate non-existent functions or introduce bugs  
+❌ **Poor Task Planning** - Limited ability to plan and execute multi-step workflows  
+❌ **Context Management** - Inefficient handling of large codebases
 
-### 🚧 Coming Soon
+✅ **Aincrok Solution**: AI coding agent with precise LSP integration and efficient token usage
 
-We're rapidly evolving Aincrok with features designed to address common pain points in agentic coding. These will further enhance cost savings, precision, and usability:
+## 🚀 Quick Start - 2 Minutes to Setup
 
-- **LSP Integration**: Precise file operations and symbol-level edits to eliminate incorrect discoveries and reduce token usage by up to 70%.
-- **Memory Layer & Knowledge Base**: Multi-level persistent memory for context-aware sessions, minimizing repeated API calls and hallucinations.
-- **API Call Optimization**: Batching, local fallbacks, and throttling to cut costs by 30-50%.
-- **Advanced Prompt Caching**: Reuse responses for faster, cheaper interactions.
-- **Hassle-Free System Prompt Customization**: Easy editing with auto-included tool manuals—no more warnings or manual setups.
-- **Remote Control & Monitoring**: Pause, resume, and oversee agents from your smartphone while multitasking.
-- **Enhanced Stability**: Robust error handling, retries, and logging to outperform competitors in reliability.
-- **Improved Multi-Agent & Subtask System**: Bug-free hierarchies with pausable subtasks that retain parent references.
-- **Precise Edits Mode**: Avoid unintended changes and whole-file rewrites using targeted LSP diffs.
-- **Efficient Context for Large Codebases**: RAG-like retrieval and vector stores to handle massive projects without token bloat.
-- **Human-in-the-Loop Tools**: Flag uncertainties, pause for approvals, and integrate notifications for safer workflows.
-
-Stay tuned—these features are in active development and will roll out soon to make Aincrok the go-to choice for efficient AI-assisted coding!
-
-## 📦 Installation
-
-### From VS Code Marketplace
-
-1. Open VS Code
-2. Press `Ctrl+P` / `Cmd+P`
-3. Type `ext install aincrok.aincrok`
-
-### From Source
+### 1. Install the Extension
 
 ```bash
-git clone https://github.com/aincrok/aincrok.git
-cd aincrok
-npm install
-npm run compile
+# Option 1: VS Code Command Palette
+Ctrl+P → ext install aincrok.aincrok
+
+# Option 2: VS Code Marketplace
 ```
 
-## 🔧 Configuration
+**[📦 Install from Marketplace](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)**
 
-See [Configuration Guide](docs/CONFIGURATION.md) for detailed setup instructions.
+### 2. Add Your API Key
 
-## 📖 Documentation
+- Open VS Code Settings (`Ctrl+,`)
+- Search for "Aincrok"
+- Add your preferred AI provider key (OpenAI, Anthropic, etc.)
 
-- [Getting Started](docs/GETTING_STARTED.md)
-- [Configuration Guide](docs/CONFIGURATION.md)
-- [API Reference](docs/API.md)
-- [Contributing](CONTRIBUTING.md)
-- [Changelog](CHANGELOG.md)
+### 3. Start Your AI Agent
+
+- Open any project
+- Press `Ctrl+Shift+P` → "Aincrok: Start Coding"
+- Give complex tasks: _"Add authentication to my app"_, _"Fix all TypeScript errors"_, _"Implement user dashboard with tests"_
+
+**Unlike code completion tools, Aincrok handles entire features autonomously!**
+
+💡 **No credit card required** • **No signup needed** • **Use your own AI subscriptions**
+
+## ✨ What Makes Aincrok Different
+
+<table>
+<tr>
+<td width="50%">
+
+### 🤖 **AI Agent Capabilities**
+
+- **Task Execution**: Plans and completes multi-step coding tasks
+- **Multi-File Operations**: Edit across your codebase simultaneously
+- **Context Awareness**: Understands project structure and dependencies
+- **Tool Integration**: Terminal commands, file operations, testing, debugging
+
+</td>
+<td width="50%">
+
+### ⚡ **Efficient & Fast**
+
+- **Token Optimization**: Efficient token usage through smart context management
+- **Multi-Provider**: OpenAI, Anthropic, Google, Ollama
+- **Precise Edits**: LSP-powered symbol-level changes
+- **Smart Caching**: Faster responses with reduced API calls
+
+</td>
+</tr>
+</table>
+
+### 💼 What Can Aincrok AI Agent Do?
+
+✅ **Feature Development** - "Build a user authentication system with JWT"  
+✅ **Bug Fixing** - "Fix all TypeScript errors and add proper error handling"  
+✅ **Code Refactoring** - "Convert this class component to hooks and add tests"  
+✅ **Documentation** - "Generate comprehensive API docs for all endpoints"  
+✅ **Testing** - "Add unit tests for the entire user service module"  
+✅ **Database Changes** - "Update schema and migrate existing data safely"
+
+**Unlike code completion tools, Aincrok handles complete development workflows.**
+
+## 🏆 Community
+
+<div align="center">
+
+Join the growing community of developers using Aincrok for AI-assisted development.
+
+</div>
+
+---
+
+## 🔮 Advanced Features (Coming Soon)
+
+<details>
+<summary><strong>🚀 Click to see what's coming next</strong></summary>
+
+### 🎯 **Enhanced Precision**
+
+- **Advanced LSP Integration**: Symbol-level edits with 90%+ accuracy
+- **Smart Context Windows**: Only include relevant code to minimize tokens
+- **Diff-Based Edits**: Show exactly what changed, when, and why
+
+### 🧠 **Intelligent Memory**
+
+- **Project Memory**: Remember your coding patterns and preferences
+- **Session Continuity**: Pick up where you left off across VS Code restarts
+- **Knowledge Base**: Build a searchable index of your codebase
+
+### ⚡ **Performance Boosters**
+
+- **Local Caching**: Instant responses for common operations
+- **Batch Processing**: Handle multiple requests simultaneously
+- **API Optimization**: 50%+ faster response times
+
+### 🛡️ **Enterprise Features**
+
+- **Team Collaboration**: Share templates and workflows
+- **Usage Analytics**: Track cost savings and productivity gains
+- **Custom Models**: Fine-tune on your specific codebase
+
+</details>
+
+## 📚 Learn More
+
+<table>
+<tr>
+<td align="center" width="33%">
+
+### 📖 **Documentation**
+
+Comprehensive guides and tutorials
+
+[**View Docs →**](https://aincrok.dev/docs)
+
+</td>
+<td align="center" width="33%">
+
+### 💬 **Community**
+
+Get help and share experiences
+
+[**Join Discord →**](https://discord.gg/yeYsX7cZUr)
+
+</td>
+<td align="center" width="33%">
+
+### ⭐ **GitHub**
+
+Star us and contribute
+
+[**View Source →**](https://github.com/aincrok/aincrok)
+
+</td>
+</tr>
+</table>
+
+### 🔧 Advanced Setup (Optional)
+
+<details>
+<summary><strong>🛠️ Development & Custom Builds</strong></summary>
+
+```bash
+# Clone and build from source
+git clone https://github.com/aincrok/aincrok.git
+cd aincrok
+pnpm install
+pnpm build
+
+# For contributors
+pnpm test        # Run tests
+pnpm lint        # Check code style
+pnpm check-types # TypeScript validation
+```
+
+**Prerequisites**: Node.js 20.19.2, pnpm 10.8.1  
+**See**: [Contributing Guide](CONTRIBUTING.md) for development setup
+
+</details>
+
+---
+
+## 🚀 Ready to Save Money and Code Faster?
+
+<div align="center">
+
+### Get started in under 2 minutes
+
+**[📦 Install Free Extension](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)** • **[📚 Quick Start Guide](https://aincrok.dev/docs/getting-started/installing)** • **[💬 Join Community](https://discord.gg/yeYsX7cZUr)**
+
+<br>
+
+_No credit card • No signup • Use your own AI keys_
+
+<br>
+
+**⭐ Star us on GitHub** if Aincrok saves you money and time!
+
+[![GitHub stars](https://img.shields.io/github/stars/aincrok/aincrok?style=social)](https://github.com/aincrok/aincrok/stargazers)
+
+</div>
+
+---
+
+<details>
+<summary><strong>📋 Additional Information</strong></summary>
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ## 📄 License
 
 Apache 2.0 - See [LICENSE](LICENSE) for details.
 
-## 🙏 Acknowledgments
+## 🙏 Built On
 
-Aincrok is built upon the excellent foundation of:
-
-- [Kilocode](https://github.com/Kilo-Org/kilocode) - Original codebase
-- [Cline](https://github.com/cline/cline)
-- [Roo Code](https://github.com/RooCodeInc/Roo-Code)
+- [Kilocode](https://github.com/Kilo-Org/kilocode) - Original foundation
+- [Cline](https://github.com/cline/cline) - Inspiration
+- [Roo Code](https://github.com/RooCodeInc/Roo-Code) - Community feedback
 
 ## 📬 Support
 
-- [GitHub Issues](https://github.com/aincrok/aincrok/issues)
-- [Discord Community](https://discord.gg/yeYsX7cZUr)
-- [Documentation](https://aincrok.dev/docs)
+- [🐛 Report Issues](https://github.com/aincrok/aincrok/issues)
+- [💬 Discord Community](https://discord.gg/yeYsX7cZUr)
+- [📖 Documentation](https://aincrok.dev/docs)
+
+</details>
+
+---
+
+<div align="center">
+
+**Aincrok** - _Aincrok Is Not Cline Roo Or Kilo_
+
+Made with ❤️ by developers, for developers
+
+</div>
