@@ -1,0 +1,59 @@
+name: Test AI Release Notes
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_ref:
+        description: 'Base git reference (e.g., v1.0.0, commit hash)'
+        required: true
+        default: 'HEAD~5'
+      head_ref:
+        description: 'Head git reference (e.g., v1.0.1, HEAD)'
+        required: true
+        default: 'HEAD'
+      custom_instructions:
+        description: 'Additional instructions for Claude'
+        required: false
+        default: ''
+
+jobs:
+  test-release-notes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Test AI Release Notes Action
+        id: release_notes
+        uses: ./.github/actions/ai-release-notes
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          base_ref: ${{ inputs.base_ref }}
+          head_ref: ${{ inputs.head_ref }}
+          custom_instructions: ${{ inputs.custom_instructions }}
+
+      - name: Display Generated Release Notes
+        run: |
+          echo "## Generated Release Notes"
+          echo "${{ steps.release_notes.outputs.release_notes }}"
+          
+      - name: Create Test Release Notes File
+        run: |
+          echo "# Test Release Notes" > test_release_notes.md
+          echo "" >> test_release_notes.md
+          echo "**Base Ref:** ${{ inputs.base_ref }}" >> test_release_notes.md
+          echo "**Head Ref:** ${{ inputs.head_ref }}" >> test_release_notes.md
+          echo "" >> test_release_notes.md
+          echo "${{ steps.release_notes.outputs.release_notes }}" >> test_release_notes.md
+          
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-release-notes-${{ github.run_number }}
+          path: test_release_notes.md
+          retention-days: 30

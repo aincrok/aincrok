@@ -26,6 +26,7 @@ jobs:
         permissions:
             contents: write
             pull-requests: write
+            id-token: write
         steps:
             - name: Git Checkout
               uses: actions/checkout@v4
@@ -100,16 +101,35 @@ jobs:
                   echo "prev_version=$PREV_VERSION" >> $GITHUB_OUTPUT
                   echo "version=$VERSION"
                   echo "prev_version=$PREV_VERSION"
+
+            # Generate AI-enhanced release notes for the new version
+            - name: Generate AI Release Notes
+              if: steps.check-changesets.outputs.new_changesets != '0' && !contains(github.event.pull_request.labels.*.name, 'changelog-ready')
+              id: ai_release_notes
+              uses: ./.github/actions/ai-release-notes
+              with:
+                  claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+                  base_ref: 'v${{ steps.get_version.outputs.prev_version }}'
+                  head_ref: 'HEAD'
+                  custom_instructions: 'Generate release notes for this VS Code extension version. Focus on user-facing features, bug fixes, and improvements. Keep technical details minimal.'
               # Update CHANGELOG.md with proper format
             - name: Update Changelog Format
               if: ${{ !contains(github.event.pull_request.labels.*.name, 'changelog-ready') }}
               env:
                   VERSION: ${{ steps.get_version.outputs.version }}
                   PREV_VERSION: ${{ steps.get_version.outputs.prev_version }}
+                  NEW_CONTENT: ${{ steps.ai_release_notes.outputs.release_notes }}
               run: |
                   echo "Running changelog formatting script..."
                   echo "VERSION: $VERSION"
                   echo "PREV_VERSION: $PREV_VERSION"
+                  if [ -n "$NEW_CONTENT" ]; then
+                    echo "Using AI-generated content for changelog"
+                    echo "AI Content preview:"
+                    echo "$NEW_CONTENT" | head -5
+                  else
+                    echo "Using default changeset formatting"
+                  fi
                   echo "Current changelog start:"
                   head -20 CHANGELOG.md
                   echo "===================="

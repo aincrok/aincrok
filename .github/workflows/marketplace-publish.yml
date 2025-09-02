@@ -16,6 +16,7 @@ jobs:
         runs-on: ubuntu-latest
         permissions:
             contents: write # Required for pushing tags.
+            id-token: write # Required for Claude Code Action
         if: >
             ( github.event_name == 'pull_request' &&
             github.event.pull_request.base.ref == 'main' &&
@@ -63,6 +64,31 @@ jobs:
 
                   # Clean up temporary file.
                   rm /tmp/aincrok-vsix-contents.txt
+            # Get previous version for comparison before creating the new tag
+            - name: Get Previous Version
+              id: get_previous_version
+              run: |
+                  current_version=$(node -p "require('./src/package.json').version")
+                  # Get the previous tag
+                  prev_tag=$(git tag -l 'v*' | grep -v "v${current_version}" | sort -V | tail -1)
+                  if [ -n "$prev_tag" ]; then
+                    prev_version=${prev_tag#v}
+                  else
+                    prev_version="0.0.0"
+                  fi
+                  echo "version=$prev_version" >> $GITHUB_OUTPUT
+                  echo "Previous version: $prev_version"
+
+            # Generate enhanced release notes for the GitHub release
+            - name: Generate AI Release Notes
+              id: ai_release_notes
+              uses: ./.github/actions/ai-release-notes
+              with:
+                  claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+                  base_ref: 'v${{ steps.get_previous_version.outputs.version }}'
+                  head_ref: 'HEAD'
+                  custom_instructions: 'Create engaging release notes for this VS Code extension. Highlight new features, improvements, and bug fixes that users will care about. Use emojis appropriately and keep the tone professional but friendly.'
+
             - name: Create and Push Git Tag
               run: |
                   current_package_version=$(node -p "require('./src/package.json').version")
@@ -83,20 +109,26 @@ jobs:
               run: |
                   current_package_version=$(node -p "require('./src/package.json').version")
 
-                  # Extract changelog for current version
-                  echo "Extracting changelog for version ${current_package_version}"
-                  # Try with 'v' prefix first (newer format), then without (older format)
-                  changelog_content=$(sed -n "/## \\[v${current_package_version}\\]/,/## \\[/p" CHANGELOG.md | sed '$d')
-                  if [ -z "$changelog_content" ]; then
-                    changelog_content=$(sed -n "/## \\[${current_package_version}\\]/,/## \\[/p" CHANGELOG.md | sed '$d')
-                  fi
-
-                  # If changelog extraction failed, use a default message
-                  if [ -z "$changelog_content" ]; then
-                    echo "Warning: No changelog section found for version ${current_package_version}"
-                    changelog_content="Release v${current_package_version}"
+                  # Use AI-generated release notes if available, otherwise extract from changelog
+                  if [ -n "${{ steps.ai_release_notes.outputs.release_notes }}" ]; then
+                    changelog_content="${{ steps.ai_release_notes.outputs.release_notes }}"
+                    echo "Using AI-generated release notes"
                   else
-                    echo "Found changelog section for version ${current_package_version}"
+                    # Extract changelog for current version
+                    echo "Extracting changelog for version ${current_package_version}"
+                    # Try with 'v' prefix first (newer format), then without (older format)
+                    changelog_content=$(sed -n "/## \\[v${current_package_version}\\]/,/## \\[/p" CHANGELOG.md | sed '$d')
+                    if [ -z "$changelog_content" ]; then
+                      changelog_content=$(sed -n "/## \\[${current_package_version}\\]/,/## \\[/p" CHANGELOG.md | sed '$d')
+                    fi
+
+                    # If changelog extraction failed, use a default message
+                    if [ -z "$changelog_content" ]; then
+                      echo "Warning: No changelog section found for version ${current_package_version}"
+                      changelog_content="Release v${current_package_version}"
+                    else
+                      echo "Found changelog section for version ${current_package_version}"
+                    fi
                   fi
 
                   # Create release with changelog content
