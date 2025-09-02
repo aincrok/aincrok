@@ -10,14 +10,6 @@
 
 **AI Coding Agent - The smart alternative to ChatGPT, Claude, and GitHub Copilot**
 
-- ✨ Generate code from natural language
-- ✅ Checks its own work
-- 🧪 Run terminal commands
-- 🌐 Automate the browser
-- 🤖 Latest AI models
-- 🔑 Use your own API keys
-- 🎯 Precise multi-file editing
-
 🚀 **[Install Free Extension](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)** • 📚 **[Quick Start](https://aincrok.dev/docs/getting-started/installing)** • 💬 **[Join Community](https://discord.gg/yeYsX7cZUr)**
 
 </div>

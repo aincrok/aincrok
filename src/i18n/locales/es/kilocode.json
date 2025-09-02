@@ -69,6 +69,13 @@
 				"basic": "Asistencia Integrada Aincrok",
 				"disabled": "Asistente Integrado Aincrok (desactivado)",
 				"tokenError": "Se debe establecer un token válido para usar Inline Assist",
+			"enabled": "$(sparkle) Kilo Code Autocomplete",
+			"disabled": "$(circle-slash) Kilo Code Autocomplete",
+			"warning": "$(warning) Kilo Code Autocomplete",
+			"tooltip": {
+				"basic": "Kilo Code Autocomplete",
+				"disabled": "Kilo Code Autocomplete (deshabilitado)",
+				"tokenError": "Se debe establecer un token válido para usar Autocomplete",
 				"lastCompletion": "Última sugerencia:",
 				"sessionTotal": "Costo total de la sesión:",
 				"model": "Modelo:"
@@ -79,9 +86,11 @@
 			}
 		},
 		"toggleMessage": "Asistente Integrado Aincrok {{status}}",
+		"toggleMessage": "Kilo Code Autocomplete {{status}}",
 		"progress": {
-			"analyzing": "Analizando su código...",
-			"generating": "Generando sugerencias de edición...",
+			"title": "Kilo Code",
+			"analyzing": "Analizando tu código...",
+			"generating": "Generando ediciones sugeridas...",
 			"processing": "Procesando ediciones sugeridas...",
 			"showing": "Mostrando ediciones sugeridas...",
 			"title": "Aincrok"
@@ -89,8 +98,14 @@
 		"input": {
 			"title": "Aincrok: Tarea Rápida",
 			"placeholder": "p. ej., 'refactorizar esta función para que sea más eficiente'"
+			"showing": "Mostrando ediciones sugeridas..."
+		},
+		"input": {
+			"title": "Kilo Code: Tarea Rápida",
+			"placeholder": "ej., 'refactoriza esta función para que sea más eficiente'"
 		},
 		"commands": {
+			"generateSuggestions": "Kilo Code: Generar Ediciones Sugeridas",
 			"displaySuggestions": "Mostrar Ediciones Sugeridas",
 			"cancelSuggestions": "Cancelar Ediciones Sugeridas",
 			"generateSuggestions": "Aincrok: Generar Ediciones Sugeridas",
@@ -114,6 +129,23 @@
 			"message": "La Asistencia Integrada de Aincrok está siendo bloqueada por un conflicto con GitHub Copilot. Para solucionar esto, debes deshabilitar las sugerencias integradas de Copilot.",
 			"disableCopilot": "Deshabilitar Copilot",
 			"disableInlineAssist": "Deshabilitar Asistencia Integrada"
+			"applyCurrentSuggestion": "Aplicar Edición Sugerida Actual",
+			"applyAllSuggestions": "Aplicar Todas las Ediciones Sugeridas",
+			"promptCodeSuggestion": "Tarea Rápida",
+			"category": "Kilo Code"
+		},
+		"codeAction": {
+			"title": "Kilo Code: Ediciones Sugeridas"
+		},
+		"chatParticipant": {
+			"fullName": "Kilo Code Agent",
+			"name": "Agent",
+			"description": "Puedo ayudarte con tareas rápidas y ediciones sugeridas."
+		},
+		"incompatibilityExtensionPopup": {
+			"message": "El Kilo Code Autocomplete está siendo bloqueado por un conflicto con GitHub Copilot. Para solucionarlo, debes desactivar las sugerencias en línea de Copilot.",
+			"disableCopilot": "Desactivar Copilot",
+			"disableInlineAssist": "Desactivar Autocomplete"
 		}
 	},
 	"terminalCommandGenerator": {

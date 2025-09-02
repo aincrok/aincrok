@@ -55,6 +55,11 @@
 		"activationFailed": "Aincrok: Mesaj oluşturucu etkinleştirilemedi: {{error}}",
 		"providerRegistered": "Aincrok: Commit mesajı sağlayıcısı kaydedildi"
 	},
+	"checkpoints": {
+		"nestedGitRepos": "İç içe Git depoları bulunan çalışma alanları için kontrol noktaları kullanılamaz.",
+		"protectedPaths": "Korumalı çalışma alanı yolları için kontrol noktaları kullanılamaz.",
+		"dismissWarning": "Kapat"
+	},
 	"ghost": {
 		"statusBar": {
 			"enabled": "$(sparkle) Aincrok Satır İçi Yardım",
@@ -64,6 +69,13 @@
 				"basic": "Aincrok Satır İçi Yardım",
 				"disabled": "Aincrok Satır İçi Yardım (devre dışı)",
 				"tokenError": "Satır İçi Yardım'ı kullanmak için geçerli bir belirteç ayarlanmalıdır",
+			"enabled": "$(sparkle) Kilo Code Autocomplete",
+			"disabled": "$(circle-slash) Kilo Code Autocomplete",
+			"warning": "$(warning) Kilo Code Autocomplete",
+			"tooltip": {
+				"basic": "Kilo Code Autocomplete",
+				"disabled": "Kilo Code Autocomplete (devre dışı)",
+				"tokenError": "Autocomplete kullanmak için geçerli bir token ayarlanmalı",
 				"lastCompletion": "Son öneri:",
 				"sessionTotal": "Oturum toplam maliyeti:",
 				"model": "Model:"
@@ -77,6 +89,10 @@
 		"progress": {
 			"title": "Aincrok",
 			"analyzing": "Kodunuz analiz ediliyor...",
+		"toggleMessage": "Kilo Code Autocomplete {{status}}",
+		"progress": {
+			"title": "Kilo Code",
+			"analyzing": "Kodun analiz ediliyor...",
 			"generating": "Önerilen düzenlemeler oluşturuluyor...",
 			"processing": "Önerilen düzenlemeler işleniyor...",
 			"showing": "Önerilen düzenlemeler gösteriliyor..."
@@ -84,12 +100,14 @@
 		"input": {
 			"title": "Aincrok: Hızlı Görev",
 			"placeholder": "örn. 'bu fonksiyonu daha verimli hale getirmek için yeniden düzenle'"
+			"title": "Kilo Code: Hızlı Görev",
+			"placeholder": "örn., 'bu fonksiyonu daha verimli olacak şekilde yeniden düzenle'"
 		},
 		"commands": {
 			"generateSuggestions": "Aincrok: Önerilen Düzenlemeler Oluştur",
 			"displaySuggestions": "Önerilen Düzenlemeleri Göster",
 			"cancelSuggestions": "Önerilen Düzenlemeleri İptal Et",
-			"applyCurrentSuggestion": "Geçerli Önerilen Düzenlemeyi Uygula",
+			"applyCurrentSuggestion": "Mevcut Önerilen Düzenlemeyi Uygula",
 			"applyAllSuggestions": "Tüm Önerilen Düzenlemeleri Uygula",
 			"promptCodeSuggestion": "Hızlı Görev",
 			"category": "Aincrok"
@@ -107,14 +125,15 @@
 		},
 		"incompatibilityExtensionPopup": {
 			"message": "Aincrok Satır İçi Yardım, GitHub Copilot ile çakışma nedeniyle engelleniyor. Bunu düzeltmek için Copilot'un satır içi önerilerini devre dışı bırakmalısınız.",
+			"fullName": "Kilo Code Agent",
+			"name": "Agent",
+			"description": "Hızlı görevler ve önerilen düzenlemeler konusunda sana yardımcı olabilirim."
+		},
+		"incompatibilityExtensionPopup": {
+			"message": "Kilo Code Autocomplete, GitHub Copilot ile bir çakışma nedeniyle engelleniyor. Bunu düzeltmek için Copilot'un satır içi önerilerini devre dışı bırakmalısın.",
 			"disableCopilot": "Copilot'u Devre Dışı Bırak",
-			"disableInlineAssist": "Satır İçi Yardım'ı Devre Dışı Bırak"
+			"disableInlineAssist": "Autocomplete'i Devre Dışı Bırak"
 		}
-	},
-	"checkpoints": {
-		"nestedGitRepos": "İç içe Git depoları bulunan çalışma alanları için kontrol noktaları kullanılamaz.",
-		"protectedPaths": "Korumalı çalışma alanı yolları için kontrol noktaları kullanılamaz.",
-		"dismissWarning": "Kapat"
 	},
 	"terminalCommandGenerator": {
 		"noActiveTerminal": "Aincrok: Aktif terminal bulunamadı. Lütfen önce bir terminal açın.",

@@ -70,6 +70,14 @@
 				"disabled": "Aincrok Inline Assist (đã tắt)",
 				"tokenError": "Phải đặt một token hợp lệ để sử dụng Inline Assist",
 				"lastCompletion": "Đề xuất cuối cùng:",
+			"enabled": "$(sparkle) Kilo Code Autocomplete",
+			"disabled": "$(circle-slash) Kilo Code Autocomplete",
+			"warning": "$(warning) Kilo Code Autocomplete",
+			"tooltip": {
+				"basic": "Kilo Code Autocomplete",
+				"disabled": "Kilo Code Autocomplete (đã tắt)",
+				"tokenError": "Phải đặt token hợp lệ để sử dụng Autocomplete",
+				"lastCompletion": "Gợi ý cuối cùng:",
 				"sessionTotal": "Tổng chi phí phiên:",
 				"model": "Mô hình:"
 			},
@@ -79,6 +87,7 @@
 			}
 		},
 		"toggleMessage": "Aincrok Inline Assist {{status}}",
+		"toggleMessage": "Kilo Code Autocomplete {{status}}",
 		"progress": {
 			"title": "Aincrok",
 			"analyzing": "Đang phân tích mã của bạn...",
@@ -101,19 +110,31 @@
 		},
 		"codeAction": {
 			"title": "Aincrok: Chỉnh sửa được đề xuất"
+			"title": "Kilo Code: Tác Vụ Nhanh",
+			"placeholder": "ví dụ, 'tái cấu trúc hàm này để hiệu quả hơn'"
+		},
+		"commands": {
+			"generateSuggestions": "Kilo Code: Tạo Các Chỉnh Sửa Được Đề Xuất",
+			"displaySuggestions": "Hiển Thị Các Chỉnh Sửa Được Đề Xuất",
+			"cancelSuggestions": "Hủy Các Chỉnh Sửa Được Đề Xuất",
+			"applyCurrentSuggestion": "Áp Dụng Chỉnh Sửa Được Đề Xuất Hiện Tại",
+			"applyAllSuggestions": "Áp Dụng Tất Cả Các Chỉnh Sửa Được Đề Xuất",
+			"promptCodeSuggestion": "Tác Vụ Nhanh",
+			"category": "Kilo Code"
+		},
+		"codeAction": {
+			"title": "Kilo Code: Các Chỉnh Sửa Được Đề Xuất"
 		},
 		"chatParticipant": {
 			"fullName": "Aincrok Agent",
 			"name": "Agent",
-			"description": "Tôi có thể giúp bạn với các nhiệm vụ nhanh chóng và các chỉnh sửa được đề xuất."
-		},
-		"messages": {
-			"provideCodeSuggestions": "Đang cung cấp các đề xuất mã..."
+			"description": "Tôi có thể giúp bạn với các tác vụ nhanh và chỉnh sửa được đề xuất."
 		},
 		"incompatibilityExtensionPopup": {
 			"message": "Aincrok Inline Assist bị chặn bởi xung đột với GitHub Copilot. Để khắc phục điều này, bạn phải tắt các đề xuất nội dòng của Copilot.",
+			"message": "Kilo Code Autocomplete đang bị chặn do xung đột với GitHub Copilot. Để khắc phục điều này, bạn phải tắt các gợi ý inline của Copilot.",
 			"disableCopilot": "Tắt Copilot",
-			"disableInlineAssist": "Tắt Trợ lý Nội dòng"
+			"disableInlineAssist": "Tắt Autocomplete"
 		}
 	},
 	"terminalCommandGenerator": {

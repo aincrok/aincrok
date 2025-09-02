@@ -69,8 +69,15 @@
 				"basic": "Assistenza in linea Aincrok",
 				"disabled": "Assistenza in linea Aincrok (disabilitata)",
 				"tokenError": "È necessario impostare un token valido per utilizzare l'assistenza in linea",
+			"enabled": "$(sparkle) Kilo Code Autocomplete",
+			"disabled": "$(circle-slash) Kilo Code Autocomplete",
+			"warning": "$(warning) Kilo Code Autocomplete",
+			"tooltip": {
+				"basic": "Kilo Code Autocomplete",
+				"disabled": "Kilo Code Autocomplete (disabilitato)",
+				"tokenError": "Deve essere impostato un token valido per usare Autocomplete",
 				"lastCompletion": "Ultimo suggerimento:",
-				"sessionTotal": "Costo totale sessione:",
+				"sessionTotal": "Costo totale della sessione:",
 				"model": "Modello:"
 			},
 			"cost": {
@@ -96,6 +103,24 @@
 			"cancelSuggestions": "Annulla modifiche suggerite",
 			"applyCurrentSuggestion": "Applica modifica suggerita corrente",
 			"applyAllSuggestions": "Applica tutte le modifiche suggerite",
+		"toggleMessage": "Kilo Code Autocomplete {{status}}",
+		"progress": {
+			"title": "Kilo Code",
+			"analyzing": "Analizzando il tuo codice...",
+			"generating": "Generando modifiche suggerite...",
+			"processing": "Elaborando modifiche suggerite...",
+			"showing": "Mostrando modifiche suggerite..."
+		},
+		"input": {
+			"title": "Kilo Code: Attività Rapida",
+			"placeholder": "es., 'refactorizza questa funzione per renderla più efficiente'"
+		},
+		"commands": {
+			"generateSuggestions": "Kilo Code: Genera Modifiche Suggerite",
+			"displaySuggestions": "Mostra Modifiche Suggerite",
+			"cancelSuggestions": "Annulla Modifiche Suggerite",
+			"applyCurrentSuggestion": "Applica Modifica Suggerita Corrente",
+			"applyAllSuggestions": "Applica Tutte le Modifiche Suggerite",
 			"promptCodeSuggestion": "Attività Rapida",
 			"category": "Aincrok"
 		},
@@ -105,15 +130,18 @@
 		"chatParticipant": {
 			"fullName": "Agente Aincrok",
 			"name": "Agente",
-			"description": "Posso aiutarti con attività rapide e modifiche suggerite."
+			"title": "Kilo Code: Modifiche Suggerite"
 		},
-		"messages": {
-			"provideCodeSuggestions": "Fornitura suggerimenti codice..."
+		"chatParticipant": {
+			"fullName": "Kilo Code Agent",
+			"name": "Agent",
+			"description": "Posso aiutarti con attività rapide e modifiche suggerite."
 		},
 		"incompatibilityExtensionPopup": {
 			"message": "L'assistenza in linea di Aincrok è bloccata da un conflitto con GitHub Copilot. Per risolvere questo problema, devi disabilitare i suggerimenti in linea di Copilot.",
+			"message": "Il Kilo Code Autocomplete è bloccato da un conflitto con GitHub Copilot. Per risolvere questo problema, devi disabilitare i suggerimenti in linea di Copilot.",
 			"disableCopilot": "Disabilita Copilot",
-			"disableInlineAssist": "Disabilita Assistenza in Linea"
+			"disableInlineAssist": "Disabilita Autocomplete"
 		}
 	},
 	"terminalCommandGenerator": {

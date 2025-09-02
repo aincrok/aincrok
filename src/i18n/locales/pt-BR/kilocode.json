@@ -69,6 +69,13 @@
 				"basic": "Assistente Inline Aincrok",
 				"disabled": "Assistente Inline Aincrok (desativado)",
 				"tokenError": "Um token válido deve ser definido para usar o Assistente Inline",
+			"enabled": "$(sparkle) Kilo Code Autocomplete",
+			"disabled": "$(circle-slash) Kilo Code Autocomplete",
+			"warning": "$(warning) Kilo Code Autocomplete",
+			"tooltip": {
+				"basic": "Kilo Code Autocomplete",
+				"disabled": "Kilo Code Autocomplete (desabilitado)",
+				"tokenError": "Um token válido deve ser definido para usar o Autocomplete",
 				"lastCompletion": "Última sugestão:",
 				"sessionTotal": "Custo total da sessão:",
 				"model": "Modelo:"
@@ -79,6 +86,7 @@
 			}
 		},
 		"toggleMessage": "Assistente Inline Aincrok {{status}}",
+		"toggleMessage": "Kilo Code Autocomplete {{status}}",
 		"progress": {
 			"title": "Aincrok",
 			"analyzing": "Analisando seu código...",
@@ -89,6 +97,8 @@
 		"input": {
 			"title": "Aincrok: Tarefa Rápida",
 			"placeholder": "ex. 'refatorar esta função para torná-la mais eficiente'"
+			"title": "Kilo Code: Tarefa Rápida",
+			"placeholder": "ex., 'refatore esta função para ser mais eficiente'"
 		},
 		"commands": {
 			"generateSuggestions": "Aincrok: Gerar Edições Sugeridas",
@@ -112,8 +122,14 @@
 		},
 		"incompatibilityExtensionPopup": {
 			"message": "O Assistente Inline do Aincrok está sendo bloqueado por um conflito com o GitHub Copilot. Para corrigir isso, você deve desabilitar as sugestões inline do Copilot.",
+			"fullName": "Kilo Code Agent",
+			"name": "Agent",
+			"description": "Posso te ajudar com tarefas rápidas e edições sugeridas."
+		},
+		"incompatibilityExtensionPopup": {
+			"message": "O Kilo Code Autocomplete está sendo bloqueado por um conflito com o GitHub Copilot. Para corrigir isso, você deve desabilitar as sugestões inline do Copilot.",
 			"disableCopilot": "Desabilitar Copilot",
-			"disableInlineAssist": "Desabilitar Assistente Inline"
+			"disableInlineAssist": "Desabilitar Autocomplete"
 		}
 	},
 	"terminalCommandGenerator": {

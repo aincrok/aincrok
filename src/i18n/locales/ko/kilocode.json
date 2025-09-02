@@ -69,6 +69,13 @@
 				"basic": "Aincrok 인라인 지원",
 				"disabled": "Aincrok 인라인 지원 (비활성화됨)",
 				"tokenError": "인라인 지원을 사용하려면 유효한 토큰을 설정해야 합니다",
+			"enabled": "$(sparkle) Kilo Code Autocomplete",
+			"disabled": "$(circle-slash) Kilo Code Autocomplete",
+			"warning": "$(warning) Kilo Code Autocomplete",
+			"tooltip": {
+				"basic": "Kilo Code Autocomplete",
+				"disabled": "Kilo Code Autocomplete (비활성화됨)",
+				"tokenError": "Autocomplete를 사용하려면 유효한 토큰을 설정해야 합니다",
 				"lastCompletion": "마지막 제안:",
 				"sessionTotal": "세션 총 비용:",
 				"model": "모델:"
@@ -79,6 +86,7 @@
 			}
 		},
 		"toggleMessage": "Aincrok 인라인 지원 {{status}}",
+		"toggleMessage": "Kilo Code Autocomplete {{status}}",
 		"progress": {
 			"title": "Aincrok",
 			"analyzing": "코드 분석 중...",
@@ -89,6 +97,8 @@
 		"input": {
 			"title": "Aincrok: 빠른 작업",
 			"placeholder": "예: '이 함수를 더 효율적으로 리팩토링'"
+			"title": "Kilo Code: 빠른 작업",
+			"placeholder": "예: '이 함수를 더 효율적으로 리팩토링해줘'"
 		},
 		"commands": {
 			"generateSuggestions": "Aincrok: 제안된 편집 생성",
@@ -112,8 +122,14 @@
 		},
 		"incompatibilityExtensionPopup": {
 			"message": "Aincrok 인라인 지원은 GitHub Copilot과의 충돌로 인해 차단되었습니다. 이 문제를 해결하려면 Copilot의 인라인 제안을 비활성화해야 합니다.",
+			"fullName": "Kilo Code Agent",
+			"name": "Agent",
+			"description": "빠른 작업과 제안된 편집으로 도움을 드릴 수 있습니다."
+		},
+		"incompatibilityExtensionPopup": {
+			"message": "Kilo Code Autocomplete가 GitHub Copilot과의 충돌로 인해 차단되고 있습니다. 이를 해결하려면 Copilot의 인라인 제안을 비활성화해야 합니다.",
 			"disableCopilot": "Copilot 비활성화",
-			"disableInlineAssist": "인라인 지원 비활성화"
+			"disableInlineAssist": "Autocomplete 비활성화"
 		}
 	},
 	"terminalCommandGenerator": {

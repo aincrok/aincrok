@@ -69,6 +69,13 @@
 				"basic": "Вбудована допомога Aincrok",
 				"disabled": "Вбудована допомога Aincrok (вимкнено)",
 				"tokenError": "Для використання вбудованої допомоги необхідно встановити дійсний токен",
+			"enabled": "$(sparkle) Kilo Code Autocomplete",
+			"disabled": "$(circle-slash) Kilo Code Autocomplete",
+			"warning": "$(warning) Kilo Code Autocomplete",
+			"tooltip": {
+				"basic": "Kilo Code Autocomplete",
+				"disabled": "Kilo Code Autocomplete (вимкнено)",
+				"tokenError": "Для використання Autocomplete потрібно встановити дійсний токен",
 				"lastCompletion": "Остання пропозиція:",
 				"sessionTotal": "Загальна вартість сесії:",
 				"model": "Модель:"
@@ -112,8 +119,39 @@
 		},
 		"incompatibilityExtensionPopup": {
 			"message": "Вбудована допомога Aincrok блокується конфліктом із GitHub Copilot. Щоб вирішити цю проблему, вам потрібно вимкнути вбудовані пропозиції Copilot.",
+		"toggleMessage": "Kilo Code Autocomplete {{status}}",
+		"progress": {
+			"title": "Kilo Code",
+			"analyzing": "Аналізую твій код...",
+			"generating": "Генерую запропоновані правки...",
+			"processing": "Обробляю запропоновані правки...",
+			"showing": "Показую запропоновані правки..."
+		},
+		"input": {
+			"title": "Kilo Code: Швидке Завдання",
+			"placeholder": "напр., 'рефактори цю функцію для більшої ефективності'"
+		},
+		"commands": {
+			"generateSuggestions": "Kilo Code: Генерувати Запропоновані Правки",
+			"displaySuggestions": "Показати Запропоновані Правки",
+			"cancelSuggestions": "Скасувати Запропоновані Правки",
+			"applyCurrentSuggestion": "Застосувати Поточну Запропоновану Правку",
+			"applyAllSuggestions": "Застосувати Всі Запропоновані Правки",
+			"promptCodeSuggestion": "Швидке Завдання",
+			"category": "Kilo Code"
+		},
+		"codeAction": {
+			"title": "Kilo Code: Запропоновані Правки"
+		},
+		"chatParticipant": {
+			"fullName": "Kilo Code Agent",
+			"name": "Agent",
+			"description": "Я можу допомогти тобі зі швидкими завданнями та запропонованими правками."
+		},
+		"incompatibilityExtensionPopup": {
+			"message": "Kilo Code Autocomplete блокується конфліктом з GitHub Copilot. Щоб виправити це, ти повинен вимкнути вбудовані пропозиції Copilot.",
 			"disableCopilot": "Вимкнути Copilot",
-			"disableInlineAssist": "Вимкнути вбудовану допомогу"
+			"disableInlineAssist": "Вимкнути Autocomplete"
 		}
 	},
 	"terminalCommandGenerator": {
