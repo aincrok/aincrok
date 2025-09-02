@@ -33,8 +33,12 @@ export const PostHogProvider: React.FC<PostHogProviderProps> = ({ children, apiK
 			posthog.init(effectiveApiKey, {
 				api_host: "https://us.i.posthog.com",
 				loaded: (posthog) => {
-					// Check for development environment without using process
-					if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+					if (
+						typeof window !== "undefined" &&
+						(window.location.hostname === "localhost" ||
+						 window.location.hostname === "127.0.0.1" ||
+						 window.location.port !== "")
+					) {
 						console.log("PostHog loaded successfully")
 					}
 				},
