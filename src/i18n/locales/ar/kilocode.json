@@ -93,28 +93,15 @@
 		"input": {
 			"title": "Aincrok: مهمة سريعة",
 			"placeholder": "مثلاً، 'أعد هيكلة هذه الدالة لتكون أكثر كفاءة'"
-			"title": "Kilo Code",
-			"analyzing": "تحليل الكود الخاص بك...",
-			"generating": "إنشاء التعديلات المقترحة...",
-			"processing": "معالجة التعديلات المقترحة...",
-			"showing": "عرض التعديلات المقترحة..."
-		},
-		"input": {
-			"title": "Kilo Code: مهمة سريعة",
-			"placeholder": "مثال، 'أعد هيكلة هذه الدالة لتكون أكثر كفاءة'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: إنشاء التعديلات المقترحة",
-			"displaySuggestions": "عرض التعديلات المقترحة",
 			"generateSuggestions": "Aincrok: توليد تعديلات مقترحة",
-			"applyCurrentSuggestion": "تطبيق التعديل المُقترح الحالي",
-			"cancelSuggestions": "إلغاء التعديلات المقترحة",
+			"displaySuggestions": "عرض التعديلات المقترحة",
 			"applyCurrentSuggestion": "تطبيق التعديل المقترح الحالي",
-			"applyAllSuggestions": "تطبيق جميع التعديلات المقترحة",
-			"promptCodeSuggestion": "مهمة سريعة",
+			"cancelSuggestions": "إلغاء التعديلات المقترحة",
 			"applyAllSuggestions": "تطبيق كافة التعديلات المقترحة",
+			"promptCodeSuggestion": "مهمة سريعة",
 			"category": "Aincrok"
-			"category": "Kilo Code"
 		},
 		"codeAction": {
 			"title": "Aincrok: التعديلات المقترحة"
@@ -127,32 +114,8 @@
 		"messages": {
 			"provideCodeSuggestions": "جارٍ تقديم اقتراحات الرمز..."
 		},
-		"statusBar": {
-			"warning": "$(warning) مساعد Aincrok المباشر",
-			"disabled": "$(circle-slash) مساعدة Aincrok المضمنة",
-			"tooltip": {
-				"disabled": "مساعد Aincrok كود المضمّن (معطّل)",
-				"basic": "مساعد رمز Aincrok المدمج",
-				"lastCompletion": "الاقتراح الأخير:",
-				"model": "النموذج:",
-				"tokenError": "يجب تعيين رمز صالح لاستخدام المساعد المضمن",
-				"sessionTotal": "التكلفة الإجمالية للجلسة:"
-			},
-			"enabled": "$(sparkle) مساعد Aincrok المضمّن",
-			"cost": {
-				"lessThanCent": "<$0.01",
-				"zero": "$٠٫٠٠"
-			}
-		},
-		"toggleMessage": "المساعد المضمن Aincrok {{status}}",
 		"incompatibilityExtensionPopup": {
-			"message": "يتم حظر مساعد Aincrok كود المضمّن بسبب تعارض مع GitHub Copilot. لإصلاح هذا، يجب عليك تعطيل اقتراحات Copilot المضمنة.",
-			"fullName": "Kilo Code Agent",
-			"name": "Agent",
-			"description": "يمكنني مساعدتك في المهام السريعة والتعديلات المقترحة."
-		},
-		"incompatibilityExtensionPopup": {
-			"message": "يتم حظر Kilo Code Autocomplete بسبب تعارض مع GitHub Copilot. لإصلاح هذا، يجب عليك تعطيل اقتراحات Copilot المضمنة.",
+			"message": "يتم حظر Aincrok Autocomplete بسبب تعارض مع GitHub Copilot. لإصلاح هذا، يجب عليك تعطيل اقتراحات Copilot المضمنة.",
 			"disableCopilot": "تعطيل Copilot",
 			"disableInlineAssist": "تعطيل الإكمال التلقائي"
 		}
