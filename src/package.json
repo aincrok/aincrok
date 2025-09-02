@@ -612,8 +612,8 @@
 		"format": "prettier --write .",
 		"bundle": "node esbuild.mjs",
 		"vscode:prepublish": "pnpm bundle --production",
-		"vsix": "mkdirp ../bin && vsce package --no-dependencies --out ../bin",
-		"publish:marketplace": "vsce publish --no-dependencies && ovsx publish --no-dependencies",
+		"vsix": "mkdirp ../bin && npx @vscode/vsce package --no-dependencies --out ../bin",
+		"publish:marketplace": "npx @vscode/vsce publish --no-dependencies -p \"$VSCE_PAT\" && npx ovsx publish --no-dependencies -p \"$OVSX_PAT\"",
 		"watch:bundle": "pnpm bundle --watch",
 		"watch:tsc": "cd .. && tsc --noEmit --watch --project src/tsconfig.json",
 		"clean": "rimraf README.md CHANGELOG.md LICENSE dist logs mock .turbo"

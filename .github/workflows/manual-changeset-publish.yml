@@ -75,7 +75,7 @@ jobs:
           echo "=========================================="
 
       - name: Run changeset version
-        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != "0" || inputs.force)'
+        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != ''0'' || inputs.force)'
         run: |
           git config user.name "aincrok-bot"
           git config user.email "github-actions@github.com"
@@ -90,18 +90,18 @@ jobs:
           echo "New version: $VERSION"
 
       - name: Create version commit
-        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != "0" || inputs.force)'
+        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != ''0'' || inputs.force)'
         run: |
           git add .
           git commit -m "chore: version bump to ${{ steps.new_version.outputs.new_version }}"
 
       - name: Push changes
-        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != "0" || inputs.force)'
+        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != ''0'' || inputs.force)'
         run: |
           git push
 
       - name: Create GitHub Release
-        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != "0" || inputs.force)'
+        if: '!inputs.dry_run && (steps.check-changesets.outputs.new_changesets != ''0'' || inputs.force)'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
