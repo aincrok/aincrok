@@ -1,95 +1,61 @@
 name: AI Release Notes
-description: Generate AI release notes using git and openai, outputs 'RELEASE_NOTES' and 'OPENAI_PROMPT'
+description: Generate intelligent release notes using Claude Code Action
 
 inputs:
-    OPENAI_API_KEY:
+    claude_code_oauth_token:
         required: true
-        type: string
-    GHA_PAT:
-        required: true
-        type: string
-    model_name:
-        required: false
-        type: string
-        default: gpt-4o-mini
-    repo_path:
-        required: false
-        type: string
-    custom_prompt:
-        required: false # knip:
-        #   runs-on: ubuntu-latest
-        #   steps:
-        #     - name: Checkout code
-        #       uses: actions/checkout@v4
-        #     - name: Setup Node.js
-        #       uses: actions/setup-node@v4
-        #       with:
-        #         node-version: '18'
-        #         cache: 'npm'
-        #     - name: Install dependencies
-        #       run: npm run install:all
-        #     - name: Run knip checks
-        #       run: npm run knip
-        default: ""
-        type: string
-    git_ref:
-        required: true
-        type: string
-    head_ref:
-        required: true
-        type: string
+        description: 'Claude Code OAuth token for API access'
     base_ref:
         required: true
-        type: string
+        description: 'Base git reference for comparison (e.g., previous version tag or commit)'
+    head_ref:
+        required: true
+        description: 'Head git reference for comparison (e.g., current version tag or commit)'
+    custom_instructions:
+        required: false
+        default: ""
+        description: 'Additional instructions for Claude to customize the release notes'
+    model:
+        required: false
+        default: 'claude-3-5-sonnet-20241022'
+        description: 'Claude model to use for generation'
 
 outputs:
-    RELEASE_NOTES:
+    release_notes:
         description: "AI generated release notes"
-        value: ${{ steps.ai_release_notes.outputs.RELEASE_NOTES }}
-    OPENAI_PROMPT:
-        description: "Prompt used to generate release notes"
-        value: ${{ steps.ai_prompt.outputs.OPENAI_PROMPT }}
-
-env:
-    GITHUB_REF: ${{ inputs.git_ref }}
-    BASE_REF: ${{ inputs.base_ref }}
-    HEAD_REF: ${{ inputs.head_ref }}
+        value: ${{ steps.claude.outputs.response }}
 
 runs:
     using: "composite"
     steps:
-        - uses: actions/checkout@v4
+        - name: Checkout repository
+          uses: actions/checkout@v4
           with:
-              repository: ${{ inputs.repo_path }}
-              token: ${{ inputs.GHA_PAT }}
-              ref: ${{ env.GITHUB_REF }}
               fetch-depth: 0
 
-        - name: Set Workspace
-          shell: bash
-          run: |
-              pip install tiktoken
-              pip install pytz
-
-        # Github outputs: 'OPENAI_PROMPT'
-        - name: Add Git Info to base prompt
-          id: ai_prompt
-          shell: bash
-          env:
-              BASE_REF: ${{ env.BASE_REF }}
-              HEAD_SHA: ${{ env.HEAD_SHA }}
-              PR_TITLE: ${{ github.event.pull_request.title }}
-              PR_BODY: ${{ github.event.pull_request.body }}
-              MODEL_NAME: ${{ inputs.model_name }}
-              CUSTOM_PROMPT: ${{ inputs.custom_prompt }} # Default: ''
-          run: python .github/scripts/release-notes-prompt.py
-
-        # Github outputs: 'RELEASE_NOTES'
-        - name: Generate AI release notes
-          id: ai_release_notes
-          shell: bash
-          env:
-              OPENAI_API_KEY: ${{ inputs.OPENAI_API_KEY }}
-              CUSTOM_PROMPT: ${{ steps.ai_prompt.outputs.OPENAI_PROMPT }}
-              MODEL_NAME: ${{ inputs.model_name }}
-          run: python .github/scripts/ai-release-notes.py
+        - name: Generate Release Notes with Claude
+          id: claude
+          uses: anthropics/claude-code-action@v1
+          with:
+              claude_code_oauth_token: ${{ inputs.claude_code_oauth_token }}
+              prompt: |
+                  Analyze the changes between git references ${{ inputs.base_ref }} and ${{ inputs.head_ref }} and generate professional release notes.
+                  
+                  **Requirements:**
+                  1. Examine git commits, diffs, and any PR/issue context between these references
+                  2. Create user-focused release notes organized into these sections:
+                     - ✨ **Features** - New functionality added
+                     - 🐛 **Bug Fixes** - Issues that were resolved
+                     - ⚡ **Improvements** - Enhancements to existing features
+                     - 🔧 **Technical** - Internal/developer changes (only if significant)
+                  3. Write in clear, accessible language for end users
+                  4. Focus on the impact and benefits to users, not implementation details
+                  5. Use bullet points with concise descriptions
+                  6. If no changes in a category, omit that section
+                  7. Prioritize user-facing changes over internal refactoring
+                  
+                  **Output Format:**
+                  Start directly with the sections, no introductory text. Use markdown formatting.
+                  
+                  ${{ inputs.custom_instructions != '' && format('**Additional Instructions:**\n{0}', inputs.custom_instructions) || '' }}
+              claude_args: '--model ${{ inputs.model }}'

@@ -26,6 +26,11 @@ on:
         required: false
         default: false
         type: boolean
+      use_ai_release_notes:
+        description: 'Generate enhanced release notes with AI'
+        required: false
+        default: true
+        type: boolean
 
 env:
   NODE_VERSION: 20.19.2
@@ -34,6 +39,7 @@ env:
 permissions:
   contents: write
   actions: read
+  id-token: write
 
 jobs:
   manual-release:
@@ -81,6 +87,16 @@ jobs:
         run: |
           pnpm test
 
+      - name: Generate AI Release Notes
+        if: inputs.use_ai_release_notes && !inputs.dry_run
+        id: ai_release_notes
+        uses: ./.github/actions/ai-release-notes
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          base_ref: 'v${{ steps.version.outputs.version }}~1'
+          head_ref: 'v${{ steps.version.outputs.version }}'
+          custom_instructions: 'Focus on user-facing changes and improvements for this VS Code extension release.'
+
       - name: Build VSIX (dry run)
         if: inputs.dry_run && (inputs.release_type == 'vsix' || inputs.release_type == 'both')
         run: |
@@ -119,11 +135,18 @@ jobs:
             RELEASE_ACTION="create"
           fi
           
-          # Extract changelog for this version
-          CHANGELOG_ENTRY=$(awk "/^## $VERSION/{flag=1;next}/^## [0-9]/{flag=0}flag" CHANGELOG.md | sed '/^$/d')
-          
-          if [ -z "$CHANGELOG_ENTRY" ]; then
-            CHANGELOG_ENTRY="Release v$VERSION"
+          # Use AI-generated release notes if available, otherwise extract from changelog
+          if [ -n "${{ steps.ai_release_notes.outputs.release_notes }}" ]; then
+            CHANGELOG_ENTRY="${{ steps.ai_release_notes.outputs.release_notes }}"
+            echo "Using AI-generated release notes"
+          else
+            # Extract changelog for this version
+            CHANGELOG_ENTRY=$(awk "/^## $VERSION/{flag=1;next}/^## [0-9]/{flag=0}flag" CHANGELOG.md | sed '/^$/d')
+            
+            if [ -z "$CHANGELOG_ENTRY" ]; then
+              CHANGELOG_ENTRY="Release v$VERSION"
+            fi
+            echo "Using changelog-extracted release notes"
           fi
           
           # Create or update release
