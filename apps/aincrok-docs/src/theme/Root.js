@@ -10,8 +10,9 @@ export default function Root({ children }) {
 		document.body.classList.remove("theme-light")
 		document.body.classList.add("theme-dark")
 
-		// Force dark theme in localStorage to prevent switching
-		localStorage.setItem("theme", "dark")
+		if (typeof Storage !== "undefined") {
+			localStorage.setItem("theme", "dark")
+		}
 
 		// Override theme toggle functionality
 		const observer = new MutationObserver(() => {
