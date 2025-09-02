@@ -12,6 +12,7 @@ import { getModelParams } from "../transform/model-params"
 import { DEFAULT_HEADERS } from "./constants"
 import { BaseProvider } from "./base-provider"
 import type { SingleCompletionHandler, ApiHandlerCreateMessageMetadata } from "../index"
+import { verifyFinishReason } from "./kilocode/verifyFinishReason"
 
 const XAI_DEFAULT_TEMPERATURE = 0
 
@@ -59,6 +60,7 @@ export class XAIHandler extends BaseProvider implements SingleCompletionHandler 
 		})
 
 		for await (const chunk of stream) {
+			verifyFinishReason(chunk.choices[0]) // kilocode_change
 			const delta = chunk.choices[0]?.delta
 
 			if (delta?.content) {

@@ -32,6 +32,7 @@ export enum TelemetryEventName {
 	DIALOG_ERROR_RECOVERY_ATTEMPTED = "Dialog Error Recovery Attempted", // aincrok_change
 	DIALOG_ERROR_RECOVERY_FAILED = "Dialog Error Recovery Failed", // aincrok_change
 	FREE_MODELS_LINK_CLICKED = "Free Models Link Clicked",
+	SWITCH_TO_KILO_CODE_CLICKED = "Switch To Kilo Code Clicked",
 	SUGGESTION_BUTTON_CLICKED = "Suggestion Button Clicked",
 	NO_ASSISTANT_MESSAGES = "No Assistant Messages",
 	// kilocode_change end

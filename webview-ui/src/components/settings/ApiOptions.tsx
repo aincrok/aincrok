@@ -36,6 +36,7 @@ import {
 	ioIntelligenceDefaultModelId,
 	qwenCodeDefaultModelId,
 	rooDefaultModelId,
+	deepInfraDefaultModelId, // kilocode_change
 } from "@roo-code/types"
 
 import { vscode } from "@src/utils/vscode"
@@ -94,6 +95,7 @@ import {
 	GeminiCli,
 	VirtualQuotaFallbackProvider,
 	QwenCode,
+	DeepInfra,
 	// kilocode_change end
 	ZAi,
 	Fireworks,
@@ -116,6 +118,7 @@ import { BedrockCustomArn } from "./providers/BedrockCustomArn"
 import { KiloCode } from "../aincrok/settings/providers/KiloCode" // kilocode_change
 import { buildDocLink } from "@src/utils/docLinks"
 import { KiloProviderRouting } from "./providers/KiloProviderRouting"
+import { OpenRouterMarkupInfoView } from "../aincrok/FreeModelsLink" // aincrok_change
 
 export interface ApiOptionsProps {
 	uriScheme: string | undefined
@@ -206,6 +209,7 @@ const ApiOptions = ({
 		openRouterBaseUrl: apiConfiguration?.openRouterBaseUrl,
 		openRouterApiKey: apiConfiguration?.openRouterApiKey,
 		kilocodeOrganizationId: apiConfiguration?.kilocodeOrganizationId ?? "personal",
+		deepInfraApiKey: apiConfiguration?.deepInfraApiKey,
 	})
 
 	//const { data: openRouterModelProviders } = useOpenRouterModelProviders(
@@ -371,6 +375,7 @@ const ApiOptions = ({
 				kilocode: { field: "kilocodeModel", default: kilocodeDefaultModel },
 				"gemini-cli": { field: "apiModelId", default: geminiCliDefaultModelId },
 				"qwen-code": { field: "apiModelId", default: qwenCodeDefaultModelId },
+				deepinfra: { field: "deepInfraModelId", default: deepInfraDefaultModelId },
 				// kilocode_change end
 			}
 
@@ -465,6 +470,14 @@ const ApiOptions = ({
 					data-testid="provider-select"
 				/>
 			</div>
+
+			{
+				// kilocode_change start
+				selectedProvider === "openrouter" && (
+					<OpenRouterMarkupInfoView setApiConfigurationField={setApiConfigurationField} />
+				)
+				// kilocode_change end
+			}
 
 			{errorMessage && <ApiErrorMessage errorMessage={errorMessage} />}
 
@@ -666,6 +679,21 @@ const ApiOptions = ({
 					modelValidationError={modelValidationError}
 				/>
 			)}
+
+			{
+				// kilocode_change start
+				selectedProvider === "deepinfra" && (
+					<DeepInfra
+						apiConfiguration={apiConfiguration}
+						setApiConfigurationField={setApiConfigurationField}
+						routerModels={routerModels}
+						refetchRouterModels={() => refetchRouterModels()}
+						organizationAllowList={organizationAllowList}
+						modelValidationError={modelValidationError}
+					/>
+				)
+				// kilocode_change end
+			}
 
 			{selectedProvider === "human-relay" && (
 				<>

@@ -1,6 +1,7 @@
 // aincrok_change - enhanced file for grey screen bug fix (Phase 1 Critical)
 import { telemetryClient } from "../utils/TelemetryClient"
 import { TelemetryEventName } from "@roo-code/types"
+import { createSampledFunction } from "../utils/sampling"
 
 interface PerformanceMemory {
 	usedJSHeapSize?: number
@@ -34,7 +35,7 @@ export interface MemoryPressureCallback {
  */
 export class MemoryService {
 	private intervalId: number | null = null
-	private readonly intervalMs: number = 30 * 1000 // 30 seconds (more frequent for pressure detection)
+	private readonly intervalMs: number = 30 * 1000 // 30 seconds (more frequent for pressure detection) // aincrok_change
 
 	// Memory pressure thresholds in bytes (aincrok_change - enhanced thresholds)
 	private readonly thresholds = {
@@ -46,6 +47,10 @@ export class MemoryService {
 	private pressureCallbacks: MemoryPressureCallback[] = []
 	private lastPressureLevel: MemoryPressureLevel = "normal"
 	private consecutiveHighPressureCount = 0
+	private readonly sampledTelemetryCapture = createSampledFunction(
+		telemetryClient.capture.bind(telemetryClient),
+		0.01, // 1% sampling rate
+	)
 
 	public start(): void {
 		if (this.intervalId) {
@@ -178,6 +183,7 @@ export class MemoryService {
 				}
 			}
 		}
+		this.sampledTelemetryCapture(TelemetryEventName.WEBVIEW_MEMORY_USAGE, memoryInfo)
 	}
 
 	private bytesToMegabytes(bytes: number): number {
