@@ -10,7 +10,7 @@ import Image from '@site/src/components/Image';
 
 ## Quick Setup
 
-Find the Aincrok icon (<img src="/docs/img/aincrok-icon.svg" width="12" />) in VS Code's Primary Side Bar. Click it to open the chat panel.
+Find the Aincrok icon (<img src="/img/aincrok-icon.svg" width="12" />) in VS Code's Primary Side Bar. Click it to open the chat panel.
 
 **Lost the panel?** Go to View > Open View... and search for "Aincrok"
 
@@ -18,7 +18,7 @@ Find the Aincrok icon (<img src="/docs/img/aincrok-icon.svg" width="12" />) in V
 
 **The key insight:** Just type what you want in normal English. No special commands needed.
 
-<Image src="/docs/img/typing-your-requests/typing-your-requests.png" alt="Example of typing a request in Aincrok" width="600" />
+<Image src="/img/typing-your-requests/typing-your-requests.png" alt="Example of typing a request in Aincrok" width="600" />
 
 **Good requests:**
 
@@ -44,7 +44,7 @@ find all instances of the variable oldValue in @/src/App.js and replace them wit
 ## The Chat Interface
 
 <Image 
-    src="/docs/img/the-chat-interface/the-chat-interface-1.png" 
+    src="/img/the-chat-interface/the-chat-interface-1.png" 
     alt="Chat interface components labeled with callouts" width="750" 
     caption="Everything you need is right here"
 />

@@ -39,7 +39,7 @@ You can find the option and instructions within the Aincrok UI:
 3.  Expand the **"Advanced: Override System Prompt"** section at the bottom.
 4.  Clicking the file path link within the explanation will open or create the correct override file for the currently selected mode in VS Code.
 
-<img src="/docs/img/footgun-prompting/footgun-prompting.png" alt="UI showing the Advanced: Override System Prompt section" width="500" />
+<img src="/img/footgun-prompting/footgun-prompting.png" alt="UI showing the Advanced: Override System Prompt section" width="500" />
 
 ## Key Considerations & Warnings
 

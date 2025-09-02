@@ -25,7 +25,7 @@ Access checkpoint settings in Aincrok settings under the "Checkpoints" section:
 1. Open Settings by clicking the gear icon <Codicon name="gear" /> → Checkpoints
 2. Check or uncheck the "Enable automatic checkpoints" checkbox
 
-    <img src="/docs/img/checkpoints/checkpoints.png" alt="Checkpoint settings in Aincrok configuration" width="500" />
+ <img src="/img/checkpoints/checkpoints.png" alt="Checkpoint settings in Aincrok configuration" width="500" />
 
 ## How Checkpoints Work
 
@@ -46,10 +46,10 @@ Checkpoints are integrated directly into your workflow through the chat interfac
 Checkpoints appear directly in your chat history in two forms:
 
 - **Initial checkpoint** marks your starting project state
-  <img src="/docs/img/checkpoints/checkpoints-1.png" alt="Initial checkpoint indicator in chat" width="500" />
+  <img src="/img/checkpoints/checkpoints-1.png" alt="Initial checkpoint indicator in chat" width="500" />
 
 - **Regular checkpoints** appear after file modifications or command execution
-  <img src="/docs/img/checkpoints/checkpoints-2.png" alt="Regular checkpoint indicator in chat" width="500" />
+  <img src="/img/checkpoints/checkpoints-2.png" alt="Regular checkpoint indicator in chat" width="500" />
 
 Each checkpoint provides two primary functions:
 
@@ -60,7 +60,7 @@ To compare your current workspace with a previous checkpoint:
 1. Locate the checkpoint in your chat history
 2. Click the checkpoint's `View Differences` button
 
-    <img src="/docs/img/checkpoints/checkpoints-6.png" alt="View Differences button interface" width="100" />
+ <img src="/img/checkpoints/checkpoints-6.png" alt="View Differences button interface" width="100" />
 
 3. Review the differences in the comparison view:
     - Added lines are highlighted in green
@@ -69,7 +69,7 @@ To compare your current workspace with a previous checkpoint:
     - Renamed and moved files are tracked with their path changes
     - New or deleted files are clearly marked
 
-<img src="/docs/img/checkpoints/checkpoints-3.png" alt="View differences option for checkpoints" width="800" />
+<img src="/img/checkpoints/checkpoints-3.png" alt="View differences option for checkpoints" width="800" />
 
 ### Restoring Checkpoints
 
@@ -77,15 +77,15 @@ To restore a project to a previous checkpoint state:
 
 1. Locate the checkpoint in your chat history
 2. Click the checkpoint's `Restore Checkpoint` button
-   <img src="/docs/img/checkpoints/checkpoints-7.png" alt="Restore checkpoint button interface" width="100" />
+   <img src="/img/checkpoints/checkpoints-7.png" alt="Restore checkpoint button interface" width="100" />
 3. Choose one of these restoration options:
 
-    <img src="/docs/img/checkpoints/checkpoints-4.png" alt="Restore checkpoint option" width="300" />
+    <img src="/img/checkpoints/checkpoints-4.png" alt="Restore checkpoint option" width="300" />
 
     - **Restore Files Only** - Reverts only workspace files to checkpoint state without modifying conversation history. Ideal for comparing alternative implementations while maintaining chat context, allowing you to seamlessly switch between different project states. This option does not require confirmation and lets you quickly switch between different implementations.
     - **Restore Files & Task** - Reverts both workspace files AND removes all subsequent conversation messages. Use when you want to completely reset both your code and conversation back to the checkpoint's point in time. This option requires confirmation in a dialog as it cannot be undone.
 
-         <img src="/docs/img/checkpoints/checkpoints-9.png" alt="Confirmation dialog for restoring checkpoint with files & task" width="300" />
+           <img src="/img/checkpoints/checkpoints-9.png" alt="Confirmation dialog for restoring checkpoint with files & task" width="300" />
 
 ### Limitations and Considerations
 

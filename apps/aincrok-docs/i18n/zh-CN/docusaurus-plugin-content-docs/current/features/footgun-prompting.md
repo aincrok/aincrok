@@ -39,7 +39,7 @@ sidebar_label: "足枪式提示"
 3.  展开底部的“**高级：覆盖系统提示**”部分。
 4.  单击说明中的文件路径链接将在 VS Code 中打开或创建当前选定模式的正确覆盖文件。
 
-<img src="/docs/img/footgun-prompting/footgun-prompting.png" alt="UI 显示高级：覆盖系统提示部分" width="500" />
+<img src="/img/footgun-prompting/footgun-prompting.png" alt="UI 显示高级：覆盖系统提示部分" width="500" />
 
 ## 主要注意事项和警告
 

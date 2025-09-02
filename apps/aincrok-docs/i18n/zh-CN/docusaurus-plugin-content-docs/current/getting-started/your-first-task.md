@@ -10,9 +10,9 @@ sidebar_label: 第一个任务
 
 ## 第一步：打开Aincrok面板
 
-点击VS Code主侧边栏（窗口侧边的垂直栏）中的Aincrok图标（<img src="/docs/img/aincrok-icon.svg" width="12" />）打开聊天界面。如果看不到图标，请确认扩展已[安装](/getting-started/installing)并启用。
+点击VS Code主侧边栏（窗口侧边的垂直栏）中的Aincrok图标（<img src="/img/aincrok-icon.svg" width="12" />）打开聊天界面。如果看不到图标，请确认扩展已[安装](/getting-started/installing)并启用。
 
-<img src="/docs/img/your-first-task/your-first-task.png" alt="VS Code主侧边栏中的Aincrok图标" width="800" />
+<img src="/img/your-first-task/your-first-task.png" alt="VS Code主侧边栏中的Aincrok图标" width="800" />
 *主侧边栏中的Aincrok图标可打开聊天界面*
 
 ## 第二步：输入你的任务
@@ -25,7 +25,7 @@ sidebar_label: 第一个任务
 
 无需特殊命令或语法——使用普通英语即可。
 
-<img src="/docs/img/your-first-task/your-first-task-6.png" alt="在Aincrok聊天界面中输入任务" width="500" />
+<img src="/img/your-first-task/your-first-task-6.png" alt="在Aincrok聊天界面中输入任务" width="500" />
 *用自然语言输入任务 - 无需特殊语法*
 
 ## 第三步：发送任务
@@ -42,7 +42,7 @@ Aincrok分析你的请求后会提出具体操作建议，可能包括：
 - **使用浏览器**：概述浏览器操作（点击、输入等）
 - **提问澄清**：需要时请求更多信息以继续
 
-<img src="/docs/img/your-first-task/your-first-task-7.png" alt="审核文件创建操作建议" width="400" />
+<img src="/img/your-first-task/your-first-task-7.png" alt="审核文件创建操作建议" width="400" />
 *Aincrok明确显示将要执行的操作并等待你的批准*
 
 - 在**Code**模式下，默认启用许多代码编写功能
@@ -58,7 +58,7 @@ Aincrok分析你的请求后会提出具体操作建议，可能包括：
 
 Aincrok以迭代方式工作。每个操作后都会等待你的反馈，然后再提出下一步建议。持续这个"审核-批准"循环直到任务完成。
 
-<img src="/docs/img/your-first-task/your-first-task-8.png" alt="展示迭代过程的最终任务结果" width="500" />
+<img src="/img/your-first-task/your-first-task-8.png" alt="展示迭代过程的最终任务结果" width="500" />
 *任务完成后，Aincrok显示最终结果并等待下一条指令*
 
 ## 总结

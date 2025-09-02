@@ -25,7 +25,7 @@ Aincrok 通过工具与你的代码和环境进行交互。这些专业助手可
 
 以下是典型的工具交互过程：
 
-<img src="/docs/img/how-tools-work/how-tools-work.png" alt="工具审批界面显示保存和拒绝按钮以及自动批准复选框" width="600" />
+<img src="/img/how-tools-work/how-tools-work.png" alt="工具审批界面显示保存和拒绝按钮以及自动批准复选框" width="600" />
 
 _工具审批界面显示保存/拒绝按钮和自动批准选项。_
 

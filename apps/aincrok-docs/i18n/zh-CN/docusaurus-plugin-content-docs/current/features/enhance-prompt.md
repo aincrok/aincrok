@@ -12,8 +12,8 @@ Aincrok 中的“增强提示”功能可帮助您在将提示发送到 AI 模�
 
 ### 之前和之后
 
-<img src="/docs/img/enhance-prompt/before.png" alt="非常原始的提示" width="300" style={{display: 'inline-block', marginRight: '20px', verticalAlign: 'middle'}} />
-<img src="/docs/img/enhance-prompt/after.png" alt="增强的提示" width="300" style={{display: 'inline-block', verticalAlign: 'middle'}} />
+<img src="/img/enhance-prompt/before.png" alt="非常原始的提示" width="300" style={{display: 'inline-block', marginRight: '20px', verticalAlign: 'middle'}} />
+<img src="/img/enhance-prompt/after.png" alt="增强的提示" width="300" style={{display: 'inline-block', verticalAlign: 'middle'}} />
 
 ## 如何使用增强提示
 
@@ -40,7 +40,7 @@ Aincrok 中的“增强提示”功能可帮助您在将提示发送到 AI 模�
 
 按照[API 配置配置文件指南](/features/api-configuration-profiles)为增强提示创建专用配置文件。
 
-<img src="/docs/img/enhance-prompt/custom-enhance-profile.png" alt="增强提示功能的自定义配置文件配置" width="600" />
+<img src="/img/enhance-prompt/custom-enhance-profile.png" alt="增强提示功能的自定义配置文件配置" width="600" />
 
 有关详细演练：https://youtu.be/R1nDnCK-xzw
 

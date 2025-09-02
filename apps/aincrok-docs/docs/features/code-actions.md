@@ -14,7 +14,7 @@ Code Actions appear as a lightbulb icon (💡) in the editor gutter (the area to
 
 Clicking the lightbulb, right-clicking and selecting "Aincrok", or using the keyboard shortcut (`Ctrl+.` or `Cmd+.` on macOS, by default), displays a menu of available actions.
 
-<Image src="/docs/img/code-actions/code-actions-1.png" alt="VS Code code actions in line with code" width="500" />
+<Image src="/img/code-actions/code-actions-1.png" alt="VS Code code actions in line with code" width="500" />
 
 ## Aincrok's Code Actions
 
@@ -31,7 +31,7 @@ The **Add to Context** action is listed first in the Code Actions menu so you ca
 
 This helps Aincrok understand the exact context of your code within the project, allowing it to provide more relevant and accurate assistance.
 
-<Image src="/docs/img/code-actions/add-to-context.gif" alt="code actions - add to context gif" width="80%" />
+<Image src="/img/code-actions/add-to-context.gif" alt="code actions - add to context gif" width="80%" />
 
 **Example Chat Input:**
 

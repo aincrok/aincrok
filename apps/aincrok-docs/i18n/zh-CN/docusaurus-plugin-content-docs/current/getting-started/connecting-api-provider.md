@@ -33,7 +33,7 @@ LLM路由器让您可以通过一个API密钥访问多个AI模型，简化了成
 3. 导航到[API密钥页面](https://openrouter.ai/keys)并创建新密钥
 4. 复制您的API密钥 - 您需要它来设置Aincrok
 
-<img src="/docs/img/connecting-api-provider/connecting-api-provider-4.png" alt="OpenRouter API密钥页面" width="600" />
+<img src="/img/connecting-api-provider/connecting-api-provider-4.png" alt="OpenRouter API密钥页面" width="600" />
 
 _OpenRouter仪表板，带有"创建密钥"按钮。命名您的密钥并在创建后复制它。_
 
@@ -44,7 +44,7 @@ _OpenRouter仪表板，带有"创建密钥"按钮。命名您的密钥并在创�
 3. 导航到[API管理页面](https://app.requesty.ai/manage-api)并创建新密钥
 4. **重要：** 立即复制您的API密钥，因为它不会再次显示
 
-<img src="/docs/img/connecting-api-provider/connecting-api-provider-7.png" alt="Requesty API管理页面" width="600" />
+<img src="/img/connecting-api-provider/connecting-api-provider-7.png" alt="Requesty API管理页面" width="600" />
 
 _Requesty API管理页面，带有"创建API密钥"按钮。立即复制您的密钥 - 它只会显示一次。_
 
@@ -59,7 +59,7 @@ _Requesty API管理页面，带有"创建API密钥"按钮。立即复制您的�
 3. 导航到[API密钥部分](https://console.anthropic.com/settings/keys)并创建新密钥
 4. **重要：** 立即复制您的API密钥，因为它不会再次显示
 
-<img src="/docs/img/connecting-api-provider/connecting-api-provider-5.png" alt="Anthropic控制台API密钥部分" width="600" />
+<img src="/img/connecting-api-provider/connecting-api-provider-5.png" alt="Anthropic控制台API密钥部分" width="600" />
 
 _Anthropic控制台API密钥部分，带有"创建密钥"按钮。命名您的密钥，设置过期时间，并立即复制它。_
 
@@ -70,7 +70,7 @@ _Anthropic控制台API密钥部分，带有"创建密钥"按钮。命名您的�
 3. 导航到[API密钥部分](https://platform.openai.com/api-keys)并创建新密钥
 4. **重要：** 立即复制您的API密钥，因为它不会再次显示
 
-<img src="/docs/img/connecting-api-provider/connecting-api-provider-6.png" alt="OpenAI API密钥页面" width="600" />
+<img src="/img/connecting-api-provider/connecting-api-provider-6.png" alt="OpenAI API密钥页面" width="600" />
 
 _OpenAI平台，带有"创建新密钥"按钮。命名您的密钥并在创建后立即复制它。_
 
@@ -78,7 +78,7 @@ _OpenAI平台，带有"创建新密钥"按钮。命名您的密钥并在创建�
 
 获取API密钥后：
 
-1. 点击VS Code侧边栏中的Aincrok图标(<img src="/docs/img/kilo-v1.svg" width="12" />)打开Aincrok侧边栏
+1. 点击VS Code侧边栏中的Aincrok图标(<img src="/img/kilo-v1.svg" width="12" />)打开Aincrok侧边栏
 2. 在欢迎界面，从下拉菜单中选择您的API提供商
 3. 将API密钥粘贴到相应字段中
 4. 选择您的模型：

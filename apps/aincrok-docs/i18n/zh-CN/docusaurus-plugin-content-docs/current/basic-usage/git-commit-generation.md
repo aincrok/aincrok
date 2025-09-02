@@ -24,7 +24,7 @@ git 提交消息生成器：
 
 生成的邮件将出现在提交消息字段中，您可以根据需要进行审查和修改。
 
-<img src="/docs/img/git-commit-generation/git-commit-1.png" alt="生成的提交消息示例" width="600" />
+<img src="/img/git-commit-generation/git-commit-1.png" alt="生成的提交消息示例" width="600" />
 
 ### 约定式提交格式
 
@@ -56,7 +56,7 @@ git 提交消息生成器：
 2.  找到“提交消息生成”部分
 3.  编辑 `Prompt` 模板以匹配您项目的约定
 
-<img src="/docs/img/git-commit-generation/git-commit-2.png" alt="提交消息生成设置" width="600" />
+<img src="/img/git-commit-generation/git-commit-2.png" alt="提交消息生成设置" width="600" />
 
 默认模板创建约定式提交消息，但您可以修改它以：
 

@@ -18,6 +18,26 @@ To enable or disable experimental features:
 
 The following experimental features are currently available:
 
+## Morph Fast Apply
+
+[**Morph Fast Apply**](./morph-fast-apply.md) provides ultra-fast code transformations using advanced morphing techniques. This feature can significantly reduce the time required for large-scale refactoring operations, variable renaming, and pattern-based code changes.
+
+**Key Benefits:**
+
+- Up to 80% faster code transformations
+- Intelligent pattern recognition and application
+- Support for bulk refactoring operations
+- Maintains code integrity and formatting
+
+**Use Cases:**
+
+- Large-scale variable and function renaming
+- API migration and updates
+- Code pattern standardization
+- Bulk formatting and style changes
+
+⚠️ **Note:** As an experimental feature, always review changes before accepting them.
+
 ## Autocomplete
 
 When enabled, Aincrok will provide inline code suggestions as you type. Currently this requires the Aincrok API Provider in order to use it.
@@ -32,6 +52,6 @@ When enabled, Aincrok will remind the model about the details of its current mod
 
 ## Providing Feedback
 
-If you encounter any issues with experimental features, or if you have suggestions for improvements, please report them on the [Aincrok Code GitHub Issues page](https://github.com/aincrok/kilocode) or join our [Discord server](https://kilo.love/discord) where we have channels dedciated to many experimental features.
+If you encounter any issues with experimental features, or if you have suggestions for improvements, please report them on the [Aincrok Code GitHub Issues page](https://github.com/aincrok/aincrok) or join our [Discord server](https://kilo.love/discord) where we have channels dedciated to many experimental features.
 
 Your feedback is valuable and helps us improve Aincrok!

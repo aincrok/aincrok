@@ -4,95 +4,1148 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
-:root {
-  --ifm-color-primary: #2961df;
-  --ifm-color-primary-dark: #1f55cf;
-  --ifm-color-primary-darker: #1d50c3;
-  --ifm-color-primary-darkest: #1842a1;
-  --ifm-color-primary-light: #4072e2;
-  --ifm-color-primary-lighter: #4b7ae4;
-  --ifm-color-primary-lightest: #6e94e9;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+/* Force dark theme variables globally */
+:root,
+html[data-theme="dark"],
+html[data-theme="light"] {
+	/* Override all themes with dark theme */
+	--ifm-color-primary: #f4f4f5;
+	--ifm-color-primary-dark: #e4e4e7;
+	--ifm-color-primary-darker: #d4d4d8;
+	--ifm-color-primary-darkest: #a1a1aa;
+	--ifm-color-primary-light: #f4f4f5;
+	--ifm-color-primary-lighter: #fafafa;
+	--ifm-color-primary-lightest: #ffffff;
+
+	/* Pure black backgrounds */
+	--ifm-background-color: #000000;
+	--ifm-background-surface-color: #111111;
+	--ifm-card-background-color: #111111;
+	--ifm-navbar-background-color: #000000;
+	--ifm-footer-background-color: #000000;
+	--ifm-sidebar-background: #000000;
+
+	/* Soft text colors for better UX */
+	--ifm-color-content: #e4e4e7;
+	--ifm-color-content-secondary: #a1a1aa;
+	--ifm-heading-color: #f4f4f5;
+	--ifm-font-color-base: #e4e4e7;
+	--ifm-footer-color: #a1a1aa;
+
+	/* Fix emphasis colors for Quick Start cards */
+	--ifm-color-emphasis-100: #111111;
+	--ifm-color-emphasis-200: #333333;
+	--ifm-color-emphasis-300: #444444;
+	--ifm-color-emphasis-400: #555555;
+	--ifm-color-emphasis-500: #666666;
+	--ifm-color-emphasis-600: #777777;
+	--ifm-color-emphasis-700: #888888;
+	--ifm-color-emphasis-800: #999999;
+	--ifm-color-emphasis-900: #aaaaaa;
+
+	/* Navigation */
+	--ifm-navbar-link-color: #e4e4e7;
+	--ifm-navbar-link-hover-color: #f4f4f5;
+	--ifm-navbar-shadow: none;
+
+	/* Sidebar and menu */
+	--ifm-menu-color: #e4e4e7;
+	--ifm-menu-color-background-active: #1a1a1a;
+	--ifm-menu-color-background-hover: #1a1a1a;
+
+	/* Borders - minimal and subtle */
+	--ifm-toc-border-color: #222222;
+	--ifm-hr-border-color: #222222;
+	--ifm-table-border-color: #222222;
+	--ifm-navbar-border-bottom: 1px solid #222222;
+
+	/* Links */
+	--ifm-link-color: #f4f4f5;
+	--ifm-link-hover-color: #e4e4e7;
+
+	/* Code and syntax */
+	--ifm-code-background: #111111;
+	--ifm-code-color: #ffffff;
+	--ifm-code-font-size: 95%;
+	--docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+
+	/* Minimalistic elements */
+	--ifm-card-border-radius: 8px;
+	--ifm-button-border-radius: 8px;
+	--ifm-pagination-border-radius: 8px;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/* Minimalistic crow-inspired dark theme matching landing page */
+[data-theme="dark"] {
+	/* Primary colors matching landing page */
+	--ifm-color-primary: #ffffff;
+	--ifm-color-primary-dark: #e6e6e6;
+	--ifm-color-primary-darker: #cccccc;
+	--ifm-color-primary-darkest: #999999;
+	--ifm-color-primary-light: #ffffff;
+	--ifm-color-primary-lighter: #ffffff;
+	--ifm-color-primary-lightest: #ffffff;
+
+	/* Pure black backgrounds */
+	--ifm-background-color: #000000;
+	--ifm-background-surface-color: #111111;
+	--ifm-card-background-color: #111111;
+	--ifm-navbar-background-color: #000000;
+	--ifm-footer-background-color: #000000;
+	--ifm-sidebar-background: #000000;
+
+	/* Soft text colors for better UX */
+	--ifm-color-content: #e4e4e7;
+	--ifm-color-content-secondary: #a1a1aa;
+	--ifm-heading-color: #f4f4f5;
+	--ifm-font-color-base: #e4e4e7;
+	--ifm-footer-color: #a1a1aa;
+
+	/* Fix emphasis colors for Quick Start cards */
+	--ifm-color-emphasis-100: #111111;
+	--ifm-color-emphasis-200: #333333;
+	--ifm-color-emphasis-300: #444444;
+	--ifm-color-emphasis-400: #555555;
+	--ifm-color-emphasis-500: #666666;
+	--ifm-color-emphasis-600: #777777;
+	--ifm-color-emphasis-700: #888888;
+	--ifm-color-emphasis-800: #999999;
+	--ifm-color-emphasis-900: #aaaaaa;
+
+	/* Navigation */
+	--ifm-navbar-link-color: #e4e4e7;
+	--ifm-navbar-link-hover-color: #f4f4f5;
+	--ifm-navbar-shadow: none;
+
+	/* Sidebar and menu */
+	--ifm-menu-color: #e4e4e7;
+	--ifm-menu-color-background-active: #1a1a1a;
+	--ifm-menu-color-background-hover: #1a1a1a;
+
+	/* Borders - minimal and subtle */
+	--ifm-toc-border-color: #222222;
+	--ifm-hr-border-color: #222222;
+	--ifm-table-border-color: #222222;
+	--ifm-navbar-border-bottom: 1px solid #222222;
+
+	/* Links */
+	--ifm-link-color: #f4f4f5;
+	--ifm-link-hover-color: #e4e4e7;
+
+	/* Code and syntax */
+	--ifm-code-background: #111111;
+	--ifm-code-color: #ffffff;
+	--docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+
+	/* Minimalistic elements */
+	--ifm-card-border-radius: 8px;
+	--ifm-button-border-radius: 8px;
+	--ifm-pagination-border-radius: 8px;
+}
+
+/* Ensure all text is visible in dark theme */
+[data-theme="dark"] * {
+	color: inherit;
+}
+
+[data-theme="dark"] .markdown h1,
+[data-theme="dark"] .markdown h2,
+[data-theme="dark"] .markdown h3,
+[data-theme="dark"] .markdown h4,
+[data-theme="dark"] .markdown h5,
+[data-theme="dark"] .markdown h6 {
+	color: #f4f4f5;
+	font-weight: 600;
+}
+
+[data-theme="dark"] .markdown p,
+[data-theme="dark"] .markdown li {
+	color: #e4e4e7;
+}
+
+/* Enhanced navigation bar - matching landing page design */
+[data-theme="dark"] .navbar {
+	background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+	border-bottom: 1px solid #222222;
+	backdrop-filter: blur(10px);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+	padding: 1rem 0;
+}
+
+[data-theme="dark"] .navbar__brand {
+	font-weight: 700;
+	font-size: 1.25rem;
+	transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .navbar__brand:hover {
+	transform: scale(1.02);
+}
+
+[data-theme="dark"] .navbar__logo img {
+	transition: transform 0.2s ease;
+	filter: brightness(1.2);
+}
+
+[data-theme="dark"] .navbar__brand:hover .navbar__logo img {
+	transform: scale(1.05);
+}
+
+/* Enhanced sidebar styling - matching landing page design */
+[data-theme="dark"] .theme-doc-sidebar-container {
+	background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+	border-right: 1px solid #222222;
+}
+
+[data-theme="dark"] .menu__link {
+	border-radius: 8px;
+	font-weight: 500;
+	padding: 8px 12px;
+	margin: 2px 0;
+	transition: all 0.2s ease;
+	position: relative;
+}
+
+[data-theme="dark"] .menu__link:hover {
+	background: rgba(244, 244, 245, 0.05);
+	color: #f4f4f5 !important;
+	transform: translateX(2px);
+}
+
+[data-theme="dark"] .menu__link--active {
+	background: linear-gradient(135deg, rgba(244, 244, 245, 0.1) 0%, rgba(244, 244, 245, 0.05) 100%);
+	color: #f4f4f5 !important;
+	font-weight: 600;
+	border-left: 2px solid #f4f4f5;
+}
+
+[data-theme="dark"] .menu__list-item {
+	margin: 4px 0;
+}
+
+/* Minimalistic cards and containers */
+[data-theme="dark"] .card {
+	border: 1px solid #222222;
+	box-shadow: none;
+}
+
+[data-theme="dark"] .alert {
+	border: 1px solid #333333;
+	border-radius: 8px;
+}
+
+/* Enhanced buttons - matching landing page design */
+[data-theme="dark"] .button {
+	border-radius: 8px;
+	font-weight: 600;
+	font-size: 0.875rem;
+	padding: 10px 20px;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+[data-theme="dark"] .button--primary {
+	background: #f4f4f5;
+	color: #000000 !important;
+	border: none;
+	font-weight: 600;
+	box-shadow: 0 1px 3px rgba(244, 244, 245, 0.1);
+}
+
+[data-theme="dark"] .button--primary:hover {
+	background: #ffffff;
+	color: #000000 !important;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(244, 244, 245, 0.2);
+}
+
+[data-theme="dark"] .button--secondary {
+	background: transparent;
+	color: #e4e4e7 !important;
+	border: 1px solid #333333;
+}
+
+[data-theme="dark"] .button--secondary:hover {
+	background: #2a2a2a;
+	border-color: #4a4a4a;
+	color: #f4f4f5 !important;
+	transform: translateY(-1px);
+}
+
+[data-theme="dark"] .button--outline {
+	background: transparent;
+	color: #f4f4f5 !important;
+	border: 1px solid #f4f4f5;
+}
+
+[data-theme="dark"] .button--outline:hover {
+	background: #2a2a2a;
+	color: #f4f4f5 !important;
+	border-color: #4a4a4a;
+}
+
+/* Minimalistic pagination */
+[data-theme="dark"] .pagination-nav__link {
+	border: 1px solid #222222;
+	border-radius: 8px;
+}
+
+[data-theme="dark"] .pagination-nav__link:hover {
+	border-color: #f4f4f5;
+}
+
+/* Clean table of contents */
+[data-theme="dark"] .table-of-contents {
+	border-left: 1px solid #222222;
+}
+
+[data-theme="dark"] .table-of-contents__link {
+	color: #a1a1aa;
+}
+
+[data-theme="dark"] .table-of-contents__link:hover,
+[data-theme="dark"] .table-of-contents__link--active {
+	color: #f4f4f5;
 }
 
 /* Hide unwanted navigation items */
 .menu__list-item:has(> .menu__link[href="/docs"]),
 .menu__list-item:has(> .menu__link[href="/tutorial"]) {
-  display: none;
+	display: none;
 }
 
 /* Hide unwanted footer items */
 .footer__link-item[href="/docs"],
 .footer__link-item[href="/tutorial"] {
-  display: none;
+	display: none;
 }
 
 /* Video Grid Styles */
 .video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+	gap: 2rem;
+	margin: 2rem 0;
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .video-container {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-  border-radius: var(--ifm-card-border-radius);
-  overflow: hidden;
+	position: relative;
+	width: 100%;
+	padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+	border-radius: var(--ifm-card-border-radius);
+	overflow: hidden;
 }
 
 .video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
 }
 
 .video-info {
-  margin-top: 0.75rem;
+	margin-top: 0.75rem;
 }
 
 .video-title {
-  font-weight: 500;
-  color: var(--ifm-heading-color);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-height: 1.4;
-  max-height: 2.8em; /* 2 lines * 1.4 line-height */
+	font-weight: 500;
+	color: var(--ifm-heading-color);
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	line-height: 1.4;
+	max-height: 2.8em; /* 2 lines * 1.4 line-height */
 }
 
 /* Basic Codicon styles */
 .codicon {
-  vertical-align: middle;
-  line-height: 1;
+	vertical-align: middle;
+	line-height: 1;
 }
 
 /* Ensure code blocks wrap instead of scrolling */
 pre {
-  white-space: pre-wrap !important;  /* Allows wrapping */
-  word-wrap: break-word !important;  /* Breaks long words */
-  overflow-x: auto;  /* Enables horizontal scrolling if necessary */
+	white-space: pre-wrap !important; /* Allows wrapping */
+	word-wrap: break-word !important; /* Breaks long words */
+	overflow-x: auto; /* Enables horizontal scrolling if necessary */
+}
+
+/* Modern code blocks */
+[data-theme="dark"] pre {
+	background-color: #111111;
+	border: 1px solid #222222;
+	border-radius: 8px;
+	box-shadow: none;
+}
+
+[data-theme="dark"] code {
+	background-color: #111111;
+	color: #e4e4e7;
+	border-radius: 4px;
+	padding: 0.2em 0.4em;
+}
+
+[data-theme="dark"] .prism-code {
+	background-color: #111111;
+	border-radius: 8px;
+}
+
+/* Minimalistic tables */
+[data-theme="dark"] table {
+	border: 1px solid #222222;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+[data-theme="dark"] th {
+	background-color: #1a1a1a;
+	border-bottom: 1px solid #222222;
+	font-weight: 600;
+}
+
+[data-theme="dark"] td {
+	border-bottom: 1px solid #222222;
+}
+
+/* Clean admonitions */
+[data-theme="dark"] .admonition {
+	border: 1px solid #333333;
+	border-radius: 8px;
+	background-color: #111111;
+}
+
+/* Modern search */
+[data-theme="dark"] .DocSearch-Button {
+	background-color: #111111;
+	border: 1px solid #333333;
+	border-radius: 8px;
+}
+
+[data-theme="dark"] .DocSearch-Button:hover {
+	border-color: #f4f4f5;
+}
+
+/* Page transition styles */
+.page-transition {
+	transition: opacity 0.5s ease-in-out;
+}
+
+/* Navigation link transitions */
+.navbar__link,
+.menu__link {
+	transition: all 0.3s ease-in-out;
+}
+
+/* Smooth loading states */
+[data-theme="dark"] .navbar__logo img {
+	transition: opacity 0.3s ease-in-out;
+}
+
+/* Link hover effects for dark theme */
+[data-theme="dark"] a:hover {
+	transition: color 0.2s ease-in-out;
+}
+
+/* Enhanced page transitions and animations */
+.theme-doc-wrapper,
+.landing-page,
+.theme-doc-markdown {
+	animation: fadeInPage 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInPage {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Subtle content animations */
+[data-theme="dark"] .markdown h1,
+[data-theme="dark"] .markdown h2,
+[data-theme="dark"] .markdown h3 {
+	animation: slideInFromLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInFromLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/* Modern card animations */
+[data-theme="dark"] .card {
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+	border-color: #4a4a4a;
+}
+
+/* Hide theme toggle since we're pure dark */
+[data-theme="dark"] .navbar__toggle {
+	display: none;
+}
+
+/* Minimalistic footer */
+[data-theme="dark"] .footer {
+	border-top: 1px solid #222222;
+	box-shadow: none;
+}
+
+/* Modern typography and spacing - Updated to match landing page design */
+[data-theme="dark"] .markdown > h1 {
+	font-size: 2.5rem;
+	font-weight: 800;
+	margin-bottom: 2rem;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+	color: #f4f4f5 !important;
+	background: linear-gradient(135deg, #f4f4f5 0%, #e4e4e7 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+[data-theme="dark"] .markdown > h2 {
+	font-size: 1.875rem;
+	font-weight: 700;
+	margin-top: 3rem;
+	margin-bottom: 1.5rem;
+	line-height: 1.2;
+	color: #f4f4f5 !important;
+}
+
+[data-theme="dark"] .markdown > h3 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-top: 2.5rem;
+	margin-bottom: 1.25rem;
+	color: #f4f4f5 !important;
+}
+
+[data-theme="dark"] .markdown > h4 {
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+	color: #e4e4e7 !important;
+}
+
+[data-theme="dark"] .markdown > p {
+	margin-bottom: 1.5rem;
+	line-height: 1.7;
+	font-size: 1rem;
+	color: #e4e4e7 !important;
+}
+
+[data-theme="dark"] .markdown > ul,
+[data-theme="dark"] .markdown > ol {
+	margin-bottom: 1.5rem;
+}
+
+[data-theme="dark"] .markdown li {
+	margin-bottom: 0.5rem;
+	line-height: 1.7;
+	color: #e4e4e7 !important;
+}
+
+/* Clean focus states */
+[data-theme="dark"] *:focus {
+	outline: 2px solid #f4f4f5;
+	outline-offset: 2px;
+}
+
+/* Minimalistic breadcrumbs */
+[data-theme="dark"] .breadcrumbs {
+	padding: 0.75rem 0;
+}
+
+[data-theme="dark"] .breadcrumbs__link {
+	color: #a1a1aa;
+	text-decoration: none;
+}
+
+[data-theme="dark"] .breadcrumbs__link:hover {
+	color: #f4f4f5;
+}
+
+/* Clean edit page link */
+[data-theme="dark"] .theme-edit-this-page {
+	color: #a1a1aa;
+	border-top: 1px solid #222222;
+	padding-top: 1rem;
+	margin-top: 2rem;
+}
+
+[data-theme="dark"] .theme-edit-this-page:hover {
+	color: #f4f4f5;
+}
+
+/* Modern content container */
+[data-theme="dark"] .container {
+	max-width: 1200px;
+}
+
+/* Ensure proper spacing for main content */
+[data-theme="dark"] .theme-doc-markdown {
+	padding-bottom: 2rem;
+}
+
+/* Force dark theme on all pages */
+html,
+body,
+#__docusaurus {
+	background-color: #000000 !important;
+	color: #e4e4e7 !important;
+}
+
+/* Force dark theme styles globally */
+* {
+	color: inherit;
+}
+
+/* Override any light theme remnants */
+.navbar,
+.navbar__inner,
+.navbar__brand,
+.navbar__title {
+	background-color: #000000 !important;
+	color: #e4e4e7 !important;
+}
+
+.main-wrapper {
+	background-color: #000000 !important;
+}
+
+.docusaurus-mt-lg {
+	background-color: #000000 !important;
+}
+
+/* Sidebar theming */
+.theme-doc-sidebar-container,
+.theme-doc-sidebar-menu {
+	background-color: #000000 !important;
+}
+
+/* Main content area */
+.theme-doc-markdown,
+.markdown {
+	color: #e4e4e7 !important;
+}
+
+.theme-doc-markdown h1,
+.theme-doc-markdown h2,
+.theme-doc-markdown h3,
+.theme-doc-markdown h4,
+.theme-doc-markdown h5,
+.theme-doc-markdown h6 {
+	color: #f4f4f5 !important;
+}
+
+.theme-doc-markdown p,
+.theme-doc-markdown li,
+.theme-doc-markdown td,
+.theme-doc-markdown th {
+	color: #e4e4e7 !important;
+}
+
+/* Force menu items to be white */
+.menu__link {
+	color: #e4e4e7 !important;
+}
+
+.menu__link:hover {
+	color: #f4f4f5 !important;
+}
+
+/* Fix text visibility issues */
+/* Ensure all alert/admonition backgrounds are dark */
+.alert,
+.admonition,
+.theme-admonition {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+	border: 1px solid #333333 !important;
+}
+
+.alert--primary,
+.alert--secondary,
+.alert--success,
+.alert--info,
+.alert--warning,
+.alert--danger {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+}
+
+.alert--primary .admonition-heading,
+.alert--secondary .admonition-heading,
+.alert--success .admonition-heading,
+.alert--info .admonition-heading,
+.alert--warning .admonition-heading,
+.alert--danger .admonition-heading {
+	color: #f4f4f5 !important;
+}
+
+/* Fix code blocks */
+.prism-code,
+pre,
+code {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+}
+
+/* Fix tables */
+table,
+.table-wrapper,
+thead,
+tbody,
+tr,
+th,
+td {
+	background-color: #000000 !important;
+	color: #e4e4e7 !important;
+	border-color: #333333 !important;
+}
+
+th {
+	background-color: #1a1a1a !important;
+}
+
+/* Fix cards and containers */
+.card,
+.card__header,
+.card__body,
+.card__footer {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+	border-color: #333333 !important;
+}
+
+/* Fix breadcrumbs */
+.breadcrumbs__item,
+.breadcrumbs__link {
+	color: #a1a1aa !important;
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+	color: #f4f4f5 !important;
+}
+
+/* Fix pagination */
+.pagination-nav__link,
+.pagination-nav__sublabel,
+.pagination-nav__label {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+	border-color: #333333 !important;
+}
+
+/* Fix search */
+.DocSearch-Button,
+.DocSearch-Button-Container,
+.DocSearch-Button-Placeholder {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+	border-color: #333333 !important;
+}
+
+/* Fix any remaining white backgrounds */
+.hero,
+.hero__title,
+.hero__subtitle {
+	background-color: #000000 !important;
+	color: #e4e4e7 !important;
+}
+
+/* Fix dropdown menus */
+.dropdown,
+.dropdown__menu,
+.dropdown__link {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+	border-color: #333333 !important;
+}
+
+/* Fix tabs */
+.tabs,
+.tabs__item,
+.tabs-container {
+	background-color: #000000 !important;
+	color: #e4e4e7 !important;
+	border-color: #333333 !important;
+}
+
+.tabs__item--active {
+	background-color: #1a1a1a !important;
+	color: #f4f4f5 !important;
+}
+
+/* Fix button text visibility - minimalistic solid colors */
+.button,
+.button--primary,
+.button--secondary {
+	background-color: #2a2a2a !important;
+	color: #f4f4f5 !important;
+	border: 1px solid #4a4a4a !important;
+	font-weight: 500;
+}
+
+.button--outline {
+	background-color: transparent !important;
+	color: #f4f4f5 !important; /* Brighter for better visibility */
+	border: 1px solid #f4f4f5 !important;
+}
+
+.button--outline:hover {
+	background-color: #2a2a2a !important;
+	color: #f4f4f5 !important;
+	border-color: #4a4a4a !important;
+}
+
+/* Typography hierarchy with improved UX and contrast ratios */
+/* Primary text - body content, standard readability */
+p,
+span,
+div,
+li {
+	color: #e4e4e7 !important; /* 4.5:1 contrast ratio for WCAG AA compliance */
+}
+
+/* Exception: Text inside buttons should be dark for light button backgrounds */
+.button p,
+.button span,
+.button div,
+.button--primary p,
+.button--primary span,
+.button--primary div,
+.button--secondary p,
+.button--secondary span,
+.button--secondary div {
+	color: #000000 !important; /* Dark text on light button backgrounds */
+}
+
+/* Links - slightly brighter for emphasis and interaction cues */
+a {
+	color: #f4f4f5 !important; /* Higher contrast for interactive elements */
+}
+
+/* Exception: Links inside buttons should be dark */
+.button a,
+.button--primary a,
+.button--secondary a {
+	color: #000000 !important;
+}
+
+/* Fix link colors with soft approach */
+a:hover {
+	color: #e4e4e7 !important;
+}
+
+/* Fix list items with soft colors */
+ul,
+ol,
+li {
+	color: #e4e4e7 !important;
+}
+
+/* Typography emphasis hierarchy */
+/* Strong/bold text - brighter for emphasis and scanning */
+strong,
+b {
+	color: #f4f4f5 !important; /* Highest contrast for important text */
+	font-weight: 600; /* Consistent bold weight */
+}
+
+/* Emphasis text - softer for subtle differentiation */
+em,
+i {
+	color: #a1a1aa !important; /* Secondary text color for less emphasis */
+}
+
+/* Fix any remaining white-on-white issues */
+.theme-doc-breadcrumbs,
+.theme-doc-toc-desktop,
+.theme-doc-toc-mobile {
+	color: #e4e4e7 !important;
+}
+
+/* Fix footer elements */
+.footer__title,
+.footer__item,
+.footer__link-item {
+	color: #e4e4e7 !important;
+}
+
+/* Fix navbar items */
+.navbar__item,
+.navbar__brand {
+	color: #e4e4e7 !important;
+}
+
+/* Override any default text colors that might be causing issues */
+.markdown * {
+	color: #e4e4e7 !important;
+}
+
+/* Specific fix for content that might inherit wrong colors */
+.theme-doc-markdown * {
+	color: #e4e4e7 !important;
+}
+
+/* Fix any inline code */
+code:not([class*="language-"]) {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+	padding: 0.2em 0.4em !important;
+	border-radius: 4px !important;
+}
+
+/* Fix blockquotes */
+blockquote {
+	background-color: #111111 !important;
+	border-left: 4px solid #333333 !important;
+	color: #e4e4e7 !important;
+	padding: 1rem !important;
+}
+
+/* Enhanced UX improvements with optimized contrast ratios */
+/* Improved focus states for better accessibility */
+[data-theme="dark"] button:focus,
+[data-theme="dark"] a:focus,
+[data-theme="dark"] input:focus {
+	outline: 2px solid #f4f4f5;
+	outline-offset: 2px;
+	box-shadow: 0 0 0 2px rgba(244, 244, 245, 0.2);
+}
+
+/* Better hover states with softer transitions */
+[data-theme="dark"] .menu__link:hover {
+	background-color: rgba(42, 42, 42, 0.6);
+	color: #f4f4f5 !important;
+	transition: all 0.2s ease;
+	border-radius: 6px;
+}
+
+/* Improved card hover states */
+[data-theme="dark"] .card:hover {
+	border-color: #4a4a4a;
+	background-color: #1a1a1a;
+	transition: all 0.2s ease;
+}
+
+/* Better button contrast and interaction */
+[data-theme="dark"] .button--primary {
+	background-color: #2a2a2a !important;
+	color: #f4f4f5 !important;
+	font-weight: 500;
+	transition: all 0.2s ease;
+	border: 1px solid #4a4a4a !important;
+}
+
+[data-theme="dark"] .button--primary:hover {
+	background-color: #3a3a3a !important;
+	transform: translateY(-1px);
+	border-color: #5a5a5a !important;
+}
+
+/* Improved secondary text hierarchy */
+[data-theme="dark"] .text-muted,
+[data-theme="dark"] .text-secondary {
+	color: #a1a1aa !important; /* 3:1 contrast ratio for secondary information */
+}
+
+/* Better spacing and readability for code blocks */
+[data-theme="dark"] pre code {
+	line-height: 1.5;
+	font-size: 0.875rem;
+	padding: 1rem;
+}
+
+/* Improved table readability */
+[data-theme="dark"] table th {
+	font-weight: 600;
+	color: #f4f4f5 !important; /* Headers more prominent */
+	background-color: #1a1a1a !important;
+	border-bottom: 2px solid #4a4a4a !important;
+}
+
+[data-theme="dark"] table td {
+	color: #e4e4e7 !important; /* Body text */
+}
+
+/* Enhanced alert contrast and readability - minimalistic */
+[data-theme="dark"] .alert--info {
+	background-color: rgba(59, 130, 246, 0.08) !important;
+	border: 1px solid rgba(59, 130, 246, 0.3) !important;
+	color: #e4e4e7 !important;
+}
+
+[data-theme="dark"] .alert--warning {
+	background-color: rgba(245, 158, 11, 0.08) !important;
+	border: 1px solid rgba(245, 158, 11, 0.3) !important;
+	color: #e4e4e7 !important;
+}
+
+[data-theme="dark"] .alert--success {
+	background-color: rgba(16, 185, 129, 0.08) !important;
+	border: 1px solid rgba(16, 185, 129, 0.3) !important;
+	color: #e4e4e7 !important;
+}
+
+[data-theme="dark"] .alert--danger {
+	background-color: rgba(239, 68, 68, 0.08) !important;
+	border: 1px solid rgba(239, 68, 68, 0.3) !important;
+	color: #e4e4e7 !important;
+}
+
+/* Fix text visibility in light background components */
+/* Ensure any component with light/white background has proper dark text */
+[class*="light"],
+[class*="white"],
+.theme-doc-version-badge {
+	color: #000000 !important;
+}
+
+/* Fix any modal or popup content */
+.modal-content,
+.dropdown-content,
+.tooltip {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+	border: 1px solid #333333 !important;
+}
+
+/* Fix search results and suggestions */
+.DocSearch-Modal,
+.algolia-autocomplete .ds-dropdown-menu {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+}
+
+/* Fix any remaining white/light components */
+[style*="background: white"],
+[style*="background-color: white"],
+[style*="background: #fff"],
+[style*="background-color: #fff"] {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+}
+
+/* Final comprehensive fixes for any remaining text visibility issues */
+/* Override any elements that might be inheriting wrong text colors */
+.button *,
+.button--primary *,
+.button--secondary * {
+	color: #f4f4f5 !important; /* Light text for dark gradient buttons */
+}
+
+/* Ensure outline buttons have proper text color */
+.button--outline * {
+	color: #f4f4f5 !important;
+}
+
+.button--outline:hover * {
+	color: #f4f4f5 !important; /* Light text for dark gradient hover */
+}
+
+/* Fix any pagination or navigation components */
+.pagination .page-link {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+	border: 1px solid #333333 !important;
+}
+
+.pagination .page-link:hover {
+	background-color: #2a2a2a !important;
+	color: #f4f4f5 !important;
+	border-color: #4a4a4a !important;
+}
+
+/* Fix any toggle switches or form controls */
+.toggle,
+.switch,
+.form-control {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+	border: 1px solid #333333 !important;
+}
+
+/* Fix any badges or labels */
+.badge,
+.label {
+	background-color: #333333 !important;
+	color: #f4f4f5 !important;
+}
+
+.badge-light,
+.label-light {
+	background-color: #2a2a2a !important;
+	color: #f4f4f5 !important;
+	border: 1px solid #4a4a4a !important;
+}
+
+/* Fix Quick Start cards specifically */
+/* Target the inline-styled cards from docs/index.mdx */
+[style*="background: var(--ifm-color-emphasis-100)"] {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+}
+
+[style*="background: var(--ifm-color-emphasis-100)"] h3 {
+	color: #f4f4f5 !important;
+}
+
+[style*="background: var(--ifm-color-emphasis-100)"] p {
+	color: #e4e4e7 !important;
+}
+
+[style*="background: var(--ifm-color-emphasis-100)"] a {
+	color: #f4f4f5 !important;
+}
+
+/* Fix any emphasis-based components */
+.markdown div[style*="background: var(--ifm-color-emphasis-100)"] {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+	border-color: #333333 !important;
+}
+
+/* Ensure proper text colors for all content inside emphasis backgrounds */
+[style*="ifm-color-emphasis"] * {
+	color: #e4e4e7 !important;
+}
+
+[style*="ifm-color-emphasis"] h1,
+[style*="ifm-color-emphasis"] h2,
+[style*="ifm-color-emphasis"] h3,
+[style*="ifm-color-emphasis"] h4,
+[style*="ifm-color-emphasis"] h5,
+[style*="ifm-color-emphasis"] h6 {
+	color: #f4f4f5 !important;
+}
+
+[style*="ifm-color-emphasis"] a {
+	color: #f4f4f5 !important;
+	text-decoration: underline;
 }

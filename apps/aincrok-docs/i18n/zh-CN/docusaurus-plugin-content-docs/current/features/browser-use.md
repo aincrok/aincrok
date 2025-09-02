@@ -40,7 +40,7 @@ Aincrok 中的浏览器使用需要使用高级代理模型，并且仅在 Claud
 浏览 http://localhost:3000，滚动到页面底部并检查页脚信息是否正常显示。
 ```
 
-<img src="/docs/img/browser-use/browser-use-1.png" alt="浏览器使用示例" width="300" />
+<img src="/img/browser-use/browser-use-1.png" alt="浏览器使用示例" width="300" />
 
 ## 浏览器操作工作原理
 
@@ -80,7 +80,7 @@ Aincrok 中的浏览器使用需要使用高级代理模型，并且仅在 Claud
 
 1.  单击齿轮图标 <Codicon name="gear" /> → 浏览器/计算机使用 打开设置
 
-    <img src="/docs/img/browser-use/browser-use.png" alt="浏览器设置菜单" width="600" />
+    <img src="/img/browser-use/browser-use.png" alt="浏览器设置菜单" width="600" />
 
 ### 启用/禁用浏览器使用
 
@@ -90,7 +90,7 @@ Aincrok 中的浏览器使用需要使用高级代理模型，并且仅在 Claud
 
 1.  在浏览器/计算机使用设置中选中或取消选中“启用浏览器工具”复选框
 
-    <img src="/docs/img/browser-use/browser-use-2.png" alt="启用浏览器工具设置" width="300" />
+    <img src="/img/browser-use/browser-use-2.png" alt="启用浏览器工具设置" width="300" />
 
 ### 视口大小
 
@@ -108,7 +108,7 @@ Aincrok 中的浏览器使用需要使用高级代理模型，并且仅在 Claud
     - 移动设备 (360x640)
 3.  选择您所需的分辨率。
 
-    <img src="/docs/img/browser-use/browser-use-3.png" alt="视口大小设置" width="600" />
+    <img src="/img/browser-use/browser-use-3.png" alt="视口大小设置" width="600" />
 
 ### 屏幕截图质量
 
@@ -126,7 +126,7 @@ Aincrok 中的浏览器使用需要使用高级代理模型，并且仅在 Claud
     - 60-70%：适用于大多数通用浏览
     - 80%+：在精细视觉细节至关重要时使用
 
-    <img src="/docs/img/browser-use/browser-use-4.png" alt="屏幕截图质量设置" width="600" />
+    <img src="/img/browser-use/browser-use-4.png" alt="屏幕截图质量设置" width="600" />
 
 ### 远程浏览器连接
 
@@ -146,7 +146,7 @@ Aincrok 中的浏览器使用需要使用高级代理模型，并且仅在 Claud
 1.  在浏览器/计算机使用设置中选中“使用远程浏览器连接”框
 2.  单击“测试连接”以验证
 
-    <img src="/docs/img/browser-use/browser-use-5.png" alt="远程浏览器连接设置" width="600" />
+    <img src="/img/browser-use/browser-use-5.png" alt="远程浏览器连接设置" width="600" />
 
 #### 常见用例
 

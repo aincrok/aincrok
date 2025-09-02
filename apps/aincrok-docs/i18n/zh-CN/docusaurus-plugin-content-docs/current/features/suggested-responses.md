@@ -12,7 +12,7 @@ import Codicon from '@site/src/components/Codicon';
 
 建议回复以可点击按钮的形式直接显示在 Aincrok 问题下方，位于聊天界面中。它们提供与问题相关的预设答案，帮助您快速提供输入。
 
-<img src="/docs/img/suggested-responses/suggested-responses.png" alt="Aincrok 提问并显示建议回复按钮的示例" width="500" />
+<img src="/img/suggested-responses/suggested-responses.png" alt="Aincrok 提问并显示建议回复按钮的示例" width="500" />
 
 ## 工作原理
 
@@ -35,7 +35,7 @@ import Codicon from '@site/src/components/Codicon';
         - _或者_，将鼠标悬停在建议按钮上，然后单击出现的铅笔图标（<Codicon name="edit" />）。
     - **结果**：建议的文本被复制到聊天输入框中。您可以在按 Enter 键发送自定义回复之前根据需要修改文本。当建议接近但需要微调时，这很有用。
 
-<img src="/docs/img/suggested-responses/suggested-responses-1.png" alt="聊天输入框显示从建议回复中复制的文本，准备编辑" width="600" />
+<img src="/img/suggested-responses/suggested-responses-1.png" alt="聊天输入框显示从建议回复中复制的文本，准备编辑" width="600" />
 
 ## 优点
 

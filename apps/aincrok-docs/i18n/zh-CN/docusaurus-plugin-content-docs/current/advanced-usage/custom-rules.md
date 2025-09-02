@@ -75,7 +75,7 @@ project/
 
 ### 使用 UI 界面
 
-<img src="/docs/img/custom-rules/rules-ui.png" alt="Aincrok 中的规则选项卡" width="400" />
+<img src="/img/custom-rules/rules-ui.png" alt="Aincrok 中的规则选项卡" width="400" />
 
 创建和管理规则的最简单方法是通过内置 UI：
 
@@ -130,7 +130,7 @@ project/
 
 此规则防止 AI 读取或访问敏感文件，即使明确要求这样做。
 
-<img src="/docs/img/custom-rules/custom-rules.png" alt="Aincrok 忽略读取敏感文件的请求" width="600" />
+<img src="/img/custom-rules/custom-rules.png" alt="Aincrok 忽略读取敏感文件的请求" width="600" />
 
 ## 使用场景
 

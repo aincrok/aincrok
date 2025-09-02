@@ -1,0 +1,54 @@
+/* Force dark theme immediately before other styles load */
+html,
+body {
+	background-color: #000000 !important;
+	color: #e4e4e7 !important;
+}
+
+html[data-theme="light"],
+html[data-theme="dark"],
+html {
+	--ifm-background-color: #000000 !important;
+	--ifm-background-surface-color: #111111 !important;
+	--ifm-color-content: #e4e4e7 !important;
+	--ifm-color-content-secondary: #a1a1aa !important;
+	--ifm-heading-color: #f4f4f5 !important;
+	--ifm-font-color-base: #e4e4e7 !important;
+	--ifm-navbar-background-color: #000000 !important;
+	--ifm-navbar-link-color: #e4e4e7 !important;
+	--ifm-sidebar-background: #000000 !important;
+	--ifm-menu-color: #e4e4e7 !important;
+	--ifm-card-background-color: #111111 !important;
+	--ifm-code-background: #111111 !important;
+	--ifm-code-color: #e4e4e7 !important;
+
+	/* Fix emphasis colors for Quick Start cards */
+	--ifm-color-emphasis-100: #111111 !important;
+	--ifm-color-emphasis-200: #333333 !important;
+	--ifm-color-emphasis-300: #444444 !important;
+	--ifm-color-emphasis-400: #555555 !important;
+	--ifm-color-emphasis-500: #666666 !important;
+}
+
+/* Fix any elements that might have light backgrounds */
+* {
+	color: inherit;
+}
+
+/* Force critical elements */
+.alert,
+.admonition,
+.card,
+pre,
+code,
+table {
+	background-color: #111111 !important;
+	color: #e4e4e7 !important;
+}
+
+/* Ensure buttons have proper contrast */
+.button {
+	background-color: #2a2a2a !important;
+	color: #f4f4f5 !important;
+	border: 1px solid #4a4a4a !important;
+}

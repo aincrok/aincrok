@@ -3,7 +3,7 @@
 ## Overview
 
 <figure style={{ float: 'right', width: '40%', maxWidth: '350px', margin: '0 0 10px 20px' }}>
-  <img src="/docs/img/memory-bank/at-work.png" alt="Executing task with the memory bank" style={{ border: '1px solid grey', borderRadius: '5px', width: '100%' }} />
+  <img src="/img/memory-bank/at-work.png" alt="Executing task with the memory bank" style={{ border: '1px solid grey', borderRadius: '5px', width: '100%' }} />
   <figcaption style={{ fontSize: '0.9rem', color: '#666', marginTop: '8px', textAlign: 'center' }}>
     Aincrok works more efficiently with Memory Bank enabled, instantly understanding project context and technologies.
   </figcaption>

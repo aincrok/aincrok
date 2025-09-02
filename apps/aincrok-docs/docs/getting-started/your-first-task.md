@@ -10,9 +10,9 @@ After you [set up Aincrok](/getting-started/setting-up), follow these steps:
 
 ## Step 1: Open the Aincrok Panel
 
-Click the Aincrok icon (<img src="/docs/img/aincrok-icon.svg" width="12" />) in the VS Code Primary Side Bar (vertical bar on the side of the window) to open the chat interface. If you don't see the icon, verify the extension is [installed](/getting-started/installing) and enabled.
+Click the Aincrok icon (<img src="/img/aincrok-icon.svg" width="12" />) in the VS Code Primary Side Bar (vertical bar on the side of the window) to open the chat interface. If you don't see the icon, verify the extension is [installed](/getting-started/installing) and enabled.
 
-<img src="/docs/img/your-first-task/your-first-task.png" alt="Aincrok icon in VS Code Primary Side Bar" width="800" />
+<img src="/img/your-first-task/your-first-task.png" alt="Aincrok icon in VS Code Primary Side Bar" width="800" />
 
 _The Aincrok icon in the Primary Side Bar opens the chat interface._
 
@@ -26,7 +26,7 @@ Type a clear, concise description of what you want Aincrok to do in the chat box
 
 No special commands or syntax needed—just use plain English.
 
-<img src="/docs/img/your-first-task/your-first-task-6.png" alt="Typing a task in the Aincrok chat interface" width="500" />
+<img src="/img/your-first-task/your-first-task-6.png" alt="Typing a task in the Aincrok chat interface" width="500" />
 *Enter your task in natural language - no special syntax required.*
 
 ## Step 3: Send Your Task
@@ -43,7 +43,7 @@ Aincrok analyzes your request and proposes specific actions. These may include:
 - **Using the Browser:** Outlines browser actions (click, type, etc.)
 - **Asking questions:** Requests clarification when needed to proceed
 
-<img src="/docs/img/your-first-task/your-first-task-7.png" alt="Reviewing a proposed file creation action" width="400" />
+<img src="/img/your-first-task/your-first-task-7.png" alt="Reviewing a proposed file creation action" width="400" />
 *Aincrok shows exactly what action it wants to perform and waits for your approval.*
 
 - In **Code** mode, writing capabilities are on by default.
@@ -61,7 +61,7 @@ You can learn more about [using modes](/basic-usage/using-modes) and [auto-appro
 
 Aincrok works iteratively. After each action, it waits for your feedback before proposing the next step. Continue this review-approve cycle until your task is complete.
 
-<img src="/docs/img/your-first-task/your-first-task-8.png" alt="Final result of a completed task showing the iteration process" width="500" />
+<img src="/img/your-first-task/your-first-task-8.png" alt="Final result of a completed task showing the iteration process" width="500" />
 *After completing the task, Aincrok shows the final result and awaits your next instruction.*
 
 ## Conclusion

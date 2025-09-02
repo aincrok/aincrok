@@ -1,0 +1,338 @@
+.codingAnimation {
+	width: 100%;
+	max-width: 900px;
+	margin: 0 auto;
+	border-radius: 12px;
+	overflow: hidden;
+	/* Match landing page shadow and styling */
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+	border: 3px solid rgba(244, 244, 245, 0.1);
+	/* Use landing page variables */
+	background: var(--landing-surface, #111111);
+	/* Add subtle animation to match landing page */
+	transition: all 0.3s ease;
+	/* Better positioning and spacing - now prominently positioned */
+	margin: 2rem auto;
+	position: relative;
+	/* Add hover effect like landing page cards */
+	will-change: transform, box-shadow;
+}
+
+.codingAnimation:hover {
+	transform: translateY(-2px);
+	box-shadow:
+		0 25px 50px rgba(0, 0, 0, 0.3),
+		0 0 0 1px rgba(244, 244, 245, 0.15);
+}
+
+.demoWindow {
+	background: var(--landing-primary, #000000);
+	color: var(--landing-text, #e4e4e7);
+	font-family: "Fira Code", "Monaco", "Cascadia Code", "Consolas", monospace;
+}
+
+.demoWindowHeader {
+	display: flex;
+	align-items: center;
+	padding: 12px 16px;
+	background: var(--landing-surface-elevated, #1a1a1a);
+	border-bottom: 1px solid var(--landing-border, #222222);
+}
+
+.demoWindowControls {
+	display: flex;
+	gap: 6px;
+	margin-right: 16px;
+}
+
+.demoControl {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+}
+
+.demoControl.red {
+	background: #ff5f57;
+}
+
+.demoControl.yellow {
+	background: #ffbd2e;
+}
+
+.demoControl.green {
+	background: #28ca42;
+}
+
+.demoWindowTitle {
+	color: var(--landing-text-accent, #f4f4f5);
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.demoContent {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	height: 450px; /* Increased height for better proportions */
+	/* Improve spacing and alignment */
+	gap: 0;
+	align-items: stretch;
+}
+
+.chatSection {
+	padding: 20px; /* Increased padding for better spacing */
+	border-right: 1px solid var(--landing-border, #222222);
+	overflow-y: auto;
+	background: var(--landing-bg, #000000);
+	/* Better scroll behavior */
+	scroll-behavior: smooth;
+	/* Add subtle background texture */
+	position: relative;
+}
+
+.promptMessage,
+.aiMessage {
+	margin-bottom: 20px; /* Better spacing between messages */
+	animation: fadeIn 0.5s ease-in;
+	/* Improved message positioning */
+	position: relative;
+}
+
+.messageHeader {
+	display: flex;
+	align-items: center;
+	gap: 10px; /* Slightly more space */
+	margin-bottom: 10px; /* Better spacing */
+	/* Improved alignment */
+	min-height: 24px;
+}
+
+.userIcon,
+.aiIcon {
+	width: 24px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.userName,
+.aiName {
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.userName {
+	color: var(--landing-accent-primary, #ffffff);
+}
+
+.aiName {
+	color: var(--landing-text-accent, #f4f4f5);
+}
+
+.messageContent {
+	background: var(--landing-surface, rgba(17, 17, 17, 0.8));
+	border: 1px solid var(--landing-border-light, rgba(51, 51, 51, 0.5));
+	padding: 12px;
+	border-radius: 8px;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--landing-text, #e4e4e7);
+}
+
+.thinkingDots {
+	margin-left: auto;
+	display: flex;
+	gap: 4px;
+}
+
+.thinkingDots span {
+	width: 6px;
+	height: 6px;
+	background: var(--landing-text-accent, #f4f4f5);
+	border-radius: 50%;
+	animation: thinking 1.4s infinite ease-in-out;
+}
+
+.thinkingDots span:nth-child(1) {
+	animation-delay: -0.32s;
+}
+
+.thinkingDots span:nth-child(2) {
+	animation-delay: -0.16s;
+}
+
+.completionMessage {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--landing-text-accent, #f4f4f5);
+	font-weight: 600;
+	font-size: 14px;
+	animation: fadeIn 0.5s ease-in;
+}
+
+.checkIcon {
+	background: var(--landing-accent-primary, #ffffff);
+	color: var(--landing-primary, #000000);
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+}
+
+.codeSection {
+	background: var(--landing-surface-elevated, #1a1a1a);
+	overflow-y: auto;
+}
+
+.codeHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px 16px;
+	background: var(--landing-surface, #111111);
+	border-bottom: 1px solid var(--landing-border-light, #333333);
+}
+
+.fileName {
+	color: var(--landing-text-accent, #f4f4f5);
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.codeActions {
+	display: flex;
+	gap: 8px;
+}
+
+.actionIcon {
+	cursor: pointer;
+	opacity: 0.7;
+	transition: opacity 0.2s;
+}
+
+.actionIcon:hover {
+	opacity: 1;
+}
+
+.codeContent {
+	padding: 20px; /* Increased padding for better spacing */
+	position: relative;
+	text-align: left;
+	/* Better code presentation */
+	min-height: 300px;
+	display: flex;
+	flex-direction: column;
+}
+
+.codeContent pre {
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.6;
+	color: var(--landing-text, #e4e4e7);
+	white-space: pre;
+	overflow-x: auto;
+	text-align: left;
+}
+
+.codeContent code {
+	font-family: "Fira Code", "Monaco", "Cascadia Code", "Consolas", monospace;
+	text-align: left;
+	display: block;
+}
+
+.cursor {
+	animation: blink 1s infinite;
+	color: var(--landing-accent-primary, #ffffff);
+	font-weight: bold;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes thinking {
+	0%,
+	80%,
+	100% {
+		transform: scale(0);
+	}
+	40% {
+		transform: scale(1);
+	}
+}
+
+@keyframes blink {
+	0%,
+	50% {
+		opacity: 1;
+	}
+	51%,
+	100% {
+		opacity: 0;
+	}
+}
+
+/* Enhanced responsive design */
+@media (max-width: 768px) {
+	.codingAnimation {
+		margin: 1rem;
+		border-radius: 8px;
+		/* Reduce max-width on mobile for better fit */
+		max-width: calc(100vw - 2rem);
+	}
+
+	.demoContent {
+		grid-template-columns: 1fr;
+		height: auto;
+		/* Stack vertically on mobile */
+	}
+
+	.chatSection {
+		border-right: none;
+		border-bottom: 1px solid var(--landing-border, #222222);
+		max-height: 250px; /* Increased for better mobile experience */
+		padding: 16px; /* Reduce padding on mobile */
+	}
+
+	.codeContent {
+		padding: 16px; /* Reduce padding on mobile */
+		min-height: 200px; /* Reduce min-height on mobile */
+	}
+
+	.demoWindowHeader {
+		padding: 10px 12px; /* Reduce header padding */
+	}
+
+	.demoWindowTitle {
+		font-size: 12px; /* Smaller title on mobile */
+	}
+
+	.messageContent {
+		font-size: 13px; /* Smaller text on mobile */
+		padding: 10px; /* Reduce message padding */
+	}
+}
+
+/* Medium screens optimization */
+@media (max-width: 1024px) and (min-width: 769px) {
+	.codingAnimation {
+		max-width: 800px;
+		margin-left: 1rem;
+		margin-right: 1rem;
+	}
+
+	.demoContent {
+		height: 420px; /* Slightly smaller on medium screens */
+	}
+}

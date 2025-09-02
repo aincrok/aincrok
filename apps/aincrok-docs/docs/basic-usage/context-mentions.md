@@ -2,13 +2,13 @@
 
 Context mentions are a powerful way to provide Aincrok with specific information about your project, allowing it to perform tasks more accurately and efficiently. You can use mentions to refer to files, folders, problems, and Git commits. Context mentions start with the `@` symbol.
 
-<img src="/docs/img/context-mentions/context-mentions.png" alt="Context Mentions Overview - showing the @ symbol dropdown menu in the chat interface" width="600" />
+<img src="/img/context-mentions/context-mentions.png" alt="Context Mentions Overview - showing the @ symbol dropdown menu in the chat interface" width="600" />
 
 _Context mentions overview showing the @ symbol dropdown menu in the chat interface._
 
 ## Types of Mentions
 
-<img src="/docs/img/context-mentions/context-mentions-1.png" alt="File mention example showing a file being referenced with @ and its contents appearing in the conversation" width="600" />
+<img src="/img/context-mentions/context-mentions-1.png" alt="File mention example showing a file being referenced with @ and its contents appearing in the conversation" width="600" />
 
 _File mentions add actual code content into the conversation for direct reference and analysis._
 
@@ -24,7 +24,7 @@ _File mentions add actual code content into the conversation for direct referenc
 
 ### File Mentions
 
-<img src="/docs/img/context-mentions/context-mentions-1.png" alt="File mention example showing a file being referenced with @ and its contents appearing in the conversation" width="600" />
+<img src="/img/context-mentions/context-mentions-1.png" alt="File mention example showing a file being referenced with @ and its contents appearing in the conversation" width="600" />
 
 _File mentions incorporate source code with line numbers for precise references._
 | Capability | Details |
@@ -37,7 +37,7 @@ _File mentions incorporate source code with line numbers for precise references.
 
 ### Folder Mentions
 
-<img src="/docs/img/context-mentions/context-mentions-2.png" alt="Folder mention example showing directory contents being referenced in the chat" width="600" />
+<img src="/img/context-mentions/context-mentions-2.png" alt="Folder mention example showing directory contents being referenced in the chat" width="600" />
 
 _Folder mentions display directory structure in a readable tree format._
 | Capability | Details |
@@ -50,7 +50,7 @@ _Folder mentions display directory structure in a readable tree format._
 
 ### Problems Mention
 
-<img src="/docs/img/context-mentions/context-mentions-3.png" alt="Problems mention example showing VS Code problems panel being referenced with @problems" width="600" />
+<img src="/img/context-mentions/context-mentions-3.png" alt="Problems mention example showing VS Code problems panel being referenced with @problems" width="600" />
 
 _Problems mentions import diagnostics directly from VS Code's problems panel._
 | Capability | Details |
@@ -63,7 +63,7 @@ _Problems mentions import diagnostics directly from VS Code's problems panel._
 
 ### Terminal Mention
 
-<img src="/docs/img/context-mentions/context-mentions-4.png" alt="Terminal mention example showing terminal output being included in Aincrok's context" width="600" />
+<img src="/img/context-mentions/context-mentions-4.png" alt="Terminal mention example showing terminal output being included in Aincrok's context" width="600" />
 
 _Terminal mentions capture recent command output for debugging and analysis._
 
@@ -77,7 +77,7 @@ _Terminal mentions capture recent command output for debugging and analysis._
 
 ### Git Mentions
 
-<img src="/docs/img/context-mentions/context-mentions-5.png" alt="Git commit mention example showing commit details being analyzed by Aincrok" width="600" />
+<img src="/img/context-mentions/context-mentions-5.png" alt="Git commit mention example showing commit details being analyzed by Aincrok" width="600" />
 
 _Git mentions provide commit details and diffs for context-aware version analysis._
 | Type | Format | Provides | Limitations |
@@ -87,7 +87,7 @@ _Git mentions provide commit details and diffs for context-aware version analysi
 
 ### URL Mentions
 
-<img src="/docs/img/context-mentions/context-mentions-6.png" alt="URL mention example showing website content being converted to Markdown in the chat" width="600" />
+<img src="/img/context-mentions/context-mentions-6.png" alt="URL mention example showing website content being converted to Markdown in the chat" width="600" />
 
 _URL mentions import external web content and convert it to readable Markdown format._
 

@@ -3,7 +3,7 @@
 ## 概述
 
 <figure style={{ float: 'right', width: '40%', maxWidth: '350px', margin: '0 0 10px 20px' }}>
-  <img src="/docs/img/memory-bank/at-work.png" alt="使用 Memory Bank 执行任务" style={{ border: '1px solid grey', borderRadius: '5px', width: '100%' }} />
+  <img src="/img/memory-bank/at-work.png" alt="使用 Memory Bank 执行任务" style={{ border: '1px solid grey', borderRadius: '5px', width: '100%' }} />
   <figcaption style={{ fontSize: '0.9rem', color: '#666', marginTop: '8px', textAlign: 'center' }}>
     启用 Memory Bank 后，Aincrok 可以更高效地工作，立即理解项目上下文和技术栈。
   </figcaption>

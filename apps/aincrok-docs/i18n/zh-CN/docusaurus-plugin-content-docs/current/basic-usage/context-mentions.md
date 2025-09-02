@@ -2,13 +2,13 @@
 
 上下文提及是一种强大的方式，可以为 Aincrok 提供项目的具体信息，使其能够更准确高效地执行任务。你可以使用提及来引用文件、文件夹、问题和 Git 提交。上下文提及以 `@` 符号开头。
 
-<img src="/docs/img/context-mentions/context-mentions.png" alt="上下文提及概览 - 显示聊天界面中的 @ 符号下拉菜单" width="600" />
+<img src="/img/context-mentions/context-mentions.png" alt="上下文提及概览 - 显示聊天界面中的 @ 符号下拉菜单" width="600" />
 
 _上下文提及概览，显示聊天界面中的 @ 符号下拉菜单。_
 
 ## 提及类型
 
-<img src="/docs/img/context-mentions/context-mentions-1.png" alt="文件提及示例，显示使用 @ 引用文件及其内容出现在对话中" width="600" />
+<img src="/img/context-mentions/context-mentions-1.png" alt="文件提及示例，显示使用 @ 引用文件及其内容出现在对话中" width="600" />
 
 _文件提及将实际代码内容添加到对话中，以便直接引用和分析。_
 
@@ -24,7 +24,7 @@ _文件提及将实际代码内容添加到对话中，以便直接引用和分�
 
 ### 文件提及
 
-<img src="/docs/img/context-mentions/context-mentions-1.png" alt="文件提及示例，显示使用 @ 引用文件及其内容出现在对话中" width="600" />
+<img src="/img/context-mentions/context-mentions-1.png" alt="文件提及示例，显示使用 @ 引用文件及其内容出现在对话中" width="600" />
 
 _文件提及结合行号引用源代码，以便精确定位。_
 
@@ -38,7 +38,7 @@ _文件提及结合行号引用源代码，以便精确定位。_
 
 ### 文件夹提及
 
-<img src="/docs/img/context-mentions/context-mentions-2.png" alt="文件夹提及示例，显示目录内容在聊天中被引用" width="600" />
+<img src="/img/context-mentions/context-mentions-2.png" alt="文件夹提及示例，显示目录内容在聊天中被引用" width="600" />
 
 _文件夹提及以可读的树状格式显示目录结构。_
 
@@ -52,7 +52,7 @@ _文件夹提及以可读的树状格式显示目录结构。_
 
 ### 问题提及
 
-<img src="/docs/img/context-mentions/context-mentions-3.png" alt="问题提及示例，显示使用 @problems 引用 VS Code 问题面板" width="600" />
+<img src="/img/context-mentions/context-mentions-3.png" alt="问题提及示例，显示使用 @problems 引用 VS Code 问题面板" width="600" />
 
 _问题提及直接从 VS Code 的问题面板导入诊断信息。_
 
@@ -66,7 +66,7 @@ _问题提及直接从 VS Code 的问题面板导入诊断信息。_
 
 ### 终端提及
 
-<img src="/docs/img/context-mentions/context-mentions-4.png" alt="终端提及示例，显示终端输出被包含在 Aincrok 的上下文中" width="600" />
+<img src="/img/context-mentions/context-mentions-4.png" alt="终端提及示例，显示终端输出被包含在 Aincrok 的上下文中" width="600" />
 
 _终端提及捕获最近的命令输出以便调试和分析。_
 
@@ -80,7 +80,7 @@ _终端提及捕获最近的命令输出以便调试和分析。_
 
 ### Git 提及
 
-<img src="/docs/img/context-mentions/context-mentions-5.png" alt="Git 提交提及示例，显示提交详情被 Aincrok 分析" width="600" />
+<img src="/img/context-mentions/context-mentions-5.png" alt="Git 提交提及示例，显示提交详情被 Aincrok 分析" width="600" />
 
 _Git 提及提供提交详情和差异，以便进行上下文感知的版本分析。_
 
@@ -91,7 +91,7 @@ _Git 提及提供提交详情和差异，以便进行上下文感知的版本分
 
 ### URL 提及
 
-<img src="/docs/img/context-mentions/context-mentions-6.png" alt="URL 提及示例，显示网站内容被转换为 Markdown 格式出现在聊天中" width="600" />
+<img src="/img/context-mentions/context-mentions-6.png" alt="URL 提及示例，显示网站内容被转换为 Markdown 格式出现在聊天中" width="600" />
 
 _URL 提及导入外部网页内容并将其转换为可读的 Markdown 格式。_
 

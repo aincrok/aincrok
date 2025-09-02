@@ -4,7 +4,7 @@ import Codicon from '@site/src/components/Codicon';
 
 代码库索引通过 AI 嵌入实现对整个项目的语义代码搜索。它不是搜索精确的文本匹配，而是理解您查询的*含义*，帮助 Aincrok 找到相关代码，即使您不知道特定的函数名称或文件位置。
 
-<img src="/docs/img/codebase-indexing/codebase-indexing.png" alt="代码库索引设置" width="800" />
+<img src="/img/codebase-indexing/codebase-indexing.png" alt="代码库索引设置" width="800" />
 
 ## 作用
 

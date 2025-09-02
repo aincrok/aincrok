@@ -14,13 +14,13 @@ Auto-approve settings speed up your workflow by eliminating repetitive confirmat
 
 ## Auto-Approve Toolbar
 
-<img src="/docs/img/auto-approving-actions/auto-approving-actions.png" alt="Auto-approve toolbar collapsed state" width="600" />
+<img src="/img/auto-approving-actions/auto-approving-actions.png" alt="Auto-approve toolbar collapsed state" width="600" />
 
 _Prompt box and Auto-Approve Toolbar showing enabled permissions_
 
 Click the toolbar to expand it and configure individual permissions:
 
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-1.png" alt="Auto-approve toolbar expanded state" width="600" />
+<img src="/img/auto-approving-actions/auto-approving-actions-1.png" alt="Auto-approve toolbar expanded state" width="600" />
 
 _Prompt text box and Expanded toolbar with all options_
 
@@ -43,7 +43,7 @@ _Prompt text box and Expanded toolbar with all options_
 
 The leftmost checkbox works as a master toggle:
 
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-14.png" alt="Master toggle in Auto-approve toolbar" width="600" />
+<img src="/img/auto-approving-actions/auto-approving-actions-14.png" alt="Master toggle in Auto-approve toolbar" width="600" />
 
 _Master toggle (checkbox) controls all auto-approve permissions at once_
 
@@ -64,14 +64,14 @@ To access these settings:
 1. Click <Codicon name="gear" /> in the top-right corner
 2. Navigate to Auto-Approve Settings
 
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-4.png" alt="Settings panel auto-approve options" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-4.png" alt="Settings panel auto-approve options" width="550" />
 
 _Complete settings panel view_
 
 ### Read Operations
 
 :::caution Read Operations
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-6.png" alt="Read-only operations setting" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-6.png" alt="Read-only operations setting" width="550" />
 
 **Setting:** "Always approve read-only operations"
 
@@ -85,7 +85,7 @@ While this setting only allows reading files (not modifying them), it could pote
 ### Write Operations
 
 :::caution Write Operations
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-7.png" alt="Write operations setting with delay slider" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-7.png" alt="Write operations setting with delay slider" width="550" />
 
 **Setting:** "Always approve write operations"
 
@@ -104,7 +104,7 @@ This setting allows Aincrok to modify your files without confirmation. The delay
 
 #### Write Delay & Problems Pane Integration
 
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-5.png" alt="VSCode Problems pane showing diagnostic information" width="600" />
+<img src="/img/auto-approving-actions/auto-approving-actions-5.png" alt="VSCode Problems pane showing diagnostic information" width="600" />
 
 _VSCode Problems pane that Aincrok checks during the write delay_
 
@@ -125,7 +125,7 @@ This works like a human developer pausing to check for errors after changing cod
 ### Browser Actions
 
 :::info Browser Actions
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-8.png" alt="Browser actions setting" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-8.png" alt="Browser actions setting" width="550" />
 
 **Setting:** "Always approve browser actions"
 
@@ -147,7 +147,7 @@ Consider the security implications of allowing automated browser access.
 ### API Requests
 
 :::info API Requests
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-9.png" alt="API requests retry setting with delay slider" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-9.png" alt="API requests retry setting with delay slider" width="550" />
 
 **Setting:** "Always retry failed API requests"
 
@@ -166,7 +166,7 @@ This setting automatically retries API calls when they fail. The delay controls 
 ### MCP Tools
 
 :::caution MCP Tools
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-10.png" alt="MCP tools setting" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-10.png" alt="MCP tools setting" width="550" />
 
 **Setting:** "Always approve MCP tools"
 
@@ -180,7 +180,7 @@ This setting works in conjunction with individual tool permissions in the MCP Se
 ### Mode Switching
 
 :::info Mode Switching
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-11.png" alt="Mode switching setting" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-11.png" alt="Mode switching setting" width="550" />
 
 **Setting:** "Always approve mode switching"
 
@@ -194,7 +194,7 @@ Allows Aincrok to change between different modes (Code, Architect, etc.) without
 ### Subtasks
 
 :::info Subtasks
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-12.png" alt="Subtasks setting" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-12.png" alt="Subtasks setting" width="550" />
 
 **Setting:** "Always approve creation & completion of subtasks"
 
@@ -208,7 +208,7 @@ Enables Aincrok to create and complete subtasks automatically. This relates to w
 ### Command Execution
 
 :::caution Command Execution
-<img src="/docs/img/auto-approving-actions/auto-approving-actions-13.png" alt="Command execution setting with whitelist interface" width="550" />
+<img src="/img/auto-approving-actions/auto-approving-actions-13.png" alt="Command execution setting with whitelist interface" width="550" />
 
 **Setting:** "Always approve allowed execute operations"
 

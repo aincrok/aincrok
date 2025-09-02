@@ -14,7 +14,7 @@ import Image from '@site/src/components/Image';
 
 单击灯泡、右键单击并选择“Aincrok”，或使用键盘快捷键（macOS 上默认为 `Ctrl+.` 或 `Cmd+.`），将显示可用操作菜单。
 
-<img src="/docs/img/code-actions/code-actions-1.png" alt="VS Code 代码操作与代码在同一行" width="500" />
+<img src="/img/code-actions/code-actions-1.png" alt="VS Code 代码操作与代码在同一行" width="500" />
 
 ## Aincrok 的代码操作
 
@@ -31,7 +31,7 @@ Aincrok 提供以下代码操作：
 
 这有助于 Aincrok 理解代码在项目中的确切上下文，从而使其能够提供更相关和准确的帮助。
 
-<img src="/docs/img/code-actions/add-to-context.gif" alt="代码操作 - 添加到上下文 gif" width="80%" />
+<img src="/img/code-actions/add-to-context.gif" alt="代码操作 - 添加到上下文 gif" width="80%" />
 
 **示例聊天输入：**
 

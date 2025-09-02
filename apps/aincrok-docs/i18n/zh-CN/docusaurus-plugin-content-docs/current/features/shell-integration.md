@@ -32,19 +32,19 @@ Aincrok 提供了几个设置来微调 shell 集成。在 Aincrok 侧边栏的�
 
 #### 终端输出限制
 
-<img src="/docs/img/shell-integration/terminal-output-limit.png" alt="终端输出限制滑块设置为 500" width="500" />
+<img src="/img/shell-integration/terminal-output-limit.png" alt="终端输出限制滑块设置为 500" width="500" />
 控制从终端输出捕获的最大行数。超出时，它会保留开头 20% 和结尾 80%，中间有截断消息。这可以防止过度使用 token，同时保持上下文。默认值：500 行。
 控制从终端输出捕获的最大行数。超出时，会从中间删除行以节省 token。默认值：500 行。
 
 #### 终端 Shell 集成超时
 
-<img src="/docs/img/shell-integration/shell-integration-timeout.png" alt="终端 shell 集成超时滑块设置为 15 秒" width="500" />
+<img src="/img/shell-integration/shell-integration-timeout.png" alt="终端 shell 集成超时滑块设置为 15 秒" width="500" />
 
 在执行命令之前等待 shell 集成初始化的最长时间。如果您遇到“Shell 集成不可用”错误，请增加此值。默认值：15 秒。
 
 #### 终端命令延迟
 
-<img src="/docs/img/shell-integration/terminal-command-delay.png" alt="终端命令延迟滑块设置为 0 毫秒" width="500" />
+<img src="/img/shell-integration/terminal-command-delay.png" alt="终端命令延迟滑块设置为 0 毫秒" width="500" />
 
 在运行命令后添加一个短暂的暂停，以帮助 Aincrok 正确捕获所有输出。由于 VSCode 在不同操作系统和 shell 配置中实现终端集成的方式，此设置可能会显著影响 shell 集成的可靠性：
 
@@ -73,31 +73,31 @@ Aincrok 提供了几个设置来微调 shell 集成。在 Aincrok 侧边栏的�
 
 #### PowerShell 计数器解决方法
 
-<img src="/docs/img/shell-integration/power-shell-workaround.png" alt="PowerShell 计数器解决方法复选框" width="600" />
+<img src="/img/shell-integration/power-shell-workaround.png" alt="PowerShell 计数器解决方法复选框" width="600" />
 
 帮助 PowerShell 连续多次运行相同的命令。如果您发现 Aincrok 无法在 PowerShell 中连续运行相同的命令，请启用此功能。
 
 #### 清除 ZSH EOL 标记
 
-<img src="/docs/img/shell-integration/clear-zsh-eol-mark.png" alt="清除 ZSH EOL 标记复选框" width="600" />
+<img src="/img/shell-integration/clear-zsh-eol-mark.png" alt="清除 ZSH EOL 标记复选框" width="600" />
 
 防止 ZSH 在输出行末尾添加特殊字符，这些字符在 Aincrok 读取终端结果时可能会造成混淆。
 
 #### Oh My Zsh 集成
 
-<img src="/docs/img/shell-integration/oh-my-zsh.png" alt="启用 Oh My Zsh 集成复选框" width="600" />
+<img src="/img/shell-integration/oh-my-zsh.png" alt="启用 Oh My Zsh 集成复选框" width="600" />
 
 使 Aincrok 更好地与流行的 [Oh My Zsh](https://ohmyz.sh/) shell 自定义框架配合使用。如果您使用 Oh My Zsh 并遇到终端问题，请打开此功能。
 
 #### Powerlevel10k 集成
 
-<img src="/docs/img/shell-integration/power10k.png" alt="启用 Powerlevel10k 集成复选框" width="600" />
+<img src="/img/shell-integration/power10k.png" alt="启用 Powerlevel10k 集成复选框" width="600" />
 
 如果您使用 ZSH 的 Powerlevel10k 主题，则可提高兼容性。如果您的花哨终端提示导致 Aincrok 出现问题，请打开此功能。
 
 #### ZDOTDIR 处理
 
-<img src="/docs/img/shell-integration/zdotdir.png" alt="启用 ZDOTDIR 处理复选框" width="600" />
+<img src="/img/shell-integration/zdotdir.png" alt="启用 ZDOTDIR 处理复选框" width="600" />
 
 帮助 Aincrok 与自定义 ZSH 配置配合使用，而不会干扰您的个人 shell 设置和自定义。
 
@@ -309,7 +309,7 @@ functions fish_prompt | grep -i vsc
     完全关闭并重新打开 Visual Studio Code 以应用更改。
 
 5.  **验证：**
-    在 VS Code 中打开一个新的 Fish 终端。Shell 集成功能（如命令修饰、更好的命令历史导航等）现在应该已激活。您可以通过运行像 `echo "Hello from integrated Fish!"` 这样的简单命令来测试基本功能。 \<img src="/img/shell-integration/shell-integration-8.png" alt="Fish Cygwin Integration Example" width="600" /\>
+    在 VS Code 中打开一个新的 Fish 终端。Shell 集成功能（如命令修饰、更好的命令历史导航等）现在应该已激活。您可以通过运行像 `echo "Hello from integrated Fish!"` 这样的简单命令来测试基本功能。 <img src="/img/shell-integration/shell-integration-8.png" alt="Fish Cygwin Integration Example" width="600" />
 
 此设置在使用 Cygwin、Fish 和 Starship 提示符的 Windows 系统上运行稳定，并应能帮助有类似配置的用户。
 

@@ -25,7 +25,7 @@
 1.  单击齿轮图标 <Codicon name="gear" /> → Checkpoints 打开设置
 2.  选中或取消选中“启用自动检查点”复选框
 
-    <img src="/docs/img/checkpoints/checkpoints.png" alt="Aincrok 配置中的检查点设置" width="500" />
+    <img src="/img/checkpoints/checkpoints.png" alt="Aincrok 配置中的检查点设置" width="500" />
 
 ## 检查点工作原理
 
@@ -46,10 +46,10 @@ Aincrok 使用一个影子 Git 仓库（独立于您的主版本控制系统）�
 检查点以两种形式直接出现在您的聊天历史记录中：
 
 - **初始检查点**标记您的起始项目状态
-  <img src="/docs/img/checkpoints/checkpoints-1.png" alt="聊天中的初始检查点指示器" width="500" />
+  <img src="/img/checkpoints/checkpoints-1.png" alt="聊天中的初始检查点指示器" width="500" />
 
 - **常规检查点**在文件修改或命令执行后出现
-  <img src="/docs/img/checkpoints/checkpoints-2.png" alt="聊天中的常规检查点指示器" width="500" />
+  <img src="/img/checkpoints/checkpoints-2.png" alt="聊天中的常规检查点指示器" width="500" />
 
 每个检查点提供两个主要功能：
 
@@ -60,7 +60,7 @@ Aincrok 使用一个影子 Git 仓库（独立于您的主版本控制系统）�
 1.  在聊天历史记录中找到检查点
 2.  单击检查点的 `View Differences` 按钮
 
-   <img src="/docs/img/checkpoints/checkpoints-6.png" alt="查看差异按钮界面" width="100" />
+   <img src="/img/checkpoints/checkpoints-6.png" alt="查看差异按钮界面" width="100" />
 
 3.  在比较视图中查看差异：
     - 添加的行以绿色突出显示
@@ -69,7 +69,7 @@ Aincrok 使用一个影子 Git 仓库（独立于您的主版本控制系统）�
     - 重命名和移动的文件跟踪其路径更改
     - 新建或删除的文件清晰标记
 
-<img src="/docs/img/checkpoints/checkpoints-3.png" alt="检查点的查看差异选项" width="800" />
+<img src="/img/checkpoints/checkpoints-3.png" alt="检查点的查看差异选项" width="800" />
 
 ### 恢复检查点
 
@@ -77,16 +77,16 @@ Aincrok 使用一个影子 Git 仓库（独立于您的主版本控制系统）�
 
 1.  在聊天历史记录中找到检查点
 2.  单击检查点的 `Restore Checkpoint` 按钮
-    <img src="/docs/img/checkpoints/checkpoints-7.png" alt="恢复检查点按钮界面" width="100" />
+    <img src="/img/checkpoints/checkpoints-7.png" alt="恢复检查点按钮界面" width="100" />
 3.  选择以下恢复选项之一：
 
-   <img src="/docs/img/checkpoints/checkpoints-4.png" alt="恢复检查点选项" width="300" />
+   <img src="/img/checkpoints/checkpoints-4.png" alt="恢复检查点选项" width="300" />
 
 - **仅恢复文件** - 仅将工作区文件恢复到检查点状态，而不修改对话历史记录。非常适合在保持聊天上下文的同时比较替代实现，让您可以在不同项目状态之间无缝切换。此选项无需确认，可让您快速在不同实现之间切换。
 
 - **恢复文件和任务** - 恢复工作区文件并删除所有后续对话消息。当您希望将代码和对话完全重置回检查点的时间点时使用。此选项需要在对话框中进行确认，因为它无法撤消。
 
-     <img src="/docs/img/checkpoints/checkpoints-9.png" alt="恢复文件和任务检查点的确认对话框" width="300" />
+       <img src="/img/checkpoints/checkpoints-9.png" alt="恢复文件和任务检查点的确认对话框" width="300" />
 
 ### 限制和注意事项
 

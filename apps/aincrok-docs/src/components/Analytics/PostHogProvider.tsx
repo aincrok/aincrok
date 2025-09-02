@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, ReactNode } from "react"
 import posthog from "posthog-js"
 import { useLocation } from "@docusaurus/router"
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 
 interface PostHogContextType {
 	trackEvent: (eventName: string, properties?: Record<string, any>) => void
@@ -21,13 +22,19 @@ interface PostHogProviderProps {
 
 export const PostHogProvider: React.FC<PostHogProviderProps> = ({ children, apiKey, options = {} }) => {
 	const location = useLocation()
+	const { siteConfig } = useDocusaurusContext()
+
+	// Try to get API key from props, then from siteConfig plugins
+	const effectiveApiKey =
+		apiKey || siteConfig?.plugins?.find((p: any) => Array.isArray(p) && p[0] === "posthog-docusaurus")?.[1]?.apiKey
 
 	useEffect(() => {
-		if (apiKey && typeof window !== "undefined") {
-			posthog.init(apiKey, {
+		if (effectiveApiKey && typeof window !== "undefined") {
+			posthog.init(effectiveApiKey, {
 				api_host: "https://us.i.posthog.com",
 				loaded: (posthog) => {
-					if (process.env.NODE_ENV === "development") {
+					// Check for development environment without using process
+					if (typeof window !== "undefined" && window.location.hostname === "localhost") {
 						console.log("PostHog loaded successfully")
 					}
 				},
@@ -37,7 +44,7 @@ export const PostHogProvider: React.FC<PostHogProviderProps> = ({ children, apiK
 				...options,
 			})
 		}
-	}, [apiKey, options])
+	}, [effectiveApiKey, options])
 
 	// Track page views when location changes
 	useEffect(() => {

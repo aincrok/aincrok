@@ -1,167 +1,84 @@
 ---
-sidebar_label: Welcome
+sidebar_label: Overview
+slug: /
 ---
 
-import { PostHogProvider, ABTestProvider } from '@site/src/components/Analytics';
-import { HeroSection, InteractiveDemo, FeatureShowcase } from '@site/src/components/LandingPage';
-import { DISCORD_URL, REDDIT_URL, GITHUB_ISSUES_MAIN_URL, GITHUB_FEATURES_URL, YOUTUBE_URL } from '@site/src/constants.ts';
-import Image from '@site/src/components/Image';
+# Aincrok Documentation
 
-<PostHogProvider apiKey={process.env.POSTHOG_API_KEY}>
-  <ABTestProvider>
-    <HeroSection />
-    
-    <InteractiveDemo />
-    
-    <FeatureShowcase />
-    
-    <section style={{padding: '4rem 2rem', background: '#f8fafc'}}>
-      <div style={{maxWidth: '1200px', margin: '0 auto'}}>
-        ## See Aincrok in Action
+Welcome to the Aincrok documentation! Aincrok is a next-generation AI coding agent built on the foundation of Roo/Cline/Kilo, enhanced with advanced features like MCP support, auto-planning, and improved performance.
 
-        <div style={{textAlign: 'center', margin: '2rem 0'}}>
-          <Image 
-            src="/docs/img/aincrokgif.gif" 
-            alt="GIF showing some of the capabilities of Aincrok" 
-            width="700" 
-            style={{borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'}} 
-          />
-        </div>
+## What is Aincrok?
 
-        ## Quick Start Guide
+Aincrok (Aincrok Is Not Cline Roo Or Kilo) is an AI-powered coding assistant VS Code extension that helps developers write, debug, and refactor code more efficiently. It combines the proven capabilities of popular AI coding tools with modern enhancements for a superior development experience.
 
-        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', margin: '2rem 0'}}>
-          <div style={{padding: '2rem', background: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'}}>
-            <div style={{fontSize: '3rem', fontWeight: 'bold', color: '#667eea', marginBottom: '1rem'}}>1</div>
-            <h3 style={{marginBottom: '1rem'}}>Install</h3>
-            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem', lineHeight: '1.6'}}>Get Aincrok from the VS Code marketplace in seconds</p>
-            <a href="/getting-started/installing" style={{
-              display: 'inline-block',
-              padding: '0.75rem 1.5rem',
-              backgroundColor: '#667eea',
-              color: 'white',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              transition: 'all 0.2s ease'
-            }}>
-              Install Guide →
-            </a>
-          </div>
-          
-          <div style={{padding: '2rem', background: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'}}>
-            <div style={{fontSize: '3rem', fontWeight: 'bold', color: '#667eea', marginBottom: '1rem'}}>2</div>
-            <h3 style={{marginBottom: '1rem'}}>Setup</h3>
-            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem', lineHeight: '1.6'}}>Configure your AI provider and preferences</p>
-            <a href="/getting-started/setting-up" style={{
-              display: 'inline-block',
-              padding: '0.75rem 1.5rem',
-              backgroundColor: '#667eea',
-              color: 'white',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              transition: 'all 0.2s ease'
-            }}>
-              Setup Guide →
-            </a>
-          </div>
-          
-          <div style={{padding: '2rem', background: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', textAlign: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'}}>
-            <div style={{fontSize: '3rem', fontWeight: 'bold', color: '#667eea', marginBottom: '1rem'}}>3</div>
-            <h3 style={{marginBottom: '1rem'}}>Code</h3>
-            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem', lineHeight: '1.6'}}>Start your first AI-assisted coding task</p>
-            <a href="/getting-started/your-first-task" style={{
-              display: 'inline-block',
-              padding: '0.75rem 1.5rem',
-              backgroundColor: '#667eea',
-              color: 'white',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              transition: 'all 0.2s ease'
-            }}>
-              Try It Now →
-            </a>
-          </div>
-        </div>
+import Icon from '@site/src/components/Icon';
 
-        ## Community & Resources
+## Key Features
 
-        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', margin: '3rem 0', textAlign: 'center'}}>
-          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
-            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>💬</div>
-            <h3 style={{marginBottom: '1rem'}}>Discord Community</h3>
-            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Join our vibrant community for real-time help and discussions</p>
-            <a href={DISCORD_URL} target="_blank" style={{
-              display: 'inline-block',
-              padding: '0.75rem 1.5rem',
-              color: '#667eea',
-              border: '2px solid #667eea',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              transition: 'all 0.2s ease'
-            }}>
-              Join Discord →
-            </a>
-          </div>
-          
-          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
-            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>📺</div>
-            <h3 style={{marginBottom: '1rem'}}>Video Tutorials</h3>
-            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Watch comprehensive tutorials and feature demonstrations</p>
-            <a href={YOUTUBE_URL} target="_blank" style={{
-              display: 'inline-block',
-              padding: '0.75rem 1.5rem',
-              color: '#667eea',
-              border: '2px solid #667eea',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              transition: 'all 0.2s ease'
-            }}>
-              Watch Videos →
-            </a>
-          </div>
-          
-          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
-            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>🐛</div>
-            <h3 style={{marginBottom: '1rem'}}>GitHub Issues</h3>
-            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Report bugs and contribute to development</p>
-            <a href={GITHUB_ISSUES_MAIN_URL} target="_blank" style={{
-              display: 'inline-block',
-              padding: '0.75rem 1.5rem',
-              color: '#667eea',
-              border: '2px solid #667eea',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              transition: 'all 0.2s ease'
-            }}>
-              Report Issues →
-            </a>
-          </div>
-          
-          <div style={{padding: '2rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e5e7eb'}}>
-            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>💡</div>
-            <h3 style={{marginBottom: '1rem'}}>Feature Requests</h3>
-            <p style={{fontSize: '1rem', color: '#6b7280', marginBottom: '1.5rem'}}>Share ideas and vote on new features</p>
-            <a href={GITHUB_FEATURES_URL} target="_blank" style={{
-              display: 'inline-block',
-              padding: '0.75rem 1.5rem',
-              color: '#667eea',
-              border: '2px solid #667eea',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              transition: 'all 0.2s ease'
-            }}>
-              Share Ideas →
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </ABTestProvider>
-</PostHogProvider>
+- **<Icon name="bot" size={20} /> Advanced Auto-Planning**: Automatically breaks down complex tasks into manageable steps
+- **<Icon name="plug" size={20} /> MCP Support**: Model Context Protocol integration for seamless tool connections  
+- **<Icon name="zap" size={20} /> Enhanced Performance**: Optimized token management and context handling
+- **<Icon name="wrench" size={20} /> Rich Tool Ecosystem**: Extensive collection of development tools
+- **<Icon name="target" size={20} /> Smart Code Understanding**: Multi-file context awareness and intelligent suggestions
+- **<Icon name="shield" size={20} /> Privacy First**: Your code stays private with flexible provider options
+
+## Quick Start
+
+<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', margin: '2rem 0'}}>
+  <div style={{padding: '2rem', background: 'var(--ifm-color-emphasis-100)', border: '1px solid var(--ifm-color-emphasis-200)', borderRadius: '8px'}}>
+    <div style={{marginBottom: '1rem', textAlign: 'center'}}>
+      <Icon name="package" size={32} color="#f4f4f5" />
+    </div>
+    <h3>1. Install</h3>
+    <p>Get Aincrok from the VS Code marketplace</p>
+    <a href="/docs/getting-started/installing">Install Guide →</a>
+  </div>
+  
+  <div style={{padding: '2rem', background: 'var(--ifm-color-emphasis-100)', border: '1px solid var(--ifm-color-emphasis-200)', borderRadius: '8px'}}>
+    <div style={{marginBottom: '1rem', textAlign: 'center'}}>
+      <Icon name="settings" size={32} color="#f4f4f5" />
+    </div>
+    <h3>2. Setup</h3>
+    <p>Configure your AI provider and preferences</p>
+    <a href="/docs/getting-started/setting-up">Setup Guide →</a>
+  </div>
+  
+  <div style={{padding: '2rem', background: 'var(--ifm-color-emphasis-100)', border: '1px solid var(--ifm-color-emphasis-200)', borderRadius: '8px'}}>
+    <div style={{marginBottom: '1rem', textAlign: 'center'}}>
+      <Icon name="rocket" size={32} color="#f4f4f5" />
+    </div>
+    <h3>3. Start Coding</h3>
+    <p>Begin your AI-assisted development journey</p>
+    <a href="/docs/basic-usage">Learn Basics →</a>
+  </div>
+</div>
+
+## Popular Topics
+
+- [**Getting Started**](/docs/getting-started/installing) - Installation and initial setup
+- [**Basic Usage**](/docs/basic-usage) - Essential features and workflows  
+- [**AI Providers**](/docs/providers) - Configure different AI services
+- [**MCP Integration**](/docs/features/mcp/overview) - Model Context Protocol support
+- [**Advanced Features**](/docs/advanced-usage) - Power user capabilities
+- [**FAQ**](/docs/faq) - Common questions and troubleshooting
+
+## Community & Support
+
+Join our growing community of developers:
+
+- <Icon name="message-circle" size={16} /> [**Discord**](https://discord.gg/aincrok) - Real-time chat and support
+- <Icon name="users" size={16} /> [**Reddit**](https://reddit.com/r/aincrok) - Community discussions and tips  
+- <Icon name="bug" size={16} /> [**GitHub Issues**](https://github.com/aincrok/aincrok/issues) - Bug reports and feedback
+- <Icon name="lightbulb" size={16} /> [**Feature Requests**](https://github.com/aincrok/aincrok/discussions) - Suggest new features
+
+## What's New?
+
+Aincrok brings several improvements over its predecessors:
+
+- **Better Context Management**: Improved sliding window and token optimization
+- **Enhanced Error Recovery**: More robust error handling and recovery mechanisms  
+- **MCP Protocol**: Native support for Model Context Protocol tools
+- **Performance Optimizations**: Faster response times and reduced resource usage
+- **Extended Provider Support**: Works with more AI services out of the box
+
+Ready to get started? [Install Aincrok](/docs/getting-started/installing) and begin coding with AI assistance!

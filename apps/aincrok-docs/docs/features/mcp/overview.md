@@ -11,7 +11,7 @@ The Model Context Protocol (MCP) is a standard for extending Aincrok's capabilit
 
 This documentation is organized into several sections:
 
-- [**Using MCP in Aincrok**](/features/mcp/using-mcp-in-kilo-code) - Comprehensive guide to configuring, enabling, and managing MCP servers with Aincrok. Includes server settings, tool approval, and troubleshooting.
+- [**Using MCP in Aincrok**](/features/mcp/using-mcp-in-aincrok) - Comprehensive guide to configuring, enabling, and managing MCP servers with Aincrok. Includes server settings, tool approval, and troubleshooting.
 
 - [**What is MCP?**](/features/mcp/what-is-mcp) - Clear explanation of the Model Context Protocol, its client-server architecture, and how it enables AI systems to interact with external tools.
 

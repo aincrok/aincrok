@@ -9,8 +9,8 @@ Aincrok 允许您创建**自定义模式**，以根据特定任务或工作流�
 - **实验：** 安全地尝试不同的提示和配置，而不会影响其他模式
 - **团队协作：** 与您的团队共享自定义模式以标准化工作流
 
-    <img src="/docs/img/custom-modes/custom-modes.png" alt="自定义模式界面概述" width="400" />
-    *Aincrok 用于创建和管理自定义模式的界面。*
+      <img src="/img/custom-modes/custom-modes.png" alt="自定义模式界面概述" width="400" />
+      *Aincrok 用于创建和管理自定义模式的界面。*
 
 ## 自定义模式中包含什么？
 
@@ -153,7 +153,7 @@ Aincrok will guide you through the process. However, for fine-tuning modes or ma
 #### Custom Mode Creation Settings
 
 When enabled, Aincrok allows you to create custom modes using prompts like 'Make me a custom mode that...'. Disabling this reduces your system prompt by about 700 tokens when this feature isn't needed. When disabled you can still manually create custom modes using the + button above or by editing the related config JSON.
-<img src="/docs/img/custom-modes/custom-modes-1.png" alt="Enable Custom Mode Creation Through Prompts setting" width="600" />
+<img src="/img/custom-modes/custom-modes-1.png" alt="Enable Custom Mode Creation Through Prompts setting" width="600" />
 You can find this setting within the prompt settings by clicking the <Codicon name="notebook" /> icon in the Aincrok top menu bar.
 :::
 
@@ -163,7 +163,7 @@ You can find this setting within the prompt settings by clicking the <Codicon na
 2.  **Create New Mode:** Click the <Codicon name="add" /> button to the right of the Modes heading
 3.  **Fill in Fields:**
 
-        <img src="/docs/img/custom-modes/custom-modes-2.png" alt="Custom mode creation interface in the Prompts tab" width="600" />
+        <img src="/img/custom-modes/custom-modes-2.png" alt="Custom mode creation interface in the Prompts tab" width="600" />
         *The custom mode creation interface showing fields for name, slug, save location, role definition, available tools, and custom instructions.*
 
     - **Name:** Enter a display name for the mode
