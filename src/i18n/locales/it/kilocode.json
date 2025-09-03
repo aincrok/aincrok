@@ -138,8 +138,7 @@
 			"description": "Posso aiutarti con attività rapide e modifiche suggerite."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "L'assistenza in linea di Aincrok è bloccata da un conflitto con GitHub Copilot. Per risolvere questo problema, devi disabilitare i suggerimenti in linea di Copilot.",
-			"message": "Il Kilo Code Autocomplete è bloccato da un conflitto con GitHub Copilot. Per risolvere questo problema, devi disabilitare i suggerimenti in linea di Copilot.",
+			"message": "Aincrok Autocomplete è bloccato da un conflitto con GitHub Copilot. Per risolvere questo problema, devi disabilitare i suggerimenti in linea di Copilot.",
 			"disableCopilot": "Disabilita Copilot",
 			"disableInlineAssist": "Disabilita Autocomplete"
 		}

@@ -147,17 +147,14 @@
 		},
 		"toggleMessage": "Aincrok Inline Assist {{status}}",
 		"incompatibilityExtensionPopup": {
-			"message": "Inline asistent Aincrok je blokován kvůli konfliktu s GitHub Copilot. Pro vyřešení tohoto problému musíš deaktivovat inline návrhy Copilotu.",
+			"message": "Aincrok Autocomplete je blokován kvůli konfliktu s GitHub Copilot. Pro vyřešení tohoto problému musíš deaktivovat inline návrhy Copilotu.",
 			"disableCopilot": "Deaktivovat Copilot",
-			"disableInlineAssist": "Deaktivovat Inline asistenta"
-			"fullName": "Kilo Code Agent",
+			"disableInlineAssist": "Deaktivovat Autocomplete"
+		},
+		"chatParticipant": {
+			"fullName": "Aincrok Agent",
 			"name": "Agent",
 			"description": "Mohu ti pomoci s rychlými úkoly a navrženými úpravami."
-		},
-		"incompatibilityExtensionPopup": {
-			"message": "Kilo Code Autocomplete je blokováno konfliktem s GitHub Copilot. Pro vyřešení tohoto problému musíš zakázat inline návrhy Copilot.",
-			"disableCopilot": "Zakázat Copilot",
-			"disableInlineAssist": "Zakázat Autocomplete"
 		}
 	},
 	"terminalCommandGenerator": {

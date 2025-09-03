@@ -138,14 +138,13 @@
 		"messages": {
 			"provideCodeSuggestions": "कोड सुझाव प्रदान किए जा रहे हैं..."
 		},
-		"incompatibilityExtensionPopup": {
-			"message": "Aincrok Inline Assist GitHub Copilot के साथ टकराव के कारण अवरुद्ध हो रहा है। इसे ठीक करने के लिए, आपको Copilot के इनलाइन सुझावों को अक्षम करना होगा।",
-			"fullName": "Kilo Code Agent",
+		"chatParticipant": {
+			"fullName": "Aincrok Agent",
 			"name": "Agent",
 			"description": "मैं त्वरित कार्यों और सुझाए गए संपादनों में आपकी सहायता कर सकता हूं।"
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Kilo Code Autocomplete को GitHub Copilot के साथ संघर्ष के कारण ब्लॉक किया जा रहा है। इसे ठीक करने के लिए, आपको Copilot के इनलाइन सुझावों को अक्षम करना होगा।",
+			"message": "Aincrok Autocomplete को GitHub Copilot के साथ संघर्ष के कारण ब्लॉक किया जा रहा है। इसे ठीक करने के लिए, आपको Copilot के इनलाइन सुझावों को अक्षम करना होगा।",
 			"disableCopilot": "Copilot अक्षम करें",
 			"disableInlineAssist": "Autocomplete अक्षम करें"
 		}
