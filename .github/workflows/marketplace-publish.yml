@@ -264,6 +264,7 @@ jobs:
                   
                   echo "📦 Publishing to VS Code Marketplace..."
                   cd src && npx @vscode/vsce@3.3.2 publish -p "$VSCE_PAT" -i "../$vsix_file"
+                  cd ..
                   echo "✅ Successfully published to VS Code Marketplace"
                   
                   echo "📦 Publishing to Open VSX Registry..."
