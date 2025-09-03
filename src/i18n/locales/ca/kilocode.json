@@ -93,21 +93,12 @@
 			"provideCodeSuggestions": "S'estan proporcionant suggeriments de codi..."
 		},
 		"statusBar": {
-			"enabled": "$(sparkle) Assistència en línia de Aincrok",
-			"disabled": "$(circle-slash) Aincrok Inline Assist",
-			"warning": "$(warning) Assistència de Aincrok en línia",
+			"enabled": "$(sparkle) Aincrok Autocomplete",
+			"disabled": "$(circle-slash) Aincrok Autocomplete",
+			"warning": "$(warning) Aincrok Autocomplete",
 			"tooltip": {
-				"disabled": "Assistència en línia de Aincrok (desactivat)",
-				"basic": "Assistència en línia Aincrok",
-				"tokenError": "S'ha d'establir un token vàlid per utilitzar l'Assistència Integrada",
-				"lastCompletion": "Última suggerència:",
-		"statusBar": {
-			"enabled": "$(sparkle) Kilo Code Autocomplete",
-			"disabled": "$(circle-slash) Kilo Code Autocomplete",
-			"warning": "$(warning) Kilo Code Autocomplete",
-			"tooltip": {
-				"basic": "Kilo Code Autocomplete",
-				"disabled": "Kilo Code Autocomplete (desactivat)",
+				"basic": "Aincrok Autocomplete",
+				"disabled": "Aincrok Autocomplete (desactivat)",
 				"tokenError": "S'ha d'establir un token vàlid per utilitzar Autocomplete",
 				"lastCompletion": "Últim suggeriment:",
 				"sessionTotal": "Cost total de la sessió:",
@@ -118,40 +109,37 @@
 				"lessThanCent": "<$0.01"
 			}
 		},
-		"toggleMessage": "Assistència en línia Aincrok {{status}}",
-		"incompatibilityExtensionPopup": {
-			"message": "L'Assistència en línia de Aincrok està bloquejada per un conflicte amb GitHub Copilot. Per solucionar-ho, has de desactivar els suggeriments en línia de Copilot.",
-		"toggleMessage": "Kilo Code Autocomplete {{status}}",
+		"toggleMessage": "Aincrok Autocomplete {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "Aincrok",
 			"analyzing": "Analitzant el teu codi...",
 			"generating": "Generant edicions suggerides...",
 			"processing": "Processant edicions suggerides...",
 			"showing": "Mostrant edicions suggerides..."
 		},
 		"input": {
-			"title": "Kilo Code: Tasca Ràpida",
+			"title": "Aincrok: Tasca Ràpida",
 			"placeholder": "p. ex., 'refactoritza aquesta funció per ser més eficient'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Generar Edicions Suggerides",
+			"generateSuggestions": "Aincrok: Generar Edicions Suggerides",
 			"displaySuggestions": "Mostrar Edicions Suggerides",
 			"cancelSuggestions": "Cancel·lar Edicions Suggerides",
 			"applyCurrentSuggestion": "Aplicar Edició Suggerida Actual",
 			"applyAllSuggestions": "Aplicar Totes les Edicions Suggerides",
 			"promptCodeSuggestion": "Tasca Ràpida",
-			"category": "Kilo Code"
+			"category": "Aincrok"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Edicions Suggerides"
+			"title": "Aincrok: Edicions Suggerides"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code Agent",
+			"fullName": "Aincrok Agent",
 			"name": "Agent",
 			"description": "Puc ajudar-te amb tasques ràpides i edicions suggerides."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "El Kilo Code Autocomplete està sent bloquejat per un conflicte amb GitHub Copilot. Per solucionar això, has de desactivar els suggeriments en línia de Copilot.",
+			"message": "L'Aincrok Autocomplete està sent bloquejat per un conflicte amb GitHub Copilot. Per solucionar això, has de desactivar els suggeriments en línia de Copilot.",
 			"disableCopilot": "Desactivar Copilot",
 			"disableInlineAssist": "Desactivar Autocomplete"
 		}
