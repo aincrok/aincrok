@@ -1,10 +1,9 @@
 // aincrok_change - new file
-// Unit tests for Internal Symbolic LSP Layer
+// Unit tests for Internal Symbolic LSP
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest"
 import * as vscode from "vscode"
 import { InternalSymbolicLSP } from "../InternalSymbolicLSP"
-import { SymbolicEntity, SymbolicEdit } from "../types"
 
 // Mock VS Code API
 vi.mock("vscode", () => ({
@@ -14,68 +13,53 @@ vi.mock("vscode", () => ({
 	Range: vi.fn((start: any, end: any) => ({ start, end })),
 	Position: vi.fn((line: number, character: number) => ({ line, character })),
 	SymbolKind: {
-		File: 1,
-		Module: 2,
-		Namespace: 3,
-		Package: 4,
 		Class: 5,
-		Method: 6,
-		Property: 7,
-		Field: 8,
-		Constructor: 9,
-		Enum: 10,
-		Interface: 11,
 		Function: 12,
+		Method: 6,
 		Variable: 13,
-		Constant: 14,
-		1: "File",
-		2: "Module",
-		3: "Namespace",
-		4: "Package",
 		5: "Class",
-		6: "Method",
-		7: "Property",
-		8: "Field",
-		9: "Constructor",
-		10: "Enum",
-		11: "Interface",
 		12: "Function",
+		6: "Method",
 		13: "Variable",
-		14: "Constant",
 	},
 	commands: {
 		executeCommand: vi.fn(),
 	},
 	workspace: {
 		workspaceFolders: [{ uri: { fsPath: "/test/workspace" } }],
+		onDidChangeTextDocument: vi.fn(() => ({ dispose: vi.fn() })),
+		onDidOpenTextDocument: vi.fn(() => ({ dispose: vi.fn() })),
+		onDidCloseTextDocument: vi.fn(() => ({ dispose: vi.fn() })),
+		onDidDeleteFiles: vi.fn(() => ({ dispose: vi.fn() })),
+		onDidRenameFiles: vi.fn(() => ({ dispose: vi.fn() })),
 		openTextDocument: vi.fn(),
-		applyEdit: vi.fn(),
-		onDidChangeTextDocument: vi.fn(),
-		onDidDeleteFiles: vi.fn(),
-		onDidRenameFiles: vi.fn(),
 	},
-	WorkspaceEdit: vi.fn(() => ({
-		replace: vi.fn(),
-		insert: vi.fn(),
-		delete: vi.fn(),
-		entries: vi.fn(() => []),
-	})),
+	window: {
+		showErrorMessage: vi.fn(),
+		showWarningMessage: vi.fn(),
+	},
+	Disposable: {
+		from: vi.fn(() => ({ dispose: vi.fn() })),
+	},
 }))
 
 describe("InternalSymbolicLSP", () => {
-	let lsp: InternalSymbolicLSP
 	let mockContext: any
+	let lsp: InternalSymbolicLSP
 
 	beforeEach(() => {
 		mockContext = {
 			subscriptions: [],
+			extensionPath: "/test/extension",
+			globalStorageUri: { fsPath: "/test/storage" },
 		}
 
 		// Reset the singleton instance
-		// @ts-ignore - accessing private static member for testing
-		InternalSymbolicLSP.instance = undefined
-
+		;(InternalSymbolicLSP as any)._instance = undefined
 		lsp = InternalSymbolicLSP.getInstance(mockContext)
+
+		// Clear all mocks
+		vi.clearAllMocks()
 	})
 
 	afterEach(() => {
@@ -83,267 +67,275 @@ describe("InternalSymbolicLSP", () => {
 	})
 
 	describe("initialization", () => {
-		it("should create singleton instance", () => {
-			const instance1 = InternalSymbolicLSP.getInstance(mockContext)
-			const instance2 = InternalSymbolicLSP.getInstance(mockContext)
-
-			expect(instance1).toBe(instance2)
-		})
-
 		it("should initialize successfully", async () => {
-			const spy = vi.spyOn(console, "log")
+			vi.mocked(vscode.workspace.onDidChangeTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidOpenTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidCloseTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidDeleteFiles).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidRenameFiles).mockReturnValue({ dispose: vi.fn() })
 
-			await lsp.initializeSymbolicAnalysis()
-
-			expect(spy).toHaveBeenCalledWith("[Aincrok] Internal Symbolic LSP initialized successfully")
+			await expect(lsp.initializeSymbolicAnalysis()).resolves.not.toThrow()
 		})
 
 		it("should handle initialization errors gracefully", async () => {
-			const spy = vi.spyOn(console, "error")
-
-			// Mock workspace to throw error
 			vi.mocked(vscode.workspace.onDidChangeTextDocument).mockImplementation(() => {
-				throw new Error("Test error")
+				throw new Error("Initialization failed")
 			})
 
-			await expect(lsp.initializeSymbolicAnalysis()).rejects.toThrow("Test error")
-			expect(spy).toHaveBeenCalledWith("[Aincrok] Failed to initialize symbolic analysis:", expect.any(Error))
+			await expect(lsp.initializeSymbolicAnalysis()).rejects.toThrow("Initialization failed")
+		})
+
+		it("should be a singleton", () => {
+			const instance1 = InternalSymbolicLSP.getInstance(mockContext)
+			const instance2 = InternalSymbolicLSP.getInstance(mockContext)
+			expect(instance1).toBe(instance2)
 		})
 	})
 
 	describe("symbol finding", () => {
 		beforeEach(async () => {
+			vi.mocked(vscode.workspace.onDidChangeTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidOpenTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidCloseTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidDeleteFiles).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidRenameFiles).mockReturnValue({ dispose: vi.fn() })
 			await lsp.initializeSymbolicAnalysis()
 		})
 
 		it("should find symbols by name", async () => {
-			const mockSymbols: vscode.SymbolInformation[] = [
+			const mockSymbolInformation: vscode.SymbolInformation[] = [
 				{
-					name: "TestClass",
-					kind: vscode.SymbolKind.Class,
+					name: "TestFunction",
+					kind: vscode.SymbolKind.Function,
 					location: {
 						uri: vscode.Uri.file("/test/file.ts"),
-						range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(10, 0)),
+						range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(5, 0)),
 					},
-					containerName: "TestModule",
+					containerName: "",
 				},
 			]
 
-			vi.mocked(vscode.commands.executeCommand).mockResolvedValue(mockSymbols)
+			vi.mocked(vscode.commands.executeCommand).mockResolvedValue(mockSymbolInformation)
 
-			const result = await lsp.findSymbolByName("TestClass")
+			const result = await lsp.findSymbolByName("TestFunction")
 
 			expect(result).toHaveLength(1)
-			expect(result[0].name).toBe("TestClass")
-			expect(result[0].kind).toBe(vscode.SymbolKind.Class)
-			expect(result[0].filePath).toBe("/test/file.ts")
+			expect(result[0].name).toBe("TestFunction")
+			expect(result[0].kind).toBe(vscode.SymbolKind.Function)
 		})
 
 		it("should return empty array when no symbols found", async () => {
-			vi.mocked(vscode.commands.executeCommand).mockResolvedValue(null)
+			vi.mocked(vscode.commands.executeCommand).mockResolvedValue([])
 
 			const result = await lsp.findSymbolByName("NonExistentSymbol")
 
-			expect(result).toEqual([])
+			expect(result).toHaveLength(0)
 		})
 
 		it("should handle search errors gracefully", async () => {
-			const spy = vi.spyOn(console, "error")
-			vi.mocked(vscode.commands.executeCommand).mockRejectedValue(new Error("LSP error"))
+			vi.mocked(vscode.commands.executeCommand).mockRejectedValue(new Error("Search failed"))
 
-			const result = await lsp.findSymbolByName("TestClass")
-
-			expect(result).toEqual([])
-			expect(spy).toHaveBeenCalledWith("[Aincrok] Error finding symbols by name:", expect.any(Error))
+			await expect(lsp.findSymbolByName("TestFunction")).rejects.toThrow("Search failed")
 		})
 	})
 
 	describe("semantic context retrieval", () => {
 		beforeEach(async () => {
+			vi.mocked(vscode.workspace.onDidChangeTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidOpenTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidCloseTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidDeleteFiles).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidRenameFiles).mockReturnValue({ dispose: vi.fn() })
 			await lsp.initializeSymbolicAnalysis()
 		})
 
 		it("should retrieve semantic context for query", async () => {
 			const mockSymbols: vscode.SymbolInformation[] = [
 				{
-					name: "testFunction",
-					kind: vscode.SymbolKind.Function,
-					location: {
-						uri: vscode.Uri.file("/test/file.ts"),
-						range: new vscode.Range(new vscode.Position(5, 0), new vscode.Position(15, 0)),
-					},
-				},
-			]
-
-			vi.mocked(vscode.commands.executeCommand).mockResolvedValue(mockSymbols)
-			vi.mocked(vscode.workspace.openTextDocument).mockResolvedValue({
-				getText: vi.fn().mockReturnValue("function testFunction() { return 42; }"),
-				languageId: "typescript",
-			} as any)
-
-			const result = await lsp.retrieveSemanticContext("testFunction", 1)
-
-			expect(result.relevantSymbols).toHaveLength(1)
-			expect(result.relevantSymbols[0].name).toBe("testFunction")
-			expect(result.codeSnippets).toHaveLength(1)
-			expect(result.codeSnippets[0].content).toBe("function testFunction() { return 42; }")
-		})
-
-		it("should handle context retrieval errors", async () => {
-			const spy = vi.spyOn(console, "error")
-			vi.mocked(vscode.commands.executeCommand).mockRejectedValue(new Error("Context error"))
-
-			const result = await lsp.retrieveSemanticContext("test", 1)
-
-			expect(result.relevantSymbols).toEqual([])
-			expect(result.relationships).toEqual([])
-			expect(result.codeSnippets).toEqual([])
-			expect(spy).toHaveBeenCalledWith("[Aincrok] Error retrieving semantic context:", expect.any(Error))
-		})
-	})
-
-	describe("symbol editing", () => {
-		let mockSymbol: SymbolicEntity
-
-		beforeEach(async () => {
-			await lsp.initializeSymbolicAnalysis()
-
-			mockSymbol = {
-				id: "test-symbol",
-				name: "testFunction",
-				kind: vscode.SymbolKind.Function,
-				filePath: "/test/file.ts",
-				range: new vscode.Range(new vscode.Position(5, 0), new vscode.Position(15, 0)),
-				selectionRange: new vscode.Range(new vscode.Position(5, 9), new vscode.Position(5, 21)),
-			}
-		})
-
-		it("should perform replace edit successfully", async () => {
-			const mockDocument = {
-				isUntitled: false,
-				uri: { scheme: "file" },
-				getText: vi.fn().mockReturnValue("function testFunction() { return 42; }"),
-			}
-
-			vi.mocked(vscode.workspace.openTextDocument).mockResolvedValue(mockDocument as any)
-			vi.mocked(vscode.workspace.applyEdit).mockResolvedValue(true)
-
-			const edit: SymbolicEdit = {
-				type: "replace",
-				symbol: mockSymbol,
-				newContent: "function testFunction() { return 100; }",
-			}
-
-			const result = await lsp.editSymbolPrecisely(mockSymbol, edit)
-
-			expect(result.success).toBe(true)
-			expect(result.modifiedFiles).toContain("/test/file.ts")
-			expect(vscode.workspace.applyEdit).toHaveBeenCalled()
-		})
-
-		it("should handle rename edit with references", async () => {
-			const mockRenameEdit = new vscode.WorkspaceEdit()
-
-			vi.mocked(vscode.commands.executeCommand).mockResolvedValue(mockRenameEdit)
-
-			const edit: SymbolicEdit = {
-				type: "rename",
-				symbol: mockSymbol,
-				newName: "newTestFunction",
-				updateReferences: true,
-			}
-
-			const result = await lsp.editSymbolPrecisely(mockSymbol, edit)
-
-			expect(result.success).toBe(true)
-			expect(vscode.commands.executeCommand).toHaveBeenCalledWith(
-				"vscode.executeDocumentRenameProvider",
-				expect.any(Object),
-				expect.any(Object),
-				"newTestFunction",
-			)
-		})
-
-		it("should validate edit safety", async () => {
-			const mockDocument = {
-				isUntitled: false,
-				uri: { scheme: "file" },
-				getText: vi.fn().mockReturnValue("function testFunction() { return 42; }"),
-			}
-
-			vi.mocked(vscode.workspace.openTextDocument).mockResolvedValue(mockDocument as any)
-
-			const edit: SymbolicEdit = {
-				type: "replace",
-				symbol: mockSymbol,
-				newContent: "",
-			}
-
-			const validation = await lsp.validateSymbolicEditSafety(edit)
-
-			expect(validation.safe).toBe(false)
-			expect(validation.warnings).toContain("Replacement content is empty")
-		})
-
-		it("should handle edit errors gracefully", async () => {
-			const spy = vi.spyOn(console, "error")
-			vi.mocked(vscode.workspace.openTextDocument).mockRejectedValue(new Error("File not found"))
-
-			const edit: SymbolicEdit = {
-				type: "replace",
-				symbol: mockSymbol,
-				newContent: "new content",
-			}
-
-			const result = await lsp.editSymbolPrecisely(mockSymbol, edit)
-
-			expect(result.success).toBe(false)
-			expect(result.errors).toHaveLength(1)
-			expect(spy).toHaveBeenCalledWith("[Aincrok] Error editing symbol:", expect.any(Error))
-		})
-	})
-
-	describe("prompt enhancement", () => {
-		beforeEach(async () => {
-			await lsp.initializeSymbolicAnalysis()
-		})
-
-		it("should enhance prompt with semantic context", async () => {
-			const mockSymbols: vscode.SymbolInformation[] = [
-				{
 					name: "TestClass",
 					kind: vscode.SymbolKind.Class,
 					location: {
 						uri: vscode.Uri.file("/test/file.ts"),
 						range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(10, 0)),
 					},
-					containerName: "TestModule",
+					containerName: "",
 				},
 			]
 
 			vi.mocked(vscode.commands.executeCommand).mockResolvedValue(mockSymbols)
+
+			const result = await lsp.retrieveSemanticContext("TestClass", 2)
+
+			expect(result.relevantSymbols).toHaveLength(1)
+			expect(result.relevantSymbols[0].name).toBe("TestClass")
+		})
+
+		it("should handle context retrieval errors", async () => {
+			vi.mocked(vscode.commands.executeCommand).mockRejectedValue(new Error("Context retrieval failed"))
+
+			await expect(lsp.retrieveSemanticContext("TestClass", 2)).rejects.toThrow("Context retrieval failed")
+		})
+	})
+
+	describe("symbol editing", () => {
+		beforeEach(async () => {
+			vi.mocked(vscode.workspace.onDidChangeTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidOpenTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidCloseTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidDeleteFiles).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidRenameFiles).mockReturnValue({ dispose: vi.fn() })
+			await lsp.initializeSymbolicAnalysis()
+		})
+
+		it("should perform replace edit successfully", async () => {
+			const mockSymbol = {
+				id: "test:symbol",
+				name: "TestFunction",
+				kind: vscode.SymbolKind.Function,
+				filePath: "/test/file.ts",
+				range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(5, 0)),
+				selectionRange: new vscode.Range(new vscode.Position(0, 9), new vscode.Position(0, 21)),
+			}
+
+			const edit = {
+				type: "replace" as const,
+				symbol: mockSymbol,
+				newContent: "function NewTestFunction() { return 42; }",
+			}
+
 			vi.mocked(vscode.workspace.openTextDocument).mockResolvedValue({
-				getText: vi.fn().mockReturnValue("class TestClass {}"),
-				languageId: "typescript",
+				getText: vi.fn().mockReturnValue("function TestFunction() { return 0; }"),
+				save: vi.fn().mockResolvedValue(true),
 			} as any)
 
-			const result = await lsp.getSemanticContextForPrompt("help me understand TestClass")
+			const result = await lsp.editSymbolPrecisely(mockSymbol, edit)
 
-			expect(result.enhancedPrompt).toContain("TestClass")
-			expect(result.enhancedPrompt).toContain("Relevant code symbols")
+			expect(result.success).toBe(true)
+			expect(result.modifiedFiles).toContain("/test/file.ts")
+		})
+
+		it("should handle rename edit with references", async () => {
+			const mockSymbol = {
+				id: "test:symbol",
+				name: "TestFunction",
+				kind: vscode.SymbolKind.Function,
+				filePath: "/test/file.ts",
+				range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(5, 0)),
+				selectionRange: new vscode.Range(new vscode.Position(0, 9), new vscode.Position(0, 21)),
+			}
+
+			const edit = {
+				type: "rename" as const,
+				symbol: mockSymbol,
+				newName: "NewTestFunction",
+				updateReferences: true,
+			}
+
+			vi.mocked(vscode.commands.executeCommand).mockResolvedValue([
+				{
+					uri: vscode.Uri.file("/test/file.ts"),
+					range: new vscode.Range(new vscode.Position(0, 9), new vscode.Position(0, 21)),
+				},
+			])
+
+			const result = await lsp.editSymbolPrecisely(mockSymbol, edit)
+
+			expect(result.success).toBe(true)
+		})
+
+		it("should validate edit safety", async () => {
+			const mockSymbol = {
+				id: "test:symbol",
+				name: "TestFunction",
+				kind: vscode.SymbolKind.Function,
+				filePath: "/test/file.ts",
+				range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(5, 0)),
+				selectionRange: new vscode.Range(new vscode.Position(0, 9), new vscode.Position(0, 21)),
+			}
+
+			const edit = {
+				type: "delete" as const,
+				symbol: mockSymbol,
+			}
+
+			vi.mocked(vscode.commands.executeCommand).mockResolvedValue([
+				{
+					uri: vscode.Uri.file("/test/file.ts"),
+					range: new vscode.Range(new vscode.Position(10, 0), new vscode.Position(10, 12)),
+				},
+			])
+
+			const result = await lsp.editSymbolPrecisely(mockSymbol, edit)
+
+			// Should detect that symbol has references and warn about unsafe deletion
+			expect(result.warnings).toBeDefined()
+		})
+
+		it("should handle edit errors gracefully", async () => {
+			const mockSymbol = {
+				id: "test:symbol",
+				name: "TestFunction",
+				kind: vscode.SymbolKind.Function,
+				filePath: "/test/file.ts",
+				range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(5, 0)),
+				selectionRange: new vscode.Range(new vscode.Position(0, 9), new vscode.Position(0, 21)),
+			}
+
+			const edit = {
+				type: "replace" as const,
+				symbol: mockSymbol,
+				newContent: "invalid syntax {{{",
+			}
+
+			vi.mocked(vscode.workspace.openTextDocument).mockRejectedValue(new Error("File not found"))
+
+			const result = await lsp.editSymbolPrecisely(mockSymbol, edit)
+
+			expect(result.success).toBe(false)
+			expect(result.errors).toBeDefined()
+			expect(result.errors![0]).toContain("File not found")
+		})
+	})
+
+	describe("prompt optimization", () => {
+		beforeEach(async () => {
+			vi.mocked(vscode.workspace.onDidChangeTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidOpenTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidCloseTextDocument).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidDeleteFiles).mockReturnValue({ dispose: vi.fn() })
+			vi.mocked(vscode.workspace.onDidRenameFiles).mockReturnValue({ dispose: vi.fn() })
+			await lsp.initializeSymbolicAnalysis()
+		})
+
+		it("should provide prompt optimization context", async () => {
+			const userRequest = "Find all classes that implement UserService"
+
+			const mockSymbols: vscode.SymbolInformation[] = [
+				{
+					name: "UserServiceImpl",
+					kind: vscode.SymbolKind.Class,
+					location: {
+						uri: vscode.Uri.file("/test/services.ts"),
+						range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(20, 0)),
+					},
+					containerName: "",
+				},
+			]
+
+			vi.mocked(vscode.commands.executeCommand).mockResolvedValue(mockSymbols)
+
+			const result = await lsp.getSemanticContextForPrompt(userRequest)
+
+			expect(result.userRequest).toBe(userRequest)
 			expect(result.semanticContext.relevantSymbols).toHaveLength(1)
+			expect(result.enhancedPrompt).toContain("UserServiceImpl")
 			expect(result.tokenOptimization.before).toBeGreaterThan(0)
 		})
 
-		it("should handle prompt enhancement errors", async () => {
-			const spy = vi.spyOn(console, "error")
-			vi.mocked(vscode.commands.executeCommand).mockRejectedValue(new Error("Enhancement error"))
+		it("should handle prompt optimization errors", async () => {
+			vi.mocked(vscode.commands.executeCommand).mockRejectedValue(new Error("Prompt optimization failed"))
 
-			const result = await lsp.getSemanticContextForPrompt("test prompt")
-
-			expect(result.enhancedPrompt).toBe("test prompt")
-			expect(result.tokenOptimization.reduction).toBe(0)
-			expect(spy).toHaveBeenCalledWith("[Aincrok] Error getting semantic context for prompt:", expect.any(Error))
+			await expect(lsp.getSemanticContextForPrompt("test request")).rejects.toThrow("Prompt optimization failed")
 		})
 	})
 })

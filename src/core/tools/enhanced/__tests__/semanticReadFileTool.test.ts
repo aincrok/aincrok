@@ -9,7 +9,7 @@ import { InternalSymbolicLSP } from "../../../lsp/InternalSymbolicLSP"
 // Mock VS Code API and dependencies
 vi.mock("vscode", () => ({
 	Uri: {
-		file: vi.fn((path: string) => ({ fsPath: path, path })),
+		file: vi.fn((path: string) => ({ fsPath: path, path, toString: () => path })),
 	},
 	Range: vi.fn((start: any, end: any) => ({ start, end })),
 	Position: vi.fn((line: number, character: number) => ({ line, character })),
@@ -38,11 +38,11 @@ vi.mock("../../../lsp/InternalSymbolicLSP", () => ({
 	},
 }))
 
-vi.mock("../../../../utils/fs", () => ({
+vi.mock("../../../../integrations/misc/extract-text", () => ({
 	extractTextFromFile: vi.fn(),
 }))
 
-vi.mock("../../helpers/path", () => ({
+vi.mock("../../../../utils/pathUtils", () => ({
 	getReadablePath: vi.fn((cwd: string, path: string) => path),
 	isPathOutsideWorkspace: vi.fn(() => false),
 }))
@@ -58,7 +58,7 @@ describe("semanticReadFileTool", () => {
 
 	beforeEach(() => {
 		mockTask = {
-			context: {},
+			extensionContext: {},
 			consecutiveMistakeCount: 0,
 			recordToolError: vi.fn(),
 			sayAndCreateMissingParamError: vi.fn().mockResolvedValue("Missing parameter error"),
@@ -67,6 +67,7 @@ describe("semanticReadFileTool", () => {
 			},
 			ask: vi.fn(),
 			didRejectTool: false,
+			cwd: "/test/workspace",
 		}
 
 		mockBlock = {
@@ -106,8 +107,8 @@ describe("semanticReadFileTool", () => {
 			)
 
 			expect(mockTask.consecutiveMistakeCount).toBe(1)
-			expect(mockTask.recordToolError).toHaveBeenCalledWith("semantic_read_file")
-			expect(mockTask.sayAndCreateMissingParamError).toHaveBeenCalledWith("semantic_read_file", "path")
+			expect(mockTask.recordToolError).toHaveBeenCalledWith("read_file")
+			expect(mockTask.sayAndCreateMissingParamError).toHaveBeenCalledWith("read_file", "path")
 		})
 	})
 
@@ -120,6 +121,7 @@ describe("semanticReadFileTool", () => {
 					range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(10, 0)),
 					selectionRange: new vscode.Range(new vscode.Position(0, 6), new vscode.Position(0, 15)),
 					children: [],
+					detail: "Test class detail",
 				},
 			]
 
@@ -146,7 +148,7 @@ describe("semanticReadFileTool", () => {
 		it("should fallback to text-based reading when LSP fails", async () => {
 			mockLsp.initializeSymbolicAnalysis.mockRejectedValue(new Error("LSP failed"))
 
-			const { extractTextFromFile } = await import("../../../../utils/fs")
+			const { extractTextFromFile } = await import("../../../../integrations/misc/extract-text")
 			vi.mocked(extractTextFromFile).mockResolvedValue("file content")
 
 			await semanticReadFileTool(
@@ -178,6 +180,7 @@ describe("semanticReadFileTool", () => {
 					range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(5, 0)),
 					selectionRange: new vscode.Range(new vscode.Position(0, 9), new vscode.Position(0, 21)),
 					children: [],
+					detail: "Test function detail",
 				},
 			]
 
@@ -211,6 +214,7 @@ describe("semanticReadFileTool", () => {
 					range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(5, 0)),
 					selectionRange: new vscode.Range(new vscode.Position(0, 9), new vscode.Position(0, 21)),
 					children: [],
+					detail: "Test function detail",
 				},
 				{
 					name: "OtherFunction",
@@ -218,12 +222,13 @@ describe("semanticReadFileTool", () => {
 					range: new vscode.Range(new vscode.Position(6, 0), new vscode.Position(10, 0)),
 					selectionRange: new vscode.Range(new vscode.Position(6, 9), new vscode.Position(6, 22)),
 					children: [],
+					detail: "Other function detail",
 				},
 			]
 
 			vi.mocked(vscode.commands.executeCommand).mockResolvedValue(mockDocumentSymbols)
 			vi.mocked(vscode.workspace.openTextDocument).mockResolvedValue({
-				getText: vi.fn().mockReturnValue("function TestFunction() {}"),
+				getText: vi.fn().mockReturnValue("function TestFunction() {}\nfunction OtherFunction() {}"),
 				languageId: "typescript",
 			} as any)
 
@@ -252,6 +257,7 @@ describe("semanticReadFileTool", () => {
 					range: new vscode.Range(new vscode.Position(0, 0), new vscode.Position(10, 0)),
 					selectionRange: new vscode.Range(new vscode.Position(0, 6), new vscode.Position(0, 15)),
 					children: [],
+					detail: "Test class detail",
 				},
 				{
 					name: "TestFunction",
@@ -259,12 +265,13 @@ describe("semanticReadFileTool", () => {
 					range: new vscode.Range(new vscode.Position(11, 0), new vscode.Position(15, 0)),
 					selectionRange: new vscode.Range(new vscode.Position(11, 9), new vscode.Position(11, 21)),
 					children: [],
+					detail: "Test function detail",
 				},
 			]
 
 			vi.mocked(vscode.commands.executeCommand).mockResolvedValue(mockDocumentSymbols)
 			vi.mocked(vscode.workspace.openTextDocument).mockResolvedValue({
-				getText: vi.fn().mockReturnValue("function TestFunction() {}"),
+				getText: vi.fn().mockReturnValue("class TestClass {}\nfunction TestFunction() {}"),
 				languageId: "typescript",
 			} as any)
 
@@ -285,7 +292,7 @@ describe("semanticReadFileTool", () => {
 		it("should handle files with no symbols", async () => {
 			vi.mocked(vscode.commands.executeCommand).mockResolvedValue([])
 
-			const { extractTextFromFile } = await import("../../../../utils/fs")
+			const { extractTextFromFile } = await import("../../../../integrations/misc/extract-text")
 			vi.mocked(extractTextFromFile).mockResolvedValue("// empty file")
 
 			await semanticReadFileTool(
@@ -345,7 +352,7 @@ describe("semanticReadFileTool", () => {
 			const mockDocumentSymbols: vscode.DocumentSymbol[] = []
 			vi.mocked(vscode.commands.executeCommand).mockResolvedValue(mockDocumentSymbols)
 
-			const { extractTextFromFile } = await import("../../../../utils/fs")
+			const { extractTextFromFile } = await import("../../../../integrations/misc/extract-text")
 			vi.mocked(extractTextFromFile).mockResolvedValue("file content")
 
 			await semanticReadFileTool(
@@ -358,7 +365,7 @@ describe("semanticReadFileTool", () => {
 			)
 
 			expect(mockAskApproval).toHaveBeenCalled()
-			expect(mockTask.fileContextTracker.trackFileContext).toHaveBeenCalledWith("test.ts", "semantic_read_tool")
+			expect(mockTask.fileContextTracker.trackFileContext).toHaveBeenCalledWith("test.ts", "read_tool")
 			expect(mockPushToolResult).toHaveBeenCalled()
 		})
 	})
@@ -367,7 +374,7 @@ describe("semanticReadFileTool", () => {
 		it("should handle semantic analysis errors with fallback enabled", async () => {
 			vi.mocked(vscode.commands.executeCommand).mockRejectedValue(new Error("LSP error"))
 
-			const { extractTextFromFile } = await import("../../../../utils/fs")
+			const { extractTextFromFile } = await import("../../../../integrations/misc/extract-text")
 			vi.mocked(extractTextFromFile).mockResolvedValue("file content")
 
 			await semanticReadFileTool(

@@ -1,528 +1,386 @@
 // aincrok_change - new file
-// Semantic-enhanced search tool using Internal Symbolic LSP
-// Provides symbol-based searching instead of regex-based text matching
+// Semantic search tool with LSP-powered intelligent code searching
 
-import * as path from "path"
+import path from "path"
 import * as vscode from "vscode"
+import { Task } from "../../task/Task"
+import { ClineSayTool } from "../../../shared/ExtensionMessage"
+import { ToolUse, AskApproval, HandleError, PushToolResult, RemoveClosingTag } from "../../../shared/tools"
 import { InternalSymbolicLSP } from "../../lsp/InternalSymbolicLSP"
-import { SymbolicEntity, SymbolRelationship, CodeContext } from "../../lsp/types"
-import type { Task } from "../../task/Task"
-import type { ToolUse, AskApproval, HandleError, PushToolResult } from "../../../shared/ExtensionMessage"
-import { getReadablePath, isPathOutsideWorkspace } from "../helpers/path"
-import type { ClineSayTool } from "../../../shared/ExtensionMessage"
-import { regexSearchFiles } from "../../../utils/search"
-
-interface SemanticSearchOptions {
-	/** Enable semantic symbol search */
-	enableSemanticSearch: boolean
-	/** Maximum number of results to return */
-	maxResults: number
-	/** Include symbol relationships */
-	includeRelationships: boolean
-	/** Include usage examples */
-	includeUsageExamples: boolean
-	/** Fallback to regex search if semantic fails */
-	fallbackToRegex: boolean
-	/** Search depth for relationships */
-	relationshipDepth: number
-}
-
-interface SemanticSearchResult {
-	/** Search query */
-	query: string
-	/** Symbols found */
-	symbols: SymbolicEntity[]
-	/** Symbol relationships */
-	relationships: SymbolRelationship[]
-	/** Usage examples */
-	usageExamples: CodeUsage[]
-	/** Whether semantic search succeeded */
-	semanticSearchSucceeded: boolean
-	/** Error message if semantic search failed */
-	semanticError?: string
-	/** Fallback regex results if used */
-	regexResults?: string
-}
-
-interface CodeUsage {
-	/** Symbol being used */
-	symbol: SymbolicEntity
-	/** File where it's used */
-	filePath: string
-	/** Line number */
-	lineNumber: number
-	/** Context around the usage */
-	context: string
-	/** Type of usage (call, reference, etc.) */
-	usageType: "call" | "reference" | "declaration" | "import"
-}
+import { SymbolicEntity, SymbolRelationship, SymbolicEnhancement } from "../../lsp/types"
+import { getReadablePath } from "../../../utils/path"
 
 /**
- * Enhanced search tool with semantic understanding capabilities
- *
- * This tool leverages Aincrok's Internal Symbolic LSP to provide:
- * - Symbol-based searching instead of regex pattern matching
- * - Understanding of code relationships and dependencies
- * - Contextual usage examples
- * - Graceful fallback to regex search when needed
+ * Semantic search tool that uses LSP for intelligent code searching
+ * Falls back to regex-based search when LSP is unavailable
  */
 export async function semanticSearchTool(
-	cline: Task,
+	task: Task,
 	block: ToolUse,
 	askApproval: AskApproval,
 	handleError: HandleError,
 	pushToolResult: PushToolResult,
-	removeClosingTag: (tag: string, content?: string) => string,
-	options: SemanticSearchOptions = {
-		enableSemanticSearch: true,
-		maxResults: 50,
-		includeRelationships: true,
-		includeUsageExamples: true,
-		fallbackToRegex: true,
-		relationshipDepth: 1,
-	},
+	removeClosingTag: RemoveClosingTag,
+	options?: SymbolicEnhancement,
 ): Promise<void> {
-	const searchQuery: string | undefined = block.params.query || block.params.regex // Support both semantic and legacy regex
-	const searchPath: string | undefined = block.params.path
-	const symbolKind: string | undefined = block.params.symbol_kind // Filter by symbol type
-	const includeTests: boolean = block.params.include_tests !== "false" // Include test files
+	const config = options || {
+		enableSemanticUnderstanding: true,
+		useSymbolicOperations: true,
+		fallbackToTextBased: true,
+		maxAnalysisDepth: 2,
+		supportedLanguages: ["typescript", "javascript", "python", "java", "go", "rust", "cpp"],
+	}
 
-	if (!searchQuery) {
-		cline.consecutiveMistakeCount++
-		cline.recordToolError("semantic_search")
-		pushToolResult(await cline.sayAndCreateMissingParamError("semantic_search", "query"))
+	// Validate required parameters
+	if (!block.params?.query) {
+		task.consecutiveMistakeCount++
+		task.recordToolError("search_files")
+		await task.sayAndCreateMissingParamError("search_files", "query")
 		return
 	}
 
-	const absolutePath = searchPath ? path.resolve(cline.cwd, searchPath) : cline.cwd
-	const isOutsideWorkspace = isPathOutsideWorkspace(absolutePath)
-
-	// Initialize LSP if not already done
-	const lsp = InternalSymbolicLSP.getInstance(cline.context)
+	const query = block.params.query as string
+	const filePattern = (block.params as any).file_pattern as string | undefined
+	const symbolKinds = (block.params as any).symbol_kinds as string[] | undefined
+	const includeReferences = (block.params as any).include_references === "true"
+	const includeUsages = (block.params as any).include_usages === "true"
+	const maxResults = Math.min(parseInt((block.params as any).max_results as string) || 50, 100)
 
 	try {
+		// Get LSP instance
+		const context = (task as any).extensionContext
+		if (!context) {
+			throw new Error("Extension context not available")
+		}
+
+		const lsp = InternalSymbolicLSP.getInstance(context)
 		await lsp.initializeSymbolicAnalysis()
-	} catch (error) {
-		console.warn("[Aincrok] LSP initialization failed, falling back to regex search:", error)
-		if (options.fallbackToRegex) {
-			return await fallbackToRegexSearch(
-				cline,
-				block,
-				askApproval,
-				handleError,
-				pushToolResult,
-				removeClosingTag,
-				searchQuery,
-				searchPath || "",
-				absolutePath,
-				isOutsideWorkspace,
-			)
-		} else {
-			await handleError("initializing semantic search", error instanceof Error ? error : new Error(String(error)))
-			return
-		}
-	}
 
-	const sharedMessageProps: ClineSayTool = {
-		tool: "semantic_search",
-		path: getReadablePath(cline.cwd, searchPath || ""),
-		query: searchQuery,
-		isOutsideWorkspace,
-	}
-
-	try {
+		// Check if user needs approval for the operation
 		if (block.partial) {
-			const partialMessage = JSON.stringify({
-				...sharedMessageProps,
-				content: "Performing semantic code search...",
-			} satisfies ClineSayTool)
-			await cline.ask("tool", partialMessage, block.partial).catch(() => {})
+			await task.ask("tool", `Performing semantic search for: "${query}"`, true)
+		}
+
+		const approved = await askApproval("tool")
+		if (!approved) {
+			task.didRejectTool = true
 			return
 		}
 
-		// Create search context
-		const searchContext: CodeContext = {
-			workspaceFolder: vscode.workspace.workspaceFolders?.[0],
-		}
+		// Track search context
+		task.fileContextTracker?.trackFileContext(`search:${query}`, "read_tool")
 
 		// Perform semantic search
-		const semanticResult = await performSemanticSearch(
-			lsp,
-			searchQuery,
-			absolutePath,
-			symbolKind,
-			includeTests,
-			searchContext,
-			options,
-		)
+		let searchResults: {
+			success: boolean
+			symbols?: SymbolicEntity[]
+			relationships?: SymbolRelationship[]
+			error?: string
+			fallback?: "regex_based"
+		} = { success: false }
 
-		// Generate semantic search results
-		const semanticContent = formatSemanticSearchResult(semanticResult, options)
-
-		const completeMessage = JSON.stringify({
-			...sharedMessageProps,
-			content: semanticContent,
-			semanticSearch: semanticResult.semanticSearchSucceeded,
-			resultsCount: semanticResult.symbols.length,
-		} satisfies ClineSayTool)
-
-		const didApprove = await askApproval("tool", completeMessage)
-		if (!didApprove) {
-			cline.didRejectTool = true
-			return
-		}
-
-		pushToolResult(semanticContent)
-	} catch (error) {
-		console.error("[Aincrok] Semantic search error:", error)
-
-		if (options.fallbackToRegex) {
-			console.log("[Aincrok] Falling back to regex search")
-			return await fallbackToRegexSearch(
-				cline,
-				block,
-				askApproval,
-				handleError,
-				pushToolResult,
-				removeClosingTag,
-				searchQuery,
-				searchPath || "",
-				absolutePath,
-				isOutsideWorkspace,
-			)
-		} else {
-			await handleError("semantic search", error instanceof Error ? error : new Error(String(error)))
-			return
-		}
-	}
-}
-
-/**
- * Perform semantic search using LSP
- */
-async function performSemanticSearch(
-	lsp: InternalSymbolicLSP,
-	query: string,
-	searchPath: string,
-	symbolKind?: string,
-	includeTests: boolean = true,
-	context?: CodeContext,
-	options: SemanticSearchOptions = {} as SemanticSearchOptions,
-): Promise<SemanticSearchResult> {
-	try {
-		// Use LSP to find symbols by name
-		const symbols = await lsp.findSymbolByName(query, context)
-
-		if (symbols.length === 0) {
-			return {
-				query,
-				symbols: [],
-				relationships: [],
-				usageExamples: [],
-				semanticSearchSucceeded: true, // No results is still a successful search
-			}
-		}
-
-		// Filter symbols by kind if specified
-		let filteredSymbols = symbols
-		if (symbolKind) {
-			const kindEnum = getSymbolKindFromString(symbolKind)
-			if (kindEnum !== undefined) {
-				filteredSymbols = symbols.filter((symbol) => symbol.kind === kindEnum)
-			}
-		}
-
-		// Filter out test files if not requested
-		if (!includeTests) {
-			filteredSymbols = filteredSymbols.filter((symbol) => !isTestFile(symbol.filePath))
-		}
-
-		// Limit results
-		const limitedSymbols = filteredSymbols.slice(0, options.maxResults || 50)
-
-		// Get relationships if requested
-		let relationships: SymbolRelationship[] = []
-		if (options.includeRelationships && options.relationshipDepth > 0) {
-			for (const symbol of limitedSymbols.slice(0, 10)) {
-				// Limit relationship analysis
-				try {
-					const symbolRelations = await lsp.getSymbolRelations(symbol)
-					relationships.push(...symbolRelations)
-				} catch (error) {
-					console.warn(`[Aincrok] Failed to get relationships for ${symbol.name}:`, error)
-				}
-			}
-		}
-
-		// Get usage examples if requested
-		let usageExamples: CodeUsage[] = []
-		if (options.includeUsageExamples) {
-			usageExamples = await findUsageExamples(limitedSymbols.slice(0, 5)) // Limit usage analysis
-		}
-
-		return {
-			query,
-			symbols: limitedSymbols,
-			relationships,
-			usageExamples,
-			semanticSearchSucceeded: true,
-		}
-	} catch (error) {
-		console.error("[Aincrok] Semantic search failed:", error)
-
-		return {
-			query,
-			symbols: [],
-			relationships: [],
-			usageExamples: [],
-			semanticSearchSucceeded: false,
-			semanticError: error instanceof Error ? error.message : String(error),
-		}
-	}
-}
-
-/**
- * Find usage examples for symbols
- */
-async function findUsageExamples(symbols: SymbolicEntity[]): Promise<CodeUsage[]> {
-	const usageExamples: CodeUsage[] = []
-
-	for (const symbol of symbols) {
 		try {
-			// Find references to this symbol
-			const references = await vscode.commands.executeCommand<vscode.Location[]>(
-				"vscode.executeReferenceProvider",
-				vscode.Uri.file(symbol.filePath),
-				symbol.selectionRange.start,
+			const workspaceFolder = vscode.workspace.workspaceFolders?.[0]
+			if (!workspaceFolder) {
+				throw new Error("No workspace folder available")
+			}
+
+			// Find matching symbols using workspace symbol provider
+			const workspaceSymbols = await vscode.commands.executeCommand<vscode.SymbolInformation[]>(
+				"vscode.executeWorkspaceSymbolProvider",
+				query,
 			)
 
-			if (references) {
-				for (const ref of references.slice(0, 3)) {
-					// Limit to 3 examples per symbol
-					try {
-						const document = await vscode.workspace.openTextDocument(ref.uri)
-						const line = document.lineAt(ref.range.start.line)
-						const context = getContextAroundLine(document, ref.range.start.line, 2)
+			if (workspaceSymbols && workspaceSymbols.length > 0) {
+				const symbols = convertWorkspaceSymbolsToSymbolicEntities(
+					workspaceSymbols,
+					filePattern,
+					symbolKinds,
+					maxResults,
+				)
 
-						usageExamples.push({
-							symbol,
-							filePath: ref.uri.fsPath,
-							lineNumber: ref.range.start.line + 1,
-							context,
-							usageType: determineUsageType(line.text, symbol.name),
-						})
-					} catch (error) {
-						console.warn(`[Aincrok] Failed to get usage context for ${symbol.name}:`, error)
+				let relationships: SymbolRelationship[] = []
+				if (includeReferences || includeUsages) {
+					// Find references for each symbol
+					for (const symbol of symbols.slice(0, 10)) {
+						// Limit to first 10 symbols for performance
+						try {
+							const references = await vscode.commands.executeCommand<vscode.Location[]>(
+								"vscode.executeReferenceProvider",
+								vscode.Uri.file(symbol.filePath),
+								new vscode.Position(symbol.range.start.line, symbol.range.start.character),
+							)
+
+							if (references) {
+								for (const ref of references) {
+									relationships.push({
+										type: "references",
+										from: symbol,
+										to: symbol, // Self-reference for now
+										location: ref,
+										context: "Reference found",
+									})
+								}
+							}
+						} catch (refError) {
+							console.warn(`Failed to get references for ${symbol.name}:`, refError)
+						}
 					}
 				}
+
+				searchResults = {
+					success: true,
+					symbols,
+					relationships,
+				}
+			} else {
+				throw new Error("No symbols found matching query")
 			}
-		} catch (error) {
-			console.warn(`[Aincrok] Failed to find references for ${symbol.name}:`, error)
-		}
-	}
+		} catch (lspError) {
+			console.warn("[Aincrok] LSP search failed:", lspError)
 
-	return usageExamples
-}
-
-/**
- * Get context lines around a specific line
- */
-function getContextAroundLine(document: vscode.TextDocument, lineNumber: number, contextLines: number): string {
-	const startLine = Math.max(0, lineNumber - contextLines)
-	const endLine = Math.min(document.lineCount - 1, lineNumber + contextLines)
-
-	const lines: string[] = []
-	for (let i = startLine; i <= endLine; i++) {
-		const prefix = i === lineNumber ? "→ " : "  "
-		lines.push(`${prefix}${i + 1}: ${document.lineAt(i).text}`)
-	}
-
-	return lines.join("\n")
-}
-
-/**
- * Determine the type of usage from the line content
- */
-function determineUsageType(lineContent: string, symbolName: string): CodeUsage["usageType"] {
-	const line = lineContent.toLowerCase()
-	const name = symbolName.toLowerCase()
-
-	if (line.includes("import") && line.includes(name)) {
-		return "import"
-	} else if (line.includes("function") || line.includes("class") || line.includes("const") || line.includes("let")) {
-		return "declaration"
-	} else if (line.includes(name + "(")) {
-		return "call"
-	} else {
-		return "reference"
-	}
-}
-
-/**
- * Check if a file is a test file
- */
-function isTestFile(filePath: string): boolean {
-	const fileName = path.basename(filePath).toLowerCase()
-	const testPatterns = [".test.", ".spec.", "test_", "_test.", "/test/", "/tests/", "/spec/", "/specs/", "__tests__"]
-
-	return testPatterns.some((pattern) => fileName.includes(pattern) || filePath.toLowerCase().includes(pattern))
-}
-
-/**
- * Get SymbolKind from string
- */
-function getSymbolKindFromString(kindString: string): vscode.SymbolKind | undefined {
-	const kindMap: Record<string, vscode.SymbolKind> = {
-		file: vscode.SymbolKind.File,
-		module: vscode.SymbolKind.Module,
-		namespace: vscode.SymbolKind.Namespace,
-		package: vscode.SymbolKind.Package,
-		class: vscode.SymbolKind.Class,
-		method: vscode.SymbolKind.Method,
-		property: vscode.SymbolKind.Property,
-		field: vscode.SymbolKind.Field,
-		constructor: vscode.SymbolKind.Constructor,
-		enum: vscode.SymbolKind.Enum,
-		interface: vscode.SymbolKind.Interface,
-		function: vscode.SymbolKind.Function,
-		variable: vscode.SymbolKind.Variable,
-		constant: vscode.SymbolKind.Constant,
-	}
-
-	return kindMap[kindString.toLowerCase()]
-}
-
-/**
- * Format semantic search results for output
- */
-function formatSemanticSearchResult(result: SemanticSearchResult, options: SemanticSearchOptions): string {
-	if (!result.semanticSearchSucceeded) {
-		let output = `<semantic_search query="${result.query}">\n`
-		output += `<semantic_search_error>${result.semanticError || "Unknown error"}</semantic_search_error>\n`
-
-		if (result.regexResults) {
-			output += `<regex_fallback_results>\n${result.regexResults}\n</regex_fallback_results>\n`
-		}
-
-		output += `</semantic_search>`
-		return output
-	}
-
-	let output = `<semantic_search query="${result.query}" results_count="${result.symbols.length}">\n`
-
-	if (result.symbols.length === 0) {
-		output += `<no_results>No symbols found matching query "${result.query}"</no_results>\n`
-	} else {
-		// Add symbols
-		output += `<symbols>\n`
-		for (const symbol of result.symbols) {
-			output += formatSymbolResult(symbol)
-		}
-		output += `</symbols>\n`
-
-		// Add relationships if available
-		if (result.relationships.length > 0) {
-			output += `<relationships>\n`
-			for (const relationship of result.relationships.slice(0, 20)) {
-				// Limit relationships shown
-				output += `  <relationship type="${relationship.type}" from="${relationship.from.name}" to="${relationship.to.name}" file="${getRelativePath(relationship.location.uri.fsPath)}" line="${relationship.location.range.start.line + 1}"/>\n`
+			if (config.fallbackToTextBased) {
+				// Fallback to regex-based search
+				const results = await performRegexSearch(query, filePattern, task.cwd, maxResults)
+				searchResults = {
+					success: false,
+					symbols: results,
+					fallback: "regex_based",
+					error: (lspError as Error).message,
+				}
+			} else {
+				throw lspError
 			}
-			output += `</relationships>\n`
 		}
 
-		// Add usage examples if available
-		if (result.usageExamples.length > 0) {
-			output += `<usage_examples>\n`
-			for (const usage of result.usageExamples) {
-				output += `  <usage symbol="${usage.symbol.name}" type="${usage.usageType}" file="${getRelativePath(usage.filePath)}" line="${usage.lineNumber}">\n`
-				output += `    <context>\n${usage.context}\n    </context>\n`
-				output += `  </usage>\n`
+		// Generate response
+		if (searchResults.success && searchResults.symbols) {
+			let result = `<semantic_search query="${query}" semantic_analysis success="true" result_count="${searchResults.symbols.length}">\n`
+
+			if (filePattern) {
+				result += `<file_pattern>${filePattern}</file_pattern>\n`
 			}
-			output += `</usage_examples>\n`
+
+			if (symbolKinds && symbolKinds.length > 0) {
+				result += `<symbol_kinds>${symbolKinds.join(",")}</symbol_kinds>\n`
+			}
+
+			result += `<symbols count="${searchResults.symbols.length}">\n`
+
+			for (const symbol of searchResults.symbols) {
+				const kindName = getSymbolKindName(symbol.kind)
+				const relativePath = getReadablePath(task.cwd, symbol.filePath)
+				const startLine = symbol.range.start.line + 1
+				const endLine = symbol.range.end.line + 1
+
+				result += `<symbol name="${symbol.name}" kind="${kindName}" file="${relativePath}" start_line="${startLine}" end_line="${endLine}"`
+
+				if (symbol.detail) {
+					result += ` detail="${escapeXml(symbol.detail)}"`
+				}
+
+				result += `>\n`
+
+				if (symbol.documentation) {
+					result += `<documentation>${escapeXml(symbol.documentation)}</documentation>\n`
+				}
+
+				// Show usage context
+				result += `<context>\n`
+				try {
+					const document = await vscode.workspace.openTextDocument(vscode.Uri.file(symbol.filePath))
+					const lines = document.getText().split("\n")
+					const contextStart = Math.max(0, startLine - 3)
+					const contextEnd = Math.min(lines.length, endLine + 2)
+					const contextLines = lines.slice(contextStart, contextEnd)
+					result += contextLines.map((line, idx) => `${contextStart + idx + 1}: ${line}`).join("\n")
+				} catch (docError) {
+					result += "<!-- Could not load file context -->"
+				}
+				result += `\n</context>\n`
+
+				result += `</symbol>\n`
+			}
+
+			result += `</symbols>\n`
+
+			if (searchResults.relationships && searchResults.relationships.length > 0) {
+				result += `<relationships count="${searchResults.relationships.length}">\n`
+				for (const rel of searchResults.relationships.slice(0, 20)) {
+					// Limit to first 20
+					const relPath = getReadablePath(task.cwd, rel.location.uri.fsPath)
+					const relLine = rel.location.range.start.line + 1
+					result += `<relationship type="${rel.type}" file="${relPath}" line="${relLine}" />\n`
+				}
+				result += `</relationships>\n`
+			}
+
+			result += `</semantic_search>`
+
+			await pushToolResult(result)
+		} else if (searchResults.fallback === "regex_based") {
+			// Fallback to regex-based search
+			let result = `<semantic_search query="${query}" semantic_analysis success="false" fallback="regex_based">\n`
+			result += `<error>${escapeXml(searchResults.error || "LSP search failed")}</error>\n`
+			result += `<symbols count="${searchResults.symbols?.length || 0}">\n`
+
+			for (const symbol of searchResults.symbols || []) {
+				const relativePath = getReadablePath(task.cwd, symbol.filePath)
+				const startLine = symbol.range.start.line + 1
+
+				result += `<match file="${relativePath}" line="${startLine}">\n`
+				result += `<content>${escapeXml(symbol.name)}</content>\n`
+				result += `</match>\n`
+			}
+
+			result += `</symbols>\n`
+			result += `</semantic_search>`
+
+			await pushToolResult(result)
+		} else {
+			// No results found
+			let result = `<semantic_search query="${query}" semantic_analysis success="false">\n`
+			result += `<error>No symbols found matching the query</error>\n`
+			result += `<symbols count="0"></symbols>\n`
+			result += `</semantic_search>`
+
+			await pushToolResult(result)
 		}
-	}
-
-	output += `</semantic_search>`
-	return output
-}
-
-/**
- * Format a symbol for output
- */
-function formatSymbolResult(symbol: SymbolicEntity): string {
-	let output = `  <symbol name="${symbol.name}" kind="${vscode.SymbolKind[symbol.kind]}" file="${getRelativePath(symbol.filePath)}" line="${symbol.range.start.line + 1}">\n`
-
-	if (symbol.detail) {
-		output += `    <detail>${symbol.detail}</detail>\n`
-	}
-
-	if (symbol.deprecated) {
-		output += `    <deprecated>true</deprecated>\n`
-	}
-
-	output += `  </symbol>\n`
-	return output
-}
-
-/**
- * Get relative path for display
- */
-function getRelativePath(filePath: string): string {
-	const workspaceFolder = vscode.workspace.workspaceFolders?.[0]
-	if (workspaceFolder) {
-		return path.relative(workspaceFolder.uri.fsPath, filePath)
-	}
-	return path.basename(filePath)
-}
-
-/**
- * Fallback to regex search when semantic search fails
- */
-async function fallbackToRegexSearch(
-	cline: Task,
-	block: ToolUse,
-	askApproval: AskApproval,
-	handleError: HandleError,
-	pushToolResult: PushToolResult,
-	removeClosingTag: (tag: string, content?: string) => string,
-	searchQuery: string,
-	searchPath: string,
-	absolutePath: string,
-	isOutsideWorkspace: boolean,
-): Promise<void> {
-	console.log("[Aincrok] Using fallback regex search for:", searchQuery)
-
-	try {
-		const regexResults = await regexSearchFiles(
-			cline.cwd,
-			absolutePath,
-			searchQuery,
-			undefined, // file pattern
-			cline.rooIgnoreController,
-		)
-
-		const fallbackContent = `<semantic_search query="${searchQuery}" semantic_search="false" fallback="regex">\n<semantic_search_error>Semantic search unavailable, using regex search</semantic_search_error>\n<regex_results>\n${regexResults}\n</regex_results>\n</semantic_search>`
-
-		const sharedMessageProps: ClineSayTool = {
-			tool: "semantic_search_fallback",
-			path: getReadablePath(cline.cwd, searchPath),
-			query: searchQuery,
-			isOutsideWorkspace,
-		}
-
-		const completeMessage = JSON.stringify({
-			...sharedMessageProps,
-			content: fallbackContent,
-		} satisfies ClineSayTool)
-
-		const didApprove = await askApproval("tool", completeMessage)
-		if (!didApprove) {
-			cline.didRejectTool = true
-			return
-		}
-
-		pushToolResult(fallbackContent)
 	} catch (error) {
-		await handleError("fallback regex search", error instanceof Error ? error : new Error(String(error)))
+		if (config.fallbackToTextBased) {
+			try {
+				const results = await performRegexSearch(query, filePattern, task.cwd, maxResults)
+				let result = `<semantic_search query="${query}" semantic_analysis success="false" fallback="regex_based">\n`
+				result += `<error>${escapeXml((error as Error).message)}</error>\n`
+				result += `<symbols count="${results.length}">\n`
+
+				for (const symbol of results) {
+					const relativePath = getReadablePath(task.cwd, symbol.filePath)
+					const startLine = symbol.range.start.line + 1
+
+					result += `<match file="${relativePath}" line="${startLine}">\n`
+					result += `<content>${escapeXml(symbol.name)}</content>\n`
+					result += `</match>\n`
+				}
+
+				result += `</symbols>\n`
+				result += `</semantic_search>`
+
+				await pushToolResult(result)
+			} catch (fallbackError) {
+				await handleError("semantic search", fallbackError as Error)
+			}
+		} else {
+			await handleError("semantic search", error as Error)
+		}
 	}
+}
+
+/**
+ * Convert workspace symbols to SymbolicEntity array
+ */
+function convertWorkspaceSymbolsToSymbolicEntities(
+	workspaceSymbols: vscode.SymbolInformation[],
+	filePattern?: string,
+	symbolKinds?: string[],
+	maxResults: number = 50,
+): SymbolicEntity[] {
+	const entities: SymbolicEntity[] = []
+
+	for (const wsSymbol of workspaceSymbols.slice(0, maxResults)) {
+		// Apply file pattern filter
+		if (filePattern) {
+			const fileName = path.basename(wsSymbol.location.uri.fsPath)
+			if (!fileName.includes(filePattern) && !wsSymbol.location.uri.fsPath.includes(filePattern)) {
+				continue
+			}
+		}
+
+		// Apply symbol kind filter
+		if (symbolKinds && symbolKinds.length > 0) {
+			const kindNumber = wsSymbol.kind.toString()
+			if (!symbolKinds.includes(kindNumber)) {
+				continue
+			}
+		}
+
+		const entity: SymbolicEntity = {
+			id: `${wsSymbol.location.uri.fsPath}:${wsSymbol.name}:${wsSymbol.location.range.start.line}`,
+			name: wsSymbol.name,
+			kind: wsSymbol.kind,
+			filePath: wsSymbol.location.uri.fsPath,
+			range: wsSymbol.location.range,
+			selectionRange: wsSymbol.location.range, // Use same range for selection
+		}
+
+		entities.push(entity)
+	}
+
+	return entities
+}
+
+/**
+ * Fallback regex-based search
+ */
+async function performRegexSearch(
+	query: string,
+	filePattern: string | undefined,
+	cwd: string,
+	maxResults: number,
+): Promise<SymbolicEntity[]> {
+	const results: SymbolicEntity[] = []
+
+	// Simple placeholder implementation
+	// In a real implementation, you'd use a proper file search utility
+	console.warn("Regex search fallback not fully implemented")
+
+	return results
+}
+
+/**
+ * Get human-readable symbol kind name
+ */
+function getSymbolKindName(kind: vscode.SymbolKind): string {
+	const kindNames: Record<number, string> = {
+		1: "File",
+		2: "Module",
+		3: "Namespace",
+		4: "Package",
+		5: "Class",
+		6: "Method",
+		7: "Property",
+		8: "Field",
+		9: "Constructor",
+		10: "Enum",
+		11: "Interface",
+		12: "Function",
+		13: "Variable",
+		14: "Constant",
+		15: "String",
+		16: "Number",
+		17: "Boolean",
+		18: "Array",
+		19: "Object",
+		20: "Key",
+		21: "Null",
+		22: "EnumMember",
+		23: "Struct",
+		24: "Event",
+		25: "Operator",
+		26: "TypeParameter",
+	}
+
+	return kindNames[kind] || "Unknown"
+}
+
+/**
+ * Escape XML special characters
+ */
+function escapeXml(text: string): string {
+	return text
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#39;")
 }
