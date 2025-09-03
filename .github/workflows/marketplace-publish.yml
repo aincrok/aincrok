@@ -93,10 +93,10 @@ jobs:
                   fi
                   echo "✅ All required files found."
                   echo "✅ Running VSCE validation..."
-                  mkdir -p ../bin
+                  mkdir -p bin
                   cd src && npx @vscode/vsce package --no-dependencies --out ../bin/validation-test.vsix
                   echo "✅ VSCE validation passed!"
-                  rm -f ../bin/validation-test.vsix
+                  rm -f bin/validation-test.vsix
             - name: Package Extension
               run: |
                   current_package_version=$(node -p "require('./src/package.json').version")
