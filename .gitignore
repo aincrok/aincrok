@@ -8,6 +8,8 @@ coverage/
 mock/
 .DS_Store
 *.orig
+rooadmap.xml
+detailed_implementation_plan.xml
 
 # Builds
 bin/
