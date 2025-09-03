@@ -7,6 +7,8 @@
   [![Downloads](https://img.shields.io/visual-studio-marketplace/d/aincrok.aincrok?style=for-the-badge&color=4ade80)](https://marketplace.visualstudio.com/items?itemName=aincrok.aincrok)
   [![GitHub Stars](https://img.shields.io/github/stars/aincrok/aincrok?style=for-the-badge&color=4ade80)](https://github.com/aincrok/aincrok)
   [![License](https://img.shields.io/github/license/aincrok/aincrok?style=for-the-badge)](LICENSE)
+  [![Publish Extension](https://github.com/aincrok/aincrok/actions/workflows/marketplace-publish.yml/badge.svg)](https://github.com/aincrok/aincrok/actions/workflows/marketplace-publish.yml)
+  [![Code QA](https://github.com/aincrok/aincrok/actions/workflows/code-qa.yml/badge.svg)](https://github.com/aincrok/aincrok/actions/workflows/code-qa.yml)
 
 **AI Coding Agent - The smart alternative to ChatGPT, Claude, and GitHub Copilot**
 

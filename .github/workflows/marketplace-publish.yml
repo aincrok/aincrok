@@ -46,27 +46,47 @@ jobs:
             - name: Create .env file
               run: echo "AINCROK_POSTHOG_API_KEY=${{ secrets.POSTHOG_API_KEY }}" >> .env
               
+            - name: Cache pnpm dependencies
+              uses: actions/cache@v4
+              with:
+                path: ~/.pnpm-store
+                key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+                restore-keys: |
+                  ${{ runner.os }}-pnpm-
+
+            - name: Lint
+              run: pnpm lint
+
+            - name: Type Check
+              run: pnpm check-types
+
+            - name: Test
+              run: pnpm test
+
+            - name: Build Extension
+              run: pnpm --filter ./src bundle
+
             - name: Pre-publish Validation
               run: |
                   echo "🔍 Validating extension manifest..."
-                  
-                  # Check package.json has required fields
                   current_package_version=$(node -p "require('./src/package.json').version")
                   publisher=$(node -p "require('./src/package.json').publisher")
                   license=$(node -p "require('./src/package.json').license")
                   vscode_engine=$(node -p "require('./src/package.json').engines.vscode")
-                  
                   echo "Extension: ${publisher}.aincrok@${current_package_version}"
                   echo "VSCode Engine: ${vscode_engine}"
                   echo "License: ${license}"
-                  
-                  # Validate required files exist
                   echo "📁 Checking required files..."
-                  ls -la src/dist/extension.js || (echo "❌ Missing main extension file" && exit 1)
-                  ls -la src/assets/icons/logo-outline-black.png || (echo "❌ Missing icon file" && exit 1)
-                  ls -la src/package.nls.json || (echo "❌ Missing localization file" && exit 1)
-                  
-                  # Test VSCE validation without publishing
+                  if [ ! -f src/dist/extension.js ]; then
+                    echo "❌ Missing main extension file (src/dist/extension.js). Build step may have failed or not run. Ensure 'pnpm --filter ./src bundle' completes successfully before validation." && exit 1
+                  fi
+                  if [ ! -f src/assets/icons/logo-outline-black.png ]; then
+                    echo "❌ Missing icon file (src/assets/icons/logo-outline-black.png)" && exit 1
+                  fi
+                  if [ ! -f src/package.nls.json ]; then
+                    echo "❌ Missing localization file (src/package.nls.json)" && exit 1
+                  fi
+                  echo "✅ All required files found."
                   echo "✅ Running VSCE validation..."
                   cd src && npx @vscode/vsce package --no-dependencies --out ../bin/validation-test.vsix
                   echo "✅ VSCE validation passed!"
