@@ -23,6 +23,7 @@ Aincrok provides a comprehensive set of features designed to enhance your coding
 - [**Shell Integration**](./shell-integration.md) - Terminal and command line support
 - [**Browser Use**](./browser-use.md) - Web browsing and research capabilities
 - [**Codebase Indexing**](./codebase-indexing.md) - Enhanced code understanding
+- [**Semantic Code Analysis**](./tools/semantic-read-file.md) - LSP-powered code understanding
 - [**Settings Management**](./settings-management.md) - Configuration and preferences
 
 ### Workflow Automation
@@ -46,6 +47,7 @@ Aincrok includes a comprehensive set of tools for various development tasks:
 ### File Operations
 
 - [**Read File**](./tools/read-file.md) - Read and analyze files
+- [**Semantic Read File**](./tools/semantic-read-file.md) - Analyze files with LSP semantic understanding
 - [**Write to File**](./tools/write-to-file.md) - Create and modify files
 - [**Apply Diff**](./tools/apply-diff.md) - Apply code changes with precision
 - [**List Files**](./tools/list-files.md) - Explore project structure
@@ -54,6 +56,7 @@ Aincrok includes a comprehensive set of tools for various development tasks:
 ### Code Analysis
 
 - [**List Code Definition Names**](./tools/list-code-definition-names.md) - Extract code symbols
+- [**Semantic Symbol Search**](./tools/semantic-symbol-search.md) - Search for code symbols using LSP
 - [**Codebase Search**](./tools/codebase-search.md) - Advanced code search
 
 ### Task Management

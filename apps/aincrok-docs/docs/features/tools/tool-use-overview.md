@@ -8,14 +8,14 @@ Aincrok implements a sophisticated tool system that allows AI models to interact
 
 Tools are organized into logical groups based on their functionality:
 
-| Category           | Purpose                           | Tools                                                                                                                                                                                                                                                            | Common Use                                         |
-| ------------------ | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| **Read Group**     | File system reading and searching | [read_file](/features/tools/read-file), [search_files](/features/tools/search-files), [list_files](/features/tools/list-files), [list_code_definition_names](/features/tools/list-code-definition-names)                                                         | Code exploration and analysis                      |
-| **Edit Group**     | File system modifications         | [apply_diff](/features/tools/apply-diff), [write_to_file](/features/tools/write-to-file)                                                                                                                                                                         | Code changes and file manipulation                 |
-| **Browser Group**  | Web automation                    | [browser_action](/features/tools/browser-action)                                                                                                                                                                                                                 | Web testing and interaction                        |
-| **Command Group**  | System command execution          | [execute_command](/features/tools/execute-command)                                                                                                                                                                                                               | Running scripts, building projects                 |
-| **MCP Group**      | External tool integration         | [use_mcp_tool](/features/tools/use-mcp-tool), [access_mcp_resource](/features/tools/access-mcp-resource)                                                                                                                                                         | Specialized functionality through external servers |
-| **Workflow Group** | Mode and task management          | [switch_mode](/features/tools/switch-mode), [new_task](/features/tools/new-task), [ask_followup_question](/features/tools/ask-followup-question), [attempt_completion](/features/tools/attempt-completion), [update_todo_list](/features/tools/update-todo-list) | Context switching and task organization            |
+| Category           | Purpose                           | Tools                                                                                                                                                                                                                                                                                                                                | Common Use                                         |
+| ------------------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------- |
+| **Read Group**     | File system reading and searching | [read_file](/features/tools/read-file), [semantic_read_file](/features/tools/semantic-read-file), [search_files](/features/tools/search-files), [semantic_symbol_search](/features/tools/semantic-symbol-search), [list_files](/features/tools/list-files), [list_code_definition_names](/features/tools/list-code-definition-names) | Code exploration and semantic analysis             |
+| **Edit Group**     | File system modifications         | [apply_diff](/features/tools/apply-diff), [write_to_file](/features/tools/write-to-file)                                                                                                                                                                                                                                             | Code changes and file manipulation                 |
+| **Browser Group**  | Web automation                    | [browser_action](/features/tools/browser-action)                                                                                                                                                                                                                                                                                     | Web testing and interaction                        |
+| **Command Group**  | System command execution          | [execute_command](/features/tools/execute-command)                                                                                                                                                                                                                                                                                   | Running scripts, building projects                 |
+| **MCP Group**      | External tool integration         | [use_mcp_tool](/features/tools/use-mcp-tool), [access_mcp_resource](/features/tools/access-mcp-resource)                                                                                                                                                                                                                             | Specialized functionality through external servers |
+| **Workflow Group** | Mode and task management          | [switch_mode](/features/tools/switch-mode), [new_task](/features/tools/new-task), [ask_followup_question](/features/tools/ask-followup-question), [attempt_completion](/features/tools/attempt-completion), [update_todo_list](/features/tools/update-todo-list)                                                                     | Context switching and task organization            |
 
 ### Always Available Tools
 
@@ -34,7 +34,9 @@ Certain tools are accessible regardless of the current mode:
 These tools help Aincrok understand your code and project:
 
 - [read_file](/features/tools/read-file) - Examines the contents of files
+- [semantic_read_file](/features/tools/semantic-read-file) - Analyzes files with LSP semantic understanding
 - [search_files](/features/tools/search-files) - Finds patterns across multiple files
+- [semantic_symbol_search](/features/tools/semantic-symbol-search) - Searches for code symbols using Language Server Protocol
 - [list_files](/features/tools/list-files) - Maps your project's file structure
 - [list_code_definition_names](/features/tools/list-code-definition-names) - Creates a structural map of your code
 
@@ -213,13 +215,13 @@ Tools are made available based on the current mode:
 1. **Information Gathering**
 
     ```
-    [ask_followup_question](/features/tools/ask-followup-question) → [read_file](/features/tools/read-file) → [search_files](/features/tools/search-files)
+    [ask_followup_question](/features/tools/ask-followup-question) → [semantic_read_file](/features/tools/semantic-read-file) → [semantic_symbol_search](/features/tools/semantic-symbol-search)
     ```
 
 2. **Code Modification**
 
     ```
-    [read_file](/features/tools/read-file) → [apply_diff](/features/tools/apply-diff) → [attempt_completion](/features/tools/attempt-completion)
+    [semantic_read_file](/features/tools/semantic-read-file) → [apply_diff](/features/tools/apply-diff) → [attempt_completion](/features/tools/attempt-completion)
     ```
 
 3. **Task Management**

@@ -13,13 +13,13 @@ Describe what you want to accomplish in natural language, and Aincrok will:
 
 ## Tool Categories
 
-| Category | Purpose                                    | Tool Names                                                               |
-| :------- | :----------------------------------------- | :----------------------------------------------------------------------- |
-| Read     | Access file content and code structure     | `read_file`, `search_files`, `list_files`, `list_code_definition_names`  |
-| Edit     | Create or modify files and code            | `write_to_file`, `apply_diff`                                            |
-| Execute  | Run commands and perform system operations | `execute_command`                                                        |
-| Browser  | Interact with web content                  | `browser_action`                                                         |
-| Workflow | Manage task flow and context               | `ask_followup_question`, `attempt_completion`, `switch_mode`, `new_task` |
+| Category | Purpose                                    | Tool Names                                                                                                              |
+| :------- | :----------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| Read     | Access file content and code structure     | `read_file`, `semantic_read_file`, `search_files`, `semantic_symbol_search`, `list_files`, `list_code_definition_names` |
+| Edit     | Create or modify files and code            | `write_to_file`, `apply_diff`                                                                                           |
+| Execute  | Run commands and perform system operations | `execute_command`                                                                                                       |
+| Browser  | Interact with web content                  | `browser_action`                                                                                                        |
+| Workflow | Manage task flow and context               | `ask_followup_question`, `attempt_completion`, `switch_mode`, `new_task`                                                |
 
 ## Example: Using Tools
 
@@ -63,20 +63,22 @@ This safety mechanism ensures you maintain control over which files are modified
 
 ## Core Tools Reference
 
-| Tool Name                    | Description                                         | Category |
-| :--------------------------- | :-------------------------------------------------- | :------- |
-| `read_file`                  | Reads the content of a file with line numbers       | Read     |
-| `search_files`               | Searches for text or regex patterns across files    | Read     |
-| `list_files`                 | Lists files and directories in a specified location | Read     |
-| `list_code_definition_names` | Lists code definitions like classes and functions   | Read     |
-| `write_to_file`              | Creates new files or overwrites existing ones       | Edit     |
-| `apply_diff`                 | Makes precise changes to specific parts of a file   | Edit     |
-| `execute_command`            | Runs commands in the VS Code terminal               | Execute  |
-| `browser_action`             | Performs actions in a headless browser              | Browser  |
-| `ask_followup_question`      | Asks you a clarifying question                      | Workflow |
-| `attempt_completion`         | Indicates the task is complete                      | Workflow |
-| `switch_mode`                | Changes to a different operational mode             | Workflow |
-| `new_task`                   | Creates a new subtask with a specific starting mode | Workflow |
+| Tool Name                    | Description                                              | Category |
+| :--------------------------- | :------------------------------------------------------- | :------- |
+| `read_file`                  | Reads the content of a file with line numbers            | Read     |
+| `semantic_read_file`         | Analyzes files using LSP for semantic understanding      | Read     |
+| `search_files`               | Searches for text or regex patterns across files         | Read     |
+| `semantic_symbol_search`     | Searches for code symbols using Language Server Protocol | Read     |
+| `list_files`                 | Lists files and directories in a specified location      | Read     |
+| `list_code_definition_names` | Lists code definitions like classes and functions        | Read     |
+| `write_to_file`              | Creates new files or overwrites existing ones            | Edit     |
+| `apply_diff`                 | Makes precise changes to specific parts of a file        | Edit     |
+| `execute_command`            | Runs commands in the VS Code terminal                    | Execute  |
+| `browser_action`             | Performs actions in a headless browser                   | Browser  |
+| `ask_followup_question`      | Asks you a clarifying question                           | Workflow |
+| `attempt_completion`         | Indicates the task is complete                           | Workflow |
+| `switch_mode`                | Changes to a different operational mode                  | Workflow |
+| `new_task`                   | Creates a new subtask with a specific starting mode      | Workflow |
 
 ## Learn More About Tools
 
