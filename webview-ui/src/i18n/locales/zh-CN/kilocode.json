@@ -76,7 +76,8 @@
 				"outputPrice": "每百万完成 Token 的费用。",
 				"cacheReadPrice": "每百万从缓存读取 Token 的费用。",
 				"cacheWritePrice": "每百万写入缓存 Token 的费用。"
-			}
+			},
+			"averageAincrokCost": "这是上周使用此模型的 Aincrok 平均实际花费。由于提示缓存的利用，可能低于标价。"
 		},
 		"terminal": {
 			"commandGenerator": {

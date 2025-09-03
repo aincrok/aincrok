@@ -63,7 +63,8 @@
 				"outputPrice": "Biaya per juta token untuk completion.",
 				"cacheReadPrice": "Biaya per juta token untuk membaca dari cache.",
 				"cacheWritePrice": "Biaya per juta token untuk menulis ke cache."
-			}
+			},
+			"averageAincrokCost": "Ini adalah rata-rata pengeluaran aktual untuk Aincrok menggunakan model ini selama seminggu terakhir. Ini mungkin lebih rendah dari harga yang tercantum karena pemanfaatan cache prompt."
 		},
 		"contextManagement": {
 			"allowVeryLargeReads": {

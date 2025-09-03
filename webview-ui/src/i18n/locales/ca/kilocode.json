@@ -63,7 +63,8 @@
 				"outputPrice": "Cost per milió de tokens per a la compleció.",
 				"cacheReadPrice": "Cost per milió de tokens per llegir de la memòria cau.",
 				"cacheWritePrice": "Cost per milió de tokens per escriure a la memòria cau."
-			}
+			},
+			"averageAincrokCost": "Aquesta és la despesa mitjana real d'Aincrok utilitzant aquest model durant l'última setmana. Pot ser inferior al preu llistat degut a la utilització de la memòria cau de sol·licituds."
 		},
 		"contextManagement": {
 			"allowVeryLargeReads": {

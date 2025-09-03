@@ -63,7 +63,8 @@
 				"outputPrice": "Kosten per miljoen tokens voor de voltooiing.",
 				"cacheReadPrice": "Kosten per miljoen tokens voor het lezen uit de cache.",
 				"cacheWritePrice": "Kosten per miljoen tokens voor het schrijven naar de cache."
-			}
+			},
+			"averageAincrokCost": "Dit is de gemiddelde werkelijke uitgave voor Aincrok met behulp van dit model gedurende de afgelopen week. Het kan lager zijn dan de vermelde prijs vanwege het gebruik van prompt cache."
 		},
 		"contextManagement": {
 			"allowVeryLargeReads": {

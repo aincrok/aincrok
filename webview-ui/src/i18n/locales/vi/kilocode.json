@@ -69,7 +69,8 @@
 				"outputPrice": "Chi phí cho một triệu token đối với completion.",
 				"cacheReadPrice": "Chi phí cho một triệu token để đọc từ bộ nhớ đệm.",
 				"cacheWritePrice": "Chi phí cho một triệu token để ghi vào bộ nhớ đệm."
-			}
+			},
+			"averageAincrokCost": "Đây là chi phí thực tế trung bình cho Aincrok sử dụng mô hình này trong tuần qua. Có thể thấp hơn giá niêm yết do sử dụng cache prompt."
 		},
 		"systemNotifications": {
 			"label": "Bật thông báo hệ thống",

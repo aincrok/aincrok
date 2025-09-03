@@ -63,7 +63,8 @@
 				"outputPrice": "완성에 대한 백만 토큰당 비용입니다.",
 				"cacheReadPrice": "캐시에서 읽기에 대한 백만 토큰당 비용입니다.",
 				"cacheWritePrice": "캐시에 쓰기에 대한 백만 토큰당 비용입니다."
-			}
+			},
+			"averageAincrokCost": "이것은 지난 주 동안 이 모델을 사용한 Aincrok의 평균 실제 지출입니다. 프롬프트 캐시 활용으로 인해 표시된 가격보다 낮을 수 있습니다."
 		},
 		"contextManagement": {
 			"allowVeryLargeReads": {

@@ -69,7 +69,8 @@
 				"outputPrice": "Tamamlama için milyon token başına maliyet.",
 				"cacheReadPrice": "Önbellekten okuma için milyon token başına maliyet.",
 				"cacheWritePrice": "Önbelleğe yazma için milyon token başına maliyet."
-			}
+			},
+			"averageAincrokCost": "Bu, geçen hafta boyunca bu modeli kullanan Aincrok için ortalama gerçek harcamadır. Prompt önbellek kullanımı nedeniyle listelenen fiyattan daha düşük olabilir."
 		},
 		"systemNotifications": {
 			"label": "Sistem bildirimlerini etkinleştir",

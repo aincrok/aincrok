@@ -63,7 +63,8 @@
 				"outputPrice": "Coût par million de tokens pour la complétion.",
 				"cacheReadPrice": "Coût par million de tokens pour lire depuis le cache.",
 				"cacheWritePrice": "Coût par million de tokens pour écrire dans le cache."
-			}
+			},
+			"averageAincrokCost": "Il s'agit de la dépense moyenne réelle pour Aincrok en utilisant ce modèle au cours de la dernière semaine. Elle peut être inférieure au prix affiché en raison de l'utilisation du cache de prompts."
 		},
 		"contextManagement": {
 			"allowVeryLargeReads": {

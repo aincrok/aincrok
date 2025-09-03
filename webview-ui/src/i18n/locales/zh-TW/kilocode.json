@@ -76,7 +76,8 @@
 				"outputPrice": "完成每百萬 Token 的費用。",
 				"cacheReadPrice": "從快取讀取每百萬 Token 的費用。",
 				"cacheWritePrice": "寫入快取每百萬 Token 的費用。"
-			}
+			},
+			"averageAincrokCost": "這是上週使用此模型的 Aincrok 平均實際花費。由於提示快取的利用，可能低於標價。"
 		},
 		"terminal": {
 			"commandGenerator": {

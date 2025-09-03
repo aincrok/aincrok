@@ -63,7 +63,8 @@
 				"outputPrice": "補完の100万トークンあたりのコスト。",
 				"cacheReadPrice": "キャッシュから読み取る100万トークンあたりのコスト。",
 				"cacheWritePrice": "キャッシュに書き込む100万トークンあたりのコスト。"
-			}
+			},
+			"averageAincrokCost": "これは過去1週間でこのモデルを使用したAincrokの平均実支出です。プロンプトキャッシュの利用により、表示価格よりも低くなる場合があります。"
 		},
 		"contextManagement": {
 			"allowVeryLargeReads": {

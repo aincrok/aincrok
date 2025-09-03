@@ -63,7 +63,8 @@
 				"outputPrice": "Koszt za milion tokenów dla uzupełnienia.",
 				"cacheReadPrice": "Koszt za milion tokenów dla odczytu z pamięci podręcznej.",
 				"cacheWritePrice": "Koszt za milion tokenów dla zapisu do pamięci podręcznej."
-			}
+			},
+			"averageAincrokCost": "To jest średni rzeczywisty koszt dla Aincrok przy użyciu tego modelu w ciągu ostatniego tygodnia. Może być niższy od ceny podanej ze względu na wykorzystanie pamięci podręcznej promptów."
 		},
 		"contextManagement": {
 			"allowVeryLargeReads": {

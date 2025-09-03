@@ -63,7 +63,8 @@
 				"outputPrice": "Náklady za milion tokenů pro dokončení.",
 				"cacheReadPrice": "Náklady za milion tokenů pro čtení z cache.",
 				"cacheWritePrice": "Náklady za milion tokenů pro zápis do cache."
-			}
+			},
+			"averageAincrokCost": "Toto je průměrná skutečná útrata pro Aincrok při použití tohoto modelu za poslední týden. Může být nižší než uvedená cena kvůli využití mezipaměti promptů."
 		},
 		"contextManagement": {
 			"allowVeryLargeReads": {
