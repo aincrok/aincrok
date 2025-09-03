@@ -173,14 +173,27 @@ jobs:
               run: |
                   git config user.name "aincrok-bot"
                   git config user.email github-actions@github.com
-                  echo "Running git add and commit..."
-                  git add CHANGELOG.md
-                  git commit -m "Updating CHANGELOG.md format"
-                  git status
-                  echo "--------------------------------------------------------------------------------"
-                  echo "Pushing to remote..."
-                  echo "--------------------------------------------------------------------------------"
-                  git push --set-upstream origin HEAD
+                  
+                  # Check if there are any changes to CHANGELOG.md before adding
+                  if git diff --quiet CHANGELOG.md && git diff --cached --quiet CHANGELOG.md; then
+                    echo "No changes to CHANGELOG.md detected, skipping commit"
+                  else
+                    echo "Changes detected in CHANGELOG.md, proceeding with commit..."
+                    git add CHANGELOG.md
+                    
+                    # Double check if there are changes after staging
+                    if git diff --staged --quiet; then
+                      echo "No staged changes to commit after git add"
+                    else
+                      echo "Staged changes found, committing..."
+                      git commit -m "Updating CHANGELOG.md format"
+                      git status
+                      echo "--------------------------------------------------------------------------------"
+                      echo "Pushing to remote..."
+                      echo "--------------------------------------------------------------------------------"
+                      git push --set-upstream origin HEAD
+                    fi
+                  fi
 
             # Add label to indicate changelog has been formatted
             - name: Add changelog-ready label
