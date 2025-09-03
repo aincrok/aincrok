@@ -8,12 +8,12 @@
 		"message_updated": "메시지가 성공적으로 업데이트되었습니다"
 	},
 	"lowCreditWarning": {
-		"title": "크레딧 부족 경고!",
-		"message": "무료 크레딧으로 충전하거나 더 구매할 수 있는지 확인하세요!"
+		"title": "새로운 변경사항 표시 중",
+		"message": "생성된 모든 명령어를 실행하기 전에 다시 한번 확인하세요. 터미널 작업은 항상 되돌릴 수 있는 것이 아닙니다 — 확인되지 않은 명령어를 실행하면 복구할 수 없는 데이터 손실이나 시스템 손상이 발생할 수 있습니다. 진행하기 전에 명령어를 완전히 검토하고 이해하세요!"
 	},
 	"task": {
 		"noAssistantMessages": "모델의 응답이 예상치 못하게 종료되었습니다 (어시스턴트 메시지 없음). 이는 요청 제한의 징후일 수 있습니다.",
-		"notLoggedInError": "요청을 완료할 수 없습니다. 선택한 공급자와 연결되어 로그인했는지 확인하세요.\n\n{{error}}",
+		"notLoggedInError": "요청을 완료할 수 없습니다. 선택한 공급자와 연결되어 로그인했는지 확인하세요.\\n\\n{{error}}",
 		"maxCompletionTokens": "최대 완료 토큰 수에 도달했습니다."
 	},
 	"checkpoints": {
@@ -35,13 +35,13 @@
 		},
 		"templates": {
 			"workflow": {
-				"description": "워크플로 설명 입력...",
+				"description": "빠른 작업과 제안된 편집으로 도움을 드릴 수 있습니다.",
 				"stepsHeader": "## 단계",
 				"step1": "단계 1",
 				"step2": "단계 2"
 			},
 			"rule": {
-				"description": "규칙 설명 입력...",
+				"description": "빠른 작업과 제안된 편집으로 도움을 드릴 수 있습니다.",
 				"guidelinesHeader": "## 지침",
 				"guideline1": "지침 1",
 				"guideline2": "지침 2"
@@ -52,10 +52,10 @@
 		"activated": "Aincrok 커밋 메시지 생성기 활성화됨",
 		"gitNotFound": "⚠️ Git 저장소를 찾을 수 없거나 git을 사용할 수 없습니다",
 		"gitInitError": "⚠️ Git 초기화 오류: {{error}}",
-		"generating": "Aincrok: 커밋 메시지 생성 중...",
-		"noChanges": "Aincrok: 분석할 변경 사항이 없습니다",
+		"generating": "제안된 편집 생성 중...",
+		"noChanges": "새로운 변경사항을 표시할 수 없습니다. 변경사항이 없습니다.",
 		"generated": "Aincrok: 커밋 메시지가 생성되었습니다!",
-		"generationFailed": "Aincrok: 커밋 메시지 생성 실패: {{errorMessage}}",
+		"generationFailed": "Aincrok: 명령어 생성 실패: {{error}}",
 		"generatingFromUnstaged": "Aincrok: 스테이징되지 않은 변경 사항으로 메시지 생성 중",
 		"activationFailed": "Aincrok: 메시지 생성기 활성화 실패: {{error}}",
 		"providerRegistered": "Aincrok: 커밋 메시지 공급자 등록됨"
@@ -63,12 +63,12 @@
 	"ghost": {
 		"statusBar": {
 			"enabled": "$(sparkle) Aincrok 인라인 지원",
-			"disabled": "$(circle-slash) Aincrok 인라인 지원",
+			"disabled": "Aincrok 인라인 지원 (비활성화됨)",
 			"warning": "$(warning) Aincrok 인라인 지원",
 			"tooltip": {
 				"basic": "Aincrok 인라인 지원",
 				"disabled": "Aincrok 인라인 지원 (비활성화됨)",
-				"tokenError": "인라인 지원을 사용하려면 유효한 토큰을 설정해야 합니다",
+				"tokenError": "Autocomplete를 사용하려면 유효한 토큰을 설정해야 합니다",
 				"lastCompletion": "마지막 제안:",
 				"sessionTotal": "세션 총 비용:",
 				"model": "모델:"
@@ -80,15 +80,15 @@
 		},
 		"toggleMessage": "Aincrok 인라인 지원 {{status}}",
 		"progress": {
-			"title": "Aincrok",
+			"title": "새로운 변경사항 표시 중",
 			"analyzing": "코드 분석 중...",
 			"generating": "제안된 편집 생성 중...",
 			"processing": "제안된 편집 처리 중...",
 			"showing": "제안된 편집 표시 중..."
 		},
 		"input": {
-			"title": "Aincrok: 빠른 작업",
-			"placeholder": "예: '이 함수를 더 효율적으로 리팩토링'"
+			"title": "새로운 변경사항 표시 중",
+			"placeholder": "예: '이 함수를 더 효율적으로 리팩토링해줘'"
 		},
 		"commands": {
 			"generateSuggestions": "Aincrok: 제안된 편집 생성",
@@ -100,41 +100,38 @@
 			"category": "Aincrok"
 		},
 		"codeAction": {
-			"title": "Aincrok: 제안된 편집"
+			"title": "새로운 변경사항 표시 중"
 		},
 		"chatParticipant": {
 			"fullName": "Aincrok 에이전트",
-			"name": "에이전트",
-			"description": "빠른 작업 및 제안된 편집에 도움을 드릴 수 있습니다."
-		},
-		"messages": {
-			"provideCodeSuggestions": "코드 제안 제공 중..."
+			"name": "Agent",
+			"description": "빠른 작업과 제안된 편집으로 도움을 드릴 수 있습니다."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Aincrok 인라인 지원은 GitHub Copilot과의 충돌로 인해 차단되었습니다. 이 문제를 해결하려면 Copilot의 인라인 제안을 비활성화해야 합니다.",
-			"disableCopilot": "Copilot 비활성화",
-			"disableInlineAssist": "인라인 지원 비활성화"
-		}
-	},
-	"terminalCommandGenerator": {
-		"generatingProgress": "Aincrok: 터미널 명령어 생성 중...",
-		"noActiveTerminal": "Aincrok: 활성화된 터미널을 찾을 수 없습니다. 먼저 터미널을 열어주세요.",
-		"inputPrompt": "Aincrok: 생성하고 싶은 명령어를 설명하세요",
-		"inputPlaceholder": "예시, 포트 3001에서 실행 중인 프로세스 종료, 대용량 파일 찾기 등",
-		"commandGenerated": "Aincrok: 생성된 명령어: {{command}}",
-		"generationFailed": "Aincrok: 명령어 생성 실패: {{error}}",
-		"warningDialog": {
-			"title": "터미널 안전 경고",
-			"okButton": "이해했습니다",
 			"message": "생성된 모든 명령어를 실행하기 전에 다시 한번 확인하세요. 터미널 작업은 항상 되돌릴 수 있는 것이 아닙니다 — 확인되지 않은 명령어를 실행하면 복구할 수 없는 데이터 손실이나 시스템 손상이 발생할 수 있습니다. 진행하기 전에 명령어를 완전히 검토하고 이해하세요!",
-			"cancelButton": "취소"
-		},
-		"tipMessage": "Aincrok: {{shortcut}}을(를) 눌러 터미널 명령어 생성"
+			"disableCopilot": "Copilot 비활성화",
+			"disableInlineAssist": "Autocomplete 비활성화"
+		}
 	},
 	"seeNewChanges": {
 		"title": "새로운 변경사항 표시 중",
 		"checkpointsUnavailable": "새로운 변경사항을 표시할 수 없습니다. 체크포인트를 사용할 수 없습니다.",
 		"noChanges": "새로운 변경사항을 표시할 수 없습니다. 변경사항이 없습니다.",
 		"error": "새로운 변경사항을 표시할 수 없습니다. 오류가 발생했습니다."
+	},
+	"terminalCommandGenerator": {
+		"tipMessage": "Aincrok: {{shortcut}}을(를) 눌러 터미널 명령어 생성",
+		"inputPrompt": "Aincrok: 생성하고 싶은 명령어를 설명하세요",
+		"inputPlaceholder": "예시, 포트 3001에서 실행 중인 프로세스 종료, 대용량 파일 찾기 등",
+		"noActiveTerminal": "Aincrok: 활성화된 터미널을 찾을 수 없습니다. 먼저 터미널을 열어주세요.",
+		"generatingProgress": "Aincrok: 터미널 명령어 생성 중...",
+		"commandGenerated": "Aincrok: 생성된 명령어: {{command}}",
+		"generationFailed": "Aincrok: 명령어 생성 실패: {{error}}",
+		"warningDialog": {
+			"title": "새로운 변경사항 표시 중",
+			"message": "생성된 모든 명령어를 실행하기 전에 다시 한번 확인하세요. 터미널 작업은 항상 되돌릴 수 있는 것이 아닙니다 — 확인되지 않은 명령어를 실행하면 복구할 수 없는 데이터 손실이나 시스템 손상이 발생할 수 있습니다. 진행하기 전에 명령어를 완전히 검토하고 이해하세요!",
+			"okButton": "이해했습니다",
+			"cancelButton": "취소"
+		}
 	}
 }

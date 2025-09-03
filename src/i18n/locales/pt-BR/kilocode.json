@@ -8,12 +8,12 @@
 		"message_updated": "Mensagem atualizada com sucesso"
 	},
 	"lowCreditWarning": {
-		"title": "Aviso de Crédito Baixo!",
-		"message": "Verifique se você pode recarregar com créditos gratuitos ou comprar mais!"
+		"title": "Exibindo novas alterações",
+		"message": "Verifique novamente todos os comandos gerados antes de executá-los. Ações no terminal nem sempre podem ser desfeitas — executar comandos não verificados pode resultar em perda irreversível de dados ou danos ao sistema. Revise e compreenda o comando completamente antes de prosseguir!"
 	},
 	"task": {
 		"noAssistantMessages": "A resposta do modelo terminou inesperadamente (nenhuma mensagem do assistente). Isso pode ser um sinal de limitação de taxa.",
-		"notLoggedInError": "Não é possível concluir a solicitação, certifique-se de que está conectado e logado com o provedor selecionado.\n\n{{error}}",
+		"notLoggedInError": "Não é possível concluir a solicitação, certifique-se de que está conectado e logado com o provedor selecionado.\\n\\n{{error}}",
 		"maxCompletionTokens": "O número máximo de tokens de conclusão foi atingido."
 	},
 	"checkpoints": {
@@ -35,13 +35,13 @@
 		},
 		"templates": {
 			"workflow": {
-				"description": "Descrição do fluxo de trabalho aqui...",
+				"description": "Posso te ajudar com tarefas rápidas e edições sugeridas.",
 				"stepsHeader": "## Etapas",
 				"step1": "Etapa 1",
 				"step2": "Etapa 2"
 			},
 			"rule": {
-				"description": "Descrição da regra aqui...",
+				"description": "Posso te ajudar com tarefas rápidas e edições sugeridas.",
 				"guidelinesHeader": "## Diretrizes",
 				"guideline1": "Diretriz 1",
 				"guideline2": "Diretriz 2"
@@ -52,10 +52,10 @@
 		"activated": "Gerador de mensagens de commit Aincrok ativado",
 		"gitNotFound": "⚠️ Repositório Git não encontrado ou git indisponível",
 		"gitInitError": "⚠️ Erro de inicialização do Git: {{error}}",
-		"generating": "Aincrok: Gerando mensagem de commit...",
-		"noChanges": "Aincrok: Nenhuma alteração encontrada para análise",
+		"generating": "Gerando edições sugeridas...",
+		"noChanges": "Não é possível exibir novas alterações, nenhuma alteração foi encontrada.",
 		"generated": "Aincrok: Mensagem de commit gerada!",
-		"generationFailed": "Aincrok: Falha ao gerar mensagem de commit: {{errorMessage}}",
+		"generationFailed": "Aincrok: Falha ao gerar comando: {{error}}",
 		"generatingFromUnstaged": "Aincrok: Gerando mensagem usando alterações não preparadas",
 		"activationFailed": "Aincrok: Falha ao ativar o gerador de mensagens: {{error}}",
 		"providerRegistered": "Aincrok: Provedor de mensagens de commit registrado"
@@ -63,12 +63,12 @@
 	"ghost": {
 		"statusBar": {
 			"enabled": "$(sparkle) Assistente Inline Aincrok",
-			"disabled": "$(circle-slash) Assistente Inline Aincrok",
+			"disabled": "Assistente Inline Aincrok (desativado)",
 			"warning": "$(warning) Assistente Inline Aincrok",
 			"tooltip": {
 				"basic": "Assistente Inline Aincrok",
 				"disabled": "Assistente Inline Aincrok (desativado)",
-				"tokenError": "Um token válido deve ser definido para usar o Assistente Inline",
+				"tokenError": "Um token válido deve ser definido para usar o Autocomplete",
 				"lastCompletion": "Última sugestão:",
 				"sessionTotal": "Custo total da sessão:",
 				"model": "Modelo:"
@@ -80,15 +80,15 @@
 		},
 		"toggleMessage": "Assistente Inline Aincrok {{status}}",
 		"progress": {
-			"title": "Aincrok",
+			"title": "Exibindo novas alterações",
 			"analyzing": "Analisando seu código...",
 			"generating": "Gerando edições sugeridas...",
 			"processing": "Processando edições sugeridas...",
 			"showing": "Exibindo edições sugeridas..."
 		},
 		"input": {
-			"title": "Aincrok: Tarefa Rápida",
-			"placeholder": "ex. 'refatorar esta função para torná-la mais eficiente'"
+			"title": "Exibindo novas alterações",
+			"placeholder": "ex., 'refatore esta função para ser mais eficiente'"
 		},
 		"commands": {
 			"generateSuggestions": "Aincrok: Gerar Edições Sugeridas",
@@ -100,41 +100,38 @@
 			"category": "Aincrok"
 		},
 		"codeAction": {
-			"title": "Aincrok: Edições Sugeridas"
+			"title": "Exibindo novas alterações"
 		},
 		"chatParticipant": {
 			"fullName": "Agente Aincrok",
-			"name": "Agente",
-			"description": "Posso ajudá-lo com tarefas rápidas e edições sugeridas."
-		},
-		"messages": {
-			"provideCodeSuggestions": "Fornecendo sugestões de código..."
+			"name": "Agent",
+			"description": "Posso te ajudar com tarefas rápidas e edições sugeridas."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "O Assistente Inline do Aincrok está sendo bloqueado por um conflito com o GitHub Copilot. Para corrigir isso, você deve desabilitar as sugestões inline do Copilot.",
-			"disableCopilot": "Desabilitar Copilot",
-			"disableInlineAssist": "Desabilitar Assistente Inline"
-		}
-	},
-	"terminalCommandGenerator": {
-		"inputPrompt": "Aincrok: Descreva o comando que você deseja gerar",
-		"noActiveTerminal": "Aincrok: Nenhum terminal ativo encontrado. Por favor, abra um terminal primeiro.",
-		"inputPlaceholder": "por exemplo, matar o processo rodando na porta 3001, encontrar arquivos grandes, etc",
-		"generatingProgress": "Aincrok: Gerando comando de terminal...",
-		"commandGenerated": "Aincrok: Comando gerado: {{command}}",
-		"generationFailed": "Aincrok: Falha ao gerar comando: {{error}}",
-		"warningDialog": {
-			"title": "Aviso de Segurança do Terminal",
 			"message": "Verifique novamente todos os comandos gerados antes de executá-los. Ações no terminal nem sempre podem ser desfeitas — executar comandos não verificados pode resultar em perda irreversível de dados ou danos ao sistema. Revise e compreenda o comando completamente antes de prosseguir!",
-			"okButton": "Eu entendo",
-			"cancelButton": "Cancelar"
-		},
-		"tipMessage": "Aincrok: Pressione {{shortcut}} para gerar comandos de terminal"
+			"disableCopilot": "Desabilitar Copilot",
+			"disableInlineAssist": "Desabilitar Autocomplete"
+		}
 	},
 	"seeNewChanges": {
 		"title": "Exibindo novas alterações",
 		"checkpointsUnavailable": "Não é possível exibir novas alterações, pontos de verificação não estão disponíveis.",
 		"noChanges": "Não é possível exibir novas alterações, nenhuma alteração foi encontrada.",
 		"error": "Não é possível exibir novas alterações, ocorreu um erro."
+	},
+	"terminalCommandGenerator": {
+		"tipMessage": "Aincrok: Pressione {{shortcut}} para gerar comandos de terminal",
+		"inputPrompt": "Aincrok: Descreva o comando que você deseja gerar",
+		"inputPlaceholder": "por exemplo, matar o processo rodando na porta 3001, encontrar arquivos grandes, etc",
+		"noActiveTerminal": "Aincrok: Nenhum terminal ativo encontrado. Por favor, abra um terminal primeiro.",
+		"generatingProgress": "Aincrok: Gerando comando de terminal...",
+		"commandGenerated": "Aincrok: Comando gerado: {{command}}",
+		"generationFailed": "Aincrok: Falha ao gerar comando: {{error}}",
+		"warningDialog": {
+			"title": "Exibindo novas alterações",
+			"message": "Verifique novamente todos os comandos gerados antes de executá-los. Ações no terminal nem sempre podem ser desfeitas — executar comandos não verificados pode resultar em perda irreversível de dados ou danos ao sistema. Revise e compreenda o comando completamente antes de prosseguir!",
+			"okButton": "Eu entendo",
+			"cancelButton": "Cancelar"
+		}
 	}
 }

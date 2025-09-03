@@ -93,27 +93,55 @@
 			"provideCodeSuggestions": "S'estan proporcionant suggeriments de codi..."
 		},
 		"statusBar": {
-			"enabled": "$(sparkle) Assistència en línia de Aincrok",
-			"disabled": "$(circle-slash) Aincrok Inline Assist",
-			"warning": "$(warning) Assistència de Aincrok en línia",
+			"enabled": "$(sparkle) Aincrok Autocomplete",
+			"disabled": "$(circle-slash) Aincrok Autocomplete",
+			"warning": "$(warning) Aincrok Autocomplete",
 			"tooltip": {
-				"disabled": "Assistència en línia de Aincrok (desactivat)",
-				"basic": "Assistència en línia Aincrok",
-				"tokenError": "S'ha d'establir un token vàlid per utilitzar l'Assistència Integrada",
-				"lastCompletion": "Última suggerència:",
+				"basic": "Aincrok Autocomplete",
+				"disabled": "Aincrok Autocomplete (desactivat)",
+				"tokenError": "S'ha d'establir un token vàlid per utilitzar Autocomplete",
+				"lastCompletion": "Últim suggeriment:",
 				"sessionTotal": "Cost total de la sessió:",
 				"model": "Model:"
 			},
 			"cost": {
-				"zero": "0,00 €",
-				"lessThanCent": "<0,01 €"
+				"zero": "$0.00",
+				"lessThanCent": "<$0.01"
 			}
 		},
-		"toggleMessage": "Assistència en línia Aincrok {{status}}",
+		"toggleMessage": "Aincrok Autocomplete {{status}}",
+		"progress": {
+			"title": "Aincrok",
+			"analyzing": "Analitzant el teu codi...",
+			"generating": "Generant edicions suggerides...",
+			"processing": "Processant edicions suggerides...",
+			"showing": "Mostrant edicions suggerides..."
+		},
+		"input": {
+			"title": "Aincrok: Tasca Ràpida",
+			"placeholder": "p. ex., 'refactoritza aquesta funció per ser més eficient'"
+		},
+		"commands": {
+			"generateSuggestions": "Aincrok: Generar Edicions Suggerides",
+			"displaySuggestions": "Mostrar Edicions Suggerides",
+			"cancelSuggestions": "Cancel·lar Edicions Suggerides",
+			"applyCurrentSuggestion": "Aplicar Edició Suggerida Actual",
+			"applyAllSuggestions": "Aplicar Totes les Edicions Suggerides",
+			"promptCodeSuggestion": "Tasca Ràpida",
+			"category": "Aincrok"
+		},
+		"codeAction": {
+			"title": "Aincrok: Edicions Suggerides"
+		},
+		"chatParticipant": {
+			"fullName": "Aincrok Agent",
+			"name": "Agent",
+			"description": "Puc ajudar-te amb tasques ràpides i edicions suggerides."
+		},
 		"incompatibilityExtensionPopup": {
-			"message": "L'Assistència en línia de Aincrok està bloquejada per un conflicte amb GitHub Copilot. Per solucionar-ho, has de desactivar els suggeriments en línia de Copilot.",
+			"message": "L'Aincrok Autocomplete està sent bloquejat per un conflicte amb GitHub Copilot. Per solucionar això, has de desactivar els suggeriments en línia de Copilot.",
 			"disableCopilot": "Desactivar Copilot",
-			"disableInlineAssist": "Desactivar Assistència en línia"
+			"disableInlineAssist": "Desactivar Autocomplete"
 		}
 	},
 	"terminalCommandGenerator": {

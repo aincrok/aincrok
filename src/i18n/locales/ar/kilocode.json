@@ -65,6 +65,24 @@
 		"providerRegistered": "Aincrok: تم تسجيل موفر رسائل الاعتماد"
 	},
 	"ghost": {
+		"statusBar": {
+			"enabled": "$(sparkle) Kilo Code Autocomplete",
+			"disabled": "$(circle-slash) Kilo Code Autocomplete",
+			"warning": "$(warning) Kilo Code Autocomplete",
+			"tooltip": {
+				"basic": "Kilo Code Autocomplete",
+				"disabled": "Kilo Code Autocomplete (معطل)",
+				"tokenError": "يجب تعيين رمز صالح لاستخدام الإكمال التلقائي",
+				"lastCompletion": "آخر اقتراح:",
+				"sessionTotal": "إجمالي تكلفة الجلسة:",
+				"model": "النموذج:"
+			},
+			"cost": {
+				"zero": "$0.00",
+				"lessThanCent": "<$0.01"
+			}
+		},
+		"toggleMessage": "Kilo Code Autocomplete {{status}}",
 		"progress": {
 			"analyzing": "جارِ تحليل الكود الخاص بك...",
 			"showing": "عرض التعديلات المقترحة...",
@@ -77,12 +95,12 @@
 			"placeholder": "مثلاً، 'أعد هيكلة هذه الدالة لتكون أكثر كفاءة'"
 		},
 		"commands": {
-			"displaySuggestions": "عرض التعديلات المقترحة",
 			"generateSuggestions": "Aincrok: توليد تعديلات مقترحة",
-			"applyCurrentSuggestion": "تطبيق التعديل المُقترح الحالي",
+			"displaySuggestions": "عرض التعديلات المقترحة",
+			"applyCurrentSuggestion": "تطبيق التعديل المقترح الحالي",
 			"cancelSuggestions": "إلغاء التعديلات المقترحة",
-			"promptCodeSuggestion": "مهمة سريعة",
 			"applyAllSuggestions": "تطبيق كافة التعديلات المقترحة",
+			"promptCodeSuggestion": "مهمة سريعة",
 			"category": "Aincrok"
 		},
 		"codeAction": {
@@ -96,28 +114,10 @@
 		"messages": {
 			"provideCodeSuggestions": "جارٍ تقديم اقتراحات الرمز..."
 		},
-		"statusBar": {
-			"warning": "$(warning) مساعد Aincrok المباشر",
-			"disabled": "$(circle-slash) مساعدة Aincrok المضمنة",
-			"tooltip": {
-				"disabled": "مساعد Aincrok كود المضمّن (معطّل)",
-				"basic": "مساعد رمز Aincrok المدمج",
-				"lastCompletion": "الاقتراح الأخير:",
-				"model": "النموذج:",
-				"tokenError": "يجب تعيين رمز صالح لاستخدام المساعد المضمن",
-				"sessionTotal": "التكلفة الإجمالية للجلسة:"
-			},
-			"enabled": "$(sparkle) مساعد Aincrok المضمّن",
-			"cost": {
-				"lessThanCent": "<$0.01",
-				"zero": "$٠٫٠٠"
-			}
-		},
-		"toggleMessage": "المساعد المضمن Aincrok {{status}}",
 		"incompatibilityExtensionPopup": {
-			"message": "يتم حظر مساعد Aincrok كود المضمّن بسبب تعارض مع GitHub Copilot. لإصلاح هذا، يجب عليك تعطيل اقتراحات Copilot المضمنة.",
+			"message": "يتم حظر Aincrok Autocomplete بسبب تعارض مع GitHub Copilot. لإصلاح هذا، يجب عليك تعطيل اقتراحات Copilot المضمنة.",
 			"disableCopilot": "تعطيل Copilot",
-			"disableInlineAssist": "تعطيل المساعد المضمّن"
+			"disableInlineAssist": "تعطيل الإكمال التلقائي"
 		}
 	},
 	"terminalCommandGenerator": {

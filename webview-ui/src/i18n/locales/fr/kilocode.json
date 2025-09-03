@@ -1,7 +1,7 @@
 {
 	"welcome": {
-		"greeting": "Bienvenue dans Kilo Code !",
-		"introText1": "Kilo Code est un agent de codage IA gratuit et open source.",
+		"greeting": "Bienvenue dans Aincrok !",
+		"introText1": "Aincrok est un agent de codage IA gratuit et open source.",
 		"introText2": "Il fonctionne avec les derniers modèles d'IA comme Claude 4 Sonnet, Gemini 2.5 Pro, GPT-4.1, et plus de 450 autres.",
 		"introText3": "Créez un compte gratuit et obtenez jusqu'à 25 $ en tokens à utiliser avec n'importe quel modèle d'IA.",
 		"ctaButton": "Commencer",
@@ -11,15 +11,15 @@
 	},
 	"lowCreditWarning": {
 		"addCredit": "Ajouter du crédit",
-		"lowBalance": "Votre solde Kilo Code est bas"
+		"lowBalance": "Votre solde Aincrok est bas"
 	},
 	"pricing": {
 		"costUnknown": "coût inconnu",
 		"costUnknownDescription": "Le fournisseur d'API n'a pas fourni de données de coût ou la demande a été annulée.",
 		"freeModelsDescription": "Les modèles gratuits peuvent avoir des limites de débit. Utilisez le lien ci-dessous pour optimiser votre utilisation des modèles gratuits !",
 		"freeModelsLink": "Découvrir les options de modèles gratuits et économiques",
-		"openRouterMarkup": "Le fournisseur Kilo Code inclut tous les modèles OpenRouter, sans majoration et avec 0% de commission !",
-		"switchToKiloCode": "Passer à Kilo Code"
+		"openRouterMarkup": "Le fournisseur Aincrok inclut tous les modèles OpenRouter, sans majoration et avec 0% de commission !",
+		"switchToAincrok": "Passer à Aincrok"
 	},
 	"notifications": {
 		"toolRequest": "Demande d'outil en attente d'approbation",
@@ -31,14 +31,14 @@
 			"mcp": "Serveurs MCP"
 		},
 		"provider": {
-			"account": "Compte Kilo Code",
-			"apiKey": "Clé API Kilo Code",
-			"login": "Se connecter à Kilo Code",
-			"logout": "Se déconnecter de Kilo Code",
-			"automaticFetch": "Les derniers modèles sont automatiquement disponibles dans Kilo Code. Si vous ne savez pas quel modèle choisir, Kilo Code fonctionne mieux avec les modèles recommandés listés en haut en <strong>gras</strong>.",
+			"account": "Compte Aincrok",
+			"apiKey": "Clé API Aincrok",
+			"login": "Se connecter à Aincrok",
+			"logout": "Se déconnecter de Aincrok",
+			"automaticFetch": "Les derniers modèles sont automatiquement disponibles dans Aincrok. Si vous ne savez pas quel modèle choisir, Aincrok fonctionne mieux avec les modèles recommandés listés en haut en <strong>gras</strong>.",
 			"providerRouting": {
-				"title": "Kilo Code - Routage des fournisseurs OpenRouter",
-				"description": "Kilo Code achemine les demandes vers les meilleurs fournisseurs disponibles pour votre modèle. Par défaut, les demandes sont réparties entre les principaux fournisseurs afin de maximiser le temps de disponibilité. Cependant, vous pouvez choisir un fournisseur spécifique à utiliser pour ce modèle.",
+				"title": "Aincrok - Routage des fournisseurs OpenRouter",
+				"description": "Aincrok achemine les demandes vers les meilleurs fournisseurs disponibles pour votre modèle. Par défaut, les demandes sont réparties entre les principaux fournisseurs afin de maximiser le temps de disponibilité. Cependant, vous pouvez choisir un fournisseur spécifique à utiliser pour ce modèle.",
 				"sorting": {
 					"default": "Tri des fournisseurs par défaut",
 					"price": "Préférer les fournisseurs avec un prix plus bas",
@@ -55,7 +55,7 @@
 		"modelInfo": {
 			"contextWindow": "Fenêtre de contexte",
 			"providerBreakdown": "Répartition des prix et capacités par fournisseur",
-			"averageaincrokCost": "Il s'agit de la dépense réelle moyenne pour Kilo Code utilisant ce modèle au cours de la semaine dernière. Elle peut être inférieure au prix affiché en raison de l'utilisation du cache de prompts.",
+			"averageaincrokCost": "Il s'agit de la dépense réelle moyenne pour Aincrok utilisant ce modèle au cours de la semaine dernière. Elle peut être inférieure au prix affiché en raison de l'utilisation du cache de prompts.",
 			"table": {
 				"provider": "Fournisseur",
 				"context": "Le point de terminaison peut traiter ce nombre de tokens (entrée + sortie).",
@@ -63,20 +63,21 @@
 				"outputPrice": "Coût par million de tokens pour la complétion.",
 				"cacheReadPrice": "Coût par million de tokens pour lire depuis le cache.",
 				"cacheWritePrice": "Coût par million de tokens pour écrire dans le cache."
-			}
+			},
+			"averageAincrokCost": "Il s'agit de la dépense moyenne réelle pour Aincrok en utilisant ce modèle au cours de la dernière semaine. Elle peut être inférieure au prix affiché en raison de l'utilisation du cache de prompts."
 		},
 		"contextManagement": {
 			"allowVeryLargeReads": {
 				"label": "Autoriser les lectures de fichiers très volumineux",
-				"description": "Lorsque cette option est activée, Kilo Code effectuera des lectures de fichiers ou de sorties MCP très volumineuses même s'il existe une forte probabilité de dépasser la fenêtre de contexte (taille du contenu >80% de la fenêtre de contexte)."
+				"description": "Lorsque cette option est activée, Aincrok effectuera des lectures de fichiers ou de sorties MCP très volumineuses même s'il existe une forte probabilité de dépasser la fenêtre de contexte (taille du contenu >80% de la fenêtre de contexte)."
 			}
 		},
 		"systemNotifications": {
 			"label": "Activer les notifications système",
-			"description": "Lorsque cette option est activée, Kilo Code enverra des notifications système pour les événements importants comme la fin des tâches ou les erreurs.",
+			"description": "Lorsque cette option est activée, Aincrok enverra des notifications système pour les événements importants comme la fin des tâches ou les erreurs.",
 			"testButton": "Tester la notification",
-			"testTitle": "Kilo Code",
-			"testMessage": "Ceci est une notification de test de Kilo Code."
+			"testTitle": "Aincrok",
+			"testMessage": "Ceci est une notification de test de Aincrok."
 		},
 		"terminal": {
 			"commandGenerator": {
@@ -91,7 +92,7 @@
 	},
 	"chat": {
 		"condense": {
-			"wantsToCondense": "Kilo Code souhaite condenser votre conversation",
+			"wantsToCondense": "Aincrok souhaite condenser votre conversation",
 			"condenseConversation": "Condenser la Conversation"
 		},
 		"seeNewChanges": "Afficher les nouvelles modifications"
@@ -117,15 +118,15 @@
 	},
 	"docs": "Documentation",
 	"rules": {
-		"tooltip": "Gérer les Règles et Flux de Travail Kilo Code",
-		"ariaLabel": "Règles Kilo Code",
+		"tooltip": "Gérer les Règles et Flux de Travail Aincrok",
+		"ariaLabel": "Règles Aincrok",
 		"tabs": {
 			"rules": "Règles",
 			"workflows": "Flux de Travail"
 		},
 		"description": {
-			"rules": "Les règles vous permettent de fournir à Kilo Code des instructions qu'il doit suivre dans tous les modes et pour tous les prompts. Elles sont un moyen persistant d'inclure du contexte et des préférences pour toutes les conversations dans votre espace de travail ou globalement.",
-			"workflows": "Les flux de travail sont un modèle préparé pour une conversation. Les flux de travail vous permettent de définir des prompts que vous utilisez fréquemment, et peuvent inclure une série d'étapes pour guider Kilo Code à travers des tâches répétitives, comme déployer un service ou soumettre une PR. Pour invoquer un flux de travail, tapez",
+			"rules": "Les règles vous permettent de fournir à Aincrok des instructions qu'il doit suivre dans tous les modes et pour tous les prompts. Elles sont un moyen persistant d'inclure du contexte et des préférences pour toutes les conversations dans votre espace de travail ou globalement.",
+			"workflows": "Les flux de travail sont un modèle préparé pour une conversation. Les flux de travail vous permettent de définir des prompts que vous utilisez fréquemment, et peuvent inclure une série d'étapes pour guider Aincrok à travers des tâches répétitives, comme déployer un service ou soumettre une PR. Pour invoquer un flux de travail, tapez",
 			"workflowsInChat": "dans le chat."
 		},
 		"sections": {
@@ -189,41 +190,37 @@
 		}
 	},
 	"ghost": {
-		"title": "Assistance en ligne",
+		"title": "Autocomplete",
 		"settings": {
-			"autoTrigger": "Déclenchement automatique",
-			"enableQuickInlineTaskKeybinding": {
-				"label": "Tâche Rapide en Ligne",
-				"description": "Besoin d'une modification rapide ? Sélectionnez du code (ou pas !) et appuyez sur Cmd+I. Décrivez votre objectif en langage courant (\"créer un composant React avec ces props\", \"ajouter une gestion d'erreurs à cette fonction\"), et obtenez plusieurs suggestions prêtes à l'emploi directement dans votre éditeur. <DocsLink>Voir le raccourci</DocsLink>"
-			},
-			"enableAutoInlineTaskKeybinding": {
-				"label": "Tâche automatique en ligne",
-				"description": "Besoin d'une correction rapide, d'une complétion ou d'une refactorisation ? Kilo utilisera le contexte environnant pour proposer des améliorations immédiates, vous permettant de rester dans votre flux de travail. <DocsLink>Voir le raccourci</DocsLink>"
-			},
+			"autoTrigger": "Déclenchement Automatique",
+			"triggers": "Déclencheurs",
+			"keybindingDescription": "Les fonctionnalités Autocomplete peuvent être déclenchées par des commandes. Tu peux configurer les <DocsLink>Raccourcis Clavier ici</DocsLink>.",
 			"enableAutoTrigger": {
-				"label": "Activer le déclenchement automatique",
-				"description": "Lorsqu'activé, Kilo Code déclenchera automatiquement l'Assistance en ligne quand tu arrêtes de taper. Cela peut être utile pour des corrections et suggestions rapides."
+				"label": "Activer Autocomplete",
+				"description": "Quand activé, Aincrok déclenchera automatiquement Autocomplete quand tu arrêtes de taper. Cela peut être utile pour des corrections rapides et des suggestions."
 			},
 			"autoTriggerDelay": {
-				"label": "Délai du déclenchement automatique",
-				"description": "Le délai en secondes avant que Kilo Code déclenche l'Assistance en ligne après que tu aies arrêté de taper. Un délai plus court signifie des suggestions plus rapides, mais peut être plus gourmand en ressources."
+				"label": "Délai de Déclenchement Automatique",
+				"description": "Le délai en secondes avant que Aincrok déclenche Autocomplete après que tu aies arrêté de taper. Un délai plus court signifie des suggestions plus rapides, mais peut être plus intensif en ressources."
+			},
+			"enableQuickInlineTaskKeybinding": {
+				"label": "Tâche Rapide",
+				"description": "Tu n'as besoin que d'un changement rapide ? Sélectionne du code (ou pas !) et appuie sur Cmd+I. Décris ton objectif en français simple (\"créer un composant React avec ces props\", \"ajouter la gestion d'erreurs à cette fonction\"), et obtiens plusieurs suggestions prêtes à l'emploi directement dans ton éditeur. <DocsLink>Voir le raccourci</DocsLink>"
 			},
 			"enableSmartInlineTaskKeybinding": {
-				"label": "Tâche Intelligente en Ligne",
-				"description": "Besoin d'une correction rapide, d'une complétion ou d'un refactoring ? Kilo utilisera le contexte environnant pour offrir des améliorations immédiates, te gardant dans le flux. <DocsLink>Voir le raccourci</DocsLink>"
+				"label": "Autocomplete Manuel",
+				"description": "Besoin d'une correction rapide, d'un complément ou d'une refactorisation ? Kilo utilisera le contexte environnant pour offrir des améliorations immédiates, te gardant dans le flux. <DocsLink>Voir le raccourci</DocsLink>"
 			},
 			"enableCustomProvider": {
 				"label": "Utiliser un fournisseur personnalisé",
-				"description": "Inline Assist utilise tes identifiants KiloCode / OpenRouter / Mistral pour utiliser le modèle Codestral par défaut"
+				"description": "Autocomplete utilise tes identifiants Aincrok / OpenRouter / Mistral pour utiliser le modèle Codestral par défaut"
 			},
 			"provider": "Fournisseur",
 			"apiConfigId": {
 				"label": "Configuration API",
 				"current": "Utiliser la configuration API actuellement sélectionnée",
-				"description": "Sélectionnez une configuration d'API à utiliser pour les invites d'assistance en ligne, ou utilisez simplement celle qui est actuellement sélectionnée"
-			},
-			"triggers": "Déclencheurs",
-			"keybindingDescription": "Les fonctionnalités d'Inline Assist sont déclenchées par des commandes. Vous pouvez configurer les <DocsLink>raccourcis clavier ici</DocsLink>."
+				"description": "Sélectionne une configuration API à utiliser pour les prompts Autocomplete, ou utilise simplement celle qui est actuellement sélectionnée"
+			}
 		}
 	},
 	"virtualProvider": {
@@ -247,5 +244,9 @@
 		"perMinute": "Par minute",
 		"requestsLabel": "Demandes",
 		"perDay": "Par jour"
+	},
+	"imageWarnings": {
+		"modelNoImageSupport": "Les images ne sont pas prises en charge par le modèle actuel.",
+		"maxImagesReached": "Maximum de 20 images par message. Supprimez quelques images pour en ajouter d'autres."
 	}
 }

@@ -18,13 +18,17 @@
 		"costUnknownDescription": "The API Provider did not provide any cost data or the request was canceled.",
 		"freeModelsDescription": "Free models may have rate limits. Use the link below to optimize your free model usage!",
 		"freeModelsLink": "Discover free and budget model options",
-		"openRouterMarkup": "The Kilo Code provider includes all of the OpenRouter models, with zero markup and 0% commission!",
-		"switchToKiloCode": "Switch to Kilo Code"
+		"openRouterMarkup": "The Aincrok provider includes all of the OpenRouter models, with zero markup and 0% commission!",
+		"switchToAincrok": "Switch to Aincrok"
 	},
 	"notifications": {
 		"toolRequest": "Tool request waiting for approval",
 		"browserAction": "Browser action waiting for approval",
 		"command": "Command waiting for approval"
+	},
+	"imageWarnings": {
+		"modelNoImageSupport": "Images are not supported by the current model.",
+		"maxImagesReached": "Maximum of 20 images per message. Remove some images to add more."
 	},
 	"settings": {
 		"sections": {
@@ -55,7 +59,7 @@
 		"modelInfo": {
 			"contextWindow": "Context window",
 			"providerBreakdown": "Provider Price and Capability Breakdown",
-			"averageaincrokCost": "This is the average actual spent for Aincrok using this model over the last week. It may be lower than the listed price due to prompt cache utilization.",
+			"averageAincrokCost": "This is the average actual spent for Aincrok using this model over the last week. It may be lower than the listed price due to prompt cache utilization.",
 			"table": {
 				"provider": "Provider",
 				"context": "The endpoint can process this number of tokens (input + output).",
@@ -189,36 +193,36 @@
 		}
 	},
 	"ghost": {
-		"title": "Inline Assist",
+		"title": "Autocomplete",
 		"settings": {
 			"autoTrigger": "Auto Trigger",
 			"triggers": "Triggers",
-			"keybindingDescription": "Inline Assist features are triggered by commands. You can configure the <DocsLink>Keyboard Shortcuts here</DocsLink>.",
+			"keybindingDescription": "Autocomplete features can be triggered by commands. You can configure the <DocsLink>Keyboard Shortcuts here</DocsLink>.",
 			"enableAutoTrigger": {
-				"label": "Enable Auto Trigger",
-				"description": "When enabled, Aincrok will automatically trigger Inline Assist when you stop typing. This can be useful for quick fixes and suggestions."
+				"label": "Enable Autocomplete",
+				"description": "When enabled, Aincrok will automatically trigger Autocomplete when you stop typing. This can be useful for quick fixes and suggestions."
 			},
 			"autoTriggerDelay": {
 				"label": "Auto Trigger Delay",
-				"description": "The delay in seconds before Aincrok triggers Inline Assist after you stop typing. A shorter delay means quicker suggestions, but may be more resource-intensive."
+				"description": "The delay in seconds before Aincrok triggers Autocomplete after you stop typing. A shorter delay means quicker suggestions, but may be more resource-intensive."
 			},
 			"enableQuickInlineTaskKeybinding": {
-				"label": "Quick Inline Task",
+				"label": "Quick Task",
 				"description": "Only need a quick change? Select some code (or don't!) and hit Cmd+I. Describe your goal in plain English (\"create a React component with these props\", \"add error handling to this function\"), and get multiple, ready-to-use suggestions right in your editor. <DocsLink>See shortcut</DocsLink>"
 			},
 			"enableSmartInlineTaskKeybinding": {
-				"label": "Smart Inline Task",
+				"label": "Manual Autocomplete",
 				"description": "Need a quick fix, completion, or refactor? Aincrok will use the surrounding context to offer immediate improvements, keeping you in the flow. <DocsLink>See shortcut</DocsLink>"
 			},
 			"enableCustomProvider": {
 				"label": "Use custom provider",
-				"description": "Inline Assist uses your Aincrok / OpenRouter / Mistral credential to use the Codestral model by default"
+				"description": "Autocomplete uses your Aincrok / OpenRouter / Mistral credential to use the Codestral model by default"
 			},
 			"provider": "Provider",
 			"apiConfigId": {
 				"label": "API Configuration",
 				"current": "Use currently selected API configuration",
-				"description": "Select an API configuration to use for Inline Assist prompts, or just use whatever is currently selected"
+				"description": "Select an API configuration to use for Autocomplete prompts, or just use whatever is currently selected"
 			}
 		}
 	},

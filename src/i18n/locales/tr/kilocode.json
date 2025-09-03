@@ -8,13 +8,18 @@
 		"message_updated": "Mesaj başarıyla güncellendi"
 	},
 	"lowCreditWarning": {
-		"title": "Düşük Kredi Uyarısı!",
-		"message": "Ücretsiz kredilerle yükleme yapamayacağınızı veya daha fazla satın alıp alamayacağınızı kontrol edin!"
+		"title": "Yeni değişiklikler gösteriliyor",
+		"message": "Oluşturulan tüm komutları çalıştırmadan önce iki kez kontrol edin. Terminal eylemleri her zaman geri alınamaz— doğrulanmamış komutları çalıştırmak geri döndürülemez veri kaybına veya sistem hasarına neden olabilir. İlerlemeden önce komutu tamamen inceleyin ve anlayın!"
 	},
 	"task": {
 		"noAssistantMessages": "Modelin yanıtı beklenmedik şekilde sona erdi (asistan mesajı yok). Bu hız sınırlamasının bir işareti olabilir.",
-		"notLoggedInError": "İstek tamamlanamıyor, seçili sağlayıcıyla bağlantı kurduğunuzdan ve oturum açtığınızdan emin olun.\n\n{{error}}",
+		"notLoggedInError": "İstek tamamlanamıyor, seçili sağlayıcıyla bağlantı kurduğunuzdan ve oturum açtığınızdan emin olun.\\n\\n{{error}}",
 		"maxCompletionTokens": "Maksimum tamamlama token sayısına ulaşıldı."
+	},
+	"checkpoints": {
+		"nestedGitRepos": "İç içe Git depoları bulunan çalışma alanları için kontrol noktaları kullanılamaz.",
+		"protectedPaths": "Korumalı çalışma alanı yolları için kontrol noktaları kullanılamaz.",
+		"dismissWarning": "Kapat"
 	},
 	"rules": {
 		"actions": {
@@ -30,13 +35,13 @@
 		},
 		"templates": {
 			"workflow": {
-				"description": "İş akışı açıklaması buraya...",
+				"description": "Hızlı görevler ve önerilen düzenlemeler konusunda sana yardımcı olabilirim.",
 				"stepsHeader": "## Adımlar",
 				"step1": "Adım 1",
 				"step2": "Adım 2"
 			},
 			"rule": {
-				"description": "Kural açıklaması buraya...",
+				"description": "Hızlı görevler ve önerilen düzenlemeler konusunda sana yardımcı olabilirim.",
 				"guidelinesHeader": "## Yönergeler",
 				"guideline1": "Yönerge 1",
 				"guideline2": "Yönerge 2"
@@ -47,10 +52,10 @@
 		"activated": "Aincrok commit mesajı oluşturucu etkinleştirildi",
 		"gitNotFound": "⚠️ Git deposu bulunamadı veya git kullanılamıyor",
 		"gitInitError": "⚠️ Git başlatma hatası: {{error}}",
-		"generating": "Aincrok: Commit mesajı oluşturuluyor...",
-		"noChanges": "Aincrok: Analiz edilecek değişiklik bulunamadı",
+		"generating": "Önerilen düzenlemeler oluşturuluyor...",
+		"noChanges": "Yeni değişiklikler gösterilemiyor, hiçbir değişiklik bulunamadı.",
 		"generated": "Aincrok: Commit mesajı oluşturuldu!",
-		"generationFailed": "Aincrok: Commit mesajı oluşturulamadı: {{errorMessage}}",
+		"generationFailed": "Aincrok: Komut oluşturulamadı: {{error}}",
 		"generatingFromUnstaged": "Aincrok: Hazırlanmamış değişikliklerle mesaj oluşturuluyor",
 		"activationFailed": "Aincrok: Mesaj oluşturucu etkinleştirilemedi: {{error}}",
 		"providerRegistered": "Aincrok: Commit mesajı sağlayıcısı kaydedildi"
@@ -58,12 +63,12 @@
 	"ghost": {
 		"statusBar": {
 			"enabled": "$(sparkle) Aincrok Satır İçi Yardım",
-			"disabled": "$(circle-slash) Aincrok Satır İçi Yardım",
+			"disabled": "Aincrok Satır İçi Yardım (devre dışı)",
 			"warning": "$(warning) Aincrok Satır İçi Yardım",
 			"tooltip": {
 				"basic": "Aincrok Satır İçi Yardım",
 				"disabled": "Aincrok Satır İçi Yardım (devre dışı)",
-				"tokenError": "Satır İçi Yardım'ı kullanmak için geçerli bir belirteç ayarlanmalıdır",
+				"tokenError": "Autocomplete kullanmak için geçerli bir token ayarlanmalı",
 				"lastCompletion": "Son öneri:",
 				"sessionTotal": "Oturum toplam maliyeti:",
 				"model": "Model:"
@@ -75,66 +80,58 @@
 		},
 		"toggleMessage": "Aincrok Satır İçi Yardım {{status}}",
 		"progress": {
-			"title": "Aincrok",
-			"analyzing": "Kodunuz analiz ediliyor...",
+			"title": "Yeni değişiklikler gösteriliyor",
+			"analyzing": "Kodun analiz ediliyor...",
 			"generating": "Önerilen düzenlemeler oluşturuluyor...",
 			"processing": "Önerilen düzenlemeler işleniyor...",
 			"showing": "Önerilen düzenlemeler gösteriliyor..."
 		},
 		"input": {
-			"title": "Aincrok: Hızlı Görev",
-			"placeholder": "örn. 'bu fonksiyonu daha verimli hale getirmek için yeniden düzenle'"
+			"title": "Yeni değişiklikler gösteriliyor",
+			"placeholder": "örn., 'bu fonksiyonu daha verimli olacak şekilde yeniden düzenle'"
 		},
 		"commands": {
 			"generateSuggestions": "Aincrok: Önerilen Düzenlemeler Oluştur",
 			"displaySuggestions": "Önerilen Düzenlemeleri Göster",
 			"cancelSuggestions": "Önerilen Düzenlemeleri İptal Et",
-			"applyCurrentSuggestion": "Geçerli Önerilen Düzenlemeyi Uygula",
+			"applyCurrentSuggestion": "Mevcut Önerilen Düzenlemeyi Uygula",
 			"applyAllSuggestions": "Tüm Önerilen Düzenlemeleri Uygula",
 			"promptCodeSuggestion": "Hızlı Görev",
 			"category": "Aincrok"
 		},
 		"codeAction": {
-			"title": "Aincrok: Önerilen Düzenlemeler"
+			"title": "Yeni değişiklikler gösteriliyor"
 		},
 		"chatParticipant": {
 			"fullName": "Aincrok Ajanı",
-			"name": "Ajan",
-			"description": "Hızlı görevler ve önerilen düzenlemeler konusunda size yardımcı olabilirim."
-		},
-		"messages": {
-			"provideCodeSuggestions": "Kod önerileri sağlanıyor..."
+			"name": "Agent",
+			"description": "Hızlı görevler ve önerilen düzenlemeler konusunda sana yardımcı olabilirim."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Aincrok Satır İçi Yardım, GitHub Copilot ile çakışma nedeniyle engelleniyor. Bunu düzeltmek için Copilot'un satır içi önerilerini devre dışı bırakmalısınız.",
-			"disableCopilot": "Copilot'u Devre Dışı Bırak",
-			"disableInlineAssist": "Satır İçi Yardım'ı Devre Dışı Bırak"
-		}
-	},
-	"checkpoints": {
-		"nestedGitRepos": "İç içe Git depoları bulunan çalışma alanları için kontrol noktaları kullanılamaz.",
-		"protectedPaths": "Korumalı çalışma alanı yolları için kontrol noktaları kullanılamaz.",
-		"dismissWarning": "Kapat"
-	},
-	"terminalCommandGenerator": {
-		"noActiveTerminal": "Aincrok: Aktif terminal bulunamadı. Lütfen önce bir terminal açın.",
-		"inputPrompt": "Aincrok: Oluşturmak istediğiniz komutu açıklayın",
-		"inputPlaceholder": "örn., 3001 portunda çalışan işlemi sonlandır, büyük dosyaları bul, vb.",
-		"generatingProgress": "Aincrok: Uçbirim komutu oluşturuluyor...",
-		"commandGenerated": "Aincrok: Oluşturulan komut: {{command}}",
-		"generationFailed": "Aincrok: Komut oluşturulamadı: {{error}}",
-		"warningDialog": {
-			"title": "Uçbirim Güvenlik Uyarısı",
-			"okButton": "Anlıyorum",
 			"message": "Oluşturulan tüm komutları çalıştırmadan önce iki kez kontrol edin. Terminal eylemleri her zaman geri alınamaz— doğrulanmamış komutları çalıştırmak geri döndürülemez veri kaybına veya sistem hasarına neden olabilir. İlerlemeden önce komutu tamamen inceleyin ve anlayın!",
-			"cancelButton": "İptal"
-		},
-		"tipMessage": "Aincrok: Terminal komutları oluşturmak için {{shortcut}} tuşuna basın"
+			"disableCopilot": "Copilot'u Devre Dışı Bırak",
+			"disableInlineAssist": "Autocomplete'i Devre Dışı Bırak"
+		}
 	},
 	"seeNewChanges": {
 		"title": "Yeni değişiklikler gösteriliyor",
 		"checkpointsUnavailable": "Yeni değişiklikler gösterilemiyor, kontrol noktaları kullanılamıyor.",
 		"noChanges": "Yeni değişiklikler gösterilemiyor, hiçbir değişiklik bulunamadı.",
 		"error": "Yeni değişiklikler gösterilemiyor, bir hata oluştu."
+	},
+	"terminalCommandGenerator": {
+		"tipMessage": "Aincrok: Terminal komutları oluşturmak için {{shortcut}} tuşuna basın",
+		"inputPrompt": "Aincrok: Oluşturmak istediğiniz komutu açıklayın",
+		"inputPlaceholder": "örn., 3001 portunda çalışan işlemi sonlandır, büyük dosyaları bul, vb.",
+		"noActiveTerminal": "Aincrok: Aktif terminal bulunamadı. Lütfen önce bir terminal açın.",
+		"generatingProgress": "Aincrok: Uçbirim komutu oluşturuluyor...",
+		"commandGenerated": "Aincrok: Oluşturulan komut: {{command}}",
+		"generationFailed": "Aincrok: Komut oluşturulamadı: {{error}}",
+		"warningDialog": {
+			"title": "Yeni değişiklikler gösteriliyor",
+			"message": "Oluşturulan tüm komutları çalıştırmadan önce iki kez kontrol edin. Terminal eylemleri her zaman geri alınamaz— doğrulanmamış komutları çalıştırmak geri döndürülemez veri kaybına veya sistem hasarına neden olabilir. İlerlemeden önce komutu tamamen inceleyin ve anlayın!",
+			"okButton": "Anlıyorum",
+			"cancelButton": "İptal"
+		}
 	}
 }

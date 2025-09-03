@@ -1,7 +1,7 @@
 {
 	"welcome": {
-		"greeting": "Kilo Code'a hoş geldiniz!",
-		"introText1": "Kilo Code ücretsiz, açık kaynaklı bir AI kodlama ajanıdır.",
+		"greeting": "Aincrok'a hoş geldiniz!",
+		"introText1": "Aincrok ücretsiz, açık kaynaklı bir AI kodlama ajanıdır.",
 		"introText2": "Claude 4 Sonnet, Gemini 2.5 Pro, GPT-4.1 ve 450+ diğer en yeni AI modelleri ile çalışır.",
 		"introText3": "Ücretsiz hesap oluşturun ve herhangi bir AI modeli ile kullanabilceğiniz $25 değerinde token alın.",
 		"ctaButton": "Başla",
@@ -11,15 +11,15 @@
 	},
 	"lowCreditWarning": {
 		"addCredit": "Kredi Ekle",
-		"lowBalance": "Kilo Code bakiyeniz düşük"
+		"lowBalance": "Aincrok bakiyeniz düşük"
 	},
 	"pricing": {
 		"costUnknown": "maliyet bilinmiyor",
 		"costUnknownDescription": "API Sağlayıcısı herhangi bir maliyet verisi sağlamadı veya istek iptal edildi.",
 		"freeModelsDescription": "Ücretsiz modellerin hız limitleri olabilir. Ücretsiz model kullanımını optimize etmek için aşağıdaki bağlantıyı kullan!",
 		"freeModelsLink": "Ücretsiz ve bütçe dostu model seçeneklerini keşfet",
-		"openRouterMarkup": "Kilo Code sağlayıcısı tüm OpenRouter modellerini içerir, sıfır ek ücret ve %0 komisyon ile!",
-		"switchToKiloCode": "Kilo Code'a geç"
+		"openRouterMarkup": "Aincrok sağlayıcısı tüm OpenRouter modellerini içerir, sıfır ek ücret ve %0 komisyon ile!",
+		"switchToAincrok": "Aincrok'a geç"
 	},
 	"notifications": {
 		"toolRequest": "Araç isteği onay bekliyor",
@@ -33,18 +33,18 @@
 		"contextManagement": {
 			"allowVeryLargeReads": {
 				"label": "Çok büyük dosya okumalarına izin ver",
-				"description": "Etkinleştirildiğinde, Kilo Code bağlam penceresini taşma olasılığı yüksek olsa bile çok büyük dosya veya MCP çıktı okumalarını gerçekleştirir (içerik boyutu bağlam penceresinin %80'inden fazla)."
+				"description": "Etkinleştirildiğinde, Aincrok bağlam penceresini taşma olasılığı yüksek olsa bile çok büyük dosya veya MCP çıktı okumalarını gerçekleştirir (içerik boyutu bağlam penceresinin %80'inden fazla)."
 			}
 		},
 		"provider": {
-			"account": "Kilo Code Hesabı",
-			"apiKey": "Kilo Code API Anahtarı",
-			"login": "Kilo Code'a giriş yap",
-			"logout": "Kilo Code'dan çıkış yap",
-			"automaticFetch": "En son modeller Kilo Code'da otomatik olarak kullanılabilir. Hangi modeli seçeceğinizden emin değilseniz, Kilo Code en üstte <strong>kalın yazı</strong> ile listelenen önerilen modellerle en iyi şekilde çalışır.",
+			"account": "Aincrok Hesabı",
+			"apiKey": "Aincrok API Anahtarı",
+			"login": "Aincrok'a giriş yap",
+			"logout": "Aincrok'dan çıkış yap",
+			"automaticFetch": "En son modeller Aincrok'da otomatik olarak kullanılabilir. Hangi modeli seçeceğinizden emin değilseniz, Aincrok en üstte <strong>kalın yazı</strong> ile listelenen önerilen modellerle en iyi şekilde çalışır.",
 			"providerRouting": {
-				"title": "Kilo Code - OpenRouter Sağlayıcı Yönlendirme",
-				"description": "Kilo Code, modeliniz için en iyi kullanılabilir sağlayıcılara istekleri yönlendirir. Varsayılan olarak, çalışma süresini en üst düzeye çıkarmak için istekler en iyi sağlayıcılar arasında yük dengelenir. Ancak, bu model için kullanılacak belirli bir sağlayıcı seçebilirsiniz.",
+				"title": "Aincrok - OpenRouter Sağlayıcı Yönlendirme",
+				"description": "Aincrok, modeliniz için en iyi kullanılabilir sağlayıcılara istekleri yönlendirir. Varsayılan olarak, çalışma süresini en üst düzeye çıkarmak için istekler en iyi sağlayıcılar arasında yük dengelenir. Ancak, bu model için kullanılacak belirli bir sağlayıcı seçebilirsiniz.",
 				"sorting": {
 					"default": "Varsayılan sağlayıcı sıralaması",
 					"price": "Düşük fiyatlı sağlayıcıları tercih et",
@@ -61,7 +61,7 @@
 		"modelInfo": {
 			"contextWindow": "Bağlam penceresi",
 			"providerBreakdown": "Sağlayıcı Fiyat ve Yetenek Dökümü",
-			"averageaincrokCost": "Bu, Kilo Code'un bu modeli kullanarak geçtiğimiz hafta boyunca yaptığı ortalama gerçek harcamadır. Prompt önbellek kullanımı nedeniyle listelenen fiyattan daha düşük olabilir.",
+			"averageaincrokCost": "Bu, Aincrok'un bu modeli kullanarak geçtiğimiz hafta boyunca yaptığı ortalama gerçek harcamadır. Prompt önbellek kullanımı nedeniyle listelenen fiyattan daha düşük olabilir.",
 			"table": {
 				"provider": "Sağlayıcı",
 				"context": "Uç nokta bu sayıda token işleyebilir (giriş + çıkış).",
@@ -69,14 +69,15 @@
 				"outputPrice": "Tamamlama için milyon token başına maliyet.",
 				"cacheReadPrice": "Önbellekten okuma için milyon token başına maliyet.",
 				"cacheWritePrice": "Önbelleğe yazma için milyon token başına maliyet."
-			}
+			},
+			"averageAincrokCost": "Bu, geçen hafta boyunca bu modeli kullanan Aincrok için ortalama gerçek harcamadır. Prompt önbellek kullanımı nedeniyle listelenen fiyattan daha düşük olabilir."
 		},
 		"systemNotifications": {
 			"label": "Sistem bildirimlerini etkinleştir",
-			"description": "Etkinleştirildiğinde, Kilo Code görev tamamlama veya hatalar gibi önemli olaylar için sistem bildirimleri gönderecektir.",
+			"description": "Etkinleştirildiğinde, Aincrok görev tamamlama veya hatalar gibi önemli olaylar için sistem bildirimleri gönderecektir.",
 			"testButton": "Bildirimi test et",
-			"testTitle": "Kilo Code",
-			"testMessage": "Bu Kilo Code'dan bir test bildirimidir."
+			"testTitle": "Aincrok",
+			"testMessage": "Bu Aincrok'dan bir test bildirimidir."
 		},
 		"terminal": {
 			"commandGenerator": {
@@ -91,7 +92,7 @@
 	},
 	"chat": {
 		"condense": {
-			"wantsToCondense": "Kilo Code konuşmanı özetlemek istiyor",
+			"wantsToCondense": "Aincrok konuşmanı özetlemek istiyor",
 			"condenseConversation": "Konuşmayı Özetle"
 		},
 		"seeNewChanges": "Yeni Değişiklikleri Göster"
@@ -117,15 +118,15 @@
 	},
 	"docs": "Belgeler",
 	"rules": {
-		"tooltip": "Kilo Code Kuralları ve İş Akışlarını Yönet",
-		"ariaLabel": "Kilo Code Kuralları",
+		"tooltip": "Aincrok Kuralları ve İş Akışlarını Yönet",
+		"ariaLabel": "Aincrok Kuralları",
 		"tabs": {
 			"rules": "Kurallar",
 			"workflows": "İş Akışları"
 		},
 		"description": {
-			"rules": "Kurallar, Kilo Code'a tüm modlarda ve tüm promptlarda uyması gereken talimatlar sağlamanıza olanak tanır. Bunlar, çalışma alanınızda veya global olarak tüm konuşmalar için bağlam ve tercihleri dahil etmenin kalıcı bir yoludur.",
-			"workflows": "İş akışları, bir konuşma için hazırlanmış bir şablondur. İş akışları, sık kullandığınız promptları tanımlamanıza olanak tanır ve bir hizmeti dağıtmak veya PR göndermek gibi tekrarlayan görevler boyunca Kilo Code'u yönlendirmek için bir dizi adım içerebilir. Bir iş akışını çağırmak için şunu yazın",
+			"rules": "Kurallar, Aincrok'a tüm modlarda ve tüm promptlarda uyması gereken talimatlar sağlamanıza olanak tanır. Bunlar, çalışma alanınızda veya global olarak tüm konuşmalar için bağlam ve tercihleri dahil etmenin kalıcı bir yoludur.",
+			"workflows": "İş akışları, bir konuşma için hazırlanmış bir şablondur. İş akışları, sık kullandığınız promptları tanımlamanıza olanak tanır ve bir hizmeti dağıtmak veya PR göndermek gibi tekrarlayan görevler boyunca Aincrok'u yönlendirmek için bir dizi adım içerebilir. Bir iş akışını çağırmak için şunu yazın",
 			"workflowsInChat": "sohbette."
 		},
 		"sections": {
@@ -189,41 +190,37 @@
 		}
 	},
 	"ghost": {
-		"title": "Satır İçi Yardım",
+		"title": "Autocomplete",
 		"settings": {
-			"autoTrigger": "Otomatik Tetikleyici",
-			"enableQuickInlineTaskKeybinding": {
-				"label": "Hızlı Satır İçi Görev",
-				"description": "Sadece hızlı bir değişikliğe mi ihtiyacınız var? Biraz kod seçin (ya da seçmeyin!) ve Cmd+I tuşuna basın. Amacınızı sade bir şekilde açıklayın (\"bu prop'larla bir React bileşeni oluştur\", \"bu fonksiyona hata yönetimi ekle\") ve düzenleyicinizde kullanıma hazır birden fazla öneri alın. <DocsLink>Kısayolu gör</DocsLink>"
-			},
-			"enableAutoInlineTaskKeybinding": {
-				"label": "Otomatik Satır İçi Görev",
-				"description": "Hızlı bir düzeltme, tamamlama veya yeniden düzenleme mi gerekiyor? Kilo, çevreleyen bağlamı kullanarak anında iyileştirmeler sunacak, böylece odağınızı kaybetmeyeceksiniz. <DocsLink>Kısayolu gör</DocsLink>"
-			},
+			"autoTrigger": "Otomatik Tetikleme",
+			"triggers": "Tetikleyiciler",
+			"keybindingDescription": "Autocomplete özellikleri komutlarla tetiklenebilir. <DocsLink>Klavye Kısayollarını burada</DocsLink> yapılandırabilirsin.",
 			"enableAutoTrigger": {
-				"label": "Otomatik Tetikleyiciyi Etkinleştir",
-				"description": "Etkinleştirildiğinde, yazmayı bıraktığında Kilo Code otomatik olarak Satır İçi Yardımı tetikler. Bu, hızlı düzeltmeler ve öneriler için yararlı olabilir."
+				"label": "Autocomplete'i Etkinleştir",
+				"description": "Etkinleştirildiğinde, Aincrok yazmayı bıraktığında otomatik olarak Autocomplete'i tetikleyecek. Bu hızlı düzeltmeler ve öneriler için yararlı olabilir."
 			},
 			"autoTriggerDelay": {
-				"label": "Otomatik Tetikleyici Gecikmesi",
-				"description": "Yazmayı bıraktıktan sonra Kilo Code'un Satır İçi Yardımı tetiklemeden önceki saniye cinsinden gecikme. Daha kısa gecikme daha hızlı öneriler anlamına gelir, ancak daha fazla kaynak kullanabilir."
+				"label": "Otomatik Tetikleme Gecikmesi",
+				"description": "Yazmayı bıraktıktan sonra Aincrok'un Autocomplete'i tetiklemeden önceki saniye cinsinden gecikme. Daha kısa gecikme daha hızlı öneriler anlamına gelir, ancak daha fazla kaynak yoğun olabilir."
+			},
+			"enableQuickInlineTaskKeybinding": {
+				"label": "Hızlı Görev",
+				"description": "Sadece hızlı bir değişiklik mi gerekiyor? Biraz kod seç (ya da seçme!) ve Cmd+I'ya bas. Hedefini basit Türkçe ile açıkla (\"bu props'larla bir React bileşeni oluştur\", \"bu fonksiyona hata işleme ekle\"), ve editöründe doğrudan kullanıma hazır birden fazla öneri al. <DocsLink>Kısayolu gör</DocsLink>"
 			},
 			"enableSmartInlineTaskKeybinding": {
-				"label": "Akıllı Satır İçi Görev",
-				"description": "Hızlı bir düzeltme, tamamlama veya yeniden düzenlemeye mi ihtiyacın var? Kilo, anında iyileştirmeler sunmak için çevredeki bağlamı kullanır ve seni akışta tutar. <DocsLink>Kısayolu gör</DocsLink>"
+				"label": "Manuel Autocomplete",
+				"description": "Hızlı bir düzeltme, tamamlama veya yeniden düzenleme mi gerekiyor? Kilo çevredeki bağlamı kullanarak anında iyileştirmeler sunacak, seni akışta tutacak. <DocsLink>Kısayolu gör</DocsLink>"
 			},
 			"enableCustomProvider": {
 				"label": "Özel sağlayıcı kullan",
-				"description": "Inline Assist, varsayılan olarak Codestral modelini kullanmak için KiloCode / OpenRouter / Mistral kimlik bilgilerinizi kullanır"
+				"description": "Autocomplete varsayılan olarak Codestral modelini kullanmak için Aincrok / OpenRouter / Mistral kimlik bilgilerini kullanır"
 			},
 			"provider": "Sağlayıcı",
 			"apiConfigId": {
 				"label": "API Yapılandırması",
 				"current": "Şu anda seçili API yapılandırmasını kullan",
-				"description": "Satır İçi Yardım istemleri için kullanılacak bir API yapılandırması seçin veya o anda seçili olanı kullanın"
-			},
-			"triggers": "Tetikleyiciler",
-			"keybindingDescription": "Satır içi Yardım özellikleri komutlarla tetiklenir. <DocsLink>Klavye kısayollarını buradan</DocsLink> yapılandırabilirsiniz."
+				"description": "Autocomplete istekleri için kullanılacak API yapılandırmasını seç, ya da şu anda seçili olanı kullan"
+			}
 		}
 	},
 	"virtualProvider": {
@@ -247,5 +244,9 @@
 		"perHour": "Saat Başına",
 		"perMinute": "Dakika Başına",
 		"requestsLabel": "İstekler"
+	},
+	"imageWarnings": {
+		"maxImagesReached": "Mesaj başına maksimum 20 görsel. Daha fazla eklemek için bazı görselleri kaldırın.",
+		"modelNoImageSupport": "Görüntüler mevcut model tarafından desteklenmiyor."
 	}
 }

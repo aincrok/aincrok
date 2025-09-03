@@ -62,58 +62,55 @@
 	},
 	"ghost": {
 		"statusBar": {
-			"enabled": "$(sparkle) Aincrok 行內輔助",
-			"disabled": "$(circle-slash) Aincrok 行內輔助",
-			"warning": "$(warning) Aincrok 行內輔助",
+			"enabled": "$(sparkle) Aincrok Autocomplete",
+			"disabled": "$(circle-slash) Aincrok Autocomplete",
+			"warning": "$(warning) Aincrok Autocomplete",
 			"tooltip": {
-				"basic": "Aincrok 行內輔助",
-				"disabled": "Aincrok 行內輔助 (已停用)",
-				"tokenError": "必須設定有效的令牌才能使用行內輔助",
-				"lastCompletion": "最後建議：",
-				"sessionTotal": "工作階段總費用：",
-				"model": "模型："
+				"basic": "Aincrok Autocomplete",
+				"disabled": "Aincrok Autocomplete（已停用）",
+				"tokenError": "必須設定有效 Token 才能使用 Autocomplete",
+				"lastCompletion": "最後建議:",
+				"sessionTotal": "工作階段總費用:",
+				"model": "模型:"
 			},
 			"cost": {
 				"zero": "$0.00",
 				"lessThanCent": "<$0.01"
 			}
 		},
-		"toggleMessage": "Aincrok 行內輔助 {{status}}",
+		"toggleMessage": "Aincrok Autocomplete {{status}}",
 		"progress": {
 			"title": "Aincrok",
-			"analyzing": "正在分析您的程式碼...",
-			"generating": "正在產生建議的編輯...",
-			"processing": "正在處理建議的編輯...",
-			"showing": "正在顯示建議的編輯..."
+			"analyzing": "正在分析你的程式碼...",
+			"generating": "正在產生建議編輯...",
+			"processing": "正在處理建議編輯...",
+			"showing": "正在顯示建議編輯..."
 		},
 		"input": {
-			"title": "Aincrok：快速任務",
-			"placeholder": "例如：'重構此函數以提高效率'"
+			"title": "Aincrok: 快速工作",
+			"placeholder": "例如：「重構這個函數使其更有效率」"
 		},
 		"commands": {
-			"generateSuggestions": "Aincrok：產生建議的編輯",
-			"displaySuggestions": "顯示建議的編輯",
-			"cancelSuggestions": "取消建議的編輯",
-			"applyCurrentSuggestion": "套用目前的建議編輯",
-			"applyAllSuggestions": "套用所有建議的編輯",
-			"promptCodeSuggestion": "快速任務",
+			"generateSuggestions": "Aincrok: 產生建議編輯",
+			"displaySuggestions": "顯示建議編輯",
+			"cancelSuggestions": "取消建議編輯",
+			"applyCurrentSuggestion": "套用目前建議編輯",
+			"applyAllSuggestions": "套用所有建議編輯",
+			"promptCodeSuggestion": "快速工作",
 			"category": "Aincrok"
 		},
 		"codeAction": {
-			"title": "Aincrok：建議的編輯"
+			"title": "Aincrok: 建議編輯"
 		},
 		"chatParticipant": {
 			"fullName": "Aincrok Agent",
 			"name": "Agent",
-			"description": "我可以幫助您處理快速任務和建議的編輯。"
-		},
-		"messages": {
-			"provideCodeSuggestions": "正在提供程式碼建議..."
+			"description": "我可以協助你處理快速工作和建議編輯。"
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Aincrok 行內輔助被 GitHub Copilot 的衝突所阻擋。為了解決此問題，您必須停用 Copilot 的內嵌建議。",
+			"message": "Aincrok Autocomplete 被與 GitHub Copilot 的衝突阻擋。要修正此問題，你必須停用 Copilot 的內嵌建議。",
 			"disableCopilot": "停用 Copilot",
-			"disableInlineAssist": "停用行內輔助"
+			"disableInlineAssist": "停用 Autocomplete"
 		}
 	},
 	"terminalCommandGenerator": {

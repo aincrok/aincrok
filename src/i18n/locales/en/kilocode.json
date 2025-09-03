@@ -62,13 +62,13 @@
 	},
 	"ghost": {
 		"statusBar": {
-			"enabled": "$(sparkle) Aincrok Inline Assist",
-			"disabled": "$(circle-slash) Aincrok Inline Assist",
-			"warning": "$(warning) Aincrok Inline Assist",
+			"enabled": "$(sparkle) Aincrok Autocomplete",
+			"disabled": "$(circle-slash) Aincrok Autocomplete",
+			"warning": "$(warning) Aincrok Autocomplete",
 			"tooltip": {
-				"basic": "Aincrok Inline Assist",
-				"disabled": "Aincrok Inline Assist (disabled)",
-				"tokenError": "A valid token must be set to use Inline Assist",
+				"basic": "Aincrok Autocomplete",
+				"disabled": "Aincrok Autocomplete (disabled)",
+				"tokenError": "A valid token must be set to use Autocomplete",
 				"lastCompletion": "Last suggestion:",
 				"sessionTotal": "Session total cost:",
 				"model": "Model:"
@@ -78,7 +78,7 @@
 				"lessThanCent": "<$0.01"
 			}
 		},
-		"toggleMessage": "Aincrok Inline Assist {{status}}",
+		"toggleMessage": "Aincrok Autocomplete {{status}}",
 		"progress": {
 			"title": "Aincrok",
 			"analyzing": "Analyzing your code...",
@@ -108,9 +108,9 @@
 			"description": "I can help you with quick tasks and suggested edits."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "The Aincrok Inline Assist is being blocked by a conflict with GitHub Copilot. To fix this, you must disable Copilot's inline suggestions.",
+			"message": "The Aincrok Autocomplete is being blocked by a conflict with GitHub Copilot. To fix this, you must disable Copilot's inline suggestions.",
 			"disableCopilot": "Disable Copilot",
-			"disableInlineAssist": "Disable Inline Assist"
+			"disableInlineAssist": "Disable Autocomplete"
 		}
 	},
 	"seeNewChanges": {
