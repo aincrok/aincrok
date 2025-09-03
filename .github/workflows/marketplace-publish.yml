@@ -111,11 +111,28 @@ jobs:
                   pnpm --filter ./src bundle
                   
                   echo "Creating VSIX package..."
-                  cd src && npx @vscode/vsce package --no-dependencies --out ../bin
+                  cd src
+                  echo "Current directory: $(pwd)"
+                  echo "Running: npx @vscode/vsce package --no-dependencies --out ../bin"
+                  npx @vscode/vsce package --no-dependencies --out ../bin
+                  vsce_exit_code=$?
+                  echo "VSCE exit code: $vsce_exit_code"
                   
                   echo "Verifying VSIX was created..."
                   cd ..
+                  echo "Contents of bin directory after packaging:"
                   ls -la bin/
+                  
+                  # Verify the VSIX was actually created
+                  current_package_version=$(node -p "require('./src/package.json').version")
+                  expected_vsix="bin/aincrok-${current_package_version}.vsix"
+                  if [ ! -f "$expected_vsix" ]; then
+                    echo "❌ Expected VSIX file was not created: $expected_vsix"
+                    echo "VSCE command may have failed silently"
+                    exit 1
+                  else
+                    echo "✅ VSIX file created successfully: $expected_vsix"
+                  fi
                   
             - name: Validate VSIX Package
               run: |
@@ -254,9 +271,19 @@ jobs:
                   
                   echo "🚀 Publishing $vsix_file to marketplaces..."
                   
+                  # Debug: Check current working directory and contents
+                  echo "Current directory: $(pwd)"
+                  echo "Contents of current directory:"
+                  ls -la
+                  echo "Contents of bin directory:"
+                  ls -la bin/ || echo "bin directory does not exist"
+                  echo "Looking for VSIX file: $vsix_file"
+                  
                   # Final verification that VSIX exists (should have been validated already)
                   if [ ! -f "$vsix_file" ]; then
                     echo "❌ VSIX file not found: $vsix_file"
+                    echo "All files matching aincrok*.vsix:"
+                    find . -name "aincrok*.vsix" -type f 2>/dev/null || echo "No aincrok VSIX files found anywhere"
                     exit 1
                   fi
                   
