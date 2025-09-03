@@ -295,15 +295,35 @@ export interface LSPClientConfig {
 }
 
 /**
- * Supported language server configurations
+ * Configuration for a single language server
  */
 export interface LanguageServerConfig {
-	typescript: LSPClientConfig
-	python: LSPClientConfig
-	javascript: LSPClientConfig
-	rust: LSPClientConfig
-	go: LSPClientConfig
-	php: LSPClientConfig
-	java: LSPClientConfig
-	cpp: LSPClientConfig
+	/** Language server executable */
+	serverPath: string
+	/** Server arguments */
+	args: string[]
+	/** Working directory */
+	workingDirectory?: string
+	/** Environment variables */
+	env?: Record<string, string>
+	/** Server options */
+	options?: any
+	/** Whether to enable for this language */
+	enabled: boolean
+	/** Initialization options */
+	initializationOptions?: any
+}
+
+/**
+ * Supported language server configurations
+ */
+export interface SupportedLanguageServers {
+	typescript: LanguageServerConfig
+	python: LanguageServerConfig
+	javascript: LanguageServerConfig
+	rust: LanguageServerConfig
+	go: LanguageServerConfig
+	php: LanguageServerConfig
+	java: LanguageServerConfig
+	cpp: LanguageServerConfig
 }

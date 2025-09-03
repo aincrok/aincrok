@@ -33,7 +33,14 @@ vi.mock("vscode", () => ({
 		onDidDeleteFiles: vi.fn(() => ({ dispose: vi.fn() })),
 		onDidRenameFiles: vi.fn(() => ({ dispose: vi.fn() })),
 		openTextDocument: vi.fn(),
+		applyEdit: vi.fn().mockResolvedValue(true),
 	},
+	WorkspaceEdit: vi.fn().mockImplementation(() => ({
+		replace: vi.fn(),
+		insert: vi.fn(),
+		delete: vi.fn(),
+		entries: vi.fn().mockReturnValue([[vscode.Uri.file("/test/file.ts"), []]]),
+	})),
 	window: {
 		showErrorMessage: vi.fn(),
 		showWarningMessage: vi.fn(),
@@ -55,7 +62,7 @@ describe("InternalSymbolicLSP", () => {
 		}
 
 		// Reset the singleton instance
-		;(InternalSymbolicLSP as any)._instance = undefined
+		;(InternalSymbolicLSP as any).instance = undefined
 		lsp = InternalSymbolicLSP.getInstance(mockContext)
 
 		// Clear all mocks
@@ -206,7 +213,11 @@ describe("InternalSymbolicLSP", () => {
 			vi.mocked(vscode.workspace.openTextDocument).mockResolvedValue({
 				getText: vi.fn().mockReturnValue("function TestFunction() { return 0; }"),
 				save: vi.fn().mockResolvedValue(true),
+				isUntitled: false,
+				uri: { scheme: "file" },
 			} as any)
+
+			vi.mocked(vscode.workspace.applyEdit).mockResolvedValue(true)
 
 			const result = await lsp.editSymbolPrecisely(mockSymbol, edit)
 
@@ -231,12 +242,14 @@ describe("InternalSymbolicLSP", () => {
 				updateReferences: true,
 			}
 
-			vi.mocked(vscode.commands.executeCommand).mockResolvedValue([
-				{
-					uri: vscode.Uri.file("/test/file.ts"),
-					range: new vscode.Range(new vscode.Position(0, 9), new vscode.Position(0, 21)),
-				},
-			])
+			vi.mocked(vscode.workspace.openTextDocument).mockResolvedValue({
+				getText: vi.fn().mockReturnValue("function TestFunction() { return 0; }"),
+				isUntitled: false,
+				uri: { scheme: "file" },
+			} as any)
+
+			const mockWorkspaceEdit = new vscode.WorkspaceEdit()
+			vi.mocked(vscode.commands.executeCommand).mockResolvedValue(mockWorkspaceEdit)
 
 			const result = await lsp.editSymbolPrecisely(mockSymbol, edit)
 
@@ -258,17 +271,27 @@ describe("InternalSymbolicLSP", () => {
 				symbol: mockSymbol,
 			}
 
-			vi.mocked(vscode.commands.executeCommand).mockResolvedValue([
+			vi.mocked(vscode.workspace.openTextDocument).mockResolvedValue({
+				getText: vi.fn().mockReturnValue("function TestFunction() { return 0; }"),
+				isUntitled: false,
+				uri: { scheme: "file" },
+			} as any)
+
+			// Mock that executeCommand is called twice - once for references, once for actual delete
+			vi.mocked(vscode.commands.executeCommand).mockResolvedValueOnce([
 				{
 					uri: vscode.Uri.file("/test/file.ts"),
 					range: new vscode.Range(new vscode.Position(10, 0), new vscode.Position(10, 12)),
 				},
 			])
 
+			vi.mocked(vscode.workspace.applyEdit).mockResolvedValue(true)
+
 			const result = await lsp.editSymbolPrecisely(mockSymbol, edit)
 
 			// Should detect that symbol has references and warn about unsafe deletion
 			expect(result.warnings).toBeDefined()
+			expect(result.warnings).toContain("Symbol has 1 references - deletion may break code")
 		})
 
 		it("should handle edit errors gracefully", async () => {

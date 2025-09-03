@@ -1,6 +1,7 @@
-// aincrok_change - new file
+// aincrok_change - enhanced file
 // Internal Symbolic LSP Layer for Aincrok VS Code Extension
-// Inspired by Serena's Solid-LSP architecture for semantic code understanding within VS Code
+// Enhanced semantic code understanding using VS Code's native Language Server Protocol APIs
+// Replaces multilspy and Solid-LSP with TypeScript-native implementation
 
 import * as vscode from "vscode"
 import {
@@ -39,7 +40,7 @@ export class InternalSymbolicLSP {
 	private relationshipCache = new Map<string, SymbolRelationship[]>()
 
 	// Language server configurations
-	private languageServerConfigs: Partial<LanguageServerConfig> = {}
+	private languageServerConfigs: Record<string, LanguageServerConfig> = {}
 
 	private constructor(private context: vscode.ExtensionContext) {}
 
@@ -61,32 +62,28 @@ export class InternalSymbolicLSP {
 			return
 		}
 
-		try {
-			// Initialize language server configurations
-			await this.setupLanguageServers()
+		// Initialize language server configurations
+		await this.setupLanguageServers()
 
-			// Set up supported languages
-			this.supportedLanguages.add("typescript")
-			this.supportedLanguages.add("javascript")
-			this.supportedLanguages.add("python")
-			this.supportedLanguages.add("rust")
-			this.supportedLanguages.add("go")
-			this.supportedLanguages.add("php")
-			this.supportedLanguages.add("java")
-			this.supportedLanguages.add("cpp")
-			this.supportedLanguages.add("c")
+		// Set up supported languages
+		this.supportedLanguages.add("typescript")
+		this.supportedLanguages.add("javascript")
+		this.supportedLanguages.add("python")
+		this.supportedLanguages.add("rust")
+		this.supportedLanguages.add("go")
+		this.supportedLanguages.add("php")
+		this.supportedLanguages.add("java")
+		this.supportedLanguages.add("cpp")
+		this.supportedLanguages.add("c")
 
-			// Set up workspace change listeners for cache invalidation
-			vscode.workspace.onDidChangeTextDocument(this.onDocumentChanged, this)
-			vscode.workspace.onDidDeleteFiles(this.onFilesDeleted, this)
-			vscode.workspace.onDidRenameFiles(this.onFilesRenamed, this)
+		// Set up workspace change listeners for cache invalidation
+		// These can throw errors that should be propagated
+		vscode.workspace.onDidChangeTextDocument(this.onDocumentChanged, this)
+		vscode.workspace.onDidDeleteFiles(this.onFilesDeleted, this)
+		vscode.workspace.onDidRenameFiles(this.onFilesRenamed, this)
 
-			this.isInitialized = true
-			console.log("[Aincrok] Internal Symbolic LSP initialized successfully")
-		} catch (error) {
-			console.error("[Aincrok] Failed to initialize symbolic analysis:", error)
-			throw error
-		}
+		this.isInitialized = true
+		console.log("[Aincrok] Internal Symbolic LSP initialized successfully")
 	}
 
 	/**
@@ -97,33 +94,28 @@ export class InternalSymbolicLSP {
 			await this.initializeSymbolicAnalysis()
 		}
 
-		try {
-			const workspaceSymbols = await vscode.commands.executeCommand<vscode.SymbolInformation[]>(
-				"vscode.executeWorkspaceSymbolProvider",
-				query,
-			)
+		const workspaceSymbols = await vscode.commands.executeCommand<vscode.SymbolInformation[]>(
+			"vscode.executeWorkspaceSymbolProvider",
+			query,
+		)
 
-			if (!workspaceSymbols) {
-				return []
-			}
-
-			const entities: SymbolicEntity[] = []
-			for (const symbol of workspaceSymbols) {
-				const entity = await this.convertToSymbolicEntity(symbol)
-				if (entity && this.isRelevantSymbol(entity, context)) {
-					entities.push(entity)
-				}
-			}
-
-			// Cache the results
-			const cacheKey = `findSymbolByName:${query}`
-			this.symbolCache.set(cacheKey, entities)
-
-			return entities
-		} catch (error) {
-			console.error("[Aincrok] Error finding symbols by name:", error)
+		if (!workspaceSymbols) {
 			return []
 		}
+
+		const entities: SymbolicEntity[] = []
+		for (const symbol of workspaceSymbols) {
+			const entity = await this.convertToSymbolicEntity(symbol)
+			if (entity && this.isRelevantSymbol(entity, context)) {
+				entities.push(entity)
+			}
+		}
+
+		// Cache the results
+		const cacheKey = `findSymbolByName:${query}`
+		this.symbolCache.set(cacheKey, entities)
+
+		return entities
 	}
 
 	/**
@@ -160,39 +152,30 @@ export class InternalSymbolicLSP {
 	 * Retrieve semantic context for AI operations
 	 */
 	async retrieveSemanticContext(query: string, depth: number = 1): Promise<SemanticContext> {
-		try {
-			const symbols = await this.findSymbolByName(query)
-			const relevantSymbols = symbols.slice(0, 10) // Limit to top 10 most relevant
+		const symbols = await this.findSymbolByName(query)
+		const relevantSymbols = symbols.slice(0, 10) // Limit to top 10 most relevant
 
-			const relationships: SymbolRelationship[] = []
-			const codeSnippets: CodeSnippet[] = []
+		const relationships: SymbolRelationship[] = []
+		const codeSnippets: CodeSnippet[] = []
 
-			for (const symbol of relevantSymbols) {
-				if (depth > 0) {
-					const symbolRelations = await this.getSymbolRelations(symbol)
-					relationships.push(...symbolRelations)
-				}
-
-				// Get code snippet for this symbol
-				const snippet = await this.getSymbolCodeSnippet(symbol)
-				if (snippet) {
-					codeSnippets.push(snippet)
-				}
+		for (const symbol of relevantSymbols) {
+			if (depth > 0) {
+				const symbolRelations = await this.getSymbolRelations(symbol)
+				relationships.push(...symbolRelations)
 			}
 
-			return {
-				relevantSymbols,
-				relationships,
-				codeSnippets,
-				imports: await this.getRelevantImports(relevantSymbols),
+			// Get code snippet for this symbol
+			const snippet = await this.getSymbolCodeSnippet(symbol)
+			if (snippet) {
+				codeSnippets.push(snippet)
 			}
-		} catch (error) {
-			console.error("[Aincrok] Error retrieving semantic context:", error)
-			return {
-				relevantSymbols: [],
-				relationships: [],
-				codeSnippets: [],
-			}
+		}
+
+		return {
+			relevantSymbols,
+			relationships,
+			codeSnippets,
+			imports: await this.getRelevantImports(relevantSymbols),
 		}
 	}
 
@@ -286,51 +269,41 @@ export class InternalSymbolicLSP {
 	 * Get semantic context for prompt enhancement
 	 */
 	async getSemanticContextForPrompt(userRequest: string): Promise<SemanticPromptContext> {
-		try {
-			const semanticContext = await this.retrieveSemanticContext(userRequest, 2)
+		const semanticContext = await this.retrieveSemanticContext(userRequest, 2)
 
-			// Build enhanced prompt with semantic information
-			let enhancedPrompt = userRequest
+		// Build enhanced prompt with semantic information
+		let enhancedPrompt = userRequest
 
-			if (semanticContext.relevantSymbols.length > 0) {
-				enhancedPrompt += "\n\nRelevant code symbols:"
-				for (const symbol of semanticContext.relevantSymbols.slice(0, 5)) {
-					enhancedPrompt += `\n- ${symbol.name} (${vscode.SymbolKind[symbol.kind]}) in ${symbol.filePath}`
-					if (symbol.detail) {
-						enhancedPrompt += `: ${symbol.detail}`
-					}
+		if (semanticContext.relevantSymbols.length > 0) {
+			enhancedPrompt += "\n\nRelevant code symbols:"
+			for (const symbol of semanticContext.relevantSymbols.slice(0, 5)) {
+				enhancedPrompt += `\n- ${symbol.name} (${vscode.SymbolKind[symbol.kind]}) in ${symbol.filePath}`
+				if (symbol.detail) {
+					enhancedPrompt += `: ${symbol.detail}`
 				}
 			}
+		}
 
-			if (semanticContext.codeSnippets.length > 0) {
-				enhancedPrompt += "\n\nRelevant code context:"
-				for (const snippet of semanticContext.codeSnippets.slice(0, 3)) {
-					enhancedPrompt += `\n\nFrom ${snippet.filePath}:\n\`\`\`${snippet.language}\n${snippet.content}\n\`\`\``
-				}
+		if (semanticContext.codeSnippets.length > 0) {
+			enhancedPrompt += "\n\nRelevant code context:"
+			for (const snippet of semanticContext.codeSnippets.slice(0, 3)) {
+				enhancedPrompt += `\n\nFrom ${snippet.filePath}:\n\`\`\`${snippet.language}\n${snippet.content}\n\`\`\``
 			}
+		}
 
-			// Calculate token optimization (simplified)
-			const beforeTokens = this.estimateTokenCount(userRequest)
-			const afterTokens = this.estimateTokenCount(enhancedPrompt)
+		// Calculate token optimization (simplified)
+		const beforeTokens = this.estimateTokenCount(userRequest)
+		const afterTokens = this.estimateTokenCount(enhancedPrompt)
 
-			return {
-				userRequest,
-				semanticContext,
-				enhancedPrompt,
-				tokenOptimization: {
-					before: beforeTokens,
-					after: afterTokens,
-					reduction: beforeTokens > afterTokens ? ((beforeTokens - afterTokens) / beforeTokens) * 100 : 0,
-				},
-			}
-		} catch (error) {
-			console.error("[Aincrok] Error getting semantic context for prompt:", error)
-			return {
-				userRequest,
-				semanticContext: { relevantSymbols: [], relationships: [], codeSnippets: [] },
-				enhancedPrompt: userRequest,
-				tokenOptimization: { before: 0, after: 0, reduction: 0 },
-			}
+		return {
+			userRequest,
+			semanticContext,
+			enhancedPrompt,
+			tokenOptimization: {
+				before: beforeTokens,
+				after: afterTokens,
+				reduction: beforeTokens > afterTokens ? ((beforeTokens - afterTokens) / beforeTokens) * 100 : 0,
+			},
 		}
 	}
 
@@ -363,6 +336,23 @@ export class InternalSymbolicLSP {
 				}
 			}
 
+			// Check for references when deleting
+			if (edit.type === "delete") {
+				try {
+					const references = await vscode.commands.executeCommand<vscode.Location[]>(
+						"vscode.executeReferenceProvider",
+						vscode.Uri.file(edit.symbol.filePath),
+						edit.symbol.selectionRange.start,
+					)
+
+					if (references && references.length > 0) {
+						warnings.push(`Symbol has ${references.length} references - deletion may break code`)
+					}
+				} catch (error) {
+					// Ignore reference check errors - they're not critical for validation
+				}
+			}
+
 			return {
 				safe: errors.length === 0,
 				warnings,
@@ -389,14 +379,49 @@ export class InternalSymbolicLSP {
 				args: ["--stdio"],
 				enabled: true,
 				initializationOptions: {},
-			},
+			} as LanguageServerConfig,
 			python: {
 				serverPath: "pylsp",
 				args: [],
 				enabled: true,
 				initializationOptions: {},
-			},
-			// Add more language servers as needed
+			} as LanguageServerConfig,
+			javascript: {
+				serverPath: "typescript-language-server",
+				args: ["--stdio"],
+				enabled: true,
+				initializationOptions: {},
+			} as LanguageServerConfig,
+			rust: {
+				serverPath: "rust-analyzer",
+				args: [],
+				enabled: false,
+				initializationOptions: {},
+			} as LanguageServerConfig,
+			go: {
+				serverPath: "gopls",
+				args: [],
+				enabled: false,
+				initializationOptions: {},
+			} as LanguageServerConfig,
+			php: {
+				serverPath: "intelephense",
+				args: ["--stdio"],
+				enabled: false,
+				initializationOptions: {},
+			} as LanguageServerConfig,
+			java: {
+				serverPath: "jdtls",
+				args: [],
+				enabled: false,
+				initializationOptions: {},
+			} as LanguageServerConfig,
+			cpp: {
+				serverPath: "clangd",
+				args: [],
+				enabled: false,
+				initializationOptions: {},
+			} as LanguageServerConfig,
 		}
 	}
 
@@ -570,6 +595,248 @@ export class InternalSymbolicLSP {
 					this.relationshipCache.set(newKey, updatedValue)
 				}
 			}
+		}
+	}
+
+	/**
+	 * Analyze file semantics - compatibility method for tests
+	 */
+	async analyzeFileSemantics(filePath: string, options?: any): Promise<any> {
+		try {
+			const fileUri = vscode.Uri.file(filePath)
+			const document = await vscode.workspace.openTextDocument(fileUri)
+
+			const documentSymbols = await vscode.commands.executeCommand<vscode.DocumentSymbol[]>(
+				"vscode.executeDocumentSymbolProvider",
+				fileUri,
+			)
+
+			if (!documentSymbols || documentSymbols.length === 0) {
+				return null
+			}
+
+			const symbols: SymbolicEntity[] = []
+			for (const docSymbol of documentSymbols) {
+				const entity = await this.convertToSymbolicEntity({
+					name: docSymbol.name,
+					kind: docSymbol.kind,
+					location: {
+						uri: fileUri,
+						range: docSymbol.range,
+					},
+					containerName: "",
+				})
+				if (entity) {
+					symbols.push(entity)
+				}
+			}
+
+			return {
+				symbols,
+				language: document.languageId,
+				filePath,
+			}
+		} catch (error) {
+			console.error("[Aincrok] analyzeFileSemantics error:", error)
+			return null
+		}
+	}
+
+	/**
+	 * Search workspace symbols - compatibility method for tests
+	 */
+	async searchWorkspaceSymbols(query: string, options?: any): Promise<SymbolicEntity[]> {
+		try {
+			const symbolInfo = await vscode.commands.executeCommand<vscode.SymbolInformation[]>(
+				"vscode.executeWorkspaceSymbolProvider",
+				query,
+			)
+
+			if (!symbolInfo || symbolInfo.length === 0) {
+				return []
+			}
+
+			const symbols: SymbolicEntity[] = []
+			for (const info of symbolInfo) {
+				const entity = await this.convertToSymbolicEntity(info)
+				if (entity) {
+					symbols.push(entity)
+				}
+			}
+
+			return symbols
+		} catch (error) {
+			console.error("[Aincrok] searchWorkspaceSymbols error:", error)
+			return []
+		}
+	}
+
+	/**
+	 * Get document symbols for a specific file using VS Code's native LSP
+	 */
+	async getDocumentSymbols(uri: vscode.Uri): Promise<vscode.DocumentSymbol[]> {
+		try {
+			const documentSymbols = await vscode.commands.executeCommand<vscode.DocumentSymbol[]>(
+				"vscode.executeDocumentSymbolProvider",
+				uri,
+			)
+
+			return documentSymbols || []
+		} catch (error) {
+			console.error("[Aincrok] getDocumentSymbols error:", error)
+			return []
+		}
+	}
+
+	/**
+	 * Get symbol definitions using VS Code's definition provider
+	 */
+	async getSymbolDefinitions(uri: vscode.Uri, position: vscode.Position): Promise<vscode.Location[]> {
+		try {
+			const definitions = await vscode.commands.executeCommand<vscode.Location[]>(
+				"vscode.executeDefinitionProvider",
+				uri,
+				position,
+			)
+
+			return definitions || []
+		} catch (error) {
+			console.error("[Aincrok] getSymbolDefinitions error:", error)
+			return []
+		}
+	}
+
+	/**
+	 * Get symbol references using VS Code's reference provider
+	 */
+	async getSymbolReferences(uri: vscode.Uri, position: vscode.Position): Promise<vscode.Location[]> {
+		try {
+			const references = await vscode.commands.executeCommand<vscode.Location[]>(
+				"vscode.executeReferenceProvider",
+				uri,
+				position,
+			)
+
+			return references || []
+		} catch (error) {
+			console.error("[Aincrok] getSymbolReferences error:", error)
+			return []
+		}
+	}
+
+	/**
+	 * Get hover information for a symbol using VS Code's hover provider
+	 */
+	async getSymbolHover(uri: vscode.Uri, position: vscode.Position): Promise<vscode.Hover | null> {
+		try {
+			const hover = await vscode.commands.executeCommand<vscode.Hover[]>(
+				"vscode.executeHoverProvider",
+				uri,
+				position,
+			)
+
+			return hover && hover.length > 0 ? hover[0] : null
+		} catch (error) {
+			console.error("[Aincrok] getSymbolHover error:", error)
+			return null
+		}
+	}
+
+	/**
+	 * Get completion items at a position using VS Code's completion provider
+	 */
+	async getCompletionItems(uri: vscode.Uri, position: vscode.Position): Promise<vscode.CompletionList | null> {
+		try {
+			const completions = await vscode.commands.executeCommand<vscode.CompletionList>(
+				"vscode.executeCompletionItemProvider",
+				uri,
+				position,
+			)
+
+			return completions || null
+		} catch (error) {
+			console.error("[Aincrok] getCompletionItems error:", error)
+			return null
+		}
+	}
+
+	/**
+	 * Get signature help for a position using VS Code's signature help provider
+	 */
+	async getSignatureHelp(uri: vscode.Uri, position: vscode.Position): Promise<vscode.SignatureHelp | null> {
+		try {
+			const signatureHelp = await vscode.commands.executeCommand<vscode.SignatureHelp>(
+				"vscode.executeSignatureHelpProvider",
+				uri,
+				position,
+			)
+
+			return signatureHelp || null
+		} catch (error) {
+			console.error("[Aincrok] getSignatureHelp error:", error)
+			return null
+		}
+	}
+
+	/**
+	 * Enhanced tool integration methods for Aincrok's existing tools
+	 */
+	async enhanceReadFileTool(semanticCapabilities: boolean): Promise<void> {
+		if (semanticCapabilities && this.isInitialized) {
+			console.log("[Aincrok] Enhanced readFileTool with semantic understanding enabled")
+			// This would integrate with existing tools/readFileTool.ts
+			// Implementation would be added when integrating with tool system
+		}
+	}
+
+	async enhanceSearchFilesTool(semanticCapabilities: boolean): Promise<void> {
+		if (semanticCapabilities && this.isInitialized) {
+			console.log("[Aincrok] Enhanced searchFilesTool with semantic understanding enabled")
+			// This would integrate with existing tools/searchFilesTool.ts
+			// Implementation would be added when integrating with tool system
+		}
+	}
+
+	/**
+	 * Get enhanced semantic context optimized for AI prompts
+	 */
+	async getSemanticContextForAI(userRequest: string, maxTokens: number = 4000): Promise<string> {
+		try {
+			const semanticContext = await this.retrieveSemanticContext(userRequest, 2)
+
+			// Build optimized context string for AI
+			let contextString = ""
+
+			if (semanticContext.relevantSymbols.length > 0) {
+				contextString += "Relevant symbols:\n"
+				for (const symbol of semanticContext.relevantSymbols.slice(0, 5)) {
+					contextString += `- ${symbol.name} (${vscode.SymbolKind[symbol.kind]}) in ${symbol.filePath}\n`
+				}
+				contextString += "\n"
+			}
+
+			if (semanticContext.codeSnippets.length > 0) {
+				contextString += "Relevant code:\n"
+				for (const snippet of semanticContext.codeSnippets.slice(0, 3)) {
+					// Truncate snippets to fit within token limit
+					const truncatedContent =
+						snippet.content.length > 200 ? snippet.content.substring(0, 200) + "..." : snippet.content
+
+					contextString += `\nFrom ${snippet.filePath}:\n\`\`\`${snippet.language}\n${truncatedContent}\n\`\`\`\n`
+				}
+			}
+
+			// Ensure we don't exceed token limit (rough estimation)
+			if (this.estimateTokenCount(contextString) > maxTokens) {
+				// Truncate to approximately fit within limit
+				const targetLength = Math.floor(maxTokens * 3.5) // Rough char to token ratio
+				contextString = contextString.substring(0, targetLength) + "..."
+			}
+
+			return contextString
+		} catch (error) {
+			console.error("[Aincrok] getSemanticContextForAI error:", error)
+			return "" // Return empty string on error
 		}
 	}
 }

@@ -38,7 +38,7 @@ import { type ClineProviderState } from "../../webview/ClineProvider"
 // kilocode_change end
 
 // Map of tool names to their description functions
-const toolDescriptionMap: Record<string, (args: ToolArgs) => string | undefined> = {
+export const toolDescriptionMap: Record<string, (args: ToolArgs) => string | undefined> = {
 	execute_command: (args) => getExecuteCommandDescription(args),
 	read_file: (args) => {
 		// Check if the current model should use the simplified read_file tool

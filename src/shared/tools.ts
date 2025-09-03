@@ -212,6 +212,10 @@ export const TOOL_DISPLAY_NAMES: Record<ToolName, string> = {
 	report_bug: "report bug", // kilocode_change
 	condense: "condense the current context window", // kilocode_change
 	codebase_search: "codebase search",
+	// aincrok_change start - semantic tools
+	semantic_read_file: "read files with semantic understanding",
+	semantic_symbol_search: "search for symbols using LSP",
+	// aincrok_change end
 	update_todo_list: "update todo list",
 } as const
 
@@ -225,6 +229,10 @@ export const TOOL_GROUPS: Record<ToolGroup, ToolGroupConfig> = {
 			"list_files",
 			"list_code_definition_names",
 			"codebase_search",
+			// aincrok_change start - semantic tools
+			"semantic_read_file",
+			"semantic_symbol_search",
+			// aincrok_change end
 		],
 	},
 	edit: {

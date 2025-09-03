@@ -3,18 +3,18 @@
 
 import path from "path"
 import * as vscode from "vscode"
-import { Task } from "../../task/Task"
-import { ClineSayTool } from "../../../shared/ExtensionMessage"
-import { ToolUse, AskApproval, HandleError, PushToolResult, RemoveClosingTag } from "../../../shared/tools"
-import { InternalSymbolicLSP } from "../../lsp/InternalSymbolicLSP"
-import { SymbolicEntity, SymbolRelationship, SymbolicEnhancement } from "../../lsp/types"
-import { getReadablePath } from "../../../utils/path"
+import { Task } from "../task/Task"
+import { ClineSayTool } from "../../shared/ExtensionMessage"
+import { ToolUse, AskApproval, HandleError, PushToolResult, RemoveClosingTag } from "../../shared/tools"
+import { InternalSymbolicLSP } from "../lsp/InternalSymbolicLSP"
+import { SymbolicEntity, SymbolRelationship, SymbolicEnhancement } from "../lsp/types"
+import { getReadablePath } from "../../utils/path"
 
 /**
  * Semantic search tool that uses LSP for intelligent code searching
  * Falls back to regex-based search when LSP is unavailable
  */
-export async function semanticSearchTool(
+export async function semanticSymbolSearchTool(
 	task: Task,
 	block: ToolUse,
 	askApproval: AskApproval,

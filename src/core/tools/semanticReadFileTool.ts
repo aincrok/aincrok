@@ -3,13 +3,13 @@
 
 import path from "path"
 import * as vscode from "vscode"
-import { Task } from "../../task/Task"
-import { ClineSayTool } from "../../../shared/ExtensionMessage"
-import { ToolUse, AskApproval, HandleError, PushToolResult, RemoveClosingTag } from "../../../shared/tools"
-import { InternalSymbolicLSP } from "../../lsp/InternalSymbolicLSP"
-import { SymbolicEntity, SymbolicEnhancement } from "../../lsp/types"
-import { extractTextFromFile } from "../../../integrations/misc/extract-text"
-import { getReadablePath } from "../../../utils/path"
+import { Task } from "../task/Task"
+import { ClineSayTool } from "../../shared/ExtensionMessage"
+import { ToolUse, AskApproval, HandleError, PushToolResult, RemoveClosingTag } from "../../shared/tools"
+import { InternalSymbolicLSP } from "../lsp/InternalSymbolicLSP"
+import { SymbolicEntity, SymbolicEnhancement } from "../lsp/types"
+import { extractTextFromFile } from "../../integrations/misc/extract-text"
+import { getReadablePath } from "../../utils/path"
 
 /**
  * Semantic read file tool that uses LSP for intelligent code understanding
@@ -53,9 +53,6 @@ export async function semanticReadFileTool(
 			throw new Error("Extension context not available")
 		}
 
-		const lsp = InternalSymbolicLSP.getInstance(context)
-		await lsp.initializeSymbolicAnalysis()
-
 		// Check if user needs approval for the operation
 		if (block.partial) {
 			await task.ask(
@@ -85,6 +82,9 @@ export async function semanticReadFileTool(
 		} = { success: false }
 
 		try {
+			// Get LSP instance and initialize
+			const lsp = InternalSymbolicLSP.getInstance(context)
+			await lsp.initializeSymbolicAnalysis()
 			const fileUri = vscode.Uri.file(path.resolve(task.cwd, filePath))
 			const document = await vscode.workspace.openTextDocument(fileUri)
 
@@ -111,7 +111,16 @@ export async function semanticReadFileTool(
 				}
 			} else {
 				// No symbols found - fall back or report empty
-				throw new Error("No symbols found in file")
+				if (config.fallbackToTextBased) {
+					throw new Error("No symbols found in file")
+				} else {
+					analysis = {
+						success: false,
+						content: document.getText(),
+						language: document.languageId,
+						error: "No symbols found in file",
+					}
+				}
 			}
 		} catch (lspError) {
 			console.warn("[Aincrok] LSP analysis failed:", lspError)
@@ -223,9 +232,11 @@ export async function semanticReadFileTool(
 		} else {
 			// No fallback - report failure
 			let result = `<semantic_read_file path="${filePath}" semantic_analysis success="false">\n`
-			result += `<error>No symbols found in file. File may be empty or not contain analyzable code.</error>\n`
+			result += `<error>${escapeXml(analysis.error || "No symbols found in file")}</error>\n`
 
-			if (config.fallbackToTextBased) {
+			if (analysis.content) {
+				result += `<content>\n${analysis.content}\n</content>\n`
+			} else if (config.fallbackToTextBased) {
 				const content = await extractTextFromFile(filePath)
 				result += `<content>\n${content}\n</content>\n`
 			}

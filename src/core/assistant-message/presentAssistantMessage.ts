@@ -40,6 +40,10 @@ import { codebaseSearchTool } from "../tools/codebaseSearchTool"
 import { experiments, EXPERIMENT_IDS } from "../../shared/experiments"
 import { applyDiffToolLegacy } from "../tools/applyDiffTool"
 import { reportExcessiveRecursion, yieldPromise } from "../kilocode"
+// aincrok_change start - semantic tools
+import { semanticReadFileTool } from "../tools/semanticReadFileTool"
+import { semanticSymbolSearchTool } from "../tools/semanticSymbolSearchTool"
+// aincrok_change end
 
 /**
  * Processes and presents assistant message content to the user interface.
@@ -240,6 +244,12 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 					case "condense":
 						return `[${block.name}]`
 					// kilocode_change end
+					// aincrok_change start - semantic tools
+					case "semantic_read_file":
+						return `[${block.name} for '${block.params.path}']`
+					case "semantic_symbol_search":
+						return `[${block.name} for '${block.params.query}']`
+					// aincrok_change end
 				}
 			}
 
@@ -583,6 +593,21 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 					await condenseTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					break
 				// kilocode_change end
+				// aincrok_change start - semantic tools
+				case "semantic_read_file":
+					await semanticReadFileTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
+					break
+				case "semantic_symbol_search":
+					await semanticSymbolSearchTool(
+						cline,
+						block,
+						askApproval,
+						handleError,
+						pushToolResult,
+						removeClosingTag,
+					)
+					break
+				// aincrok_change end
 			}
 			// kilocode_change end
 

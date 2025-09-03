@@ -39,6 +39,10 @@ export const toolNames = [
 	"report_bug",
 	"condense",
 	// kilocode_change end
+	// aincrok_change start - semantic tools
+	"semantic_read_file",
+	"semantic_symbol_search",
+	// aincrok_change end
 	"update_todo_list",
 ] as const
 
