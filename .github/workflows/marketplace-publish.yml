@@ -88,6 +88,7 @@ jobs:
                   fi
                   echo "✅ All required files found."
                   echo "✅ Running VSCE validation..."
+                  mkdir -p ../bin
                   cd src && npx @vscode/vsce package --no-dependencies --out ../bin/validation-test.vsix
                   echo "✅ VSCE validation passed!"
                   rm -f ../bin/validation-test.vsix
