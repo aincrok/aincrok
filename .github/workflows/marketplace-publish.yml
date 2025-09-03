@@ -63,6 +63,11 @@ jobs:
             - name: Test
               run: pnpm test
 
+            - name: Build Workspace Dependencies
+              run: |
+                  echo "Building required workspace packages..."
+                  pnpm --filter @roo-code/build --filter @roo-code/types build
+
             - name: Build Extension
               run: pnpm --filter ./src bundle
 
