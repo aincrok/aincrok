@@ -8,12 +8,12 @@
 		"message_updated": "Bericht succesvol bijgewerkt"
 	},
 	"lowCreditWarning": {
-		"title": "Waarschuwing Laag Saldo!",
-		"message": "Kijk of je kunt opwaarderen met gratis tegoeden of meer kunt kopen!"
+		"title": "Nieuwe wijzigingen weergeven",
+		"message": "Controleer alle gegenereerde commando's dubbel voordat je ze uitvoert. Acties in de terminal kunnen niet altijd worden teruggedraaid— het uitvoeren van niet-geverifieerde commando's kan resulteren in onherstelbaar dataverlies of beschadiging van het systeem. Bekijk en begrijp het commando volledig voordat je verdergaat!"
 	},
 	"task": {
 		"noAssistantMessages": "Het model reageerde onverwacht (geen assistent berichten). Dit kan een teken zijn van snelheidsbeperking.",
-		"notLoggedInError": "Kan verzoek niet voltooien, zorg ervoor dat je verbonden bent en bent aangemeld bij de geselecteerde provider.\n\n{{error}}",
+		"notLoggedInError": "Kan verzoek niet voltooien, zorg ervoor dat je verbonden bent en bent aangemeld bij de geselecteerde provider.\\n\\n{{error}}",
 		"maxCompletionTokens": "Het maximum aantal completion tokens is bereikt."
 	},
 	"checkpoints": {
@@ -35,13 +35,13 @@
 		},
 		"templates": {
 			"workflow": {
-				"description": "Workflow beschrijving hier...",
+				"description": "Ik kan je helpen met snelle taken en voorgestelde bewerkingen.",
 				"stepsHeader": "## Stappen",
 				"step1": "Stap 1",
 				"step2": "Stap 2"
 			},
 			"rule": {
-				"description": "Regel beschrijving hier...",
+				"description": "Ik kan je helpen met snelle taken en voorgestelde bewerkingen.",
 				"guidelinesHeader": "## Richtlijnen",
 				"guideline1": "Rijlijn 1",
 				"guideline2": "Rijlijn 2"
@@ -52,10 +52,10 @@
 		"activated": "Aincrok commit bericht generator geactiveerd",
 		"gitNotFound": "⚠️ Git-repository niet gevonden of git niet beschikbaar",
 		"gitInitError": "⚠️ Git-initialisatiefout: {{error}}",
-		"generating": "Aincrok: Commit bericht genereren...",
-		"noChanges": "Aincrok: Geen wijzigingen gevonden om te analyseren",
+		"generating": "Voorgestelde bewerkingen genereren...",
+		"noChanges": "Kan nieuwe wijzigingen niet weergeven, er zijn geen wijzigingen gevonden.",
 		"generated": "Aincrok: Commit bericht gegenereerd!",
-		"generationFailed": "Aincrok: Fout bij het genereren van commit bericht: {{errorMessage}}",
+		"generationFailed": "Aincrok: Opdracht genereren mislukt: {{error}}",
 		"generatingFromUnstaged": "Aincrok: Bericht genereren met niet-gestage wijzigingen",
 		"activationFailed": "Aincrok: Fout bij het activeren van berichtgenerator: {{error}}",
 		"providerRegistered": "Aincrok: Commit bericht provider geregistreerd"
@@ -63,18 +63,11 @@
 	"ghost": {
 		"statusBar": {
 			"enabled": "$(sparkle) Aincrok In-line Assistent",
-			"disabled": "$(circle-slash) Aincrok In-line Assistent",
+			"disabled": "Aincrok In-line Assistent (uitgeschakeld)",
 			"warning": "$(warning) Aincrok In-line Assistent",
 			"tooltip": {
 				"basic": "Aincrok In-line Assistent",
 				"disabled": "Aincrok In-line Assistent (uitgeschakeld)",
-				"tokenError": "Een geldig token moet zijn ingesteld om In-line Assistent te gebruiken",
-			"enabled": "$(sparkle) Kilo Code Autocomplete",
-			"disabled": "$(circle-slash) Kilo Code Autocomplete",
-			"warning": "$(warning) Kilo Code Autocomplete",
-			"tooltip": {
-				"basic": "Kilo Code Autocomplete",
-				"disabled": "Kilo Code Autocomplete (uitgeschakeld)",
 				"tokenError": "Een geldig token moet worden ingesteld om Autocomplete te gebruiken",
 				"lastCompletion": "Laatste suggestie:",
 				"sessionTotal": "Totale sessiekosten:",
@@ -87,33 +80,18 @@
 		},
 		"toggleMessage": "Aincrok In-line Assistent {{status}}",
 		"progress": {
-			"title": "Aincrok",
-			"analyzing": "Uw code analyseren...",
-			"generating": "Suggesties voor bewerkingen genereren...",
-			"processing": "Suggesties voor bewerkingen verwerken...",
-			"showing": "Suggesties voor bewerkingen weergeven..."
-		},
-		"input": {
-			"title": "Aincrok: Snelle Taak",
-			"placeholder": "bijv. 'refactor deze functie om deze efficiënter te maken'"
-		},
-		"commands": {
-			"generateSuggestions": "Aincrok: Genereer Voorgestelde Bewerkingen",
-			"displaySuggestions": "Voorgestelde Bewerkingen Weergeven",
-		"toggleMessage": "Kilo Code Autocomplete {{status}}",
-		"progress": {
-			"title": "Kilo Code",
+			"title": "Nieuwe wijzigingen weergeven",
 			"analyzing": "Je code analyseren...",
 			"generating": "Voorgestelde bewerkingen genereren...",
 			"processing": "Voorgestelde bewerkingen verwerken...",
 			"showing": "Voorgestelde bewerkingen tonen..."
 		},
 		"input": {
-			"title": "Kilo Code: Snelle Taak",
+			"title": "Nieuwe wijzigingen weergeven",
 			"placeholder": "bijv., 'refactor deze functie om efficiënter te zijn'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Voorgestelde Bewerkingen Genereren",
+			"generateSuggestions": "Aincrok: Genereer Voorgestelde Bewerkingen",
 			"displaySuggestions": "Voorgestelde Bewerkingen Tonen",
 			"cancelSuggestions": "Voorgestelde Bewerkingen Annuleren",
 			"applyCurrentSuggestion": "Huidige Voorgestelde Bewerking Toepassen",
@@ -122,7 +100,7 @@
 			"category": "Aincrok"
 		},
 		"codeAction": {
-			"title": "Aincrok: Voorgestelde Bewerkingen"
+			"title": "Nieuwe wijzigingen weergeven"
 		},
 		"chatParticipant": {
 			"fullName": "Aincrok Agent",
@@ -130,33 +108,30 @@
 			"description": "Ik kan je helpen met snelle taken en voorgestelde bewerkingen."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "De Aincrok In-line Assistent wordt geblokkeerd door een conflict met GitHub Copilot. Om dit op te lossen, moet u de in-line suggesties van Copilot uitschakelen.",
-			"disableCopilot": "Copilot uitschakelen",
-			"disableInlineAssist": "In-line Assistent uitschakelen"
-			"message": "De Kilo Code Autocomplete wordt geblokkeerd door een conflict met GitHub Copilot. Om dit op te lossen, moet je Copilot's inline suggesties uitschakelen.",
+			"message": "Controleer alle gegenereerde commando's dubbel voordat je ze uitvoert. Acties in de terminal kunnen niet altijd worden teruggedraaid— het uitvoeren van niet-geverifieerde commando's kan resulteren in onherstelbaar dataverlies of beschadiging van het systeem. Bekijk en begrijp het commando volledig voordat je verdergaat!",
 			"disableCopilot": "Copilot Uitschakelen",
 			"disableInlineAssist": "Autocomplete Uitschakelen"
 		}
-	},
-	"terminalCommandGenerator": {
-		"inputPrompt": "Aincrok: Beschrijf het commando dat je wilt genereren",
-		"noActiveTerminal": "Aincrok: Geen actieve terminal gevonden. Open eerst een terminal.",
-		"inputPlaceholder": "bijv., dood het proces dat draait op poort 3001, zoek grote bestanden, enz",
-		"generatingProgress": "Aincrok: Terminal opdracht genereren...",
-		"commandGenerated": "Aincrok: Gegenereerd commando: {{command}}",
-		"generationFailed": "Aincrok: Opdracht genereren mislukt: {{error}}",
-		"warningDialog": {
-			"title": "Waarschuwing Terminalveiligheid",
-			"okButton": "Ik begrijp",
-			"message": "Controleer alle gegenereerde commando's dubbel voordat je ze uitvoert. Acties in de terminal kunnen niet altijd worden teruggedraaid— het uitvoeren van niet-geverifieerde commando's kan resulteren in onherstelbaar dataverlies of beschadiging van het systeem. Bekijk en begrijp het commando volledig voordat je verdergaat!",
-			"cancelButton": "Annuleren"
-		},
-		"tipMessage": "Aincrok: Druk op {{shortcut}} om terminalopdrachten te genereren"
 	},
 	"seeNewChanges": {
 		"title": "Nieuwe wijzigingen weergeven",
 		"checkpointsUnavailable": "Kan nieuwe wijzigingen niet weergeven, controlepunten zijn niet beschikbaar.",
 		"noChanges": "Kan nieuwe wijzigingen niet weergeven, er zijn geen wijzigingen gevonden.",
 		"error": "Kan nieuwe wijzigingen niet weergeven, er is een fout opgetreden."
+	},
+	"terminalCommandGenerator": {
+		"tipMessage": "Aincrok: Druk op {{shortcut}} om terminalopdrachten te genereren",
+		"inputPrompt": "Aincrok: Beschrijf het commando dat je wilt genereren",
+		"inputPlaceholder": "bijv., dood het proces dat draait op poort 3001, zoek grote bestanden, enz",
+		"noActiveTerminal": "Aincrok: Geen actieve terminal gevonden. Open eerst een terminal.",
+		"generatingProgress": "Aincrok: Terminal opdracht genereren...",
+		"commandGenerated": "Aincrok: Gegenereerd commando: {{command}}",
+		"generationFailed": "Aincrok: Opdracht genereren mislukt: {{error}}",
+		"warningDialog": {
+			"title": "Nieuwe wijzigingen weergeven",
+			"message": "Controleer alle gegenereerde commando's dubbel voordat je ze uitvoert. Acties in de terminal kunnen niet altijd worden teruggedraaid— het uitvoeren van niet-geverifieerde commando's kan resulteren in onherstelbaar dataverlies of beschadiging van het systeem. Bekijk en begrijp het commando volledig voordat je verdergaat!",
+			"okButton": "Ik begrijp",
+			"cancelButton": "Annuleren"
+		}
 	}
 }
