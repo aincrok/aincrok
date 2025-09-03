@@ -10,7 +10,7 @@
 		"theme": "light"
 	},
 	"engines": {
-		"vscode": "^1.84.0",
+		"vscode": "^1.85.0",
 		"node": "20.19.2"
 	},
 	"extensionKind": [
@@ -24,6 +24,11 @@
 		"url": "https://github.com/aincrok/aincrok"
 	},
 	"homepage": "https://aincrok.dev",
+	"license": "Apache-2.0",
+	"bugs": {
+		"url": "https://github.com/aincrok/aincrok/issues"
+	},
+	"qna": "marketplace",
 	"categories": [
 		"AI",
 		"Chat",
