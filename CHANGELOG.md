@@ -1,5 +1,11 @@
 # Aincrok Changelog
 
+## 0.0.2
+
+### Patch Changes
+
+- [#20](https://github.com/aincrok/aincrok/pull/20) [`fa2189d`](https://github.com/aincrok/aincrok/commit/fa2189de13e8f7dab26036137e5de6cb14a03a92) Thanks [@mihazs](https://github.com/mihazs)! - first fork release
+
 ## [0.0.0] - 2025-09-02
 
 - Aincrok now shows an error message when a model reaches its maximum output
