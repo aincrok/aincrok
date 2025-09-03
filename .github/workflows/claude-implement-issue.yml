@@ -156,7 +156,7 @@ jobs:
             
             Start with a comprehensive analysis of the issue and codebase. Be thorough, methodical, and follow software engineering best practices.
             
-          claude_args: '--model claude-3-5-sonnet-20241022'
+          claude_args: '--model claude-sonnet-4-20250514'
 
       - name: Update Issue Status
         if: always()

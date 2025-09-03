@@ -105,7 +105,7 @@ jobs:
           
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://docs.anthropic.com/en/docs/claude-code/sdk#command-line for available options
-          claude_args: '--allowed-tools "Bash(gh pr comment:*),Bash(gh pr view:*),Bash(gh pr diff:*)" --model claude-3-5-sonnet-20241022'
+          claude_args: '--allowed-tools "Bash(gh pr comment:*),Bash(gh pr view:*),Bash(gh pr diff:*)" --model claude-sonnet-4-20250514'
 
       - name: Skip Review Notification
         # Notify when review is skipped due to minimal changes
