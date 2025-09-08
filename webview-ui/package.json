@@ -30,7 +30,7 @@
 		"@radix-ui/react-slot": "^1.1.2",
 		"@radix-ui/react-tooltip": "^1.1.8",
 		"@roo-code/types": "workspace:^",
-		"@tailwindcss/vite": "^4.0.0",
+		"@tailwindcss/vite": "^4.1.13",
 		"@tanstack/react-query": "^5.68.0",
 		"@types/seedrandom": "^3.0.8",
 		"@use-gesture/react": "^10.3.1",
