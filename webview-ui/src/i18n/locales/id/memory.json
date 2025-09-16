@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Tangkapan Otomatis",
+		"reasoningExtraction": "Ekstraksi Penalaran",
+		"workspace": "Berbagi Ruang Kerja Tim"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Konfigurasi Memori",
+		"saveButtonTooltip": "Simpan konfigurasi memori saat ini",
+		"doneButtonTooltip": "Tutup konfigurasi memori dan kembali ke obrolan"
+	},
+	"common": {
+		"save": "Simpan",
+		"done": "Selesai",
+		"optional": "opsional",
+		"configuring": "Configuring"
+	},
+	"description": "Konfigurasikan penyedia memori dan pengaturan untuk meningkatkan kesadaran konteks AI dan efisiensi. Sistem memori membantu mempertahankan konteks percakapan antar sesi.",
+	"llmProfile": {
+		"title": "Profil LLM",
+		"selectProfile": "Pilih profil",
+		"selectedProfileInfo": "Profil yang dipilih: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Konfigurasi Penyimpanan Vektor",
+		"type": "Jenis Penyimpanan Vektor",
+		"selectType": "Pilih jenis penyimpanan vektor",
+		"url": "URL Penyimpanan Vektor",
+		"urlPlaceholder": "contoh: http://localhost:6333",
+		"collection": "Nama Koleksi",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Dimensi Vektor",
+		"apiKey": "Kunci API",
+		"apiKeyPlaceholder": "Masukkan kunci API"
+	},
+	"graphStore": {
+		"title": "Konfigurasi Penyimpanan Graf",
+		"type": "Jenis Penyimpanan Graf",
+		"selectType": "Pilih jenis penyimpanan graf",
+		"url": "URL Penyimpanan Graf",
+		"urlPlaceholder": "contoh: bolt://localhost:7687",
+		"username": "Nama Pengguna",
+		"usernamePlaceholder": "neo4j",
+		"password": "Kata Sandi",
+		"passwordPlaceholder": "Masukkan kata sandi"
+	},
+	"embedder": {
+		"title": "Konfigurasi Embedder",
+		"type": "Jenis Embedder",
+		"selectType": "Pilih jenis embedder",
+		"model": "Model Embedding",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "URL Dasar",
+		"apiKey": "Kunci API",
+		"apiKeyPlaceholder": "Masukkan kunci API"
+	},
+	"general": {
+		"title": "Pengaturan Umum",
+		"userId": "ID Pengguna",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Ukuran Memori Maksimum",
+		"searchThreshold": "Ambang Pencarian",
+		"enablePersistence": "Aktifkan Persistensi"
+	},
+	"sections": {
+		"memory": "Memori"
+	}
+}

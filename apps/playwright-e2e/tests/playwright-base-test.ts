@@ -28,9 +28,9 @@ export const test = base.extend<TestFixtures>({
 	vscodeVersion: ["stable", { option: true }],
 
 	workbox: async ({ createProject, createTempDir }, use) => {
-		// Fail early if OPENROUTER_API_KEY is not set
-		if (!process.env.OPENROUTER_API_KEY) {
-			throw new Error("OPENROUTER_API_KEY environment variable is required for Playwright tests")
+		// Fail early if GITHUB_COPILOT_KEY is not set
+		if (!process.env.GITHUB_COPILOT_KEY) {
+			throw new Error("GITHUB_COPILOT_KEY environment variable is required for Playwright tests")
 		}
 
 		const defaultCachePath = await createTempDir()
@@ -69,6 +69,8 @@ export const test = base.extend<TestFixtures>({
 				"--disable-crash-reporter",
 				"--enable-logging",
 				"--log-level=0",
+				"--verbose",
+				"--log-extension-host-communication",
 				"--disable-extensions-except=aincrok.aincrok",
 				"--disable-extension-recommendations",
 				"--disable-extension-update-check",
@@ -86,13 +88,17 @@ export const test = base.extend<TestFixtures>({
 
 		const workbox = await electronApp.firstWindow()
 
-		// Setup pass-through logs for the core process and the webview
-		if (process.env.PLAYWRIGHT_VERBOSE_LOGS === "true") {
+		// Always capture logs for debugging extension issues
+		const enableVerboseLogging = true
+		if (enableVerboseLogging) {
 			electronApp.process().stdout?.on("data", (data) => {
 				const output = data.toString().trim()
 				const cleaned = cleanLogMessage(output)
-				if (cleaned) {
-					console.log(`📋 [VSCode] ${cleaned}`)
+				if (
+					cleaned &&
+					(process.env.PLAYWRIGHT_VERBOSE_LOGS === "true" || cleaned.toLowerCase().includes("error"))
+				) {
+					console.log(`📋 [VSCode] ${cleaned}`) // aincrok_change - filter non-error logs
 				}
 			})
 
@@ -119,7 +125,10 @@ export const test = base.extend<TestFixtures>({
 
 		await workbox.waitForLoadState("domcontentloaded")
 		await workbox.waitForSelector(".monaco-workbench")
-		console.log("✅ VS Code workbox ready for testing")
+		// aincrok_change - only log in verbose mode
+		if (process.env.PLAYWRIGHT_VERBOSE_LOGS === "true") {
+			console.log("✅ VS Code workbox ready for testing")
+		}
 
 		await use(workbox)
 		await electronApp.close()

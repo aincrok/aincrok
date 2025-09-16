@@ -58,8 +58,9 @@
 		"llama"
 	],
 	"activationEvents": [
-		"onLanguage",
-		"onStartupFinished"
+		"onCommand:aincrok.activate",
+		"onCommand:aincrok.openSettings",
+		"onView:aincrok.SidebarProvider"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -179,7 +180,13 @@
 			{
 				"command": "aincrok.settingsButtonClicked",
 				"title": "%command.settings.title%",
+				"category": "%configuration.title%",
 				"icon": "$(settings-gear)"
+			},
+			{
+				"command": "aincrok.openSettings",
+				"title": "Open Settings",
+				"category": "%configuration.title%"
 			},
 			{
 				"command": "aincrok.helpButtonClicked",
@@ -187,8 +194,23 @@
 				"icon": "$(question)"
 			},
 			{
+				"command": "aincrok.memoryDashboardButtonClicked",
+				"title": "Memory Dashboard",
+				"icon": "$(database)"
+			},
+			{
 				"command": "aincrok.openInNewTab",
 				"title": "%command.openInNewTab.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.sidebarProviderFocus",
+				"title": "Focus Aincrok Sidebar",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.handleExternalUri",
+				"title": "Handle External URI",
 				"category": "%configuration.title%"
 			},
 			{
@@ -300,6 +322,31 @@
 				"command": "aincrok.ghost.goToPreviousSuggestion",
 				"title": "%ghost.commands.goToPreviousSuggestion%",
 				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.memory.switchContext",
+				"title": "Switch Memory Context",
+				"category": "Memory"
+			},
+			{
+				"command": "aincrok.memory.showCurrentContext",
+				"title": "Show Current Memory Context",
+				"category": "Memory"
+			},
+			{
+				"command": "aincrok.memory.toggleContextSwitching",
+				"title": "Toggle Context Switching",
+				"category": "Memory"
+			},
+			{
+				"command": "aincrok.memory.showContextInsights",
+				"title": "Show Context Insights",
+				"category": "Memory"
+			},
+			{
+				"command": "aincrok.memory.cleanupContexts",
+				"title": "Cleanup Old Contexts",
+				"category": "Memory"
 			}
 		],
 		"keybindings": [
@@ -446,18 +493,23 @@
 					"when": "view == aincrok.SidebarProvider"
 				},
 				{
-					"command": "aincrok.settingsButtonClicked",
+					"command": "aincrok.memoryDashboardButtonClicked",
 					"group": "navigation@6",
 					"when": "view == aincrok.SidebarProvider"
 				},
 				{
-					"command": "aincrok.popoutButtonClicked",
+					"command": "aincrok.settingsButtonClicked",
 					"group": "navigation@7",
 					"when": "view == aincrok.SidebarProvider"
 				},
 				{
-					"command": "aincrok.helpButtonClicked",
+					"command": "aincrok.popoutButtonClicked",
 					"group": "navigation@8",
+					"when": "view == aincrok.SidebarProvider"
+				},
+				{
+					"command": "aincrok.helpButtonClicked",
+					"group": "navigation@9",
 					"when": "false && view == aincrok.SidebarProvider"
 				}
 			],
@@ -488,8 +540,13 @@
 					"when": "activeWebviewPanelId == aincrok.TabPanelProvider"
 				},
 				{
-					"command": "aincrok.helpButtonClicked",
+					"command": "aincrok.memoryDashboardButtonClicked",
 					"group": "navigation@6",
+					"when": "activeWebviewPanelId == aincrok.TabPanelProvider"
+				},
+				{
+					"command": "aincrok.helpButtonClicked",
+					"group": "navigation@7",
 					"when": "activeWebviewPanelId == aincrok.TabPanelProvider"
 				}
 			],
@@ -595,6 +652,169 @@
 					"type": "boolean",
 					"default": false,
 					"description": "%settings.newTaskRequireTodos.description%"
+				},
+				"aincrok.memory.mem0LlmProfileId": {
+					"type": "string",
+					"description": "Aincrok profile ID to use for Mem0's LLM operations"
+				},
+				"aincrok.memory.mem0VectorStore": {
+					"type": "string",
+					"enum": [
+						"qdrant",
+						"chroma",
+						"pinecone",
+						"faiss",
+						"pgvector",
+						"milvus",
+						"weaviate"
+					],
+					"description": "Vector store type for Mem0"
+				},
+				"aincrok.memory.mem0VectorStoreUrl": {
+					"type": "string",
+					"description": "Vector store connection URL"
+				},
+				"aincrok.memory.mem0VectorStoreCollection": {
+					"type": "string",
+					"description": "Vector store collection/index name"
+				},
+				"aincrok.memory.mem0VectorStoreDimensions": {
+					"type": "number",
+					"description": "Vector dimensions (optional, auto-detected from embedder)"
+				},
+				"aincrok.memory.mem0VectorStoreApiKey": {
+					"type": "string",
+					"description": "Vector store API key (for cloud services like Pinecone)"
+				},
+				"aincrok.memory.mem0GraphStore": {
+					"type": "string",
+					"enum": [
+						"neo4j",
+						"memgraph",
+						"arangodb",
+						"nebula",
+						"falkordb"
+					],
+					"description": "Graph store type for Mem0 (optional)"
+				},
+				"aincrok.memory.mem0GraphStoreUrl": {
+					"type": "string",
+					"description": "Graph store connection URL"
+				},
+				"aincrok.memory.mem0GraphStoreUsername": {
+					"type": "string",
+					"description": "Graph store username"
+				},
+				"aincrok.memory.mem0GraphStorePassword": {
+					"type": "string",
+					"description": "Graph store password"
+				},
+				"aincrok.memory.mem0Embedder": {
+					"type": "string",
+					"enum": [
+						"openai",
+						"ollama",
+						"huggingface",
+						"azure",
+						"together"
+					],
+					"description": "Embedder type for Mem0"
+				},
+				"aincrok.memory.mem0EmbedderModel": {
+					"type": "string",
+					"description": "Specific embedder model to use"
+				},
+				"aincrok.memory.mem0EmbedderBaseUrl": {
+					"type": "string",
+					"description": "Custom base URL for embedder (e.g., Ollama server)"
+				},
+				"aincrok.memory.mem0EmbedderApiKey": {
+					"type": "string",
+					"description": "API key for embedder service (optional if using profile)"
+				},
+				"aincrok.memory.mem0UserId": {
+					"type": "string",
+					"description": "User ID for memory organization"
+				},
+				"aincrok.memory.mem0MaxMemorySize": {
+					"type": "number",
+					"minimum": 100,
+					"maximum": 100000,
+					"description": "Maximum number of memories to store (optional)"
+				},
+				"aincrok.memory.mem0SearchThreshold": {
+					"type": "number",
+					"minimum": 0,
+					"maximum": 1,
+					"description": "Similarity threshold for memory search (optional)"
+				},
+				"aincrok.memory.mem0EnablePersistence": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable persistent memory storage"
+				},
+				"aincrok.memory.contextSwitching.enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable memory-aware context switching"
+				},
+				"aincrok.memory.contextSwitching.autoSwitchOnFileOpen": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically switch context when opening files"
+				},
+				"aincrok.memory.contextSwitching.autoSwitchOnProjectChange": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically switch context when changing projects"
+				},
+				"aincrok.memory.contextSwitching.contextDepth": {
+					"type": "string",
+					"enum": [
+						"file",
+						"directory",
+						"project"
+					],
+					"default": "directory",
+					"description": "Level of context granularity for memory switching"
+				},
+				"aincrok.memory.contextSwitching.memoryRetentionMinutes": {
+					"type": "number",
+					"default": 60,
+					"minimum": 5,
+					"maximum": 1440,
+					"description": "How long to retain context memories (in minutes)"
+				},
+				"aincrok.memory.contextSwitching.maxContextMemories": {
+					"type": "number",
+					"default": 50,
+					"minimum": 10,
+					"maximum": 200,
+					"description": "Maximum number of memories per context"
+				},
+				"aincrok.memory.contextSwitching.showNotifications": {
+					"type": "boolean",
+					"default": false,
+					"description": "Show notifications when switching memory contexts"
+				},
+				"aincrok.taskHistory.maxTasks": {
+					"type": "number",
+					"default": 100,
+					"minimum": 10,
+					"maximum": 1000,
+					"description": "Maximum number of tasks to keep in history"
+				},
+				"aincrok.taskHistory.retentionDays": {
+					"type": "number",
+					"default": 30,
+					"minimum": 1,
+					"maximum": 365,
+					"description": "Number of days to retain task history"
+				},
+				"aincrok.taskHistory.autoCleanup": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically cleanup old tasks based on retention policy"
 				}
 			}
 		},
@@ -614,6 +834,7 @@
 		"check-types": "tsc --noEmit",
 		"pretest": "turbo run bundle --cwd ..",
 		"test": "vitest run",
+		"test:coverage": "vitest run --coverage",
 		"format": "prettier --write .",
 		"bundle": "node esbuild.mjs",
 		"vscode:prepublish": "pnpm bundle --production",
@@ -630,14 +851,13 @@
 		"@aws-sdk/client-bedrock-runtime": "^3.812.0",
 		"@aws-sdk/credential-providers": "^3.806.0",
 		"@cerebras/cerebras_cloud_sdk": "^1.35.0",
+		"@dotenvx/dotenvx": "^1.44.2",
 		"@google/genai": "^1.0.0",
-		"@langchain/langgraph": "^0.2.0",
+		"@langchain/langgraph": "^0.4.9",
 		"@lmstudio/sdk": "^1.1.1",
-		"@mem0/vercel-ai-provider": "^1.0.0",
 		"@mistralai/mistralai": "^1.3.6",
 		"@modelcontextprotocol/sdk": "^1.9.0",
 		"@qdrant/js-client-rest": "^1.14.0",
-		"@roo-code/cloud": "^0.19.0",
 		"@roo-code/ipc": "workspace:^",
 		"@roo-code/telemetry": "workspace:^",
 		"@roo-code/types": "workspace:^",
@@ -669,6 +889,7 @@
 		"lru-cache": "^11.1.0",
 		"mammoth": "^1.9.1",
 		"monaco-vscode-textmate-theme-converter": "^0.1.7",
+		"neo4j-driver": "^5.28.1",
 		"node-cache": "^5.1.2",
 		"node-ipc": "^12.0.0",
 		"ollama": "^0.5.17",

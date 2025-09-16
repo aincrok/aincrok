@@ -112,7 +112,7 @@ export const useSelectedModel = (apiConfiguration?: ProviderSettings) => {
 					lmStudioModels: lmStudioModels.data,
 					kilocodeDefaultModel,
 				})
-			: { id: anthropicDefaultModelId, info: undefined }
+			: { id: anthropicDefaultModelId, info: anthropicModels[anthropicDefaultModelId] }
 
 	return {
 		provider,

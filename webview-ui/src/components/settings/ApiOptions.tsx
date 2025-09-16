@@ -794,7 +794,7 @@ const ApiOptions = ({
 			/>
 
 			{/* Gate Verbosity UI by capability flag */}
-			{selectedModelInfo?.supportsVerbosity && (
+			{(selectedModelInfo as any)?.supportsVerbosity && (
 				<Verbosity
 					apiConfiguration={apiConfiguration}
 					setApiConfigurationField={setApiConfigurationField}

@@ -16,7 +16,7 @@ const HistoryPreview = () => {
 
 	return (
 		<div className="flex flex-col gap-3">
-			{tasks.length !== 0 && (
+			{tasks.length !== 0 ? (
 				<>
 					{tasks.slice(0, 3).map((item) => (
 						<TaskItem key={item.id} item={item} variant="compact" />
@@ -28,6 +28,13 @@ const HistoryPreview = () => {
 						{t("history:viewAllHistory")}
 					</button>
 				</>
+			) : (
+				<div className="text-center py-6">
+					<p className="text-vscode-descriptionForeground text-sm mb-2">{t("history:noTasksYet")}</p>
+					<p className="text-vscode-descriptionForeground text-xs opacity-75">
+						{t("history:tasksWillAppearHere")}
+					</p>
+				</div>
 			)}
 		</div>
 	)

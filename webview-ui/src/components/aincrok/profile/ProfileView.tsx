@@ -13,7 +13,7 @@ import { useExtensionState } from "@/context/ExtensionStateContext"
 import { useAppTranslation } from "@/i18n/TranslationContext"
 import { Tab, TabContent, TabHeader } from "@src/components/common/Tab"
 import { Button } from "@src/components/ui"
-import KiloCodeAuth from "../common/KiloCodeAuth"
+// aincrok_change - Removed KiloCodeAuth import
 import { OrganizationSelector } from "../common/OrganizationSelector"
 
 interface ProfileViewProps {
@@ -265,8 +265,9 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onDone }) => {
 								</div>
 							</div>
 						) : (
+							// aincrok_change - Removed KiloCodeAuth, show login message
 							<div className="flex flex-col items-center pr-3">
-								<KiloCodeAuth className="w-full" />
+								<p>{t("profile.loginRequired")}</p>
 							</div>
 						)}
 					</div>

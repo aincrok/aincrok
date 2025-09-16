@@ -32,6 +32,7 @@
 		"prompts": "Prompts",
 		"experimental": "Experimental",
 		"language": "Language",
+		"memory": "Memory",
 		"about": "About Kilo Code"
 	},
 	"prompts": {
@@ -876,5 +877,66 @@
 	"includeMaxOutputTokensDescription": "Send max output tokens parameter in API requests. Some providers may not support this.",
 	"limitMaxTokensDescription": "Limit the maximum number of tokens in the response",
 	"maxOutputTokensLabel": "Max output tokens",
-	"maxTokensGenerateDescription": "Maximum tokens to generate in response"
+	"maxTokensGenerateDescription": "Maximum tokens to generate in response",
+	"cipher": {
+		"loading": "Loading configuration...",
+		"error": {
+			"loadFailed": "Failed to load configuration"
+		},
+		"mode": {
+			"title": "Mode",
+			"embedded": "Embedded",
+			"mcp": "MCP Server",
+			"api": "API"
+		},
+		"embedded": {
+			"title": "Embedded Configuration",
+			"provider": "Provider",
+			"userId": "User ID",
+			"llm": {
+				"title": "Language Model",
+				"type": "Type",
+				"model": "Model",
+				"apiKey": "API Key",
+				"apiKeyPlaceholder": "Enter your API key",
+				"baseURL": "Base URL"
+			},
+			"embedding": {
+				"title": "Embedding Model",
+				"type": "Type",
+				"model": "Model",
+				"apiKey": "API Key",
+				"apiKeyPlaceholder": "Enter your API key",
+				"baseURL": "Base URL"
+			}
+		},
+		"mcp": {
+			"title": "MCP Configuration",
+			"serverName": "Server Name"
+		},
+		"api": {
+			"title": "API Configuration",
+			"endpoint": "Endpoint",
+			"apiKey": "API Key",
+			"apiKeyPlaceholder": "Enter your API key"
+		},
+		"model": {
+			"select": "Select a model",
+			"custom": "Custom Model",
+			"needsApiKey": "API Key required for model fetching",
+			"refresh": "Refresh available models",
+			"fetchError": "Error fetching models",
+			"customPlaceholder": "Enter custom model name"
+		},
+		"save": "Save Configuration",
+		"test": {
+			"button": "Test Connection",
+			"testing": "Testing...",
+			"success": "Connection successful",
+			"failed": "Connection failed"
+		},
+		"debug": {
+			"title": "Debug Logs"
+		}
+	}
 }

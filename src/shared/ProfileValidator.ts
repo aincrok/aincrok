@@ -1,8 +1,14 @@
 import type { ProviderSettings } from "@roo-code/types"
-import type { OrganizationAllowList } from "@roo-code/cloud"
+// aincrok_change: CloudService removed, using type stub
+type OrganizationAllowList = any
 
 export class ProfileValidator {
 	public static isProfileAllowed(profile: ProviderSettings, allowList: OrganizationAllowList): boolean {
+		// aincrok_change - Handle undefined or null allowList gracefully
+		if (!allowList) {
+			return true // Default to allowing if no allowList is provided
+		}
+
 		if (allowList.allowAll) {
 			return true
 		}
@@ -22,6 +28,10 @@ export class ProfileValidator {
 		const modelId = this.getModelIdFromProfile(profile)
 
 		if (!modelId) {
+			// Handle case where allowList.providers is undefined
+			if (!allowList.providers) {
+				return true
+			}
 			return allowList.providers[profile.apiProvider]?.allowAll === true
 		}
 
@@ -29,15 +39,35 @@ export class ProfileValidator {
 	}
 
 	private static isProviderAllowed(providerName: string, allowList: OrganizationAllowList): boolean {
+		// aincrok_change - Handle undefined or null allowList gracefully
+		if (!allowList) {
+			return true
+		}
+
 		if (allowList.allowAll) {
 			return true
+		}
+
+		// Handle case where allowList.providers is undefined
+		if (!allowList.providers) {
+			return true // Default to allowing if no providers list is defined
 		}
 
 		return providerName in allowList.providers
 	}
 
 	private static isModelAllowed(providerName: string, modelId: string, allowList: OrganizationAllowList): boolean {
+		// aincrok_change - Handle undefined or null allowList gracefully
+		if (!allowList) {
+			return true
+		}
+
 		if (allowList.allowAll) {
+			return true
+		}
+
+		// Handle case where allowList.providers is undefined
+		if (!allowList.providers) {
 			return true
 		}
 

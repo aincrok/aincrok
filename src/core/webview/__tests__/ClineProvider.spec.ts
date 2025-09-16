@@ -6,7 +6,8 @@ import axios from "axios"
 
 import { type ProviderSettingsEntry, type ClineMessage, openRouterDefaultModelId } from "@roo-code/types"
 import { TelemetryService } from "@roo-code/telemetry"
-import { ORGANIZATION_ALLOW_ALL } from "@roo-code/cloud"
+// aincrok_change - @roo-code/cloud removed, define constant locally
+const ORGANIZATION_ALLOW_ALL = "*"
 
 import { ExtensionMessage, ExtensionState } from "../../../shared/ExtensionMessage"
 import { defaultModeSlug } from "../../../shared/modes"
@@ -571,6 +572,42 @@ describe("ClineProvider", () => {
 			profileThresholds: {},
 			hasOpenedModeSelector: false,
 			diagnosticsEnabled: true,
+			// aincrok_change - Add required memoryConfiguration field
+			memoryConfiguration: {
+				mode: "disabled",
+				autoCapture: false,
+				extractReasoning: false,
+				teamSharing: false,
+				llmProvider: "openai",
+				llmModel: "",
+				llmApiKey: "",
+				llmBaseUrl: "",
+				vectorStore: "in-memory",
+				vectorStoreUrl: "",
+				vectorStoreApiKey: "",
+				embeddingProvider: "openai",
+				embeddingModel: "",
+				embeddingDimensions: 1536,
+				embeddingApiKey: "",
+				embeddingBaseUrl: "",
+				knowledgeGraphEnabled: false,
+				knowledgeGraphType: "in-memory",
+				neo4jHost: "localhost",
+				neo4jPort: "7687",
+				neo4jUsername: "",
+				neo4jPassword: "",
+				neo4jDatabase: "neo4j",
+				inMemoryMaxNodes: 10000,
+				inMemoryMaxEdges: 50000,
+				maxSessions: 5,
+				sessionTTL: 3600,
+				maxIterations: 10,
+				mcpConnectionType: "stdio",
+				mcpCommand: "",
+				mcpArgs: "",
+				apiUrl: "",
+				apiKey: "",
+			},
 		}
 
 		const message: ExtensionMessage = {
@@ -2518,87 +2555,13 @@ describe.skip("getTelemetryProperties", () => {
 			vi.clearAllMocks()
 		})
 
-		test("includes cloud authentication property when user is authenticated", async () => {
-			// Import the CloudService mock and update it
-			const { CloudService } = await import("@roo-code/cloud")
-			const mockCloudService = {
-				isAuthenticated: vi.fn().mockReturnValue(true),
-			}
-
-			// Update the existing mock
-			Object.defineProperty(CloudService, "instance", {
-				get: vi.fn().mockReturnValue(mockCloudService),
-				configurable: true,
-			})
-
-			const properties = await provider.getTelemetryProperties()
-
-			expect(properties).toHaveProperty("cloudIsAuthenticated", true)
-		})
-
-		test("includes cloud authentication property when user is not authenticated", async () => {
-			// Import the CloudService mock and update it
-			const { CloudService } = await import("@roo-code/cloud")
-			const mockCloudService = {
-				isAuthenticated: vi.fn().mockReturnValue(false),
-			}
-
-			// Update the existing mock
-			Object.defineProperty(CloudService, "instance", {
-				get: vi.fn().mockReturnValue(mockCloudService),
-				configurable: true,
-			})
-
+		test("includes cloud authentication property (always false)", async () => {
 			const properties = await provider.getTelemetryProperties()
 
 			expect(properties).toHaveProperty("cloudIsAuthenticated", false)
-		})
-
-		test("handles CloudService errors gracefully", async () => {
-			// Import the CloudService mock and update it to throw an error
-			const { CloudService } = await import("@roo-code/cloud")
-			Object.defineProperty(CloudService, "instance", {
-				get: vi.fn().mockImplementation(() => {
-					throw new Error("CloudService not available")
-				}),
-				configurable: true,
-			})
-
-			const properties = await provider.getTelemetryProperties()
-
-			// Should still include basic telemetry properties
 			expect(properties).toHaveProperty("vscodeVersion")
 			expect(properties).toHaveProperty("platform")
 			expect(properties).toHaveProperty("appVersion", "1.0.0")
-
-			// Cloud property should be undefined when CloudService is not available
-			expect(properties).toHaveProperty("cloudIsAuthenticated", undefined)
-		})
-
-		test("handles CloudService method errors gracefully", async () => {
-			// Import the CloudService mock and update it
-			const { CloudService } = await import("@roo-code/cloud")
-			const mockCloudService = {
-				isAuthenticated: vi.fn().mockImplementation(() => {
-					throw new Error("Authentication check error")
-				}),
-			}
-
-			// Update the existing mock
-			Object.defineProperty(CloudService, "instance", {
-				get: vi.fn().mockReturnValue(mockCloudService),
-				configurable: true,
-			})
-
-			const properties = await provider.getTelemetryProperties()
-
-			// Should still include basic telemetry properties
-			expect(properties).toHaveProperty("vscodeVersion")
-			expect(properties).toHaveProperty("platform")
-			expect(properties).toHaveProperty("appVersion", "1.0.0")
-
-			// Property that errored should be undefined
-			expect(properties).toHaveProperty("cloudIsAuthenticated", undefined)
 		})
 	})
 })

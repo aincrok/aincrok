@@ -1,0 +1,187 @@
+{
+	"settings": {
+		"title": "Memoria",
+		"description": "Configure proveedores de memoria y configuraciones para mejorar la conciencia contextual de la IA y la eficiencia.",
+		"autoCapture": "Captura Automática",
+		"reasoningExtraction": "Extracción de Razonamiento",
+		"workspace": "Compartir en Espacio de Trabajo"
+	},
+	"tabs": {
+		"memory": "Memoria"
+	},
+	"header": {
+		"title": "Configuración de Memoria",
+		"saveButtonTooltip": "Guardar la configuración de memoria actual",
+		"doneButtonTooltip": "Cerrar configuración de memoria y volver al chat"
+	},
+	"common": {
+		"save": "Guardar",
+		"done": "Hecho",
+		"optional": "opcional",
+		"configuring": "Configurando"
+	},
+	"description": "Configure proveedores de memoria y configuraciones para mejorar la conciencia contextual de la IA y la eficiencia. Los sistemas de memoria ayudan a mantener el contexto de conversación entre sesiones.",
+	"modes": {
+		"title": "Modo de Proveedor de Memoria",
+		"disabled": "Deshabilitado",
+		"embedded": "Incrustado (Local)",
+		"mcp": "Servidor MCP",
+		"api": "API Externa"
+	},
+	"llm": {
+		"title": "Configuración LLM",
+		"provider": "Proveedor LLM",
+		"selectProvider": "Seleccionar Proveedor",
+		"model": "Modelo",
+		"apiKey": "Clave API",
+		"apiKeyPlaceholder": "Ingrese clave API",
+		"baseUrl": "URL Base",
+		"baseUrlPlaceholder": "Ingrese URL base",
+		"providers": {
+			"openai": "OpenAI",
+			"anthropic": "Anthropic",
+			"ollama": "Ollama (Local)"
+		}
+	},
+	"embedding": {
+		"title": "Configuración de Incrustación",
+		"provider": "Proveedor de Incrustación",
+		"selectProvider": "Seleccionar Proveedor",
+		"model": "Modelo",
+		"apiKey": "Clave API",
+		"apiKeyPlaceholder": "Ingrese clave API",
+		"baseUrl": "URL Base",
+		"baseUrlPlaceholder": "Ingrese URL base",
+		"dimensions": "Dimensiones",
+		"dimensionsPlaceholder": "ej., 1536",
+		"providers": {
+			"openai": "OpenAI",
+			"huggingface": "Hugging Face",
+			"local": "Local"
+		}
+	},
+	"llmProfile": {
+		"title": "Perfil LLM",
+		"selectProfile": "Seleccionar un perfil",
+		"selectedProfileInfo": "Perfil seleccionado: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Configuración de Almacén Vectorial",
+		"type": "Tipo de Almacén Vectorial",
+		"selectType": "Seleccionar tipo de almacén vectorial",
+		"url": "URL del Almacén Vectorial",
+		"urlPlaceholder": "ej., http://localhost:6333",
+		"collection": "Nombre de Colección",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Dimensiones Vectoriales",
+		"apiKey": "Clave API",
+		"apiKeyPlaceholder": "Ingrese la clave API",
+		"types": {
+			"in-memory": "En Memoria",
+			"qdrant": "Qdrant",
+			"chroma": "Chroma"
+		}
+	},
+	"knowledgeGraph": {
+		"title": "Configuración de Grafo de Conocimiento",
+		"enabled": "Habilitar Grafo de Conocimiento",
+		"type": "Tipo de Grafo de Conocimiento",
+		"selectType": "Seleccionar tipo de almacén de grafos",
+		"host": "Host",
+		"hostPlaceholder": "localhost",
+		"port": "Puerto",
+		"portPlaceholder": "7687",
+		"username": "Nombre de Usuario",
+		"usernamePlaceholder": "neo4j",
+		"password": "Contraseña",
+		"passwordPlaceholder": "Ingrese contraseña",
+		"database": "Base de Datos",
+		"databasePlaceholder": "neo4j",
+		"maxNodes": "Máx. Nodos",
+		"maxEdges": "Máx. Aristas",
+		"types": {
+			"in-memory": "En Memoria",
+			"neo4j": "Neo4j"
+		}
+	},
+	"session": {
+		"title": "Configuración de Sesión",
+		"sessionTTL": "TTL de Sesión (segundos)",
+		"maxSessions": "Máx. Sesiones",
+		"maxIterations": "Máx. Iteraciones"
+	},
+	"mcp": {
+		"title": "Configuración MCP",
+		"connectionType": "Tipo de Conexión",
+		"command": "Comando",
+		"commandPlaceholder": "Ingrese comando",
+		"args": "Argumentos",
+		"argsPlaceholder": "Ingrese argumentos",
+		"types": {
+			"stdio": "E/S Estándar"
+		}
+	},
+	"api": {
+		"title": "Configuración API",
+		"url": "URL API",
+		"urlPlaceholder": "Ingrese URL API",
+		"apiKey": "Clave API",
+		"apiKeyPlaceholder": "Ingrese clave API"
+	},
+	"graphStore": {
+		"title": "Configuración de Almacén de Grafos",
+		"type": "Tipo de Almacén de Grafos",
+		"selectType": "Seleccionar tipo de almacén de grafos",
+		"url": "URL del Almacén de Grafos",
+		"urlPlaceholder": "ej., bolt://localhost:7687",
+		"username": "Nombre de Usuario",
+		"usernamePlaceholder": "neo4j",
+		"password": "Contraseña",
+		"passwordPlaceholder": "Ingrese contraseña"
+	},
+	"embedder": {
+		"title": "Configuración de Embedder",
+		"type": "Tipo de Embedder",
+		"selectType": "Seleccionar tipo de embedder",
+		"model": "Modelo de Incrustación",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "URL Base",
+		"apiKey": "Clave API",
+		"apiKeyPlaceholder": "Ingrese clave API"
+	},
+	"general": {
+		"title": "Configuraciones Generales",
+		"userId": "ID de Usuario",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Tamaño Máximo de Memoria",
+		"searchThreshold": "Umbral de Búsqueda",
+		"enablePersistence": "Habilitar Persistencia"
+	},
+	"sections": {
+		"memory": "Memoria"
+	},
+	"validation": {
+		"configurationIncomplete": "Configuración incompleta - faltan campos requeridos",
+		"providerRequired": "El proveedor es requerido",
+		"apiKeyRequired": "La clave API es requerida",
+		"modelRequired": "El modelo es requerido",
+		"urlRequired": "La URL es requerida",
+		"hostRequired": "El host es requerido",
+		"portRequired": "El puerto es requerido",
+		"usernameRequired": "El nombre de usuario es requerido",
+		"passwordRequired": "La contraseña es requerida"
+	},
+	"features": {
+		"title": "Características de Memoria",
+		"autoCapture": "Captura Automática",
+		"reasoningExtraction": "Extracción de Razonamiento",
+		"teamSharing": "Compartir en Equipo"
+	},
+	"actions": {
+		"testConnection": "Probar Conexión",
+		"testing": "Probando...",
+		"save": "Guardar Configuración",
+		"reset": "Restablecer",
+		"cancel": "Cancelar"
+	}
+}

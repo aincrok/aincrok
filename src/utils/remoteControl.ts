@@ -1,4 +1,5 @@
-import type { CloudUserInfo } from "@roo-code/cloud"
+// aincrok_change: CloudService removed, using type stub
+type CloudUserInfo = any
 
 /**
  * Determines if remote control features should be enabled

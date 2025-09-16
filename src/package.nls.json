@@ -29,6 +29,7 @@
 	"command.acceptInput.title": "Accept Input/Suggestion",
 	"command.generateCommitMessage.title": "Generate Commit Message with Kilo",
 	"command.profile.title": "Profile",
+	"command.memory.title": "Memory",
 	"configuration.title": "Aincrok",
 	"commands.allowedCommands.description": "Commands that can be auto-executed when 'Always approve execute operations' is enabled",
 	"commands.deniedCommands.description": "Command prefixes that will be automatically denied without asking for approval. In case of conflicts with allowed commands, the longest prefix match takes precedence. Add * to deny all commands.",

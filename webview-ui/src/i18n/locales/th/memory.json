@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "จับภาพอัตโนมัติ",
+		"reasoningExtraction": "การแยกเหตุผล",
+		"workspace": "การแบ่งปันพื้นที่ทำงานทีม"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "การกำหนดค่าหน่วยความจำ",
+		"saveButtonTooltip": "บันทึกการกำหนดค่าหน่วยความจำปัจจุบัน",
+		"doneButtonTooltip": "ปิดการกำหนดค่าหน่วยความจำและกลับไปสนทนา"
+	},
+	"common": {
+		"save": "บันทึก",
+		"done": "เสร็จสิ้น",
+		"optional": "เป็นตัวเลือก",
+		"configuring": "Configuring"
+	},
+	"description": "กำหนดค่าผู้ให้บริการหน่วยความจำและการตั้งค่าเพื่อเพิ่มความตระหนักในบริบทของ AI และประสิทธิภาพ ระบบหน่วยความจำช่วยรักษาบริบทการสนทนาข้ามเซสชัน",
+	"llmProfile": {
+		"title": "โปรไฟล์ LLM",
+		"selectProfile": "เลือกโปรไฟล์",
+		"selectedProfileInfo": "โปรไฟล์ที่เลือก: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "การกำหนดค่าที่เก็บเวกเตอร์",
+		"type": "ประเภทที่เก็บเวกเตอร์",
+		"selectType": "เลือกประเภทที่เก็บเวกเตอร์",
+		"url": "URL ที่เก็บเวกเตอร์",
+		"urlPlaceholder": "เช่น http://localhost:6333",
+		"collection": "ชื่อคอลเลกชัน",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "มิติเวกเตอร์",
+		"apiKey": "API Key",
+		"apiKeyPlaceholder": "กรอก API Key"
+	},
+	"graphStore": {
+		"title": "การกำหนดค่าที่เก็บกราฟ",
+		"type": "ประเภทที่เก็บกราฟ",
+		"selectType": "เลือกประเภทที่เก็บกราฟ",
+		"url": "URL ที่เก็บกราฟ",
+		"urlPlaceholder": "เช่น bolt://localhost:7687",
+		"username": "ชื่อผู้ใช้",
+		"usernamePlaceholder": "neo4j",
+		"password": "รหัสผ่าน",
+		"passwordPlaceholder": "กรอกรหัสผ่าน"
+	},
+	"embedder": {
+		"title": "การกำหนดค่าตัวฝัง",
+		"type": "ประเภทตัวฝัง",
+		"selectType": "เลือกประเภทตัวฝัง",
+		"model": "โมเดลการฝัง",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "URL ฐาน",
+		"apiKey": "API Key",
+		"apiKeyPlaceholder": "กรอก API Key"
+	},
+	"general": {
+		"title": "การตั้งค่าทั่วไป",
+		"userId": "ID ผู้ใช้",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "ขนาดหน่วยความจำสูงสุด",
+		"searchThreshold": "เกณฑ์การค้นหา",
+		"enablePersistence": "เปิดใช้งานการคงอยู่"
+	},
+	"sections": {
+		"memory": "หน่วยความจำ"
+	}
+}

@@ -30,6 +30,11 @@ export const cleanLogMessage = (message: string): string | null => {
 
 export const setupConsoleLogging = (page: Page, prefix: string): void => {
 	const verbose = process.env.PLAYWRIGHT_VERBOSE_LOGS === "true"
+	// aincrok_change start - skip console logging entirely if not verbose
+	if (!verbose && process.env.CI !== "true") {
+		return
+	}
+	// aincrok_change end
 
 	page.on("console", (msg) => {
 		const text = msg.text()
@@ -39,8 +44,10 @@ export const setupConsoleLogging = (page: Page, prefix: string): void => {
 		}
 
 		const cleaned = cleanMessage(text)
-		if (cleaned) {
-			console.log(`[${prefix}] ${cleaned}`)
+		// aincrok_change - only log errors/warnings in non-verbose mode
+		if (cleaned && (verbose || msg.type() === "error" || msg.type() === "warning")) {
+			const icon = msg.type() === "error" ? "❌" : msg.type() === "warning" ? "⚠️" : ""
+			console.log(`${icon} [${prefix}] ${cleaned}`)
 		}
 	})
 
@@ -51,12 +58,15 @@ export const setupConsoleLogging = (page: Page, prefix: string): void => {
 		}
 	})
 
-	page.on("requestfailed", (request) => {
-		const url = request.url()
-		const failure = request.failure()
-		if (failure) {
-			const message = `${request.method()} ${url} - ${failure.errorText}`
-			console.log(`🚫 [${prefix} REQUEST FAILED] ${message}`)
-		}
-	})
+	// aincrok_change - only log request failures in verbose mode or CI
+	if (verbose || process.env.CI === "true") {
+		page.on("requestfailed", (request) => {
+			const url = request.url()
+			const failure = request.failure()
+			if (failure) {
+				const message = `${request.method()} ${url} - ${failure.errorText}`
+				console.log(`🚫 [${prefix} REQUEST FAILED] ${message}`)
+			}
+		})
+	}
 }

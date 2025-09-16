@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "الالتقاط التلقائي",
+		"reasoningExtraction": "استخراج التفكير",
+		"workspace": "مشاركة مساحة العمل"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "تكوين الذاكرة",
+		"saveButtonTooltip": "حفظ تكوين الذاكرة الحالي",
+		"doneButtonTooltip": "إغلاق تكوين الذاكرة والعودة إلى المحادثة"
+	},
+	"common": {
+		"save": "حفظ",
+		"done": "تم",
+		"optional": "اختياري",
+		"configuring": "Configuring"
+	},
+	"description": "قم بتكوين موفري الذاكرة والإعدادات لتعزيز وعي السياق للذكاء الاصطناعي والكفاءة. تساعد أنظمة الذاكرة في الحفاظ على سياق المحادثة عبر الجلسات.",
+	"llmProfile": {
+		"title": "ملف تعريف LLM",
+		"selectProfile": "اختر ملف تعريف",
+		"selectedProfileInfo": "الملف المحدد: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "تكوين مخزن المتجهات",
+		"type": "نوع مخزن المتجهات",
+		"selectType": "اختر نوع مخزن المتجهات",
+		"url": "رابط مخزن المتجهات",
+		"urlPlaceholder": "مثال: http://localhost:6333",
+		"collection": "اسم المجموعة",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "أبعاد المتجهات",
+		"apiKey": "مفتاح API",
+		"apiKeyPlaceholder": "أدخل مفتاح API"
+	},
+	"graphStore": {
+		"title": "تكوين مخزن الرسم البياني",
+		"type": "نوع مخزن الرسم البياني",
+		"selectType": "اختر نوع مخزن الرسم البياني",
+		"url": "رابط مخزن الرسم البياني",
+		"urlPlaceholder": "مثال: bolt://localhost:7687",
+		"username": "اسم المستخدم",
+		"usernamePlaceholder": "neo4j",
+		"password": "كلمة المرور",
+		"passwordPlaceholder": "أدخل كلمة المرور"
+	},
+	"embedder": {
+		"title": "تكوين المضمن",
+		"type": "نوع المضمن",
+		"selectType": "اختر نوع المضمن",
+		"model": "نموذج التضمين",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "الرابط الأساسي",
+		"apiKey": "مفتاح API",
+		"apiKeyPlaceholder": "أدخل مفتاح API"
+	},
+	"general": {
+		"title": "الإعدادات العامة",
+		"userId": "معرف المستخدم",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "الحد الأقصى لحجم الذاكرة",
+		"searchThreshold": "عتبة البحث",
+		"enablePersistence": "تمكين الاستمرارية"
+	},
+	"sections": {
+		"memory": "الذاكرة"
+	}
+}

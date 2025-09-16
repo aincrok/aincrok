@@ -99,7 +99,7 @@ vitest.mock("../../../i18n", () => ({
 
 // Import after mocks are set up
 import { RooHandler } from "../roo"
-import { CloudService } from "@roo-code/cloud"
+// aincrok_change - @roo-code/cloud removed, no CloudService available
 import { t } from "../../../i18n"
 
 describe("RooHandler", () => {
@@ -398,41 +398,22 @@ describe("RooHandler", () => {
 	})
 
 	describe("authentication flow", () => {
-		it("should use session token as API key", () => {
-			const testToken = "test-session-token-123"
-			mockGetSessionTokenFn.mockReturnValue(testToken)
-
+		it("should work without session token (CloudService removed)", () => {
+			// aincrok_change - CloudService removed, no session token needed
 			handler = new RooHandler(mockOptions)
 			expect(handler).toBeInstanceOf(RooHandler)
-			expect(mockGetSessionTokenFn).toHaveBeenCalled()
+			// Session token is no longer used
+			expect(mockGetSessionTokenFn).not.toHaveBeenCalled()
 		})
 
-		it("should handle undefined auth service gracefully", () => {
-			mockHasInstanceFn.mockReturnValue(true)
-			// Mock CloudService with undefined authService
-			const originalGetter = Object.getOwnPropertyDescriptor(CloudService, "instance")?.get
-
-			try {
-				Object.defineProperty(CloudService, "instance", {
-					get: () => ({ authService: undefined }),
-					configurable: true,
-				})
-
-				expect(() => {
-					new RooHandler(mockOptions)
-				}).not.toThrow()
-				// Constructor should succeed even with undefined auth service
-				const handler = new RooHandler(mockOptions)
-				expect(handler).toBeInstanceOf(RooHandler)
-			} finally {
-				// Always restore original getter, even if test fails
-				if (originalGetter) {
-					Object.defineProperty(CloudService, "instance", {
-						get: originalGetter,
-						configurable: true,
-					})
-				}
-			}
+		it("should handle no auth service gracefully", () => {
+			// aincrok_change - CloudService removed, test handler without authentication
+			expect(() => {
+				new RooHandler(mockOptions)
+			}).not.toThrow()
+			// Constructor should succeed without CloudService
+			const handler = new RooHandler(mockOptions)
+			expect(handler).toBeInstanceOf(RooHandler)
 		})
 
 		it("should handle empty session token gracefully", () => {

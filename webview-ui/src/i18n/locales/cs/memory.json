@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Automatické zachycení",
+		"reasoningExtraction": "Extrakce úvah",
+		"workspace": "Sdílení týmového pracovního prostoru"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Konfigurace paměti",
+		"saveButtonTooltip": "Uložit aktuální konfiguraci paměti",
+		"doneButtonTooltip": "Zavřít konfiguraci paměti a vrátit se k chatu"
+	},
+	"common": {
+		"save": "Uložit",
+		"done": "Hotovo",
+		"optional": "volitelné",
+		"configuring": "Configuring"
+	},
+	"description": "Konfigurace poskytovatelů paměti a nastavení pro zlepšení kontextového povědomí AI a efektivity. Paměťové systemy pomáhají udržovat kontext konverzace mezi relacemi.",
+	"llmProfile": {
+		"title": "LLM profil",
+		"selectProfile": "Vybrat profil",
+		"selectedProfileInfo": "Vybraný profil: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Konfigurace vektorového úložiště",
+		"type": "Typ vektorového úložiště",
+		"selectType": "Vybrat typ vektorového úložiště",
+		"url": "URL vektorového úložiště",
+		"urlPlaceholder": "např. http://localhost:6333",
+		"collection": "Název kolekce",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Dimenze vektorů",
+		"apiKey": "API klíč",
+		"apiKeyPlaceholder": "Zadejte API klíč"
+	},
+	"graphStore": {
+		"title": "Konfigurace grafového úložiště",
+		"type": "Typ grafového úložiště",
+		"selectType": "Vybrat typ grafového úložiště",
+		"url": "URL grafového úložiště",
+		"urlPlaceholder": "např. bolt://localhost:7687",
+		"username": "Uživatelské jméno",
+		"usernamePlaceholder": "neo4j",
+		"password": "Heslo",
+		"passwordPlaceholder": "Zadejte heslo"
+	},
+	"embedder": {
+		"title": "Konfigurace embederu",
+		"type": "Typ embederu",
+		"selectType": "Vybrat typ embederu",
+		"model": "Embedding model",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "Základní URL",
+		"apiKey": "API klíč",
+		"apiKeyPlaceholder": "Zadejte API klíč"
+	},
+	"general": {
+		"title": "Obecné nastavení",
+		"userId": "ID uživatele",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Maximální velikost paměti",
+		"searchThreshold": "Prahová hodnota vyhledávání",
+		"enablePersistence": "Povolit perzistenci"
+	},
+	"sections": {
+		"memory": "Paměť"
+	}
+}

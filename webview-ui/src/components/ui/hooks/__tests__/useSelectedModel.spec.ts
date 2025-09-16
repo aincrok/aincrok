@@ -378,7 +378,10 @@ describe("useSelectedModel", () => {
 
 			expect(result.current.provider).toBe("anthropic")
 			expect(result.current.id).toBe("claude-sonnet-4-20250514")
-			expect(result.current.info).toBeUndefined()
+			// Updated expectation: now provides default anthropic model info
+			expect(result.current.info).toBeDefined()
+			expect(result.current.info).toHaveProperty("contextWindow")
+			expect(result.current.info).toHaveProperty("maxTokens")
 		})
 	})
 
@@ -419,7 +422,7 @@ describe("useSelectedModel", () => {
 			// Verify it inherits other properties from anthropic models
 			expect(result.current.info?.maxTokens).toBe(64_000)
 			expect(result.current.info?.contextWindow).toBe(200_000)
-			expect(result.current.info?.supportsComputerUse).toBe(true)
+			expect((result.current.info as any)?.supportsComputerUse).toBe(true)
 		})
 
 		it("should use default claude-code model when no modelId is specified", () => {

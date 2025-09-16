@@ -11,7 +11,7 @@ import {
 	DEFAULT_MODES,
 } from "@roo-code/types"
 
-import { addCustomInstructions } from "../core/prompts/sections/custom-instructions"
+// Dynamic import moved to getFullModeDetails to avoid bundling Node.js modules in webview
 
 import { EXPERIMENT_IDS } from "./experiments"
 import { TOOL_GROUPS, ALWAYS_AVAILABLE_TOOLS } from "./tools"
@@ -323,6 +323,8 @@ export async function getFullModeDetails(
 	// If we have cwd, load and combine all custom instructions
 	let fullCustomInstructions = baseCustomInstructions
 	if (options?.cwd) {
+		// Dynamic import to avoid bundling Node.js modules in webview
+		const { addCustomInstructions } = await import("../core/prompts/sections/custom-instructions")
 		fullCustomInstructions = await addCustomInstructions(
 			baseCustomInstructions,
 			options.globalCustomInstructions || "",

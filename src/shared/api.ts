@@ -1,9 +1,13 @@
 import {
 	type ModelInfo,
 	type ProviderSettings,
+	type ProviderSettingsWithId,
 	ANTHROPIC_DEFAULT_MAX_TOKENS,
 	CLAUDE_CODE_DEFAULT_MAX_OUTPUT_TOKENS,
 } from "@roo-code/types"
+
+// Re-export types needed by tests - aincrok_change
+export type { ProviderSettings, ProviderSettingsWithId }
 
 // ApiHandlerOptions
 // Extend ProviderSettings (minus apiProvider) with handler-specific toggles.

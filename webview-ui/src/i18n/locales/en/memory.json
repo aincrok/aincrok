@@ -1,0 +1,176 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Auto Capture",
+		"reasoningExtraction": "Reasoning Extraction",
+		"workspace": "Team Workspace Sharing"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Memory Configuration",
+		"saveButtonTooltip": "Save the current memory configuration",
+		"doneButtonTooltip": "Close memory configuration and return to chat"
+	},
+	"common": {
+		"save": "Save",
+		"done": "Done",
+		"optional": "optional",
+		"configuring": "Configuring"
+	},
+	"description": "Configure memory providers and settings to enhance AI context awareness and efficiency. Memory systems help maintain conversation context across sessions.",
+	"modes": {
+		"title": "Memory Provider Mode",
+		"disabled": "Disabled",
+		"embedded": "Embedded (Local)",
+		"mcp": "MCP Server",
+		"api": "External API"
+	},
+	"llm": {
+		"title": "LLM Configuration",
+		"provider": "LLM Provider",
+		"selectProvider": "Select Provider",
+		"model": "Model",
+		"apiKey": "API Key",
+		"apiKeyPlaceholder": "Enter API key",
+		"baseUrl": "Base URL",
+		"baseUrlPlaceholder": "Enter base URL",
+		"providers": {
+			"openai": "OpenAI",
+			"anthropic": "Anthropic",
+			"ollama": "Ollama (Local)"
+		}
+	},
+	"embedding": {
+		"title": "Embedding Configuration",
+		"provider": "Embedding Provider",
+		"selectProvider": "Select Provider",
+		"model": "Model",
+		"apiKey": "API Key",
+		"apiKeyPlaceholder": "Enter API key",
+		"baseUrl": "Base URL",
+		"baseUrlPlaceholder": "Enter base URL",
+		"dimensions": "Dimensions",
+		"dimensionsPlaceholder": "e.g., 1536",
+		"providers": {
+			"openai": "OpenAI",
+			"huggingface": "Hugging Face",
+			"local": "Local"
+		}
+	},
+	"llmProfile": {
+		"title": "LLM Profile",
+		"selectProfile": "Select a profile",
+		"selectedProfileInfo": "Selected profile: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Vector Store Configuration",
+		"type": "Vector Store Type",
+		"selectType": "Select vector store type",
+		"url": "Vector Store URL",
+		"urlPlaceholder": "e.g., http://localhost:6333",
+		"collection": "Collection Name",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Vector Dimensions",
+		"apiKey": "API Key",
+		"apiKeyPlaceholder": "Enter API key",
+		"types": {
+			"in-memory": "In-Memory",
+			"qdrant": "Qdrant",
+			"chroma": "Chroma"
+		}
+	},
+	"knowledgeGraph": {
+		"title": "Knowledge Graph Configuration",
+		"enabled": "Enable Knowledge Graph",
+		"type": "Knowledge Graph Type",
+		"selectType": "Select graph store type",
+		"host": "Host",
+		"hostPlaceholder": "localhost",
+		"port": "Port",
+		"portPlaceholder": "7687",
+		"username": "Username",
+		"usernamePlaceholder": "neo4j",
+		"password": "Password",
+		"passwordPlaceholder": "Enter password",
+		"database": "Database",
+		"databasePlaceholder": "neo4j",
+		"maxNodes": "Max Nodes",
+		"maxEdges": "Max Edges",
+		"types": {
+			"in-memory": "In-Memory",
+			"neo4j": "Neo4j"
+		}
+	},
+	"session": {
+		"title": "Session Configuration",
+		"sessionTTL": "Session TTL (seconds)",
+		"maxSessions": "Max Sessions",
+		"maxIterations": "Max Iterations"
+	},
+	"mcp": {
+		"title": "MCP Configuration",
+		"connectionType": "Connection Type",
+		"command": "Command",
+		"commandPlaceholder": "Enter command",
+		"args": "Arguments",
+		"argsPlaceholder": "Enter arguments",
+		"types": {
+			"stdio": "Standard I/O"
+		}
+	},
+	"api": {
+		"title": "API Configuration",
+		"url": "API URL",
+		"urlPlaceholder": "Enter API URL",
+		"apiKey": "API Key",
+		"apiKeyPlaceholder": "Enter API key"
+	},
+	"embedder": {
+		"title": "Embedder Configuration",
+		"type": "Embedder Type",
+		"selectType": "Select embedder type",
+		"model": "Embedding Model",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "Base URL",
+		"apiKey": "API Key",
+		"apiKeyPlaceholder": "Enter API key"
+	},
+	"general": {
+		"title": "General Settings",
+		"userId": "User ID",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Maximum Memory Size",
+		"searchThreshold": "Search Threshold",
+		"enablePersistence": "Enable Persistence"
+	},
+	"sections": {
+		"memory": "Memory"
+	},
+	"validation": {
+		"configurationIncomplete": "Configuration incomplete - required fields missing",
+		"providerRequired": "Provider is required",
+		"apiKeyRequired": "API key is required",
+		"modelRequired": "Model is required",
+		"urlRequired": "URL is required",
+		"hostRequired": "Host is required",
+		"portRequired": "Port is required",
+		"usernameRequired": "Username is required",
+		"passwordRequired": "Password is required"
+	},
+	"features": {
+		"title": "Memory Features",
+		"autoCapture": "Auto Capture",
+		"reasoningExtraction": "Reasoning Extraction",
+		"teamSharing": "Team Sharing"
+	},
+	"actions": {
+		"testConnection": "Test Connection",
+		"testing": "Testing...",
+		"save": "Save Configuration",
+		"reset": "Reset",
+		"cancel": "Cancel"
+	}
+}

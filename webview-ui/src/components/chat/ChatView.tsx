@@ -136,7 +136,8 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 
 	const { tasks } = useTaskSearch()
 
-	// Initialize expanded state based on the persisted setting (default to expanded if undefined)
+	// Initialize expanded state based on the persisted setting (default to expanded if undefined or no messages)
+	// aincrok_change - Default to expanded for better UX when tasks exist
 	const [isExpanded, setIsExpanded] = useState(
 		historyPreviewCollapsed === undefined ? true : !historyPreviewCollapsed,
 	)
@@ -151,7 +152,16 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 	// Leaving this less safe version here since if the first message is not a
 	// task, then the extension is in a bad state and needs to be debugged (see
 	// Cline.abort).
-	const task = useMemo(() => messages.at(0), [messages])
+	// aincrok_change - Ensure task is undefined when messages is empty
+	const task = useMemo(() => {
+		if (!messages || messages.length === 0) {
+			console.log("[ChatView] No messages, task is undefined")
+			return undefined
+		}
+		const firstMessage = messages.at(0)
+		console.log("[ChatView] Task from first message:", firstMessage)
+		return firstMessage
+	}, [messages])
 
 	const latestTodos = useMemo(() => {
 		// First check if we have initial todos from the state (for new subtasks)
@@ -1928,6 +1938,9 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 
 	const areButtonsVisible = showScrollToBottom || primaryButtonText || secondaryButtonText || isStreaming
 
+	// aincrok_change - Debug logging
+	console.log("[ChatView] Render - task:", task, "messages.length:", messages.length, "isHidden:", isHidden)
+
 	return (
 		<div
 			data-testid="chat-view"
@@ -1944,6 +1957,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 					}}
 				/>
 			)}
+			{/* aincrok_change - Show home screen when no active task */}
 			{task ? (
 				<>
 					{/* kilocode_change start */}
@@ -1990,20 +2004,21 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 					)}
 				</>
 			) : (
-				<div className="flex-1 min-h-0 overflow-y-auto flex flex-col gap-4 relative">
-					{/* Moved Task Bar Header Here */}
-					{tasks.length !== 0 && (
-						<div className="flex text-vscode-descriptionForeground w-full mx-auto px-5 pt-3">
-							<div className="flex items-center gap-1 cursor-pointer" onClick={toggleExpanded}>
-								{tasks.length < 10 && (
-									<span className={`font-medium text-xs `}>{t("history:recentTasks")}</span>
-								)}
-								<span
-									className={`codicon  ${isExpanded ? "codicon-eye" : "codicon-eye-closed"} scale-90`}
-								/>
-							</div>
+				<div className="flex-1 min-h-[400px] overflow-y-auto flex flex-col gap-4 relative">
+					{/* aincrok_change - Debug logging for home screen */}
+					{(() => {
+						console.log("[ChatView] Rendering home screen, tasks.length:", tasks.length)
+						return null
+					})()}
+					{/* Task Bar Header - Always show as this is the "home" screen */}
+					<div className="flex text-vscode-descriptionForeground w-full mx-auto px-5 pt-3">
+						<div className="flex items-center gap-1 cursor-pointer" onClick={toggleExpanded}>
+							<span className={`font-medium text-xs `}>{t("history:recentTasks")}</span>
+							<span
+								className={`codicon  ${isExpanded ? "codicon-eye" : "codicon-eye-closed"} scale-90`}
+							/>
 						</div>
-					)}
+					</div>
 					<div>
 						<OrganizationSelector className="absolute top-2 right-3" />
 					</div>
@@ -2043,12 +2058,12 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 									}}
 								/>
 							</p>
-							{taskHistory.length === 0 && <IdeaSuggestionsBox />} {/* kilocode_change */}
+							{tasks.length === 0 && <IdeaSuggestionsBox />} {/* aincrok_change - Use filtered tasks */}
 							{/*<div className="mb-2.5">
-								{cloudIsAuthenticated || taskHistory.length < 4 ? <RooTips /> : <RooCloudCTA />}
-							</div> kilocode_change: do not show */}
-							{/* Show the task history preview if expanded and tasks exist */}
-							{taskHistory.length > 0 && isExpanded && <HistoryPreview />}
+								{cloudIsAuthenticated || tasks.length < 4 ? <RooTips /> : <RooCloudCTA />}
+							</div> aincrok_change: do not show */}
+							{/* Always show task history - this is the "home" screen */}
+							<HistoryPreview />
 							{/* kilocode_change start: AincrokNotifications + Layout fixes */}
 						</div>
 						{/* kilocode_change end */}

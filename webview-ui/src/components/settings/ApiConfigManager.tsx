@@ -58,6 +58,11 @@ const ApiConfigManager = ({
 		const provider = profile.apiProvider
 		if (!provider) return true
 
+		// aincrok_change - Handle undefined providers property
+		if (!organizationAllowList.providers) {
+			return true // No restrictions if providers list is undefined
+		}
+
 		const providerConfig = organizationAllowList.providers[provider]
 		if (!providerConfig) {
 			return false

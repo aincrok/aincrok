@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Tự động chụp",
+		"reasoningExtraction": "Trích xuất lý luận",
+		"workspace": "Chia sẻ không gian làm việc nhóm"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Cấu hình bộ nhớ",
+		"saveButtonTooltip": "Lưu cấu hình bộ nhớ hiện tại",
+		"doneButtonTooltip": "Đóng cấu hình bộ nhớ và quay lại trò chuyện"
+	},
+	"common": {
+		"save": "Lưu",
+		"done": "Hoàn thành",
+		"optional": "tùy chọn",
+		"configuring": "Configuring"
+	},
+	"description": "Cấu hình các nhà cung cấp bộ nhớ và cài đặt để tăng cường nhận thức ngữ cảnh AI và hiệu quả. Hệ thống bộ nhớ giúp duy trì ngữ cảnh cuộc trò chuyện qua các phiên.",
+	"llmProfile": {
+		"title": "Hồ sơ LLM",
+		"selectProfile": "Chọn hồ sơ",
+		"selectedProfileInfo": "Hồ sơ đã chọn: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Cấu hình lưu trữ vector",
+		"type": "Loại lưu trữ vector",
+		"selectType": "Chọn loại lưu trữ vector",
+		"url": "URL lưu trữ vector",
+		"urlPlaceholder": "ví dụ: http://localhost:6333",
+		"collection": "Tên bộ sưu tập",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Kích thước vector",
+		"apiKey": "Khóa API",
+		"apiKeyPlaceholder": "Nhập khóa API"
+	},
+	"graphStore": {
+		"title": "Cấu hình lưu trữ đồ thị",
+		"type": "Loại lưu trữ đồ thị",
+		"selectType": "Chọn loại lưu trữ đồ thị",
+		"url": "URL lưu trữ đồ thị",
+		"urlPlaceholder": "ví dụ: bolt://localhost:7687",
+		"username": "Tên người dùng",
+		"usernamePlaceholder": "neo4j",
+		"password": "Mật khẩu",
+		"passwordPlaceholder": "Nhập mật khẩu"
+	},
+	"embedder": {
+		"title": "Cấu hình trình nhúng",
+		"type": "Loại trình nhúng",
+		"selectType": "Chọn loại trình nhúng",
+		"model": "Mô hình nhúng",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "URL cơ sở",
+		"apiKey": "Khóa API",
+		"apiKeyPlaceholder": "Nhập khóa API"
+	},
+	"general": {
+		"title": "Cài đặt chung",
+		"userId": "ID người dùng",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Kích thước bộ nhớ tối đa",
+		"searchThreshold": "Ngưỡng tìm kiếm",
+		"enablePersistence": "Bật tính bền vững"
+	},
+	"sections": {
+		"memory": "Bộ nhớ"
+	}
+}

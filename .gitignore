@@ -60,3 +60,5 @@ context_portal/
 .claude
 CLAUDE.md
 .serena
+apps/vscode-e2e/package.json
+memory_upgrade.md

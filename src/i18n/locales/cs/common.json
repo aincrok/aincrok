@@ -129,7 +129,9 @@
 		},
 		"roo": {
 			"authenticationRequired": "Poskytovatel Roo vyžaduje cloudovou autentizaci. Prosím přihlas se do Roo Code Cloud."
-		}
+		},
+		"invalid_line_limit": "Limit řádků výstupu terminálu musí být kladné číslo",
+		"invalid_character_limit": "Limit znaků výstupu terminálu musí být kladné číslo"
 	},
 	"warnings": {
 		"no_terminal_content": "Není vybrán žádný obsah terminálu",

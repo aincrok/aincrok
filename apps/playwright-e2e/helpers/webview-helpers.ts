@@ -2,18 +2,78 @@
 import { type Page, type FrameLocator, expect } from "@playwright/test"
 import type { WebviewMessage } from "../../../src/shared/WebviewMessage"
 import { ProviderSettings } from "@roo-code/types"
+import { verboseLog, debugLog, warnLog } from "./logging-utils" // aincrok_change
 
 const defaultPlaywrightApiConfig = {
-	apiProvider: "openrouter" as const,
-	openRouterApiKey: process.env.OPENROUTER_API_KEY,
-	openRouterModelId: "openai/gpt-4o-mini",
+	apiProvider: "openai" as const,
+	openAiApiKey: process.env.GITHUB_COPILOT_KEY,
+	openAiModelId: "gpt-5-mini",
+	openAiBaseUrl: process.env.GITHUB_COPILOT_URL,
 }
 
 export async function findWebview(workbox: Page): Promise<FrameLocator> {
+	// Try to activate the extension by clicking on it in the activity bar
+	verboseLog("🔍 Trying to activate Aincrok extension...") // aincrok_change
+	try {
+		const aincrokButton = workbox
+			.locator('[aria-label*="Aincrok"], [title*="Aincrok"], [aria-label*="aincrok"], [title*="aincrok"]')
+			.first()
+		await aincrokButton.click({ timeout: 2000 })
+		verboseLog("✅ Clicked Aincrok extension in activity bar") // aincrok_change
+		await workbox.waitForTimeout(2000) // Wait for webview to load
+	} catch (error) {
+		warnLog(`⚠️ Could not find/click Aincrok in activity bar: ${error.message}`) // aincrok_change
+	}
+
+	// First, let's debug what iframes exist
+	// aincrok_change start - conditional logging
+	debugLog("🔍 Looking for webview iframe...")
+	if (process.env.PLAYWRIGHT_VERBOSE_LOGS === "true") {
+		const allIframes = await workbox.locator("iframe").all()
+		debugLog(`Found ${allIframes.length} iframes total`)
+
+		for (let i = 0; i < allIframes.length; i++) {
+			const src = await allIframes[i].getAttribute("src")
+			debugLog(`  Iframe ${i}: src="${src}"`)
+		}
+	}
+	// aincrok_change end
+
+	// Updated to use correct extension ID
 	const webviewFrameEl = workbox.frameLocator(
 		'iframe[src*="extensionId=aincrok.aincrok"][src*="purpose=webviewView"]',
 	)
-	await webviewFrameEl.locator("#active-frame")
+
+	// Wait for the active frame with better error handling
+	try {
+		await webviewFrameEl.locator("#active-frame").waitFor({
+			timeout: 10000,
+			state: "attached",
+		})
+	} catch (error) {
+		console.error("Failed to find #active-frame, trying alternative selectors...")
+
+		// Try alternative selectors if the first one fails
+		const alternativeSelectors = [
+			'iframe[src*="aincrok"][src*="webview"]',
+			'iframe[id*="aincrok"]',
+			"iframe.webview",
+		]
+
+		for (const selector of alternativeSelectors) {
+			try {
+				const altFrame = workbox.frameLocator(selector)
+				await altFrame.locator("body").waitFor({ timeout: 5000 })
+				verboseLog(`✅ Found webview using alternative selector: ${selector}`) // aincrok_change
+				return altFrame
+			} catch (e) {
+				continue
+			}
+		}
+
+		throw new Error("Could not find webview iframe with any selector")
+	}
+
 	return webviewFrameEl.frameLocator("#active-frame")
 }
 
@@ -57,7 +117,7 @@ export async function upsertApiConfiguration(page: Page, apiConfiguration?: Part
 
 export async function configureApiKeyThroughUI(page: Page): Promise<void> {
 	const webviewFrame = await findWebview(page)
-	console.log("✅ Webview found!")
+	verboseLog("✅ Webview found!") // aincrok_change
 
 	// Click "Use your own API key" button
 	const useOwnKeyButton = webviewFrame.locator('button:has-text("Use your own API key")')
@@ -69,20 +129,20 @@ export async function configureApiKeyThroughUI(page: Page): Promise<void> {
 	await providerDropdown.waitFor()
 	await providerDropdown.click()
 
-	// Select OpenRouter from the dropdown
-	const openRouterOption = webviewFrame.locator('[role="option"]:has-text("OpenRouter")')
-	await openRouterOption.waitFor()
-	await openRouterOption.click()
+	// Select OpenAI from the dropdown
+	const openAiOption = webviewFrame.locator('[role="option"]:has-text("OpenAI")')
+	await openAiOption.waitFor()
+	await openAiOption.click()
 
-	// Fill in the OpenRouter API key (password field)
+	// Fill in the OpenAI API key (password field)
 	const apiKeyInput = webviewFrame.locator('input[type="password"]').first()
 	await apiKeyInput.waitFor()
-	await apiKeyInput.fill(process.env.OPENROUTER_API_KEY || "")
-	console.log("✅ Filled in OpenRouter key!")
+	await apiKeyInput.fill(process.env.GITHUB_COPILOT_KEY || "")
+	verboseLog("✅ Filled in OpenAI key!") // aincrok_change
 
 	// Submit the configuration by clicking "Let's go!" button
 	const submitButton = webviewFrame.locator('button:has-text("Let\'s go!")')
 	await submitButton.waitFor()
 	await submitButton.click()
-	console.log("✅ Provider configured!")
+	verboseLog("✅ Provider configured!") // aincrok_change
 }

@@ -1,0 +1,242 @@
+import type { ClineProvider } from "./ClineProvider"
+import * as vscode from "vscode"
+import { t } from "../../i18n"
+import * as fs from "fs/promises"
+import * as os from "os"
+import * as path from "path"
+import { fileExistsAtPath } from "../../utils/fs"
+import { getWorkspacePath } from "../../utils/path"
+import { getModels } from "../../api/providers/fetchers/modelCache"
+import type { RouterModels } from "../../shared/api"
+
+type RouterKey =
+  | "openrouter"
+  | "requesty"
+  | "glama"
+  | "unbound"
+  | "litellm"
+  | "kilocode-openrouter"
+  | "ollama"
+  | "deepinfra"
+
+async function fetchModelsWithProgress(
+  provider: ClineProvider,
+  key: RouterKey | "lmstudio",
+  params: any,
+): Promise<any> {
+  try {
+    const data = await getModels(params)
+    return data
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    if (key !== "lmstudio") {
+      await provider.postMessageToWebview({
+        type: "singleRouterModelFetchResponse",
+        success: false,
+        error: message,
+        values: { provider: key },
+      })
+    }
+    return {}
+  }
+}
+
+export const webviewMessageHandler =
+  (provider: ClineProvider) =>
+  async (message: any): Promise<void> => {
+    switch (message?.type) {
+      case "requestLmStudioModels": {
+        const state = await provider.getState()
+        const baseUrl = state?.apiConfiguration?.lmStudioBaseUrl
+        const models = await fetchModelsWithProgress(provider, "lmstudio", {
+          provider: "lmstudio",
+          baseUrl,
+        })
+        await provider.postMessageToWebview({
+          type: "lmStudioModels",
+          lmStudioModels: models,
+        })
+        return
+      }
+
+      case "requestRouterModels": {
+        const state = await provider.getState()
+        const api = state?.apiConfiguration ?? {}
+        const values = message?.values ?? {}
+
+        const routerModels: Record<string, any> = {}
+
+        routerModels.openrouter = await fetchModelsWithProgress(provider, "openrouter", {
+          provider: "openrouter",
+          apiKey: api.openRouterApiKey,
+        })
+
+        routerModels.requesty = await fetchModelsWithProgress(provider, "requesty", {
+          provider: "requesty",
+          apiKey: api.requestyApiKey,
+        })
+
+        routerModels.glama = await fetchModelsWithProgress(provider, "glama", {
+          provider: "glama",
+        })
+
+        routerModels.unbound = await fetchModelsWithProgress(provider, "unbound", {
+          provider: "unbound",
+          apiKey: api.unboundApiKey,
+        })
+
+        routerModels["kilocode-openrouter"] = await fetchModelsWithProgress(
+          provider,
+          "kilocode-openrouter",
+          { provider: "kilocode-openrouter" },
+        )
+
+        routerModels.ollama = await fetchModelsWithProgress(provider, "ollama", {
+          provider: "ollama",
+        })
+
+        routerModels.deepinfra = await fetchModelsWithProgress(provider, "deepinfra", {
+          provider: "deepinfra",
+        })
+
+        const litellmApiKey = api.litellmApiKey || values.litellmApiKey
+        const litellmBaseUrl = api.litellmBaseUrl || values.litellmBaseUrl
+        if (litellmApiKey && litellmBaseUrl) {
+          routerModels.litellm = await fetchModelsWithProgress(provider, "litellm", {
+            provider: "litellm",
+            apiKey: litellmApiKey,
+            baseUrl: litellmBaseUrl,
+          })
+        } else {
+          routerModels.litellm = {}
+        }
+
+        routerModels.lmstudio = {}
+
+        await provider.postMessageToWebview({
+          type: "routerModels",
+          routerModels: routerModels as RouterModels,
+        })
+        return
+      }
+
+      case "deleteCustomMode": {
+        const slug: string = message.slug
+        try {
+          const modes = await provider.customModesManager.getCustomModes()
+          const mode = modes?.find((m: any) => m.slug === slug)
+
+          if (mode) {
+            let rulesFolderPath: string | undefined
+            if (mode.source === "project") {
+              const workspacePath = getWorkspacePath()
+              if (workspacePath) {
+                rulesFolderPath = path.join(workspacePath, ".roo", `rules-${slug}`)
+              }
+            } else if (mode.source === "global") {
+              rulesFolderPath = path.join(os.homedir(), ".roo", `rules-${slug}`)
+            }
+
+            if (rulesFolderPath && (await fileExistsAtPath(rulesFolderPath))) {
+              try {
+                await fs.rm(rulesFolderPath, { recursive: true, force: true })
+              } catch (e) {
+                const error = e instanceof Error ? e : new Error(String(e))
+                await vscode.window.showErrorMessage(
+                  t("common:errors.delete_rules_folder_failed", {
+                    rulesFolderPath,
+                    error: error.message,
+                  }) as string,
+                )
+              }
+            }
+
+            await provider.customModesManager.deleteCustomMode(slug)
+          }
+        } catch {
+          // ignore
+        }
+        return
+      }
+
+      case "deleteMessage": {
+        await provider.postMessageToWebview({
+          type: "showDeleteMessageDialog",
+          messageTs: message.value,
+        })
+        return
+      }
+
+      case "submitEditedMessage": {
+        await provider.postMessageToWebview({
+          type: "showEditMessageDialog",
+          messageTs: message.value,
+          text: message.editedMessageContent,
+        })
+        return
+      }
+
+      case "mcpEnabled": {
+        const enabled = !!message.bool
+        const hub = (provider as any).getMcpHub?.()
+        try {
+          if (hub && typeof hub.handleMcpEnabledChange === "function") {
+            await hub.handleMcpEnabledChange(enabled)
+          }
+        } finally {
+          await provider.postStateToWebview()
+        }
+        return
+      }
+
+      case "upsertApiConfiguration": {
+        const name: string = message.text
+        console.log('[DEBUG webviewMessageHandler] upsertApiConfiguration for profile:', name)
+        console.log('[DEBUG webviewMessageHandler] Incoming apiConfiguration keys:', Object.keys(message.apiConfiguration ?? {}))
+        console.log('[DEBUG webviewMessageHandler] Incoming apiConfiguration sample:', {
+          apiProvider: message.apiConfiguration?.apiProvider,
+          apiModelId: message.apiConfiguration?.apiModelId,
+          hasApiKey: !!message.apiConfiguration?.apiKey || !!message.apiConfiguration?.openAiApiKey || !!message.apiConfiguration?.anthropicApiKey
+        })
+
+        // FIX: The webview now sends the complete apiConfiguration from extensionState
+        // when providers tab is not active, so we can use it directly
+        const toSave = message.apiConfiguration ?? {}
+
+        console.log('[DEBUG webviewMessageHandler] Final toSave keys:', Object.keys(toSave))
+        console.log('[DEBUG webviewMessageHandler] Sample values - apiProvider:', toSave.apiProvider, 'apiModelId:', toSave.apiModelId)
+
+        await (provider as any).upsertProviderProfile(name, toSave)
+        console.log('[DEBUG webviewMessageHandler] upsertProviderProfile completed')
+        return
+      }
+
+      // aincrok_change start
+      case "updateMemoryConfiguration": {
+        const memoryConfig = message.values
+        console.log('[DEBUG webviewMessageHandler] updateMemoryConfiguration:', memoryConfig)
+
+        // Store memory configuration in global state
+        await provider.context.globalState.update("memoryConfiguration", memoryConfig)
+
+        // Update the provider's state
+        if (provider.memoryConfiguration) {
+          provider.memoryConfiguration = memoryConfig
+        }
+
+        // Post updated state back to webview
+        await provider.postStateToWebview()
+        return
+      }
+      // aincrok_change end
+
+      default: {
+        try {
+          provider.log?.(`[webviewMessageHandler] Unknown webview message: ${message?.type}`)
+        } catch {
+          // ignore
+        }
+        return
+      }
+    }
+  }

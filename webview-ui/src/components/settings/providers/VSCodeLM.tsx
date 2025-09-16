@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react"
+import React, { useState, useCallback } from "react" // aincrok_change - add React for useEffect
 import { useEvent } from "react-use"
 import { LanguageModelChatSelector } from "vscode"
 
@@ -8,8 +8,7 @@ import { ExtensionMessage } from "@roo/ExtensionMessage"
 
 import { useAppTranslation } from "@src/i18n/TranslationContext"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@src/components/ui"
-
-import { inputEventTransform } from "../transforms"
+import { vscode } from "@src/utils/vscode" // aincrok_change - add vscode for postMessage
 
 type VSCodeLMProps = {
 	apiConfiguration: ProviderSettings
@@ -20,17 +19,6 @@ export const VSCodeLM = ({ apiConfiguration, setApiConfigurationField }: VSCodeL
 	const { t } = useAppTranslation()
 
 	const [vsCodeLmModels, setVsCodeLmModels] = useState<LanguageModelChatSelector[]>([])
-
-	const handleInputChange = useCallback(
-		<K extends keyof ProviderSettings, E>(
-			field: K,
-			transform: (event: E) => ProviderSettings[K] = inputEventTransform,
-		) =>
-			(event: E | Event) => {
-				setApiConfigurationField(field, transform(event as E))
-			},
-		[setApiConfigurationField],
-	)
 
 	const onMessage = useCallback((event: MessageEvent) => {
 		const message: ExtensionMessage = event.data
@@ -47,21 +35,60 @@ export const VSCodeLM = ({ apiConfiguration, setApiConfigurationField }: VSCodeL
 
 	useEvent("message", onMessage)
 
+	// aincrok_change - Request VS Code LM models immediately when component mounts
+	React.useEffect(() => {
+		vscode.postMessage({ type: "requestVsCodeLmModels" })
+	}, [])
+
 	return (
 		<>
 			<div>
 				<label className="block font-medium mb-1">{t("settings:providers.vscodeLmModel")}</label>
-				{vsCodeLmModels.length > 0 ? (
+				{vsCodeLmModels.length > 0 || apiConfiguration?.vsCodeLmModelSelector ? (
 					<Select
-						value={
-							apiConfiguration?.vsCodeLmModelSelector
-								? `${apiConfiguration.vsCodeLmModelSelector.vendor ?? ""}/${apiConfiguration.vsCodeLmModelSelector.family ?? ""}`
-								: ""
-						}
-						onValueChange={handleInputChange("vsCodeLmModelSelector", (value) => {
+						value={(() => {
+							if (!apiConfiguration?.vsCodeLmModelSelector) return ""
+
+							const stored = apiConfiguration.vsCodeLmModelSelector
+							const targetValue = `${stored.vendor ?? ""}/${stored.family ?? ""}`
+
+							// Only accept EXACT matches from the dynamic models list
+							const exactMatch = vsCodeLmModels.find(
+								(model) => `${model.vendor}/${model.family}` === targetValue,
+							)
+
+							if (exactMatch) {
+								return targetValue
+							}
+
+							// If no exact match found, return the stored value anyway
+							// This prevents auto-switching to similar models
+							return targetValue
+						})()}
+						onValueChange={(value) => {
 							const [vendor, family] = value.split("/")
-							return { vendor, family }
-						})}>
+
+							// Only update if this is a different selection
+							const currentStored = apiConfiguration?.vsCodeLmModelSelector
+							const currentValue = currentStored
+								? `${currentStored.vendor ?? ""}/${currentStored.family ?? ""}`
+								: ""
+
+							// Skip if we're trying to set the same value (prevents loops)
+							if (value === currentValue) {
+								return
+							}
+
+							// Find the corresponding model to get the id
+							const selectedModel = vsCodeLmModels.find(
+								(model) => model.vendor === vendor && model.family === family,
+							)
+							setApiConfigurationField("vsCodeLmModelSelector", {
+								vendor,
+								family,
+								id: selectedModel?.id || `${vendor}/${family}`,
+							})
+						}}>
 						<SelectTrigger className="w-full">
 							<SelectValue placeholder={t("settings:common.select")} />
 						</SelectTrigger>
@@ -73,6 +100,7 @@ export const VSCodeLM = ({ apiConfiguration, setApiConfigurationField }: VSCodeL
 									{`${model.vendor} - ${model.family}`}
 								</SelectItem>
 							))}
+							{/* aincrok_change - Remove (from chat) intermediate display completely */}
 						</SelectContent>
 					</Select>
 				) : (

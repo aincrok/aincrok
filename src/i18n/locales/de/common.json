@@ -124,7 +124,9 @@
 		},
 		"roo": {
 			"authenticationRequired": "Roo-Anbieter erfordert Cloud-Authentifizierung. Bitte melde dich bei Roo Code Cloud an."
-		}
+		},
+		"invalid_line_limit": "Das Terminal-Ausgabezeilenlimit muss eine positive Zahl sein",
+		"invalid_character_limit": "Das Terminal-Ausgabezeichenlimit muss eine positive Zahl sein"
 	},
 	"warnings": {
 		"no_terminal_content": "Kein Terminal-Inhalt ausgewählt",

@@ -373,6 +373,49 @@ const rooSchema = apiModelIdProviderModelSchema.extend({
 	// No additional fields needed - uses cloud authentication
 })
 
+// aincrok_change start
+export const mem0VectorStoreSchema = z.enum(["qdrant", "chroma", "pinecone", "faiss", "pgvector", "milvus", "weaviate"])
+
+export const mem0GraphStoreSchema = z.enum(["neo4j", "memgraph", "arangodb", "nebula", "falkordb"])
+
+export const mem0EmbedderSchema = z.enum(["openai", "ollama", "huggingface", "azure", "together"])
+
+export type Mem0VectorStore = z.infer<typeof mem0VectorStoreSchema>
+export type Mem0GraphStore = z.infer<typeof mem0GraphStoreSchema>
+export type Mem0Embedder = z.infer<typeof mem0EmbedderSchema>
+
+const mem0Schema = baseProviderSettingsSchema.extend({
+	// Profile selection for LLM
+	mem0LlmProfileId: z.string().optional(),
+
+	// Vector store configuration
+	mem0VectorStore: mem0VectorStoreSchema.optional(),
+	mem0VectorStoreUrl: z.string().optional(),
+	mem0VectorStoreApiKey: z.string().optional(),
+	mem0VectorStoreDimensions: z.number().int().min(1).max(4096).optional(),
+	mem0VectorStoreCollection: z.string().optional(),
+
+	// Graph database configuration
+	mem0GraphStore: mem0GraphStoreSchema.optional(),
+	mem0GraphStoreUrl: z.string().optional(),
+	mem0GraphStoreUsername: z.string().optional(),
+	mem0GraphStorePassword: z.string().optional(),
+
+	// Embedder configuration
+	mem0Embedder: mem0EmbedderSchema.optional(),
+	mem0EmbedderModel: z.string().optional(),
+	mem0EmbedderApiKey: z.string().optional(),
+	mem0EmbedderBaseUrl: z.string().optional(),
+
+	// General settings
+	mem0UserId: z.string().optional(),
+	mem0MaxMemorySize: z.number().int().min(1).max(10000).optional(),
+	mem0SearchThreshold: z.number().min(0).max(1).optional(),
+	mem0EnablePersistence: z.boolean().optional(),
+})
+
+// aincrok_change end
+
 const defaultSchema = z.object({
 	apiProvider: z.undefined(),
 })
@@ -462,6 +505,9 @@ export const providerSettingsSchema = z.object({
 	...ioIntelligenceSchema.shape,
 	...rooSchema.shape,
 	...codebaseIndexProviderSchema.shape,
+	// aincrok_change start
+	...mem0Schema.shape,
+	// aincrok_change end
 })
 
 export type ProviderSettings = z.infer<typeof providerSettingsSchema>

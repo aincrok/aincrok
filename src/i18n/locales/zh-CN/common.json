@@ -129,7 +129,9 @@
 		},
 		"roo": {
 			"authenticationRequired": "Roo 提供商需要云认证。请登录 Roo Code Cloud。"
-		}
+		},
+		"invalid_line_limit": "终端输出行限制必须是正数",
+		"invalid_character_limit": "终端输出字符限制必须是正数"
 	},
 	"warnings": {
 		"no_terminal_content": "没有选择终端内容",

@@ -297,21 +297,18 @@ export interface LSPClientConfig {
 /**
  * Configuration for a single language server
  */
+// aincrok_change - Simplified config for VS Code's built-in language services
 export interface LanguageServerConfig {
-	/** Language server executable */
-	serverPath: string
-	/** Server arguments */
-	args: string[]
+	/** Whether the language service is enabled */
+	enabled: boolean
+	/** Initialization options */
+	initializationOptions?: any
 	/** Working directory */
 	workingDirectory?: string
 	/** Environment variables */
 	env?: Record<string, string>
 	/** Server options */
 	options?: any
-	/** Whether to enable for this language */
-	enabled: boolean
-	/** Initialization options */
-	initializationOptions?: any
 }
 
 /**

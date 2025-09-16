@@ -1,302 +1,148 @@
-// aincrok_change - new file
-// Custom LSP Client Manager for Aincrok VS Code Extension
-// Replaces multilspy with TypeScript-native VS Code Language Client API
-
+// aincrok_change - Replaced spawning with VS Code language services
 import * as vscode from "vscode"
-import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node"
-import { LanguageServerConfig } from "./types"
+import { VSCodeLanguageService } from "./VSCodeLanguageService"
+
+export interface LanguageServerConfig {
+	enabled: boolean
+	initializationOptions?: any
+}
 
 /**
- * Manages multiple language server clients for different programming languages
- * Uses VS Code's native LanguageClient API instead of multilspy (Python-only library)
+ * Manages language services using VS Code's built-in providers
+ * Instead of spawning external language servers, we leverage VS Code's existing language features
  */
 export class LSPClientManager {
-	private static instance: LSPClientManager | undefined
-	private clients = new Map<string, LanguageClient>()
-	private configurations = new Map<string, LanguageServerConfig>()
+	private static instance: LSPClientManager | null = null
+	private configurations: Map<string, LanguageServerConfig> = new Map()
+	private context: vscode.ExtensionContext
 	private isInitialized = false
 
-	private constructor(private context: vscode.ExtensionContext) {}
+	private constructor(context: vscode.ExtensionContext) {
+		this.context = context
+		this.initializeConfigurations()
+	}
 
-	/**
-	 * Get or create the singleton instance
-	 */
-	static getInstance(context: vscode.ExtensionContext): LSPClientManager {
+	public static getInstance(context?: vscode.ExtensionContext): LSPClientManager {
 		if (!LSPClientManager.instance) {
+			if (!context) {
+				throw new Error("Context is required for first initialization")
+			}
 			LSPClientManager.instance = new LSPClientManager(context)
 		}
 		return LSPClientManager.instance
 	}
 
-	/**
-	 * Initialize the LSP client manager with language server configurations
-	 */
-	async initialize(): Promise<void> {
+	public async initialize(): Promise<void> {
 		if (this.isInitialized) {
 			return
 		}
 
-		await this.setupLanguageServerConfigurations()
-		await this.startLanguageServers()
+		console.log("[Aincrok] Initializing VS Code language services...")
+
+		// No need to spawn servers - VS Code already has language services
+		// Just verify they're available
+		await this.verifyLanguageServices()
 
 		this.isInitialized = true
-		console.log("[Aincrok] LSP Client Manager initialized successfully")
+		console.log("[Aincrok] VS Code language services ready")
 	}
 
-	/**
-	 * Get a language client for a specific language
-	 */
-	getClient(language: string): LanguageClient | undefined {
-		return this.clients.get(language)
-	}
-
-	/**
-	 * Check if a language server is available for a given language
-	 */
-	isLanguageSupported(language: string): boolean {
-		const client = this.clients.get(language)
-		return client !== undefined && client.state === 2 // State.Running
-	}
-
-	/**
-	 * Get all active language clients
-	 */
-	getAllClients(): Map<string, LanguageClient> {
-		return new Map(this.clients)
-	}
-
-	/**
-	 * Stop all language servers
-	 */
-	async dispose(): Promise<void> {
-		const stopPromises: Promise<void>[] = []
-
-		for (const [language, client] of this.clients) {
-			console.log(`[Aincrok] Stopping ${language} language server`)
-			stopPromises.push(client.stop())
-		}
-
-		await Promise.allSettled(stopPromises)
-		this.clients.clear()
-		this.isInitialized = false
-	}
-
-	/**
-	 * Restart a specific language server
-	 */
-	async restartLanguageServer(language: string): Promise<boolean> {
-		const client = this.clients.get(language)
-		if (!client) {
-			console.warn(`[Aincrok] No client found for language: ${language}`)
-			return false
-		}
-
-		try {
-			await client.stop()
-			this.clients.delete(language)
-
-			const config = this.configurations.get(language)
-			if (config && config.enabled) {
-				await this.startLanguageServer(language, config)
-				return true
-			}
-		} catch (error) {
-			console.error(`[Aincrok] Error restarting ${language} language server:`, error)
-		}
-
-		return false
-	}
-
-	/**
-	 * Get language server status information
-	 */
-	getServerStatus(): Record<string, { state: string; enabled: boolean }> {
-		const status: Record<string, { state: string; enabled: boolean }> = {}
-
-		for (const [language, config] of this.configurations) {
-			const client = this.clients.get(language)
-			const stateNames = ["Stopped", "Starting", "Running", "Stopping"]
-			status[language] = {
-				state: client ? stateNames[client.state] || "Unknown" : "Not Started",
-				enabled: config.enabled,
-			}
-		}
-
-		return status
-	}
-
-	// Private methods
-
-	private async setupLanguageServerConfigurations(): Promise<void> {
-		// Configure TypeScript/JavaScript server
+	private initializeConfigurations(): void {
+		// Configure which language services we want to use
+		// VS Code handles the actual language servers
 		this.configurations.set("typescript", {
-			serverPath: "typescript-language-server",
-			args: ["--stdio"],
 			enabled: true,
-			initializationOptions: {
-				preferences: {
-					includeInlayParameterNameHints: "all",
-					includeInlayParameterNameHintsWhenArgumentMatchesName: false,
-					includeInlayFunctionParameterTypeHints: true,
-					includeInlayVariableTypeHints: true,
-					includeInlayPropertyDeclarationTypeHints: true,
-					includeInlayFunctionLikeReturnTypeHints: true,
-				},
-			},
 		})
 
-		// Configure Python server (if available)
+		this.configurations.set("javascript", {
+			enabled: true,
+		})
+
 		this.configurations.set("python", {
-			serverPath: "pylsp",
-			args: [],
-			enabled: await this.isServerAvailable("pylsp"),
-			initializationOptions: {
-				settings: {
-					pylsp: {
-						plugins: {
-							pycodestyle: { enabled: true },
-							pyflakes: { enabled: true },
-							autopep8: { enabled: true },
-						},
-					},
-				},
-			},
+			enabled: true,
 		})
 
-		// Configure Rust server (if available)
 		this.configurations.set("rust", {
-			serverPath: "rust-analyzer",
-			args: [],
-			enabled: await this.isServerAvailable("rust-analyzer"),
-			initializationOptions: {
-				checkOnSave: {
-					command: "clippy",
-				},
-			},
+			enabled: true,
 		})
 
-		// Configure Go server (if available)
 		this.configurations.set("go", {
-			serverPath: "gopls",
-			args: [],
-			enabled: await this.isServerAvailable("gopls"),
-			initializationOptions: {},
+			enabled: true,
 		})
 
-		// Configure PHP server (if available)
 		this.configurations.set("php", {
-			serverPath: "intelephense",
-			args: ["--stdio"],
-			enabled: await this.isServerAvailable("intelephense"),
-			initializationOptions: {},
+			enabled: true,
 		})
 
-		// Configure C++ server (if available)
 		this.configurations.set("cpp", {
-			serverPath: "clangd",
-			args: [],
-			enabled: await this.isServerAvailable("clangd"),
-			initializationOptions: {},
+			enabled: true,
 		})
 	}
 
-	private async startLanguageServers(): Promise<void> {
-		const startPromises: Promise<void>[] = []
-
+	private async verifyLanguageServices(): Promise<void> {
+		// Just log which language services are configured
+		// VS Code handles the actual availability
 		for (const [language, config] of this.configurations) {
 			if (config.enabled) {
-				startPromises.push(this.startLanguageServer(language, config))
-			}
-		}
-
-		await Promise.allSettled(startPromises)
-	}
-
-	private async startLanguageServer(language: string, config: LanguageServerConfig): Promise<void> {
-		try {
-			const serverOptions: ServerOptions = {
-				command: config.serverPath,
-				args: config.args || [],
-			}
-
-			const clientOptions: LanguageClientOptions = {
-				documentSelector: this.getDocumentSelector(language) as any, // VS Code compatibility workaround
-				synchronize: {
-					fileEvents: vscode.workspace.createFileSystemWatcher(
-						`**/*.{${this.getFileExtensions(language).join(",")}}`,
-					),
-				},
-				initializationOptions: config.initializationOptions || {},
-			}
-
-			const client = new LanguageClient(
-				`${language}-lsp`,
-				`${language.charAt(0).toUpperCase() + language.slice(1)} Language Server`,
-				serverOptions,
-				clientOptions,
-			)
-
-			// Start the client and register for disposal
-			await client.start()
-			this.context.subscriptions.push(client)
-			this.clients.set(language, client)
-
-			console.log(`[Aincrok] ${language} language server started successfully`)
-		} catch (error) {
-			console.error(`[Aincrok] Failed to start ${language} language server:`, error)
-			// Mark as disabled if failed to start
-			const config = this.configurations.get(language)
-			if (config) {
-				config.enabled = false
+				console.log(`[Aincrok] ${language} language service configured`)
 			}
 		}
 	}
 
-	private async isServerAvailable(serverCommand: string): Promise<boolean> {
-		try {
-			// Try to execute the command to see if it's available
-			const { exec } = require("child_process")
-			return new Promise((resolve) => {
-				exec(`which ${serverCommand}`, (error: any) => {
-					resolve(!error)
-				})
-			})
-		} catch {
-			return false
-		}
+	/**
+	 * Get document symbols for a file
+	 */
+	public async getDocumentSymbols(uri: vscode.Uri): Promise<vscode.DocumentSymbol[] | undefined> {
+		return VSCodeLanguageService.getDocumentSymbols(uri)
 	}
 
-	private getDocumentSelector(language: string): vscode.DocumentFilter[] {
-		const selectors: Record<string, vscode.DocumentFilter[]> = {
-			typescript: [
-				{ scheme: "file", language: "typescript" },
-				{ scheme: "file", language: "typescriptreact" },
-				{ scheme: "file", language: "javascript" },
-				{ scheme: "file", language: "javascriptreact" },
-			],
-			python: [{ scheme: "file", language: "python" }],
-			rust: [{ scheme: "file", language: "rust" }],
-			go: [{ scheme: "file", language: "go" }],
-			php: [{ scheme: "file", language: "php" }],
-			cpp: [
-				{ scheme: "file", language: "cpp" },
-				{ scheme: "file", language: "c" },
-			],
-		}
-
-		return selectors[language] || []
+	/**
+	 * Get definitions for a position
+	 */
+	public async getDefinitions(
+		uri: vscode.Uri,
+		position: vscode.Position,
+	): Promise<vscode.Location | vscode.Location[] | vscode.LocationLink[] | undefined> {
+		return VSCodeLanguageService.getDefinitions(uri, position)
 	}
 
-	private getFileExtensions(language: string): string[] {
-		const extensions: Record<string, string[]> = {
-			typescript: ["ts", "tsx", "js", "jsx"],
-			python: ["py"],
-			rust: ["rs"],
-			go: ["go"],
-			php: ["php"],
-			cpp: ["cpp", "c", "h", "hpp"],
-		}
+	/**
+	 * Get references for a position
+	 */
+	public async getReferences(uri: vscode.Uri, position: vscode.Position): Promise<vscode.Location[] | undefined> {
+		return VSCodeLanguageService.getReferences(uri, position)
+	}
 
-		return extensions[language] || []
+	/**
+	 * Get workspace symbols
+	 */
+	public async getWorkspaceSymbols(query: string): Promise<vscode.SymbolInformation[] | undefined> {
+		return VSCodeLanguageService.getWorkspaceSymbols(query)
+	}
+
+	/**
+	 * Check if a language is supported
+	 */
+	public isLanguageSupported(language: string): boolean {
+		const config = this.configurations.get(language)
+		return config?.enabled ?? false
+	}
+
+	/**
+	 * Cleanup resources
+	 */
+	public async dispose(): Promise<void> {
+		// No servers to stop - VS Code handles everything
+		this.isInitialized = false
+		LSPClientManager.instance = null
+		console.log("[Aincrok] Language services disposed")
+	}
+
+	/**
+	 * Restart language services (no-op since VS Code handles them)
+	 */
+	public async restart(): Promise<void> {
+		// VS Code handles language server lifecycle
+		console.log("[Aincrok] Language services restart requested (handled by VS Code)")
 	}
 }

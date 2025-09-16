@@ -153,7 +153,7 @@ export class GeminiCliHandler extends BaseProvider implements SingleCompletionHa
 		// If the project ID was in the .env file, use it and return early.
 		if (parsed?.GOOGLE_CLOUD_PROJECT) {
 			this.projectId = parsed.GOOGLE_CLOUD_PROJECT
-			return this.projectId
+			return this.projectId!
 		}
 
 		const initialProjectId = process.env.GOOGLE_CLOUD_PROJECT ?? "default"

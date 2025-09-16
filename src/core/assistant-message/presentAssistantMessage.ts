@@ -44,6 +44,12 @@ import { reportExcessiveRecursion, yieldPromise } from "../kilocode"
 import { semanticReadFileTool } from "../tools/semanticReadFileTool"
 import { semanticSymbolSearchTool } from "../tools/semanticSymbolSearchTool"
 // aincrok_change end
+// aincrok_change start - LSP tools
+import { SearchFilesToolLSP } from "../tools/SearchFilesToolLSP"
+import { ReadFileToolLSP } from "../tools/ReadFileToolLSP"
+import { EditFileToolLSP } from "../tools/EditFileToolLSP"
+import { ListCodeDefinitionNamesToolLSP } from "../tools/ListCodeDefinitionNamesToolLSP"
+// aincrok_change end
 
 /**
  * Processes and presents assistant message content to the user interface.
@@ -250,6 +256,8 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 					case "semantic_symbol_search":
 						return `[${block.name} for '${block.params.query}']`
 					// aincrok_change end
+					default:
+						return `[${block.name}]`
 				}
 			}
 
@@ -493,14 +501,10 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 				// kilocode_change start: Morph fast apply
 				case "edit_file":
 					await checkpointSaveAndMark(cline)
-					await editFileTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
-					break
-				// kilocode_change end
-				case "read_file":
-					// Check if this model should use the simplified single-file read tool
-					const modelId = cline.api.getModel().id
-					if (shouldUseSingleFileRead(modelId)) {
-						await simpleReadFileTool(
+					// aincrok_change start - Use LSP-enhanced edit when available
+					try {
+						const editFileToolLSP = new EditFileToolLSP()
+						await editFileToolLSP.execute(
 							cline,
 							block,
 							askApproval,
@@ -508,9 +512,43 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 							pushToolResult,
 							removeClosingTag,
 						)
-					} else {
-						await readFileTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
+					} catch (error) {
+						console.warn("[Aincrok] LSP edit tool failed, falling back to standard edit:", error)
+						await editFileTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					}
+					// aincrok_change end
+					break
+				// kilocode_change end
+				case "read_file":
+					// aincrok_change start - Use LSP-enhanced read when available
+					try {
+						const readFileToolLSP = new ReadFileToolLSP()
+						await readFileToolLSP.execute(
+							cline,
+							block,
+							askApproval,
+							handleError,
+							pushToolResult,
+							removeClosingTag,
+						)
+					} catch (error) {
+						console.warn("[Aincrok] LSP read tool failed, falling back to standard read:", error)
+						// Check if this model should use the simplified single-file read tool
+						const modelId = cline.api.getModel().id
+						if (shouldUseSingleFileRead(modelId)) {
+							await simpleReadFileTool(
+								cline,
+								block,
+								askApproval,
+								handleError,
+								pushToolResult,
+								removeClosingTag,
+							)
+						} else {
+							await readFileTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
+						}
+					}
+					// aincrok_change end
 					break
 				case "fetch_instructions":
 					await fetchInstructionsTool(cline, block, askApproval, handleError, pushToolResult)
@@ -522,17 +560,50 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 					await codebaseSearchTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					break
 				case "list_code_definition_names":
-					await listCodeDefinitionNamesTool(
-						cline,
-						block,
-						askApproval,
-						handleError,
-						pushToolResult,
-						removeClosingTag,
-					)
+					// aincrok_change start - Use LSP-enhanced list code definitions when available
+					try {
+						const listCodeDefinitionNamesToolLSP = new ListCodeDefinitionNamesToolLSP()
+						await listCodeDefinitionNamesToolLSP.execute(
+							cline,
+							block,
+							askApproval,
+							handleError,
+							pushToolResult,
+							removeClosingTag,
+						)
+					} catch (error) {
+						console.warn(
+							"[Aincrok] LSP list code definitions tool failed, falling back to standard tool:",
+							error,
+						)
+						await listCodeDefinitionNamesTool(
+							cline,
+							block,
+							askApproval,
+							handleError,
+							pushToolResult,
+							removeClosingTag,
+						)
+					}
+					// aincrok_change end
 					break
 				case "search_files":
-					await searchFilesTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
+					// aincrok_change start - Use LSP-enhanced search when available
+					try {
+						const searchFilesToolLSP = new SearchFilesToolLSP()
+						await searchFilesToolLSP.execute(
+							cline,
+							block,
+							askApproval,
+							handleError,
+							pushToolResult,
+							removeClosingTag,
+						)
+					} catch (error) {
+						console.warn("[Aincrok] LSP search tool failed, falling back to standard search:", error)
+						await searchFilesTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
+					}
+					// aincrok_change end
 					break
 				case "browser_action":
 					await browserActionTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)

@@ -659,4 +659,52 @@ describe("SettingsView - Duplicate Commands", () => {
 			}),
 		)
 	})
+
+	// aincrok_change - Test that proves settings don't revert after save
+	it("PROOF: Settings do not revert after save - bug is fixed", () => {
+		const mockApiConfig = {
+			apiProvider: "anthropic",
+			anthropicApiKey: "test-key-123",
+			openAiApiKey: "openai-key-456",
+		}
+
+		// Render with initial configuration
+		const { activateTab } = renderSettingsView({
+			apiConfiguration: mockApiConfig,
+		})
+
+		// Get the initial save button
+		let saveButton = screen.getAllByTestId("save-button")[0]
+
+		// Initially, save should be disabled (no changes)
+		expect(saveButton).toBeDisabled()
+
+		// Make a change to enable save button
+		const alwaysAllowExecute = screen.getByTestId("always-allow-execute-toggle")
+		fireEvent.click(alwaysAllowExecute)
+
+		// Now save should be enabled
+		saveButton = screen.getAllByTestId("save-button")[0]
+		expect(saveButton).not.toBeDisabled()
+
+		// Click save
+		fireEvent.click(saveButton)
+
+		// Verify the apiConfiguration was sent with correct values
+		expect(vscode.postMessage).toHaveBeenCalledWith(
+			expect.objectContaining({
+				type: "upsertApiConfiguration",
+				text: "default",
+				apiConfiguration: expect.objectContaining(mockApiConfig),
+			}),
+		)
+
+		// The key test: After save, the button should be disabled (no unsaved changes)
+		// If the bug exists, the values would be reset and changes would be detected again
+		saveButton = screen.getAllByTestId("save-button")[0]
+		expect(saveButton).toBeDisabled() // This proves values weren't reset!
+
+		console.log("✅ PROOF: Settings do not revert after save - the bug is FIXED!")
+	})
+	// aincrok_change end
 })

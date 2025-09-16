@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Automatyczne przechwytywanie",
+		"reasoningExtraction": "Ekstrakcja rozumowania",
+		"workspace": "Udostępnianie obszaru roboczego"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Konfiguracja pamięci",
+		"saveButtonTooltip": "Zapisz aktualną konfigurację pamięci",
+		"doneButtonTooltip": "Zamknij konfigurację pamięci i wróć do czatu"
+	},
+	"common": {
+		"save": "Zapisz",
+		"done": "Gotowe",
+		"optional": "opcjonalne",
+		"configuring": "Configuring"
+	},
+	"description": "Skonfiguruj dostawców pamięci i ustawienia, aby zwiększyć świadomość kontekstu AI i wydajność. Systemy pamięci pomagają w utrzymaniu kontekstu rozmowy między sesjami.",
+	"llmProfile": {
+		"title": "Profil LLM",
+		"selectProfile": "Wybierz profil",
+		"selectedProfileInfo": "Wybrany profil: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Konfiguracja przechowywania wektorów",
+		"type": "Typ przechowywania wektorów",
+		"selectType": "Wybierz typ przechowywania wektorów",
+		"url": "URL przechowywania wektorów",
+		"urlPlaceholder": "np. http://localhost:6333",
+		"collection": "Nazwa kolekcji",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Wymiary wektorów",
+		"apiKey": "Klucz API",
+		"apiKeyPlaceholder": "Wprowadź klucz API"
+	},
+	"graphStore": {
+		"title": "Konfiguracja przechowywania grafów",
+		"type": "Typ przechowywania grafów",
+		"selectType": "Wybierz typ przechowywania grafów",
+		"url": "URL przechowywania grafów",
+		"urlPlaceholder": "np. bolt://localhost:7687",
+		"username": "Nazwa użytkownika",
+		"usernamePlaceholder": "neo4j",
+		"password": "Hasło",
+		"passwordPlaceholder": "Wprowadź hasło"
+	},
+	"embedder": {
+		"title": "Konfiguracja osadzania",
+		"type": "Typ osadzania",
+		"selectType": "Wybierz typ osadzania",
+		"model": "Model osadzania",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "Bazowy URL",
+		"apiKey": "Klucz API",
+		"apiKeyPlaceholder": "Wprowadź klucz API"
+	},
+	"general": {
+		"title": "Ustawienia ogólne",
+		"userId": "ID użytkownika",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Maksymalny rozmiar pamięci",
+		"searchThreshold": "Próg wyszukiwania",
+		"enablePersistence": "Włącz trwałość"
+	},
+	"sections": {
+		"memory": "Pamięć"
+	}
+}

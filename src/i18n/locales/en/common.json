@@ -87,6 +87,8 @@
 		"command_already_exists": "Command \"{{commandName}}\" already exists",
 		"create_command_failed": "Failed to create command",
 		"command_template_content": "---\ndescription: \"Brief description of what this command does\"\n---\n\nThis is a new slash command. Edit this file to customize the command behavior.",
+		"invalid_line_limit": "Terminal output line limit must be a positive number",
+		"invalid_character_limit": "Terminal output character limit must be a positive number",
 		"claudeCode": {
 			"processExited": "Claude Code process exited with code {{exitCode}}.",
 			"errorOutput": "Error output: {{output}}",

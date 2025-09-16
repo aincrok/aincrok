@@ -371,55 +371,39 @@ export class InternalSymbolicLSP {
 	// Private helper methods
 
 	private async setupLanguageServers(): Promise<void> {
-		// Initialize language server configurations
-		// This is a simplified setup - in practice, you'd configure actual LSP clients
+		// aincrok_change - Use VS Code's built-in language services instead of spawning servers
+		// VS Code already has language servers for most common languages
 		this.languageServerConfigs = {
 			typescript: {
-				serverPath: "typescript-language-server",
-				args: ["--stdio"],
 				enabled: true,
 				initializationOptions: {},
 			} as LanguageServerConfig,
 			python: {
-				serverPath: "pylsp",
-				args: [],
 				enabled: true,
 				initializationOptions: {},
 			} as LanguageServerConfig,
 			javascript: {
-				serverPath: "typescript-language-server",
-				args: ["--stdio"],
 				enabled: true,
 				initializationOptions: {},
 			} as LanguageServerConfig,
 			rust: {
-				serverPath: "rust-analyzer",
-				args: [],
-				enabled: false,
+				enabled: true,
 				initializationOptions: {},
 			} as LanguageServerConfig,
 			go: {
-				serverPath: "gopls",
-				args: [],
-				enabled: false,
+				enabled: true,
 				initializationOptions: {},
 			} as LanguageServerConfig,
 			php: {
-				serverPath: "intelephense",
-				args: ["--stdio"],
-				enabled: false,
+				enabled: true,
 				initializationOptions: {},
 			} as LanguageServerConfig,
 			java: {
-				serverPath: "jdtls",
-				args: [],
-				enabled: false,
+				enabled: true,
 				initializationOptions: {},
 			} as LanguageServerConfig,
 			cpp: {
-				serverPath: "clangd",
-				args: [],
-				enabled: false,
+				enabled: true,
 				initializationOptions: {},
 			} as LanguageServerConfig,
 		}

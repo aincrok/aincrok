@@ -1,0 +1,103 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "自動キャプチャ",
+		"reasoningExtraction": "推論抽出",
+		"workspace": "チームワークスペース共有"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "メモリ設定",
+		"saveButtonTooltip": "現在のメモリ設定を保存",
+		"doneButtonTooltip": "メモリ設定を閉じてチャットに戻る"
+	},
+	"common": {
+		"save": "保存",
+		"done": "完了",
+		"optional": "任意",
+		"configuring": "Configuring"
+	},
+	"description": "メモリプロバイダーと設定を構成して、AIのコンテキスト認識と効率性を向上させます。メモリシステムは、セッション間での会話コンテキストの維持に役立ちます。",
+	"llmProfile": {
+		"title": "LLMプロファイル",
+		"selectProfile": "プロファイルを選択",
+		"selectedProfileInfo": "選択されたプロファイル: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "ベクトルストア設定",
+		"type": "ベクトルストアタイプ",
+		"selectType": "ベクトルストアタイプを選択",
+		"url": "ベクトルストアURL",
+		"urlPlaceholder": "例: http://localhost:6333",
+		"collection": "コレクション名",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "ベクトル次元数",
+		"apiKey": "APIキー",
+		"apiKeyPlaceholder": "APIキーを入力"
+	},
+	"graphStore": {
+		"title": "グラフストア設定",
+		"type": "グラフストアタイプ",
+		"selectType": "グラフストアタイプを選択",
+		"url": "グラフストアURL",
+		"urlPlaceholder": "例: bolt://localhost:7687",
+		"username": "ユーザー名",
+		"usernamePlaceholder": "neo4j",
+		"password": "パスワード",
+		"passwordPlaceholder": "パスワードを入力"
+	},
+	"embedder": {
+		"title": "エンベッダー設定",
+		"type": "エンベッダータイプ",
+		"selectType": "エンベッダータイプを選択",
+		"model": "埋め込みモデル",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "ベースURL",
+		"apiKey": "APIキー",
+		"apiKeyPlaceholder": "APIキーを入力"
+	},
+	"general": {
+		"title": "一般設定",
+		"userId": "ユーザーID",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "最大メモリサイズ",
+		"searchThreshold": "検索しきい値",
+		"enablePersistence": "永続化を有効にする"
+	},
+	"sections": {
+		"memory": "メモリ"
+	},
+	"modes": {
+		"title": "メモリプロバイダーモード",
+		"disabled": "無効",
+		"embedded": "組み込み（ローカル）",
+		"mcp": "MCPサーバー",
+		"api": "外部API"
+	},
+	"llm": {
+		"title": "LLM設定",
+		"provider": "LLMプロバイダー",
+		"selectProvider": "プロバイダーを選択",
+		"model": "モデル",
+		"apiKey": "APIキー",
+		"apiKeyPlaceholder": "APIキーを入力",
+		"baseUrl": "ベースURL",
+		"baseUrlPlaceholder": "ベースURLを入力",
+		"providers": {
+			"openai": "OpenAI",
+			"anthropic": "Anthropic",
+			"ollama": "Ollama（ローカル）"
+		}
+	},
+	"validation": {
+		"configurationIncomplete": "設定が不完全です - 必須フィールドが不足しています"
+	},
+	"actions": {
+		"testConnection": "接続テスト",
+		"testing": "テスト中...",
+		"save": "設定を保存"
+	}
+}

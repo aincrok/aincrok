@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Captura automàtica",
+		"reasoningExtraction": "Extracció de raonament",
+		"workspace": "Compartir espai de treball d'equip"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Configuració de memòria",
+		"saveButtonTooltip": "Desa la configuració actual de la memòria",
+		"doneButtonTooltip": "Tanca la configuració de memòria i torna al xat"
+	},
+	"common": {
+		"save": "Desa",
+		"done": "Fet",
+		"optional": "opcional",
+		"configuring": "Configuring"
+	},
+	"description": "Configura els proveïdors de memòria i la configuració per millorar la consciència de context de l'IA i l'eficiència. Els sistemes de memòria ajuden a mantenir el context de la conversa entre sessions.",
+	"llmProfile": {
+		"title": "Perfil LLM",
+		"selectProfile": "Selecciona un perfil",
+		"selectedProfileInfo": "Perfil seleccionat: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Configuració d'emmagatzematge vectorial",
+		"type": "Tipus d'emmagatzematge vectorial",
+		"selectType": "Selecciona el tipus d'emmagatzematge vectorial",
+		"url": "URL d'emmagatzematge vectorial",
+		"urlPlaceholder": "p. ex. http://localhost:6333",
+		"collection": "Nom de la col·lecció",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Dimensions del vector",
+		"apiKey": "Clau API",
+		"apiKeyPlaceholder": "Introdueix la clau API"
+	},
+	"graphStore": {
+		"title": "Configuració d'emmagatzematge de gràfics",
+		"type": "Tipus d'emmagatzematge de gràfics",
+		"selectType": "Selecciona el tipus d'emmagatzematge de gràfics",
+		"url": "URL d'emmagatzematge de gràfics",
+		"urlPlaceholder": "p. ex. bolt://localhost:7687",
+		"username": "Nom d'usuari",
+		"usernamePlaceholder": "neo4j",
+		"password": "Contrasenya",
+		"passwordPlaceholder": "Introdueix la contrasenya"
+	},
+	"embedder": {
+		"title": "Configuració d'incorporador",
+		"type": "Tipus d'incorporador",
+		"selectType": "Selecciona el tipus d'incorporador",
+		"model": "Model d'incorporació",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "URL base",
+		"apiKey": "Clau API",
+		"apiKeyPlaceholder": "Introdueix la clau API"
+	},
+	"general": {
+		"title": "Configuració general",
+		"userId": "ID d'usuari",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Mida màxima de memòria",
+		"searchThreshold": "Llindar de cerca",
+		"enablePersistence": "Habilitar persistència"
+	},
+	"sections": {
+		"memory": "Memòria"
+	}
+}

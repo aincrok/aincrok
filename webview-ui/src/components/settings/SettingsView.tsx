@@ -25,6 +25,7 @@ import {
 	Bot, // kilocode_change
 	MessageSquare,
 	Monitor,
+	Brain, // aincrok_change - add Brain icon for memory settings
 	LucideIcon,
 } from "lucide-react"
 
@@ -76,6 +77,7 @@ import { cn } from "@/lib/utils"
 import McpView from "../aincrokMcp/McpView" // kilocode_change
 import deepEqual from "fast-deep-equal" // kilocode_change
 import { GhostServiceSettingsView } from "../aincrok/settings/GhostServiceSettings" // kilocode_change
+import { MemorySettings } from "../memory" // aincrok_change - import memory settings component
 
 export const settingsTabsContainer = "flex flex-1 overflow-hidden [&.narrow_.tab-label]:hidden"
 export const settingsTabList =
@@ -101,6 +103,7 @@ const sectionNames = [
 	"experimental",
 	"language",
 	"mcp",
+	"memory", // aincrok_change - add memory section
 	"about",
 ] as const
 
@@ -125,11 +128,65 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			? (targetSection as SectionName)
 			: "providers",
 	)
+	// aincrok_change start - Add save state management
+	const [isSaving, setIsSaving] = useState(false)
+	const [skipChangeDetection, setSkipChangeDetection] = useState(false)
+	// aincrok_change end
 
 	const prevApiConfigName = useRef(currentApiConfigName)
 	const confirmDialogHandler = useRef<() => void>()
 
 	const [cachedState, setCachedState] = useState(extensionState)
+
+	// aincrok_change start - Add state normalization function
+	const normalizeState = useCallback((state: any): any => {
+		// Remove undefined values and normalize the state object
+		// This ensures consistent comparison regardless of property order or undefined values
+		const normalized = JSON.parse(JSON.stringify(state)) // Removes undefined values
+
+		// Sort keys recursively for consistent comparison
+		const sortObject = (obj: any): any => {
+			if (obj === null || typeof obj !== "object") return obj
+			if (Array.isArray(obj)) return obj.map(sortObject)
+
+			return Object.keys(obj)
+				.sort()
+				.reduce((result, key) => {
+					result[key] = sortObject(obj[key])
+					return result
+				}, {} as any)
+		}
+
+		return sortObject(normalized)
+	}, [])
+
+	// Add debounced setChangeDetected to prevent rapid toggles
+	const changeDetectedTimerRef = useRef<NodeJS.Timeout | null>(null)
+	const setChangeDetectedDebounced = useCallback((value: boolean) => {
+		// Clear any pending timer
+		if (changeDetectedTimerRef.current) {
+			clearTimeout(changeDetectedTimerRef.current)
+		}
+
+		// Set a new timer
+		changeDetectedTimerRef.current = setTimeout(() => {
+			setChangeDetected(value)
+			changeDetectedTimerRef.current = null
+			if (process.env.NODE_ENV !== "production") {
+				console.log("[SettingsView] Debounced setChangeDetected:", value)
+			}
+		}, 100) // 100ms debounce delay
+	}, [])
+
+	// Cleanup timer on unmount
+	useEffect(() => {
+		return () => {
+			if (changeDetectedTimerRef.current) {
+				clearTimeout(changeDetectedTimerRef.current)
+			}
+		}
+	}, [])
+	// aincrok_change end
 
 	// kilocode_change begin
 	useEffect(() => {
@@ -137,8 +194,50 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 	}, [isDiscardDialogShow])
 
 	useEffect(() => {
-		setChangeDetected(JSON.stringify(cachedState) !== JSON.stringify(extensionState))
-	}, [cachedState, extensionState])
+		// Skip change detection during save operations to prevent blinking
+		if (skipChangeDetection) {
+			if (process.env.NODE_ENV !== "production") {
+				console.log("[SettingsView] Skipping change detection during save")
+			}
+			return
+		}
+
+		// Use deep equality check with normalized states for more reliable comparison
+		// Normalization ensures consistent key order and removes undefined values
+		const normalizedCached = normalizeState(cachedState)
+		const normalizedExtension = normalizeState(extensionState)
+		const isChanged = !deepEqual(normalizedCached, normalizedExtension)
+
+		// Enhanced debug logging for save button blinking
+		if (process.env.NODE_ENV !== "production") {
+			console.log("[SettingsView] Deep equality check:", {
+				isChanged,
+				timestamp: Date.now(),
+				cachedKeys: Object.keys(normalizedCached).sort(),
+				extensionKeys: Object.keys(normalizedExtension).sort(),
+				// Log specific differences if any
+				differences: isChanged
+					? (() => {
+							const diffs: string[] = []
+							const allKeys = new Set([
+								...Object.keys(normalizedCached),
+								...Object.keys(normalizedExtension),
+							])
+							// Use Array.from to iterate over Set for ES5 compatibility
+							Array.from(allKeys).forEach((key) => {
+								if (!deepEqual((normalizedCached as any)[key], (normalizedExtension as any)[key])) {
+									diffs.push(key)
+								}
+							})
+							return diffs
+						})()
+					: [],
+			})
+		}
+
+		// Use debounced version to prevent rapid toggles during state synchronization
+		setChangeDetectedDebounced(isChanged)
+	}, [cachedState, extensionState, skipChangeDetection, normalizeState, setChangeDetectedDebounced])
 	// kilocode_change end
 
 	const {
@@ -212,6 +311,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 		includeDiagnosticMessages,
 		maxDiagnosticMessages,
 		includeTaskHistoryInEnhance,
+		memoryConfiguration, // aincrok_change - grouped memory configuration
 	} = cachedState
 
 	const apiConfiguration = useMemo(() => cachedState.apiConfiguration ?? {}, [cachedState.apiConfiguration])
@@ -334,8 +434,18 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 
 	const isSettingValid = !errorMessage
 
+	// Track submit ID for debugging save button blinking
+	const submitIdRef = useRef(0)
+
 	const handleSubmit = () => {
-		if (isSettingValid) {
+		if (isSettingValid && !isSaving) {
+			const submitId = ++submitIdRef.current
+			console.log(`[SettingsView] handleSubmit START - ID: ${submitId}, isSaving: true`)
+
+			// Set saving state and disable change detection
+			setIsSaving(true)
+			setSkipChangeDetection(true)
+
 			vscode.postMessage({ type: "language", text: language })
 			vscode.postMessage({ type: "alwaysAllowReadOnly", bool: alwaysAllowReadOnly })
 			vscode.postMessage({
@@ -395,6 +505,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			vscode.postMessage({ type: "maxDiagnosticMessages", value: maxDiagnosticMessages ?? 50 })
 			vscode.postMessage({ type: "currentApiConfigName", text: currentApiConfigName })
 			vscode.postMessage({ type: "updateExperimental", values: experiments })
+			vscode.postMessage({ type: "updateMemoryConfiguration", values: memoryConfiguration }) // aincrok_change
 			vscode.postMessage({ type: "alwaysAllowModeSwitch", bool: alwaysAllowModeSwitch })
 			vscode.postMessage({ type: "alwaysAllowSubtasks", bool: alwaysAllowSubtasks })
 			vscode.postMessage({ type: "showTaskTimeline", bool: showTaskTimeline }) // kilocode_change
@@ -412,9 +523,28 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			vscode.postMessage({ type: "ghostServiceSettings", values: ghostServiceSettings }) // kilocode_change
 			vscode.postMessage({ type: "morphApiKey", text: morphApiKey }) // kilocode_change
 
+			// aincrok_change start - Fix memory config persistence
 			// Update cachedState to match the current state to prevent isChangeDetected from being set back to true
-			setCachedState((prevState) => ({ ...prevState, ...extensionState }))
+			// IMPORTANT: Use the cachedState values (which include user changes) instead of extensionState
+			// This preserves the memoryConfiguration that was just saved
+			setCachedState((prevState) => ({
+				...prevState,
+				...extensionState,
+				memoryConfiguration: memoryConfiguration || prevState.memoryConfiguration, // Preserve the saved memory config
+			}))
+			// aincrok_change end
 			setChangeDetected(false)
+
+			console.log(`[SettingsView] handleSubmit END - ID: ${submitId}, setChangeDetected(false) called`)
+
+			// Reset flags after a delay to allow state to settle
+			setTimeout(() => {
+				setIsSaving(false)
+				setSkipChangeDetection(false)
+				console.log(
+					`[SettingsView] handleSubmit RESET - ID: ${submitId}, isSaving: false, skipChangeDetection: false`,
+				)
+			}, 200)
 		}
 	}
 
@@ -516,6 +646,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			{ id: "experimental", icon: FlaskConical },
 			{ id: "language", icon: Globe },
 			{ id: "mcp", icon: Server },
+			{ id: "memory", icon: Brain }, // aincrok_change - add memory section
 			{ id: "about", icon: Info },
 		],
 		[],
@@ -579,9 +710,11 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 							variant={isSettingValid ? "default" : "secondary"}
 							className={!isSettingValid ? "!border-vscode-errorForeground" : ""}
 							onClick={handleSubmit}
-							disabled={!isChangeDetected || !isSettingValid}
+							disabled={!isChangeDetected || !isSettingValid || isSaving}
 							data-testid="save-button">
-							{t("settings:common.save")}
+							{isSaving
+								? t("settings:common.saving", { defaultValue: "Saving..." })
+								: t("settings:common.save")}
 						</Button>
 					</StandardTooltip>
 					<StandardTooltip content={t("settings:header.doneButtonTooltip")}>
@@ -627,7 +760,9 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 											? t(`kilocode:settings.sections.mcp`)
 											: id === "ghost"
 												? t(`kilocode:ghost.title`)
-												: t(`settings:sections.${id}`)}
+												: id === "memory"
+													? t(`memory:settings.title`)
+													: t(`settings:sections.${id}`)}
 									</span>
 								</div>
 							</TabTrigger>
@@ -648,7 +783,9 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 													? t(`kilocode:settings.sections.mcp`)
 													: id === "ghost"
 														? t(`kilocode:ghost.title`)
-														: t(`settings:sections.${id}`)}
+														: id === "memory"
+															? t(`memory:settings.title`)
+															: t(`settings:sections.${id}`)}
 											</p>
 										</TooltipContent>
 									</Tooltip>
@@ -862,6 +999,15 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 					{/* kilocode_change */}
 					{/* MCP Section */}
 					{activeTab === "mcp" && <McpView />}
+
+					{/* aincrok_change start - Memory Section */}
+					{activeTab === "memory" && (
+						<MemorySettings
+							memoryConfiguration={memoryConfiguration}
+							setCachedStateField={setCachedStateField}
+						/>
+					)}
+					{/* aincrok_change end */}
 
 					{/* About Section */}
 					{activeTab === "about" && (

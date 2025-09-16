@@ -56,11 +56,14 @@ export const commandIds = [
 	"acceptInput",
 	"profileButtonClicked", // kilocode_change
 	"helpButtonClicked", // kilocode_change
+	"memoryDashboardButtonClicked", // aincrok_change
 	"focusChatInput", // kilocode_change
-	"importSettings", // kilocode_change
 	"exportSettings", // kilocode_change
 	"generateTerminalCommand", // kilocode_change
+	"handleExternalUri", // Missing from original kilocode
 	"focusPanel",
+	"sidebarProviderFocus", // aincrok_change
+	"openSettings", // aincrok_change
 ] as const
 
 export type CommandId = (typeof commandIds)[number]

@@ -123,7 +123,7 @@ export class API extends EventEmitter<RooCodeEvents> implements RooCodeAPI {
 			provider = await openClineInNewTab({ context: this.context, outputChannel: this.outputChannel })
 			this.registerListeners(provider)
 		} else {
-			await vscode.commands.executeCommand(`${Package.name}.SidebarProvider.focus`)
+			await vscode.commands.executeCommand(`${Package.name}.sidebarProviderFocus`)
 
 			provider = this.sidebarProvider
 		}

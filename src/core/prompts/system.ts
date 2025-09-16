@@ -34,6 +34,10 @@ import {
 	addCustomInstructions,
 	markdownFormattingSection,
 } from "./sections"
+// aincrok_change start - Memory integration
+import { getMemorySection, CIPHER_MEMORY_SYSTEM, MEMORY_CONTEXT_RULES } from "./sections/memory"
+import { Memory } from "../memory/IMemoryProvider"
+// aincrok_change end
 import { type ClineProviderState } from "../webview/ClineProvider" // kilocode_change
 
 // Helper function to get prompt component, filtering out empty objects
@@ -70,6 +74,7 @@ async function generatePrompt(
 	todoList?: TodoItem[],
 	modelId?: string,
 	clineProviderState?: ClineProviderState, // kilocode_change
+	memories?: Memory[], // aincrok_change - Add memory context
 ): Promise<string> {
 	if (!context) {
 		throw new Error("Extension context is required for generating system prompt")
@@ -95,6 +100,12 @@ async function generatePrompt(
 	])
 
 	const codeIndexManager = CodeIndexManager.getInstance(context, cwd)
+
+	// aincrok_change start - Include Cipher memory system instructions when memory is available
+	const hasMemories = memories && memories.length > 0
+	const memorySystemSection = hasMemories ? `\n${CIPHER_MEMORY_SYSTEM}\n` : ""
+	const memoryContextSection = hasMemories ? `\n${MEMORY_CONTEXT_RULES}\n` : ""
+	// aincrok_change end
 
 	const basePrompt = `${roleDefinition}
 
@@ -123,9 +134,7 @@ ${getToolUseGuidelinesSection(codeIndexManager)}
 
 ${mcpServersSection}
 
-${getCapabilitiesSection(cwd, supportsComputerUse, shouldIncludeMcp ? mcpHub : undefined, effectiveDiffStrategy, codeIndexManager, clineProviderState /* kilocode_change */)}
-
-${modesSection}
+${getCapabilitiesSection(cwd, supportsComputerUse, shouldIncludeMcp ? mcpHub : undefined, effectiveDiffStrategy, codeIndexManager, clineProviderState /* kilocode_change */)}${memorySystemSection}${getMemorySection(memories || [], cwd)}${memoryContextSection}${modesSection}
 
 ${getRulesSection(cwd, supportsComputerUse, effectiveDiffStrategy, codeIndexManager, clineProviderState /* kilocode_change */)}
 
@@ -165,6 +174,7 @@ export const SYSTEM_PROMPT = async (
 	todoList?: TodoItem[],
 	modelId?: string,
 	clineProviderState?: ClineProviderState, // kilocode_change
+	memories?: Memory[], // aincrok_change - Add memory context
 ): Promise<string> => {
 	if (!context) {
 		throw new Error("Extension context is required for generating system prompt")
@@ -241,5 +251,6 @@ ${customInstructions}`
 		todoList,
 		modelId,
 		clineProviderState, // kilocode_change
+		memories, // aincrok_change - Pass memory context
 	)
 }

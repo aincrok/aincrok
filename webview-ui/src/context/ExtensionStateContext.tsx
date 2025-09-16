@@ -47,6 +47,7 @@ export interface ExtensionStateContextType extends ExtensionState {
 	currentTaskTodos?: TodoItem[] // Initial todos for the current task
 	filePaths: string[]
 	openedTabs: Array<{ label: string; isActive: boolean; path?: string }>
+	profileEntries?: ProviderSettingsEntry[] // aincrok_change - Memory profile entries
 	// kilocode_change start
 	globalRules: ClineRulesToggles
 	localRules: ClineRulesToggles
@@ -181,23 +182,33 @@ export interface ExtensionStateContextType extends ExtensionState {
 export const ExtensionStateContext = createContext<ExtensionStateContextType | undefined>(undefined)
 
 export const mergeExtensionState = (prevState: ExtensionState, newState: ExtensionState) => {
-	const { customModePrompts: prevCustomModePrompts, experiments: prevExperiments, ...prevRest } = prevState
+	// aincrok_change start - extract memoryConfiguration
+	const {
+		customModePrompts: prevCustomModePrompts,
+		experiments: prevExperiments,
+		memoryConfiguration: prevMemoryConfiguration,
+		...prevRest
+	} = prevState
 
 	const {
 		apiConfiguration,
 		customModePrompts: newCustomModePrompts,
 		customSupportPrompts,
 		experiments: newExperiments,
+		memoryConfiguration: newMemoryConfiguration,
 		...newRest
 	} = newState
 
 	const customModePrompts = { ...prevCustomModePrompts, ...newCustomModePrompts }
 	const experiments = { ...prevExperiments, ...newExperiments }
+	const memoryConfiguration = { ...prevMemoryConfiguration, ...newMemoryConfiguration }
+	// aincrok_change end
 	const rest = { ...prevRest, ...newRest }
 
 	// Note that we completely replace the previous apiConfiguration and customSupportPrompts objects
 	// with new ones since the state that is broadcast is the entire objects so merging is not necessary.
-	return { ...rest, apiConfiguration, customModePrompts, customSupportPrompts, experiments }
+	// aincrok_change - include memoryConfiguration in return
+	return { ...rest, apiConfiguration, customModePrompts, customSupportPrompts, experiments, memoryConfiguration }
 }
 
 export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -235,6 +246,17 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		customModePrompts: defaultPrompts,
 		customSupportPrompts: {},
 		experiments: experimentDefault,
+		// aincrok_change - default memory configuration
+		memoryConfiguration: {
+			mode: "disabled",
+			autoCapture: true,
+			extractReasoning: true,
+			teamSharing: false,
+			knowledgeGraphEnabled: false,
+			knowledgeGraphType: "in-memory",
+			vectorStore: "in-memory",
+			mcpConnectionType: "stdio",
+		},
 		enhancementApiConfigId: "",
 		dismissedNotificationIds: [], // kilocode_change
 		commitMessageApiConfigId: "", // kilocode_change
@@ -334,9 +356,18 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 			switch (message.type) {
 				case "state": {
 					const newState = message.state!
+					// aincrok_change - Debug logging for state hydration
+					console.log("[ExtensionStateContext] Received state message:", {
+						hasState: !!newState,
+						hasClineMessages: !!newState.clineMessages,
+						messageCount: newState.clineMessages?.length || 0,
+						hasApiConfig: !!newState.apiConfiguration,
+						currentTaskItem: newState.currentTaskItem,
+					})
 					setState((prevState) => mergeExtensionState(prevState, newState))
 					setShowWelcome(!checkExistKey(newState.apiConfiguration))
 					setDidHydrateState(true)
+					console.log("[ExtensionStateContext] State hydrated successfully")
 					// Update alwaysAllowFollowupQuestions if present in state message
 					if ((newState as any).alwaysAllowFollowupQuestions !== undefined) {
 						setAlwaysAllowFollowupQuestions((newState as any).alwaysAllowFollowupQuestions)
@@ -456,6 +487,7 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		currentCheckpoint,
 		filePaths,
 		openedTabs,
+		profileEntries: state.listApiConfigMeta || [], // aincrok_change - Use API config metadata as profile entries
 		// kilocode_change start
 		globalRules,
 		localRules,

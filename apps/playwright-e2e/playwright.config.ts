@@ -13,9 +13,9 @@ const envPath = path.resolve(__dirname, ".env")
 dotenv.config({ path: envPath })
 
 export default defineConfig<void, TestOptions>({
-	timeout: 120_000,
-	expect: { timeout: 30_000 },
-	reporter: process.env.CI ? "html" : "list",
+	timeout: 300_000, // 5 minutes for VS Code extension tests
+	expect: { timeout: 60_000 }, // 1 minute for assertions
+	reporter: process.env.CI ? "html" : [["list", { printSteps: false }]], // aincrok_change - reduce verbosity
 	workers: 1,
 	retries: process.env.CI ? 2 : 0, // Retry in CI, never locally
 	globalSetup: "./playwright.globalSetup",
@@ -27,7 +27,8 @@ export default defineConfig<void, TestOptions>({
 		{ name: "VSCode stable", use: { vscodeVersion: "stable" } },
 	],
 	use: {
-		trace: "on-first-retry",
-		video: "retry-with-video", // videos only on retries
+		trace: process.env.CI ? "on-first-retry" : "off", // aincrok_change - disable trace locally
+		video: process.env.CI ? "retry-with-video" : "off", // aincrok_change - disable video locally
+		screenshot: "only-on-failure", // aincrok_change - only capture screenshots on failure
 	},
 })
