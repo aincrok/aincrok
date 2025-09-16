@@ -60,11 +60,13 @@ import * as fs from "fs"
 import * as os from "os"
 import * as vscode from "vscode"
 import { MdmService } from "../MdmService"
-import { CloudService, getClerkBaseUrl, PRODUCTION_CLERK_BASE_URL } from "@roo-code/cloud"
+// aincrok_change - @roo-code/cloud removed, define constants locally
+const getClerkBaseUrl = () => "https://api.clerk.com"
+const PRODUCTION_CLERK_BASE_URL = "https://api.clerk.com"
 
 const mockFs = fs as any
 const mockOs = os as any
-const mockCloudService = CloudService as any
+// aincrok_change - CloudService removed, no mock needed
 const mockVscode = vscode as any
 const mockGetClerkBaseUrl = getClerkBaseUrl as any
 
@@ -251,27 +253,11 @@ describe("MdmService", () => {
 			expect(compliance.compliant).toBe(true)
 		})
 
-		it("should be compliant when authenticated and no org requirement", async () => {
+		it("should be non-compliant when cloud auth is required", async () => {
+			// aincrok_change - CloudService removed, cloud auth always fails
 			const mockConfig = { requireCloudAuth: true }
 			mockFs.existsSync.mockReturnValue(true)
 			mockFs.readFileSync.mockReturnValue(JSON.stringify(mockConfig))
-
-			mockCloudService.hasInstance.mockReturnValue(true)
-			mockCloudService.instance.hasOrIsAcquiringActiveSession.mockReturnValue(true)
-
-			const service = await MdmService.createInstance()
-			const compliance = service.isCompliant()
-
-			expect(compliance.compliant).toBe(true)
-		})
-
-		it("should be non-compliant when not authenticated", async () => {
-			const mockConfig = { requireCloudAuth: true }
-			mockFs.existsSync.mockReturnValue(true)
-			mockFs.readFileSync.mockReturnValue(JSON.stringify(mockConfig))
-
-			// Mock CloudService to indicate no instance or no active session
-			mockCloudService.hasInstance.mockReturnValue(false)
 
 			const service = await MdmService.createInstance()
 			const compliance = service.isCompliant()
@@ -282,7 +268,23 @@ describe("MdmService", () => {
 			}
 		})
 
-		it("should be non-compliant when wrong organization", async () => {
+		it("should be non-compliant when cloud auth is required (no cloud service)", async () => {
+			// aincrok_change - CloudService removed, cloud auth always fails
+			const mockConfig = { requireCloudAuth: true }
+			mockFs.existsSync.mockReturnValue(true)
+			mockFs.readFileSync.mockReturnValue(JSON.stringify(mockConfig))
+
+			const service = await MdmService.createInstance()
+			const compliance = service.isCompliant()
+
+			expect(compliance.compliant).toBe(false)
+			if (!compliance.compliant) {
+				expect(compliance.reason).toContain("Your organization requires Roo Code Cloud authentication")
+			}
+		})
+
+		it("should be non-compliant when cloud auth required with organization", async () => {
+			// aincrok_change - CloudService removed, cloud auth always fails
 			const mockConfig = {
 				requireCloudAuth: true,
 				organizationId: "required-org-123",
@@ -290,23 +292,17 @@ describe("MdmService", () => {
 			mockFs.existsSync.mockReturnValue(true)
 			mockFs.readFileSync.mockReturnValue(JSON.stringify(mockConfig))
 
-			// Mock CloudService to have instance and active session but wrong org
-			mockCloudService.hasInstance.mockReturnValue(true)
-			mockCloudService.instance.hasOrIsAcquiringActiveSession.mockReturnValue(true)
-			mockCloudService.instance.getOrganizationId.mockReturnValue("different-org-456")
-
 			const service = await MdmService.createInstance()
 			const compliance = service.isCompliant()
 
 			expect(compliance.compliant).toBe(false)
 			if (!compliance.compliant) {
-				expect(compliance.reason).toContain(
-					"You must be authenticated with your organization's Roo Code Cloud account",
-				)
+				expect(compliance.reason).toContain("Your organization requires Roo Code Cloud authentication")
 			}
 		})
 
-		it("should be compliant when correct organization", async () => {
+		it("should be non-compliant even with correct organization config", async () => {
+			// aincrok_change - CloudService removed, cloud auth always fails regardless of org
 			const mockConfig = {
 				requireCloudAuth: true,
 				organizationId: "correct-org-123",
@@ -314,29 +310,28 @@ describe("MdmService", () => {
 			mockFs.existsSync.mockReturnValue(true)
 			mockFs.readFileSync.mockReturnValue(JSON.stringify(mockConfig))
 
-			mockCloudService.hasInstance.mockReturnValue(true)
-			mockCloudService.instance.hasOrIsAcquiringActiveSession.mockReturnValue(true)
-			mockCloudService.instance.getOrganizationId.mockReturnValue("correct-org-123")
-
 			const service = await MdmService.createInstance()
 			const compliance = service.isCompliant()
 
-			expect(compliance.compliant).toBe(true)
+			expect(compliance.compliant).toBe(false)
+			if (!compliance.compliant) {
+				expect(compliance.reason).toContain("Your organization requires Roo Code Cloud authentication")
+			}
 		})
 
-		it("should be compliant when in attempting-session state", async () => {
+		it("should be non-compliant when cloud auth required (no session)", async () => {
+			// aincrok_change - CloudService removed, cloud auth always fails
 			const mockConfig = { requireCloudAuth: true }
 			mockFs.existsSync.mockReturnValue(true)
 			mockFs.readFileSync.mockReturnValue(JSON.stringify(mockConfig))
 
-			mockCloudService.hasInstance.mockReturnValue(true)
-			// Mock attempting session (not active, but acquiring)
-			mockCloudService.instance.hasOrIsAcquiringActiveSession.mockReturnValue(true)
-
 			const service = await MdmService.createInstance()
 			const compliance = service.isCompliant()
 
-			expect(compliance.compliant).toBe(true)
+			expect(compliance.compliant).toBe(false)
+			if (!compliance.compliant) {
+				expect(compliance.reason).toContain("Your organization requires Roo Code Cloud authentication")
+			}
 		})
 	})
 

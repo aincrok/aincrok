@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Автоматичне захоплення",
+		"reasoningExtraction": "Вилучення міркувань",
+		"workspace": "Спільний доступ до робочого простору"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Конфігурація пам'яті",
+		"saveButtonTooltip": "Зберегти поточну конфігурацію пам'яті",
+		"doneButtonTooltip": "Закрити конфігурацію пам'яті та повернутися до чату"
+	},
+	"common": {
+		"save": "Зберегти",
+		"done": "Готово",
+		"optional": "опційно",
+		"configuring": "Configuring"
+	},
+	"description": "Налаштуйте провайдерів пам'яті та параметри для покращення контекстної обізнаності ШІ та ефективності. Системи пам'яті допомагають підтримувати контекст розмови між сеансами.",
+	"llmProfile": {
+		"title": "Профіль LLM",
+		"selectProfile": "Вибрати профіль",
+		"selectedProfileInfo": "Вибраний профіль: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Конфігурація векторного сховища",
+		"type": "Тип векторного сховища",
+		"selectType": "Вибрати тип векторного сховища",
+		"url": "URL векторного сховища",
+		"urlPlaceholder": "наприклад, http://localhost:6333",
+		"collection": "Назва колекції",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Розмірності векторів",
+		"apiKey": "API ключ",
+		"apiKeyPlaceholder": "Введіть API ключ"
+	},
+	"graphStore": {
+		"title": "Конфігурація графового сховища",
+		"type": "Тип графового сховища",
+		"selectType": "Вибрати тип графового сховища",
+		"url": "URL графового сховища",
+		"urlPlaceholder": "наприклад, bolt://localhost:7687",
+		"username": "Ім'я користувача",
+		"usernamePlaceholder": "neo4j",
+		"password": "Пароль",
+		"passwordPlaceholder": "Введіть пароль"
+	},
+	"embedder": {
+		"title": "Конфігурація вбудовувача",
+		"type": "Тип вбудовувача",
+		"selectType": "Вибрати тип вбудовувача",
+		"model": "Модель вбудовування",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "Базовий URL",
+		"apiKey": "API ключ",
+		"apiKeyPlaceholder": "Введіть API ключ"
+	},
+	"general": {
+		"title": "Загальні налаштування",
+		"userId": "ID користувача",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Максимальний розмір пам'яті",
+		"searchThreshold": "Поріг пошуку",
+		"enablePersistence": "Увімкнути збереження"
+	},
+	"sections": {
+		"memory": "Пам'ять"
+	}
+}

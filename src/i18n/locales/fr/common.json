@@ -124,7 +124,9 @@
 		},
 		"roo": {
 			"authenticationRequired": "Le fournisseur Roo nécessite une authentification cloud. Veuillez vous connecter à Roo Code Cloud."
-		}
+		},
+		"invalid_line_limit": "La limite de lignes de sortie du terminal doit être un nombre positif",
+		"invalid_character_limit": "La limite de caractères de sortie du terminal doit être un nombre positif"
 	},
 	"warnings": {
 		"no_terminal_content": "Aucun contenu de terminal sélectionné",

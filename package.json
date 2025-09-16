@@ -2,7 +2,7 @@
 	"name": "aincrok",
 	"displayName": "Aincrok - AI Code Assistant",
 	"description": "Aincrok Is Not Cline Roo Or Kilo - Advanced AI-powered coding assistant for VS Code",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"publisher": "aincrok",
 	"homepage": "https://aincrok.dev",
 	"repository": {
@@ -48,7 +48,7 @@
 	"devDependencies": {
 		"@changesets/changelog-github": "^0.5.1",
 		"@changesets/cli": "^2.27.10",
-		"@dotenvx/dotenvx": "^1.34.0",
+		"@dotenvx/dotenvx": "^1.44.2",
 		"@roo-code/config-typescript": "workspace:^",
 		"@types/glob": "^9.0.0",
 		"@types/node": "^24.1.0",
@@ -79,7 +79,12 @@
 			"esbuild": ">=0.25.0",
 			"brace-expansion": ">=2.0.2",
 			"form-data": ">=4.0.4",
-			"bluebird": ">=3.7.2"
+			"bluebird": ">=3.7.2",
+			"socket.io-client": ">=4.8.1"
 		}
+	},
+	"dependencies": {
+		"fast-xml-parser": "^5.0.0",
+		"google-auth-library": "^9.15.1"
 	}
 }

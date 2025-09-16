@@ -1,0 +1,392 @@
+{
+	"aincrok.memory": {
+		"type": "object",
+		"title": "Aincrok Memory Configuration",
+		"description": "Configure memory providers for enhanced AI coding assistance",
+		"properties": {
+			"primaryProvider": {
+				"type": "string",
+				"enum": ["cipher", "mem0", "openai", "local", "qdrant", "chroma"],
+				"enumDescriptions": [
+					"Cipher - Advanced dual memory system with reasoning extraction",
+					"Mem0 - Cloud-based semantic memory with advanced AI features",
+					"OpenAI - Use OpenAI embeddings for semantic search",
+					"Local - Store memories in VS Code workspace/global state",
+					"Qdrant - Open-source vector database (requires server)",
+					"Chroma - Lightweight vector database (requires server)"
+				],
+				"default": "local",
+				"description": "Primary memory provider for storing and retrieving code context"
+			},
+			"fallbackProvider": {
+				"type": "string",
+				"enum": ["cipher", "mem0", "openai", "local", "qdrant", "chroma"],
+				"enumDescriptions": [
+					"Cipher - Advanced dual memory system with reasoning extraction",
+					"Mem0 - Cloud-based semantic memory with advanced AI features",
+					"OpenAI - Use OpenAI embeddings for semantic search",
+					"Local - Store memories in VS Code workspace/global state",
+					"Qdrant - Open-source vector database (requires server)",
+					"Chroma - Lightweight vector database (requires server)"
+				],
+				"description": "Fallback provider when primary provider is unavailable"
+			},
+			"enableAutoFallback": {
+				"type": "boolean",
+				"default": true,
+				"description": "Automatically switch to fallback provider when primary fails"
+			},
+			"healthCheckInterval": {
+				"type": "number",
+				"default": 30000,
+				"minimum": 5000,
+				"maximum": 300000,
+				"description": "Health check interval in milliseconds"
+			},
+			"maxRetries": {
+				"type": "number",
+				"default": 3,
+				"minimum": 1,
+				"maximum": 10,
+				"description": "Maximum retry attempts for failed operations"
+			},
+			"memoryRetrieval": {
+				"type": "object",
+				"title": "Memory Retrieval Configuration",
+				"description": "Configure hierarchical memory retrieval parameters",
+				"properties": {
+					"topK": {
+						"type": "number",
+						"default": 5,
+						"minimum": 1,
+						"maximum": 20,
+						"description": "Number of top memories to retrieve (research-based optimal: 5)"
+					},
+					"similarityThreshold": {
+						"type": "number",
+						"default": 0.7,
+						"minimum": 0.0,
+						"maximum": 1.0,
+						"description": "Minimum similarity threshold for memory retrieval"
+					},
+					"recencyWeight": {
+						"type": "number",
+						"default": 0.3,
+						"minimum": 0.0,
+						"maximum": 1.0,
+						"description": "Weight factor for memory recency in relevance scoring"
+					},
+					"contextWeight": {
+						"type": "number",
+						"default": 0.15,
+						"minimum": 0.0,
+						"maximum": 1.0,
+						"description": "Weight factor for contextual matching in relevance scoring"
+					},
+					"typeWeight": {
+						"type": "number",
+						"default": 0.05,
+						"minimum": 0.0,
+						"maximum": 1.0,
+						"description": "Weight factor for memory type priority in relevance scoring"
+					},
+					"enableDeduplication": {
+						"type": "boolean",
+						"default": true,
+						"description": "Remove duplicate or very similar memories from results"
+					},
+					"maxTokensPerMemory": {
+						"type": "number",
+						"default": 500,
+						"minimum": 100,
+						"maximum": 2000,
+						"description": "Maximum tokens to include per memory in system prompt"
+					}
+				}
+			},
+			"memoryTypes": {
+				"type": "object",
+				"title": "Memory Type Configuration",
+				"description": "Configure hierarchical memory type behaviors",
+				"properties": {
+					"workingMemoryTTL": {
+						"type": "number",
+						"default": 86400000,
+						"minimum": 3600000,
+						"maximum": 604800000,
+						"description": "Working memory time-to-live in milliseconds (default: 24 hours)"
+					},
+					"shortTermMemoryTTL": {
+						"type": "number",
+						"default": 3600000,
+						"minimum": 300000,
+						"maximum": 86400000,
+						"description": "Short-term memory time-to-live in milliseconds (default: 1 hour)"
+					},
+					"enableAutomaticConsolidation": {
+						"type": "boolean",
+						"default": true,
+						"description": "Automatically convert short-term to long-term memories"
+					},
+					"consolidationThreshold": {
+						"type": "number",
+						"default": 3,
+						"minimum": 2,
+						"maximum": 10,
+						"description": "Number of similar memories needed for consolidation"
+					}
+				}
+			}
+		}
+	},
+	"aincrok.memory.mem0": {
+		"type": "object",
+		"title": "Mem0 Memory Configuration",
+		"description": "Configuration for Mem0 memory enhancement system (not an AI provider)",
+		"properties": {
+			"mem0LlmProfileId": {
+				"type": "string",
+				"description": "Aincrok profile ID to use for Mem0's LLM operations"
+			},
+			"mem0VectorStore": {
+				"type": "string",
+				"enum": ["qdrant", "chroma", "pinecone", "faiss", "pgvector", "milvus", "weaviate"],
+				"enumDescriptions": [
+					"Qdrant - Open-source vector database",
+					"ChromaDB - Lightweight vector database",
+					"Pinecone - Cloud vector database",
+					"FAISS - Facebook's similarity search library",
+					"PostgreSQL with pgvector - SQL database with vector extensions",
+					"Milvus - Open-source vector database",
+					"Weaviate - Open-source vector database with GraphQL"
+				],
+				"description": "Vector store type for Mem0"
+			},
+			"mem0VectorStoreUrl": {
+				"type": "string",
+				"description": "Vector store connection URL"
+			},
+			"mem0VectorStoreCollection": {
+				"type": "string",
+				"description": "Vector store collection/index name"
+			},
+			"mem0VectorStoreDimensions": {
+				"type": "number",
+				"description": "Vector dimensions (optional, auto-detected from embedder)"
+			},
+			"mem0VectorStoreApiKey": {
+				"type": "string",
+				"description": "Vector store API key (for cloud services like Pinecone)"
+			},
+			"mem0GraphStore": {
+				"type": "string",
+				"enum": ["neo4j", "memgraph", "arangodb", "nebula", "falkordb"],
+				"enumDescriptions": [
+					"Neo4j - Popular graph database",
+					"Memgraph - High-performance graph database",
+					"ArangoDB - Multi-model database with graph support",
+					"NebulaGraph - Distributed graph database",
+					"FalkorDB - Redis-based graph database"
+				],
+				"description": "Graph store type for Mem0 (optional)"
+			},
+			"mem0GraphStoreUrl": {
+				"type": "string",
+				"description": "Graph store connection URL"
+			},
+			"mem0GraphStoreUsername": {
+				"type": "string",
+				"description": "Graph store username"
+			},
+			"mem0GraphStorePassword": {
+				"type": "string",
+				"description": "Graph store password"
+			},
+			"mem0Embedder": {
+				"type": "string",
+				"enum": ["openai", "ollama", "huggingface", "azure", "together"],
+				"enumDescriptions": [
+					"OpenAI - Use OpenAI embeddings",
+					"Ollama - Local embeddings via Ollama",
+					"Hugging Face - Hugging Face embeddings",
+					"Azure OpenAI - Azure OpenAI embeddings",
+					"Together AI - Together AI embeddings"
+				],
+				"description": "Embedder type for Mem0"
+			},
+			"mem0EmbedderModel": {
+				"type": "string",
+				"description": "Specific embedder model to use"
+			},
+			"mem0EmbedderBaseUrl": {
+				"type": "string",
+				"description": "Custom base URL for embedder (e.g., Ollama server)"
+			},
+			"mem0EmbedderApiKey": {
+				"type": "string",
+				"description": "API key for embedder service (optional if using profile)"
+			},
+			"mem0UserId": {
+				"type": "string",
+				"description": "User ID for memory organization"
+			},
+			"mem0MaxMemorySize": {
+				"type": "number",
+				"minimum": 100,
+				"maximum": 100000,
+				"description": "Maximum number of memories to store (optional)"
+			},
+			"mem0SearchThreshold": {
+				"type": "number",
+				"minimum": 0.0,
+				"maximum": 1.0,
+				"description": "Similarity threshold for memory search (optional)"
+			},
+			"mem0EnablePersistence": {
+				"type": "boolean",
+				"default": true,
+				"description": "Enable persistent memory storage"
+			}
+		}
+	},
+	"aincrok.memory.openai": {
+		"type": "object",
+		"title": "OpenAI Configuration",
+		"description": "Configuration for OpenAI embeddings memory provider",
+		"properties": {
+			"apiKey": {
+				"type": "string",
+				"description": "OpenAI API key for embeddings"
+			},
+			"baseUrl": {
+				"type": "string",
+				"description": "Custom OpenAI API base URL (optional)"
+			},
+			"model": {
+				"type": "string",
+				"enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"],
+				"enumDescriptions": [
+					"Small model - Lower cost, good performance",
+					"Large model - Higher accuracy, higher cost",
+					"Legacy model - Compatibility with older systems"
+				],
+				"default": "text-embedding-3-small",
+				"description": "OpenAI embedding model to use"
+			},
+			"dimensions": {
+				"type": "number",
+				"enum": [512, 1024, 1536, 3072],
+				"default": 1536,
+				"description": "Embedding dimensions (model dependent)"
+			},
+			"batchSize": {
+				"type": "number",
+				"default": 100,
+				"minimum": 1,
+				"maximum": 2048,
+				"description": "Batch size for embedding operations"
+			}
+		}
+	},
+	"aincrok.memory.local": {
+		"type": "object",
+		"title": "Local Storage Configuration",
+		"description": "Configuration for local memory storage",
+		"properties": {
+			"storageType": {
+				"type": "string",
+				"enum": ["filesystem", "vscode-state", "memory"],
+				"enumDescriptions": [
+					"Filesystem - Store in local files",
+					"VS Code State - Store in extension state",
+					"Memory - Store in RAM only (temporary)"
+				],
+				"default": "vscode-state",
+				"description": "Type of local storage to use"
+			},
+			"dataPath": {
+				"type": "string",
+				"description": "Custom path for filesystem storage (optional)"
+			},
+			"indexType": {
+				"type": "string",
+				"enum": ["simple", "vectorized"],
+				"enumDescriptions": [
+					"Simple - Basic text matching",
+					"Vectorized - Local vector search (requires computation)"
+				],
+				"default": "simple",
+				"description": "Type of indexing for search"
+			}
+		}
+	},
+	"aincrok.memory.qdrant": {
+		"type": "object",
+		"title": "Qdrant Configuration",
+		"description": "Configuration for Qdrant vector database",
+		"properties": {
+			"host": {
+				"type": "string",
+				"default": "localhost",
+				"description": "Qdrant server hostname"
+			},
+			"port": {
+				"type": "number",
+				"default": 6333,
+				"description": "Qdrant HTTP port"
+			},
+			"grpcPort": {
+				"type": "number",
+				"default": 6334,
+				"description": "Qdrant gRPC port (optional)"
+			},
+			"apiKey": {
+				"type": "string",
+				"description": "Qdrant API key for authentication (optional)"
+			},
+			"collectionName": {
+				"type": "string",
+				"default": "aincrok-memories",
+				"description": "Collection name for memories"
+			},
+			"vectorSize": {
+				"type": "number",
+				"default": 1536,
+				"description": "Vector dimension size"
+			}
+		}
+	},
+	"aincrok.memory.chroma": {
+		"type": "object",
+		"title": "Chroma Configuration",
+		"description": "Configuration for Chroma vector database",
+		"properties": {
+			"host": {
+				"type": "string",
+				"default": "localhost",
+				"description": "Chroma server hostname"
+			},
+			"port": {
+				"type": "number",
+				"default": 8000,
+				"description": "Chroma server port"
+			},
+			"collectionName": {
+				"type": "string",
+				"default": "aincrok-memories",
+				"description": "Collection name for memories"
+			},
+			"distanceFunction": {
+				"type": "string",
+				"enum": ["cosine", "euclidean", "manhattan"],
+				"enumDescriptions": [
+					"Cosine - Good for semantic similarity",
+					"Euclidean - Standard distance measure",
+					"Manhattan - City block distance"
+				],
+				"default": "cosine",
+				"description": "Distance function for similarity calculations"
+			}
+		}
+	}
+}

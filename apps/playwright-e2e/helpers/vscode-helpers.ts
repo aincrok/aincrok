@@ -4,10 +4,23 @@ const modifier = process.platform === "darwin" ? "Meta" : "Control"
 
 export async function verifyExtensionInstalled(page: Page) {
 	try {
-		const activityBarIcon = page.locator('[aria-label*="Kilo"], [title*="Kilo"]').first()
-		expect(await activityBarIcon).toBeDefined()
+		// Debug: list all activity bar items to see what's available
+		const allActivityBarItems = await page.locator(".monaco-workbench .activitybar .action-label").all()
+		console.log(`🔍 Found ${allActivityBarItems.length} activity bar items:`)
+		for (let i = 0; i < allActivityBarItems.length; i++) {
+			const title = await allActivityBarItems[i].getAttribute("title")
+			const ariaLabel = await allActivityBarItems[i].getAttribute("aria-label")
+			console.log(`  Item ${i}: title="${title}", aria-label="${ariaLabel}"`)
+		}
+
+		// Look for Aincrok extension in activity bar
+		const activityBarIcon = page
+			.locator('[aria-label*="Aincrok"], [title*="Aincrok"], [aria-label*="aincrok"], [title*="aincrok"]')
+			.first()
+		await expect(activityBarIcon).toBeVisible({ timeout: 5000 })
 		console.log("✅ Extension installed!")
-	} catch (_error) {
+	} catch (error) {
+		console.log("❌ Extension not found in activity bar:", error.message)
 		throw new Error("Failed to find the installed extension! Check if the build failed and try again.")
 	}
 }

@@ -1,0 +1,684 @@
+// aincrok_change - new file: Comprehensive integration tests for semantic tools
+import { describe, it, expect, beforeEach, vi, afterEach } from "vitest"
+import * as vscode from "vscode"
+
+import { semanticReadFileTool } from "../semanticReadFileTool"
+import { semanticSymbolSearchTool } from "../semanticSymbolSearchTool"
+import { InternalSymbolicLSP } from "../../lsp/InternalSymbolicLSP"
+import { SymbolicEntity, SemanticContext, SymbolRelationship } from "../../lsp/types"
+import { Task } from "../../task/Task"
+import { ToolUse } from "../../../shared/tools"
+
+/**
+ * Comprehensive Semantic Tool Integration Tests
+ * 
+ * These tests verify the integration between semantic tools, LSP functionality,
+ * and the broader Aincrok system. They test both success scenarios and graceful
+ * fallback behavior when LSP is unavailable.
+ */
+
+// Mock VS Code APIs
+vi.mock("vscode", () => ({
+	SymbolKind: {
+		Class: 5,
+		Method: 6,
+		Interface: 11,
+		Function: 12,
+		Variable: 13,
+		Constant: 14,
+		Enum: 10,
+		Module: 2,
+		Namespace: 3,
+	},
+	Range: vi.fn().mockImplementation((startLine, startChar, endLine, endChar) => ({
+		start: { line: startLine, character: startChar },
+		end: { line: endLine, character: endChar },
+	})),
+	Position: vi.fn().mockImplementation((line, char) => ({ line, character: char })),
+	Uri: {
+		file: vi.fn().mockImplementation((path: string) => ({
+			fsPath: path,
+			scheme: "file",
+			path,
+		})),
+	},
+	workspace: {
+		findFiles: vi.fn(),
+		workspaceFolders: [
+			{
+				uri: {
+					fsPath: "/test/workspace",
+					scheme: "file",
+					path: "/test/workspace",
+				},
+				name: "test-workspace",
+				index: 0,
+			},
+		],
+		onDidDeleteFiles: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		onDidRenameFiles: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		onDidCreateFiles: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		onDidChangeTextDocument: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		onDidOpenTextDocument: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		onDidCloseTextDocument: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		openTextDocument: vi.fn(),
+		getWorkspaceFolder: vi.fn(),
+		textDocuments: [],
+	},
+	commands: {
+		executeCommand: vi.fn(),
+	},
+	languages: {
+		registerDocumentSymbolProvider: vi.fn(),
+		registerWorkspaceSymbolProvider: vi.fn(),
+	},
+	window: {
+		activeTextEditor: undefined,
+	},
+}))
+
+// Mock InternalSymbolicLSP
+vi.mock("../lsp/InternalSymbolicLSP")
+
+describe("Semantic Tool Integration", () => {
+	let mockTask: Task
+	let mockLSP: InternalSymbolicLSP
+	let askApproval: any
+	let handleError: any
+	let pushToolResult: any
+	let removeClosingTag: any
+
+	const mockSymbolicEntity: SymbolicEntity = {
+		id: "class-UserService",
+		name: "UserService",
+		kind: 5, // Class
+		filePath: "/test/workspace/src/services/UserService.ts",
+		range: new vscode.Range(10, 0, 50, 1),
+		selectionRange: new vscode.Range(10, 6, 10, 17),
+		detail: "class UserService",
+		documentation: "Main service for user management",
+		children: [
+			{
+				id: "method-getUserById",
+				name: "getUserById",
+				kind: 6, // Method
+				filePath: "/test/workspace/src/services/UserService.ts",
+				range: new vscode.Range(15, 2, 20, 3),
+				selectionRange: new vscode.Range(15, 2, 15, 13),
+				detail: "getUserById(id: string): Promise<User>",
+				documentation: "Retrieves a user by ID",
+			},
+			{
+				id: "method-createUser",
+				name: "createUser",
+				kind: 6, // Method
+				filePath: "/test/workspace/src/services/UserService.ts",
+				range: new vscode.Range(22, 2, 30, 3),
+				selectionRange: new vscode.Range(22, 2, 22, 12),
+				detail: "createUser(userData: CreateUserRequest): Promise<User>",
+				documentation: "Creates a new user",
+			},
+		],
+	}
+
+	const mockSemanticContext: SemanticContext = {
+		relevantSymbols: [mockSymbolicEntity],
+		relationships: [
+			{
+				type: "implements",
+				source: mockSymbolicEntity,
+				target: {
+					id: "interface-IUserService",
+					name: "IUserService",
+					kind: 11, // Interface
+					filePath: "/test/workspace/src/interfaces/IUserService.ts",
+					range: new vscode.Range(5, 0, 15, 1),
+					selectionRange: new vscode.Range(5, 10, 5, 22),
+				},
+			} as SymbolRelationship,
+		],
+		codeSnippets: [
+			{
+				filePath: "/test/workspace/src/services/UserService.ts",
+				startLine: 10,
+				endLine: 50,
+				content: "class UserService implements IUserService {\n  // Implementation details\n}",
+			},
+		],
+	}
+
+	beforeEach(() => {
+		vi.clearAllMocks()
+
+		mockTask = {
+			id: "test-task",
+			taskId: "test-task",
+			createdAt: Date.now(),
+			type: "task" as const,
+			status: "in_progress",
+			params: {},
+		} as Task
+
+		mockLSP = {
+			findSymbolByName: vi.fn(),
+			getSymbolRelations: vi.fn(),
+			retrieveSemanticContext: vi.fn(),
+			editSymbolPrecisely: vi.fn(),
+			getSemanticContextForPrompt: vi.fn(),
+			analyzeFileSemantics: vi.fn(),
+			searchWorkspaceSymbols: vi.fn(),
+			initialize: vi.fn(),
+			dispose: vi.fn(),
+		} as any
+
+		askApproval = vi.fn()
+		handleError = vi.fn()
+		pushToolResult = vi.fn()
+		removeClosingTag = vi.fn()
+
+		// Mock InternalSymbolicLSP.getInstance
+		vi.mocked(InternalSymbolicLSP.getInstance).mockReturnValue(mockLSP)
+	})
+
+	afterEach(() => {
+		vi.restoreAllMocks()
+	})
+
+	describe("semantic_read_file Integration", () => {
+		it("should successfully analyze file with LSP and return structured results", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/services/UserService.ts",
+				},
+			}
+
+			// Mock successful LSP analysis
+			vi.mocked(mockLSP.analyzeFileSemantics).mockResolvedValue({
+				filePath: "/test/workspace/src/services/UserService.ts",
+				symbols: [mockSymbolicEntity],
+				relationships: mockSemanticContext.relationships,
+				diagnostics: [],
+				isLSPAvailable: true,
+			})
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(mockLSP.analyzeFileSemantics).toHaveBeenCalledWith(
+				"/test/workspace/src/services/UserService.ts",
+				expect.objectContaining({
+					symbolQuery: undefined,
+					symbolKinds: undefined,
+					maxDepth: 1,
+				})
+			)
+
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("Semantic Analysis: ✅ LSP Available"),
+				expect.stringContaining("UserService"),
+				expect.stringContaining("class UserService")
+			)
+		})
+
+		it("should filter symbols by name query", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/services/UserService.ts",
+					symbol_query: "create",
+				},
+			}
+
+			const filteredSymbol = {
+				...mockSymbolicEntity,
+				children: [mockSymbolicEntity.children![1]], // Only createUser method
+			}
+
+			vi.mocked(mockLSP.analyzeFileSemantics).mockResolvedValue({
+				filePath: "/test/workspace/src/services/UserService.ts",
+				symbols: [filteredSymbol],
+				relationships: [],
+				diagnostics: [],
+				isLSPAvailable: true,
+			})
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(mockLSP.analyzeFileSemantics).toHaveBeenCalledWith(
+				"/test/workspace/src/services/UserService.ts",
+				expect.objectContaining({
+					symbolQuery: "create",
+				})
+			)
+
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("createUser"),
+				expect.not.stringContaining("getUserById")
+			)
+		})
+
+		it("should filter symbols by kind", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/services/UserService.ts",
+					symbol_kinds: ["6"], // Methods only
+				},
+			}
+
+			const methodSymbols = mockSymbolicEntity.children!.map((child) => ({
+				...child,
+				parent: mockSymbolicEntity,
+			}))
+
+			vi.mocked(mockLSP.analyzeFileSemantics).mockResolvedValue({
+				filePath: "/test/workspace/src/services/UserService.ts",
+				symbols: methodSymbols,
+				relationships: [],
+				diagnostics: [],
+				isLSPAvailable: true,
+			})
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(mockLSP.analyzeFileSemantics).toHaveBeenCalledWith(
+				"/test/workspace/src/services/UserService.ts",
+				expect.objectContaining({
+					symbolKinds: [6],
+				})
+			)
+
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("getUserById"),
+				expect.stringContaining("createUser"),
+				expect.not.stringContaining("class UserService")
+			)
+		})
+
+		it("should gracefully fallback to text reading when LSP fails", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/services/UserService.ts",
+				},
+			}
+
+			// Mock LSP failure
+			vi.mocked(mockLSP.analyzeFileSemantics).mockResolvedValue({
+				filePath: "/test/workspace/src/services/UserService.ts",
+				symbols: [],
+				relationships: [],
+				diagnostics: [],
+				isLSPAvailable: false,
+				fallbackContent: "// Fallback file content\nclass UserService {\n  // methods\n}",
+			})
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("Semantic Analysis: ⚠️ LSP Unavailable"),
+				expect.stringContaining("Fallback file content")
+			)
+		})
+
+		it("should handle relationship analysis when requested", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/services/UserService.ts",
+					include_relationships: true,
+				},
+			}
+
+			vi.mocked(mockLSP.analyzeFileSemantics).mockResolvedValue({
+				filePath: "/test/workspace/src/services/UserService.ts",
+				symbols: [mockSymbolicEntity],
+				relationships: mockSemanticContext.relationships,
+				diagnostics: [],
+				isLSPAvailable: true,
+			})
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("Symbol Relationships"),
+				expect.stringContaining("implements IUserService")
+			)
+		})
+	})
+
+	describe("semantic_symbol_search Integration", () => {
+		it("should successfully search workspace symbols", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_symbol_search",
+				params: {
+					query: "UserService",
+				},
+			}
+
+			const searchResults = [
+				mockSymbolicEntity,
+				{
+					id: "class-AdminService",
+					name: "AdminService",
+					kind: 5,
+					filePath: "/test/workspace/src/services/AdminService.ts",
+					range: new vscode.Range(5, 0, 25, 1),
+					selectionRange: new vscode.Range(5, 6, 5, 18),
+				} as SymbolicEntity,
+			]
+
+			vi.mocked(mockLSP.searchWorkspaceSymbols).mockResolvedValue({
+				symbols: searchResults,
+				isLSPAvailable: true,
+				searchQuery: "UserService",
+				totalResults: 2,
+			})
+
+			await semanticSymbolSearchTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(mockLSP.searchWorkspaceSymbols).toHaveBeenCalledWith(
+				"UserService",
+				expect.objectContaining({
+					filePattern: undefined,
+					symbolKinds: undefined,
+					maxResults: 100,
+				})
+			)
+
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("Found 2 symbols"),
+				expect.stringContaining("UserService"),
+				expect.stringContaining("AdminService")
+			)
+		})
+
+		it("should handle file pattern filtering", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_symbol_search",
+				params: {
+					query: "Service",
+					file_pattern: "service",
+				},
+			}
+
+			vi.mocked(mockLSP.searchWorkspaceSymbols).mockResolvedValue({
+				symbols: [mockSymbolicEntity],
+				isLSPAvailable: true,
+				searchQuery: "Service",
+				totalResults: 1,
+			})
+
+			await semanticSymbolSearchTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(mockLSP.searchWorkspaceSymbols).toHaveBeenCalledWith(
+				"Service",
+				expect.objectContaining({
+					filePattern: "service",
+				})
+			)
+		})
+
+		it("should include references when requested", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_symbol_search",
+				params: {
+					query: "UserService",
+					include_references: true,
+				},
+			}
+
+			const symbolWithReferences = {
+				...mockSymbolicEntity,
+				references: [
+					{
+						filePath: "/test/workspace/src/controllers/UserController.ts",
+						range: new vscode.Range(5, 15, 5, 26),
+						context: "private userService: UserService",
+					},
+				],
+			}
+
+			vi.mocked(mockLSP.searchWorkspaceSymbols).mockResolvedValue({
+				symbols: [symbolWithReferences],
+				isLSPAvailable: true,
+				searchQuery: "UserService",
+				totalResults: 1,
+			})
+
+			await semanticSymbolSearchTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("References"),
+				expect.stringContaining("UserController.ts")
+			)
+		})
+
+		it("should gracefully fallback when LSP is unavailable", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_symbol_search",
+				params: {
+					query: "UserService",
+				},
+			}
+
+			vi.mocked(mockLSP.searchWorkspaceSymbols).mockResolvedValue({
+				symbols: [],
+				isLSPAvailable: false,
+				searchQuery: "UserService",
+				totalResults: 0,
+				fallbackResults: [
+					{
+						filePath: "/test/workspace/src/services/UserService.ts",
+						matches: ["UserService class definition"],
+					},
+				],
+			})
+
+			await semanticSymbolSearchTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("LSP Unavailable - Fallback Search"),
+				expect.stringContaining("UserService class definition")
+			)
+		})
+
+		it("should limit results for performance", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_symbol_search",
+				params: {
+					query: "test",
+					max_results: 10,
+				},
+			}
+
+			const manySymbols = Array.from({ length: 15 }, (_, i) => ({
+				id: `symbol-${i}`,
+				name: `TestSymbol${i}`,
+				kind: 12, // Function
+				filePath: `/test/workspace/src/test${i}.ts`,
+				range: new vscode.Range(1, 0, 5, 1),
+				selectionRange: new vscode.Range(1, 9, 1, 20),
+			}))
+
+			vi.mocked(mockLSP.searchWorkspaceSymbols).mockResolvedValue({
+				symbols: manySymbols.slice(0, 10), // Should be limited to 10
+				isLSPAvailable: true,
+				searchQuery: "test",
+				totalResults: 15,
+			})
+
+			await semanticSymbolSearchTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(mockLSP.searchWorkspaceSymbols).toHaveBeenCalledWith(
+				"test",
+				expect.objectContaining({
+					maxResults: 10,
+				})
+			)
+
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("Found 10 symbols (showing first 10 of 15 total)")
+			)
+		})
+	})
+
+	describe("Error Handling and Recovery", () => {
+		it("should handle LSP initialization errors gracefully", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/test.ts",
+				},
+			}
+
+			// Mock LSP initialization failure
+			vi.mocked(InternalSymbolicLSP.getInstance).mockRejectedValue(new Error("LSP initialization failed"))
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(handleError).toHaveBeenCalledWith(
+				expect.stringContaining("LSP initialization failed")
+			)
+		})
+
+		it("should handle invalid file paths gracefully", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "nonexistent/file.ts",
+				},
+			}
+
+			vi.mocked(mockLSP.analyzeFileSemantics).mockResolvedValue({
+				filePath: "/test/workspace/nonexistent/file.ts",
+				symbols: [],
+				relationships: [],
+				diagnostics: [
+					{
+						severity: "error",
+						message: "File not found",
+						range: new vscode.Range(0, 0, 0, 0),
+					},
+				],
+				isLSPAvailable: true,
+			})
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("File not found")
+			)
+		})
+
+		it("should validate symbol kind parameters", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/test.ts",
+					symbol_kinds: ["invalid", "99"], // Invalid symbol kinds
+				},
+			}
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(handleError).toHaveBeenCalledWith(
+				expect.stringContaining("Invalid symbol kind")
+			)
+		})
+	})
+
+	describe("Performance and Caching", () => {
+		it("should benefit from LSP symbol caching", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_symbol_search",
+				params: {
+					query: "UserService",
+				},
+			}
+
+			// First call
+			vi.mocked(mockLSP.searchWorkspaceSymbols).mockResolvedValue({
+				symbols: [mockSymbolicEntity],
+				isLSPAvailable: true,
+				searchQuery: "UserService",
+				totalResults: 1,
+				fromCache: false,
+			})
+
+			await semanticSymbolSearchTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Second call should use cache
+			vi.mocked(mockLSP.searchWorkspaceSymbols).mockResolvedValue({
+				symbols: [mockSymbolicEntity],
+				isLSPAvailable: true,
+				searchQuery: "UserService",
+				totalResults: 1,
+				fromCache: true,
+			})
+
+			await semanticSymbolSearchTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(mockLSP.searchWorkspaceSymbols).toHaveBeenCalledTimes(2)
+			expect(pushToolResult).toHaveBeenLastCalledWith(
+				expect.stringContaining("Found 1 symbols"),
+				expect.stringContaining("(cached)")
+			)
+		})
+
+		it("should handle large symbol hierarchies efficiently", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/large-class.ts",
+					max_depth: 3,
+				},
+			}
+
+			const deepSymbolHierarchy = {
+				...mockSymbolicEntity,
+				children: Array.from({ length: 50 }, (_, i) => ({
+					id: `method-${i}`,
+					name: `method${i}`,
+					kind: 6,
+					filePath: "/test/workspace/src/large-class.ts",
+					range: new vscode.Range(i * 5, 2, i * 5 + 3, 3),
+					selectionRange: new vscode.Range(i * 5, 2, i * 5, 10),
+					children: i < 10 ? [
+						{
+							id: `nested-${i}`,
+							name: `nested${i}`,
+							kind: 13,
+							filePath: "/test/workspace/src/large-class.ts",
+							range: new vscode.Range(i * 5 + 1, 4, i * 5 + 1, 20),
+							selectionRange: new vscode.Range(i * 5 + 1, 4, i * 5 + 1, 11),
+						} as SymbolicEntity,
+					] : undefined,
+				})) as SymbolicEntity[],
+			}
+
+			vi.mocked(mockLSP.analyzeFileSemantics).mockResolvedValue({
+				filePath: "/test/workspace/src/large-class.ts",
+				symbols: [deepSymbolHierarchy],
+				relationships: [],
+				diagnostics: [],
+				isLSPAvailable: true,
+			})
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			expect(mockLSP.analyzeFileSemantics).toHaveBeenCalledWith(
+				"/test/workspace/src/large-class.ts",
+				expect.objectContaining({
+					maxDepth: 3,
+				})
+			)
+
+			// Should handle large hierarchies without performance issues
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("50 methods"),
+				expect.stringContaining("nested symbols")
+			)
+		})
+	})
+})

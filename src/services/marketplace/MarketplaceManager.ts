@@ -6,7 +6,7 @@ import * as yaml from "yaml"
 
 import type { MarketplaceItem, MarketplaceItemType, McpMarketplaceItem } from "@roo-code/types"
 import { TelemetryService } from "@roo-code/telemetry"
-import { type OrganizationSettings, CloudService } from "@roo-code/cloud"
+// aincrok_change - @roo-code/cloud removed for aincrok fork
 
 import { GlobalFileNames } from "../../shared/globalFileNames"
 import { ensureSettingsDirectoryExists } from "../../utils/globalContext"
@@ -36,46 +36,12 @@ export class MarketplaceManager {
 
 	async getMarketplaceItems(): Promise<MarketplaceItemsResponse> {
 		try {
-			const errors: string[] = []
-
-			let orgSettings: OrganizationSettings | undefined
-
-			try {
-				if (CloudService.hasInstance() && CloudService.instance.isAuthenticated()) {
-					orgSettings = CloudService.instance.getOrganizationSettings()
-				}
-			} catch (orgError) {
-				console.warn("Failed to load organization settings:", orgError)
-				const orgErrorMessage = orgError instanceof Error ? orgError.message : String(orgError)
-				errors.push(`Organization settings: ${orgErrorMessage}`)
-			}
-
-			const allMarketplaceItems = await this.configLoader.loadAllItems(orgSettings?.hideMarketplaceMcps)
-			let organizationMcps: MarketplaceItem[] = []
-			let marketplaceItems = allMarketplaceItems
-
-			if (orgSettings) {
-				if (orgSettings.mcps && orgSettings.mcps.length > 0) {
-					organizationMcps = orgSettings.mcps.map(
-						(mcp: McpMarketplaceItem): MarketplaceItem => ({
-							...mcp,
-							type: "mcp" as const,
-						}),
-					)
-				}
-
-				if (orgSettings.hiddenMcps && orgSettings.hiddenMcps.length > 0) {
-					const hiddenMcpIds = new Set(orgSettings.hiddenMcps)
-					marketplaceItems = allMarketplaceItems.filter(
-						(item) => item.type !== "mcp" || !hiddenMcpIds.has(item.id),
-					)
-				}
-			}
+			// aincrok_change - CloudService removed, no organization settings available
+			const allMarketplaceItems = await this.configLoader.loadAllItems(false)
 
 			return {
-				organizationMcps,
-				marketplaceItems,
-				errors: errors.length > 0 ? errors : undefined,
+				organizationMcps: [], // No cloud organization MCPs available
+				marketplaceItems: allMarketplaceItems,
 			}
 		} catch (error) {
 			const errorMessage = error instanceof Error ? error.message : String(error)

@@ -28,6 +28,7 @@ async function main() {
 		// Pass test filters as environment variables to the test runner
 		const extensionTestsEnv = {
 			...process.env,
+			NODE_ENV: "test", // Set NODE_ENV to avoid development-mode behaviors
 			...(testGrep && { TEST_GREP: testGrep }),
 			...(testFile && { TEST_FILE: testFile }),
 		}
@@ -36,8 +37,17 @@ async function main() {
 		await runTests({
 			extensionDevelopmentPath,
 			extensionTestsPath,
-			launchArgs: [testWorkspace],
+			launchArgs: [
+				testWorkspace,
+				"--disable-gpu", // Disable GPU acceleration (fixes AMD graphics issues on Linux)
+				"--disable-dev-shm-usage", // Avoid shared memory issues
+				"--no-sandbox", // Bypass sandbox restrictions in test environment
+				"--verbose", // Enable verbose output
+				// Remove invalid VS Code launch arguments that were causing warnings
+			],
 			extensionTestsEnv,
+			// Use stable VS Code version for consistent testing
+			version: "stable",
 		})
 
 		// Clean up the temporary workspace

@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Автоматический захват",
+		"reasoningExtraction": "Извлечение рассуждений",
+		"workspace": "Общий доступ к рабочему пространству"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Конфигурация Памяти",
+		"saveButtonTooltip": "Сохранить текущую конфигурацию памяти",
+		"doneButtonTooltip": "Закрыть конфигурацию памяти и вернуться к чату"
+	},
+	"common": {
+		"save": "Сохранить",
+		"done": "Готово",
+		"optional": "опционально",
+		"configuring": "Configuring"
+	},
+	"description": "Настройте провайдеры памяти и параметры для повышения контекстной осведомленности ИИ и эффективности. Системы памяти помогают поддерживать контекст разговора между сессиями.",
+	"llmProfile": {
+		"title": "Профиль LLM",
+		"selectProfile": "Выбрать профиль",
+		"selectedProfileInfo": "Выбранный профиль: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Конфигурация Векторного Хранилища",
+		"type": "Тип Векторного Хранилища",
+		"selectType": "Выбрать тип векторного хранилища",
+		"url": "URL Векторного Хранилища",
+		"urlPlaceholder": "напр., http://localhost:6333",
+		"collection": "Имя Коллекции",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Векторные Размерности",
+		"apiKey": "API Ключ",
+		"apiKeyPlaceholder": "Введите API ключ"
+	},
+	"graphStore": {
+		"title": "Конфигурация Графового Хранилища",
+		"type": "Тип Графового Хранилища",
+		"selectType": "Выбрать тип графового хранилища",
+		"url": "URL Графового Хранилища",
+		"urlPlaceholder": "напр., bolt://localhost:7687",
+		"username": "Имя пользователя",
+		"usernamePlaceholder": "neo4j",
+		"password": "Пароль",
+		"passwordPlaceholder": "Введите пароль"
+	},
+	"embedder": {
+		"title": "Конфигурация Embedder",
+		"type": "Тип Embedder",
+		"selectType": "Выбрать тип embedder",
+		"model": "Модель Встраивания",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "Базовый URL",
+		"apiKey": "API Ключ",
+		"apiKeyPlaceholder": "Введите API ключ"
+	},
+	"general": {
+		"title": "Общие Настройки",
+		"userId": "ID Пользователя",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Максимальный Размер Памяти",
+		"searchThreshold": "Порог Поиска",
+		"enablePersistence": "Включить Постоянство"
+	},
+	"sections": {
+		"memory": "Память"
+	}
+}

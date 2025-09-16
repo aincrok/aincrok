@@ -129,7 +129,9 @@
 		},
 		"roo": {
 			"authenticationRequired": "يتطلب موفر Roo المصادقة السحابية. يرجى تسجيل الدخول إلى Roo Code Cloud."
-		}
+		},
+		"invalid_line_limit": "يجب أن يكون حد خطوط إخراج الطرفية رقمًا موجبًا",
+		"invalid_character_limit": "يجب أن يكون حد أحرف إخراج الطرفية رقمًا موجبًا"
 	},
 	"warnings": {
 		"no_terminal_content": "ما تم تحديد أي محتوى من الطرفية",

@@ -317,9 +317,13 @@ export class ProviderSettingsManager {
 				const existingId = providerProfiles.apiConfigs[name]?.id
 				const id = config.id || existingId || this.generateId()
 
-				// Filter out settings from other providers.
-				const filteredConfig = discriminatedProviderSettingsWithIdSchema.parse(config)
-				providerProfiles.apiConfigs[name] = { ...filteredConfig, id }
+				// aincrok_change - Merge with existing config first, then parse
+				const existingConfig = providerProfiles.apiConfigs[name] || {}
+				const mergedConfig = { ...existingConfig, ...config, id }
+
+				// Filter out settings from other providers after merging
+				const filteredConfig = discriminatedProviderSettingsWithIdSchema.parse(mergedConfig)
+				providerProfiles.apiConfigs[name] = filteredConfig
 				await this.store(providerProfiles)
 				return id
 			})
@@ -366,6 +370,39 @@ export class ProviderSettingsManager {
 			throw new Error(`Failed to get profile: ${error instanceof Error ? error.message : error}`)
 		}
 	}
+
+	// aincrok_change start
+	/**
+	 * Gets the LLM configuration from a specific profile for Mem0 usage
+	 */
+	public async getMem0LlmConfig(profileId: string): Promise<{
+		provider?: string
+		modelId?: string
+		apiKey?: string
+		baseUrl?: string
+		[key: string]: any
+	} | null> {
+		try {
+			const profile = await this.getProfile({ id: profileId })
+
+			// Extract LLM-relevant fields from the profile
+			return {
+				provider: profile.apiProvider,
+				modelId: profile.apiModelId || profile.ollamaModelId || profile.openAiModelId || profile.glamaModelId,
+				apiKey: profile.apiKey || profile.openAiApiKey || profile.ollamaApiKey || profile.anthropicBaseUrl,
+				baseUrl: profile.openAiBaseUrl || profile.ollamaBaseUrl || profile.anthropicBaseUrl,
+				// Include other provider-specific settings that might be needed
+				temperature: profile.modelTemperature,
+				maxTokens: profile.modelMaxTokens,
+				// Add all profile settings in case Mem0 needs any specific ones
+				...profile,
+			}
+		} catch (error) {
+			console.error(`Failed to get Mem0 LLM config for profile ${profileId}:`, error)
+			return null
+		}
+	}
+	// aincrok_change end
 
 	/**
 	 * Activate a profile by name or ID.
@@ -474,6 +511,22 @@ export class ProviderSettingsManager {
 			throw new Error(`Failed to export provider profiles: ${error}`)
 		}
 	}
+
+	// aincrok_change start
+	/**
+	 * Get the current active profile name
+	 */
+	public async getCurrentProfileName(): Promise<string> {
+		try {
+			return await this.lock(async () => {
+				const providerProfiles = await this.load()
+				return providerProfiles.currentApiConfigName || "default"
+			})
+		} catch (error) {
+			throw new Error(`Failed to get current profile name: ${error}`)
+		}
+	}
+	// aincrok_change end
 
 	public async import(providerProfiles: ProviderProfiles) {
 		try {

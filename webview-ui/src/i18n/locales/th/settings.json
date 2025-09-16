@@ -32,6 +32,7 @@
 		"prompts": "Prompts",
 		"experimental": "ทดลอง",
 		"language": "ภาษา",
+		"memory": "หน่วยความจำ",
 		"about": "เกี่ยวกับ Kilo Code"
 	},
 	"prompts": {

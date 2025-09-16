@@ -1,0 +1,136 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Capture Automatique",
+		"reasoningExtraction": "Extraction du Raisonnement",
+		"workspace": "Partage d'Espace de Travail"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Configuration de la Mémoire",
+		"saveButtonTooltip": "Enregistrer la configuration mémoire actuelle",
+		"doneButtonTooltip": "Fermer la configuration mémoire et retourner au chat"
+	},
+	"common": {
+		"save": "Enregistrer",
+		"done": "Terminé",
+		"optional": "optionnel",
+		"configuring": "Configuring"
+	},
+	"description": "Configurez les fournisseurs de mémoire et les paramètres pour améliorer la conscience contextuelle de l'IA et l'efficacité. Les systèmes de mémoire aident à maintenir le contexte de conversation entre les sessions.",
+	"modes": {
+		"title": "Mode de Fournisseur de Mémoire",
+		"disabled": "Désactivé",
+		"embedded": "Intégré (Local)",
+		"mcp": "Serveur MCP",
+		"api": "API Externe"
+	},
+	"llm": {
+		"title": "Configuration LLM",
+		"provider": "Fournisseur LLM",
+		"selectProvider": "Sélectionner un Fournisseur",
+		"model": "Modèle",
+		"apiKey": "Clé API",
+		"apiKeyPlaceholder": "Entrer la clé API",
+		"baseUrl": "URL de Base",
+		"baseUrlPlaceholder": "Entrer l'URL de base",
+		"providers": {
+			"openai": "OpenAI",
+			"anthropic": "Anthropic",
+			"ollama": "Ollama (Local)"
+		}
+	},
+	"embedding": {
+		"title": "Configuration d'Intégration",
+		"provider": "Fournisseur d'Intégration",
+		"selectProvider": "Sélectionner un Fournisseur",
+		"model": "Modèle",
+		"apiKey": "Clé API",
+		"apiKeyPlaceholder": "Entrer la clé API",
+		"baseUrl": "URL de Base",
+		"baseUrlPlaceholder": "Entrer l'URL de base",
+		"dimensions": "Dimensions",
+		"dimensionsPlaceholder": "ex., 1536",
+		"providers": {
+			"openai": "OpenAI",
+			"huggingface": "Hugging Face",
+			"local": "Local"
+		}
+	},
+	"llmProfile": {
+		"title": "Profil LLM",
+		"selectProfile": "Sélectionner un profil",
+		"selectedProfileInfo": "Profil sélectionné : {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Configuration du Magasin Vectoriel",
+		"type": "Type de Magasin Vectoriel",
+		"selectType": "Sélectionner le type de magasin vectoriel",
+		"url": "URL du Magasin Vectoriel",
+		"urlPlaceholder": "ex., http://localhost:6333",
+		"collection": "Nom de la Collection",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Dimensions Vectorielles",
+		"apiKey": "Clé API",
+		"apiKeyPlaceholder": "Entrer la clé API"
+	},
+	"graphStore": {
+		"title": "Configuration du Magasin de Graphes",
+		"type": "Type de Magasin de Graphes",
+		"selectType": "Sélectionner le type de magasin de graphes",
+		"url": "URL du Magasin de Graphes",
+		"urlPlaceholder": "ex., bolt://localhost:7687",
+		"username": "Nom d'utilisateur",
+		"usernamePlaceholder": "neo4j",
+		"password": "Mot de passe",
+		"passwordPlaceholder": "Entrer le mot de passe"
+	},
+	"embedder": {
+		"title": "Configuration de l'Embedder",
+		"type": "Type d'Embedder",
+		"selectType": "Sélectionner le type d'embedder",
+		"model": "Modèle d'Intégration",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "URL de Base",
+		"apiKey": "Clé API",
+		"apiKeyPlaceholder": "Entrer la clé API"
+	},
+	"general": {
+		"title": "Paramètres Généraux",
+		"userId": "ID Utilisateur",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Taille Maximale de la Mémoire",
+		"searchThreshold": "Seuil de Recherche",
+		"enablePersistence": "Activer la Persistance"
+	},
+	"sections": {
+		"memory": "Mémoire"
+	},
+	"validation": {
+		"configurationIncomplete": "Configuration incomplète - champs requis manquants",
+		"providerRequired": "Le fournisseur est requis",
+		"apiKeyRequired": "La clé API est requise",
+		"modelRequired": "Le modèle est requis",
+		"urlRequired": "L'URL est requise",
+		"hostRequired": "L'hôte est requis",
+		"portRequired": "Le port est requis",
+		"usernameRequired": "Le nom d'utilisateur est requis",
+		"passwordRequired": "Le mot de passe est requis"
+	},
+	"features": {
+		"title": "Fonctionnalités de Mémoire",
+		"autoCapture": "Capture Automatique",
+		"reasoningExtraction": "Extraction de Raisonnement",
+		"teamSharing": "Partage d'Équipe"
+	},
+	"actions": {
+		"testConnection": "Tester la Connexion",
+		"testing": "Test en cours...",
+		"save": "Enregistrer la Configuration",
+		"reset": "Réinitialiser",
+		"cancel": "Annuler"
+	}
+}

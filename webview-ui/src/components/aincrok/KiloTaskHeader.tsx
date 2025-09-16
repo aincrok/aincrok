@@ -107,7 +107,7 @@ const KiloTaskHeader = ({
 								{!isTaskExpanded && ":"}
 							</span>
 							{!isTaskExpanded && (
-								<span style={{ marginLeft: 4 }}>{highlightText(task.text, false, customModes)}</span>
+								<span style={{ marginLeft: 4 }}>{highlightText(task?.text, false, customModes)}</span>
 							)}
 						</div>
 					</div>
@@ -158,7 +158,7 @@ const KiloTaskHeader = ({
 									WebkitLineClamp: "unset",
 									WebkitBoxOrient: "vertical",
 								}}>
-								{highlightText(task.text, false, customModes)}
+								{highlightText(task?.text, false, customModes)}
 							</div>
 						</div>
 						{task.images && task.images.length > 0 && <Thumbnails images={task.images} />}

@@ -142,6 +142,8 @@ const getCommandsMap = ({ context, outputChannel }: RegisterCommandOptions): Rec
 		visibleProvider.postMessageToWebview({ type: "action", action: "settingsButtonClicked" })
 		// Also explicitly post the visibility message to trigger scroll reliably
 		visibleProvider.postMessageToWebview({ type: "action", action: "didBecomeVisible" })
+		// aincrok_change: Ensure settings tab is switched to
+		visibleProvider.postMessageToWebview({ type: "action", action: "switchTab", tab: "settings" })
 	},
 	historyButtonClicked: () => {
 		const visibleProvider = getVisibleProviderOrLog(outputChannel)
@@ -167,6 +169,21 @@ const getCommandsMap = ({ context, outputChannel }: RegisterCommandOptions): Rec
 	helpButtonClicked: () => {
 		vscode.env.openExternal(vscode.Uri.parse("https://aincrok.dev"))
 	},
+	// aincrok_change start - Memory dashboard button
+	memoryDashboardButtonClicked: () => {
+		const visibleProvider = getVisibleProviderOrLog(outputChannel)
+
+		if (!visibleProvider) {
+			return
+		}
+
+		TelemetryService.instance.captureTitleButtonClicked("memory")
+
+		visibleProvider.postMessageToWebview({ type: "action", action: "memoryDashboardButtonClicked" })
+		// Also explicitly post the visibility message to trigger scroll reliably
+		visibleProvider.postMessageToWebview({ type: "action", action: "didBecomeVisible" })
+	},
+	// aincrok_change end
 	// kilocode_change end
 	marketplaceButtonClicked: () => {
 		const visibleProvider = getVisibleProviderOrLog(outputChannel)
@@ -226,7 +243,7 @@ const getCommandsMap = ({ context, outputChannel }: RegisterCommandOptions): Rec
 	}, // kilocode_change begin
 	focusChatInput: async () => {
 		try {
-			await vscode.commands.executeCommand("aincrok.SidebarProvider.focus")
+			await vscode.commands.executeCommand("aincrok.sidebarProviderFocus")
 			await delay(100)
 
 			let visibleProvider = getVisibleProviderOrLog(outputChannel)
@@ -247,6 +264,11 @@ const getCommandsMap = ({ context, outputChannel }: RegisterCommandOptions): Rec
 		}
 	},
 	generateTerminalCommand: async () => await generateTerminalCommand({ outputChannel, context }), // kilocode_change
+	handleExternalUri: async (uri: vscode.Uri) => {
+		// Handle external URI - this could be used for deep linking or external integrations
+		outputChannel.appendLine(`Handling external URI: ${uri.toString()}`)
+		// For now, just log the URI - specific implementation depends on requirements
+	},
 	exportSettings: async () => {
 		const visibleProvider = getVisibleProviderOrLog(outputChannel)
 		if (!visibleProvider) return
@@ -254,6 +276,89 @@ const getCommandsMap = ({ context, outputChannel }: RegisterCommandOptions): Rec
 		await exportSettings({
 			providerSettingsManager: visibleProvider.providerSettingsManager,
 			contextProxy: visibleProvider.contextProxy,
+		})
+	},
+	// aincrok_change start - Add missing SidebarProvider.focus command
+	sidebarProviderFocus: async () => {
+		try {
+			// Use VS Code's built-in command to focus the activity bar view
+			await vscode.commands.executeCommand("workbench.view.extension.aincrok-ActivityBar")
+		} catch (error) {
+			outputChannel.appendLine(`Error focusing sidebar: ${error}`)
+			// Fallback: try to get visible provider and ensure it's shown
+			const visibleProvider = getVisibleProviderOrLog(outputChannel)
+			if (visibleProvider) {
+				visibleProvider.postMessageToWebview({ type: "action", action: "didBecomeVisible" })
+			}
+		}
+	},
+	// aincrok_change end
+	// Import here to avoid circular dependency
+	openSettings: async () => {
+		let visibleProvider = ClineProvider.getVisibleInstance()
+
+		if (!visibleProvider) {
+			// Use the same logic as openClineInNewTab to create provider
+			const contextProxy = await ContextProxy.getInstance(context)
+			const codeIndexManager = CodeIndexManager.getInstance(context)
+			let mdmService: MdmService | undefined
+			try {
+				mdmService = MdmService.getInstance()
+			} catch (error) {
+				// MDM service not initialized, which is fine
+				mdmService = undefined
+			}
+
+			visibleProvider = new ClineProvider(context, outputChannel, "editor", contextProxy, mdmService)
+			const lastCol = Math.max(...vscode.window.visibleTextEditors.map((editor) => editor.viewColumn || 0))
+			const hasVisibleEditors = vscode.window.visibleTextEditors.length > 0
+
+			if (!hasVisibleEditors) {
+				await vscode.commands.executeCommand("workbench.action.newGroupRight")
+			}
+
+			const targetCol = hasVisibleEditors ? Math.max(lastCol + 1, 1) : vscode.ViewColumn.Two
+
+			const newPanel = vscode.window.createWebviewPanel(ClineProvider.tabPanelId, "Aincrok", targetCol, {
+				enableScripts: true,
+				retainContextWhenHidden: true,
+				localResourceRoots: [context.extensionUri],
+			})
+
+			setPanel(newPanel, "tab")
+
+			newPanel.iconPath = {
+				light: vscode.Uri.joinPath(context.extensionUri, "assets", "icons", "icon.png"),
+				dark: vscode.Uri.joinPath(context.extensionUri, "assets", "icons", "icon.png"),
+			}
+
+			await visibleProvider.resolveWebviewView(newPanel)
+
+			// Handle panel closing events
+			newPanel.onDidDispose(
+				() => {
+					setPanel(undefined, "tab")
+				},
+				null,
+				context.subscriptions,
+			)
+
+			// Lock the editor group
+			await delay(100)
+			await vscode.commands.executeCommand("workbench.action.lockEditorGroup")
+		}
+
+		TelemetryService.instance.captureTitleButtonClicked("settings")
+
+		// Ensure webview is created/shown
+		visibleProvider.postMessageToWebview({ type: "action", action: "didBecomeVisible" })
+		await delay(500)
+
+		// Switch to settings tab
+		visibleProvider.postMessageToWebview({
+			type: "action",
+			action: "switchTab",
+			tab: "settings",
 		})
 	},
 	// kilocode_change end

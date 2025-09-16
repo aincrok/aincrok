@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { VSCodeTextField } from "@vscode/webview-ui-toolkit/react"
-import { getKiloCodeBackendSignInUrl } from "../../helpers"
+// aincrok_change - Removed authentication helper import
 import { Button } from "@src/components/ui"
 import { type ProviderSettings } from "@roo-code/types"
 import { type OrganizationAllowList } from "@roo/cloud"
@@ -50,46 +50,9 @@ export const KiloCode = ({
 
 	return (
 		<>
-			<div>
-				<label className="block font-medium -mb-2">{t("kilocode:settings.provider.account")}</label>
-			</div>
-			{!hideKiloCodeButton &&
-				(apiConfiguration.kilocodeToken ? (
-					<div>
-						<Button
-							variant="secondary"
-							onClick={async () => {
-								setApiConfigurationField("kilocodeToken", "")
+			{/* aincrok_change - Removed authentication UI */}
 
-								vscode.postMessage({
-									type: "upsertApiConfiguration",
-									text: currentApiConfigName,
-									apiConfiguration: {
-										...apiConfiguration,
-										kilocodeToken: "",
-										kilocodeOrganizationId: undefined,
-									},
-								})
-							}}>
-							{t("kilocode:settings.provider.logout")}
-						</Button>
-					</div>
-				) : (
-					<VSCodeButtonLink variant="secondary" href={getKiloCodeBackendSignInUrl(uriScheme, uiKind)}>
-						{t("kilocode:settings.provider.login")}
-					</VSCodeButtonLink>
-				))}
-
-			<VSCodeTextField
-				value={apiConfiguration?.kilocodeToken || ""}
-				type="password"
-				onInput={handleInputChange("kilocodeToken")}
-				placeholder={t("kilocode:settings.provider.apiKey")}
-				className="w-full">
-				<div className="flex justify-between items-center mb-1">
-					<label className="block font-medium">{t("kilocode:settings.provider.apiKey")}</label>
-				</div>
-			</VSCodeTextField>
+			{/* aincrok_change - Removed token field */}
 
 			<OrganizationSelector showLabel />
 

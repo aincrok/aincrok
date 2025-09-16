@@ -17,7 +17,7 @@ export async function checkAndRunAutoLaunchingTask(context: vscode.ExtensionCont
 		console.log(`🚀 Auto-launching task from '${promptFilePath}' with content:\n${prompt}`)
 
 		await new Promise((resolve) => setTimeout(resolve, 500))
-		await vscode.commands.executeCommand("aincrok.SidebarProvider.focus")
+		await vscode.commands.executeCommand("aincrok.sidebarProviderFocus")
 
 		vscode.commands.executeCommand("aincrok.newTask", { prompt })
 	} catch (error) {

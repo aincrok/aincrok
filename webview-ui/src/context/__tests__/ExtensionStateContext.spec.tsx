@@ -257,6 +257,7 @@ describe("mergeExtensionState", () => {
 			maxImageFileSize: 5,
 			maxTotalImageSize: 20,
 			kilocodeDefaultModel: openRouterDefaultModelId,
+			memoryConfiguration: {}, // aincrok_change - add required memoryConfiguration
 		}
 
 		const prevState: ExtensionState = {

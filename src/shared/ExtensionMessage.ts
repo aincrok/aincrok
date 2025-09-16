@@ -10,7 +10,10 @@ import type {
 	MarketplaceItem,
 	TodoItem,
 } from "@roo-code/types"
-import type { CloudUserInfo, OrganizationAllowList, ShareVisibility } from "@roo-code/cloud"
+// aincrok_change: CloudService removed, using type stubs
+type CloudUserInfo = any
+type OrganizationAllowList = any
+type ShareVisibility = any
 
 import { GitCommit } from "../utils/git"
 
@@ -136,6 +139,38 @@ export interface ExtensionMessage {
 		| "usageDataResponse" // kilocode_change
 		| "commands"
 		| "insertTextIntoTextarea"
+		// aincrok_change start - Missing message types
+		| "requestMermaidFix"
+		| "shareTask"
+		| "codeIndexSecret"
+		| "kilocodeNotifications"
+		| "usageData"
+		// aincrok_change end
+		// aincrok_change start - Additional missing message types
+		| "extensionId"
+		// aincrok_change end
+		// aincrok_change - Memory configuration
+		| "memoryConfiguration"
+		| "memorySearchResults"
+		| "memoryStats"
+		| "memoryGraph"
+		| "memoryConnected"
+		| "memoryDisconnected"
+		| "connectedMemories"
+		| "memoryDeleted"
+		| "openedTabs"
+		| "healthCheckResponse" // aincrok_change - Add health check response type
+		// aincrok_change start - Cipher memory system message types
+		| "cipherConfigResponse"
+		| "cipherConnectionTestResult"
+		| "testComponentResult"
+		// aincrok_change end
+		// aincrok_change start - Memory onboarding workflow message types
+		| "onboardingStatus"
+		| "onboardingProgress"
+		| "onboardingComplete"
+		// aincrok_change end
+		| "error"
 	text?: string
 	payload?: ProfileDataResponsePayload | BalanceDataResponsePayload // kilocode_change: Add payload for profile and balance data
 	action?:
@@ -146,6 +181,8 @@ export interface ExtensionMessage {
 		| "promptsButtonClicked"
 		| "profileButtonClicked" // kilocode_change
 		| "marketplaceButtonClicked"
+		| "memoryButtonClicked" // aincrok_change
+		| "memoryDashboardButtonClicked" // aincrok_change
 		| "accountButtonClicked"
 		| "didBecomeVisible"
 		| "focusInput"
@@ -210,6 +247,7 @@ export interface ExtensionMessage {
 	userInfo?: CloudUserInfo
 	organizationAllowList?: OrganizationAllowList
 	tab?: string
+	section?: string // aincrok_change - section parameter for settings navigation
 	// kilocode_change: Rules data
 	globalRules?: ClineRulesToggles
 	localRules?: ClineRulesToggles
@@ -236,8 +274,83 @@ export interface ExtensionMessage {
 		}
 	}>
 	// kilocode_change end
+	// aincrok_change start - Memory properties
+	memories?: any[]
+	message?: string
+	details?:
+		| string[]
+		| {
+				llm?: { success: boolean; message: string; error?: string }
+				embedding?: { success: boolean; message: string; error?: string }
+				vectorStore?: { success: boolean; message: string; error?: string }
+				knowledgeGraph?: { success: boolean; message: string; error?: string }
+				mcp?: { success: boolean; message: string; error?: string }
+				api?: { success: boolean; message: string; error?: string }
+		  } // aincrok_change - Support both string array and component details object
+	stats?: any
+	graph?: any
+	connections?: any
+	memoryId?: string
+	usageData?: any
+	errorMessage?: string | null
+	item?: any
+	source?: string
+	// aincrok_change end
+	// aincrok_change start - Cipher properties
+	config?: any // For cipherConfigResponse
+	// aincrok_change end
+	timestamp?: number // aincrok_change - Add timestamp for health check responses
+	version?: string // aincrok_change - Add version for health check responses
+	buttonEnabled?: boolean // aincrok_change - Add buttonEnabled for test connection button state management
 	commands?: Command[]
+	// aincrok_change - Memory onboarding properties
+	status?: any
+	filesAnalyzed?: number
+	totalFiles?: number
 }
+
+// aincrok_change start - MemoryConfiguration type
+export type MemoryConfiguration = {
+	mode?: "disabled" | "embedded" | "mcp" | "api"
+	autoCapture?: boolean
+	llmProvider?: "openai" | "anthropic" | "ollama" | "openrouter" | "gemini"
+	llmModel?: string
+	llmApiKey?: string
+	llmBaseUrl?: string
+	embeddingProvider?: "openai" | "gemini" | "ollama" | "voyage" | "qwen" | "bedrock" | "azure"
+	embeddingModel?: string
+	embeddingApiKey?: string
+	embeddingBaseUrl?: string
+	embeddingDimensions?: number
+	vectorStore?: "in-memory" | "qdrant" | "milvus"
+	vectorStoreUrl?: string
+	vectorStoreApiKey?: string
+	extractReasoning?: boolean
+	teamSharing?: boolean
+	knowledgeGraphEnabled?: boolean
+	knowledgeGraphType?: "in-memory" | "neo4j"
+	neo4jHost?: string
+	neo4jPort?: string
+	neo4jUsername?: string
+	neo4jPassword?: string
+	neo4jDatabase?: string
+	inMemoryMaxNodes?: number
+	inMemoryMaxEdges?: number
+	sessionTTL?: number
+	maxSessions?: number
+	maxIterations?: number
+	mcpConnectionType?: "stdio" | "sse" | "http"
+	mcpCommand?: string
+	mcpArgs?: string
+	mcpTimeout?: string
+	mcpStrictMode?: boolean
+	apiUrl?: string
+	apiKey?: string
+	apiTimeout?: string
+	apiRetries?: string
+	apiVerifySSL?: boolean
+}
+// aincrok_change end
 
 export type ExtensionState = Pick<
 	GlobalSettings,
@@ -353,6 +466,10 @@ export type ExtensionState = Pick<
 
 	experiments: Experiments // Map of experiment IDs to their enabled state
 
+	// aincrok_change start - grouped memory configuration
+	memoryConfiguration: MemoryConfiguration
+	// aincrok_change end
+
 	mcpEnabled: boolean
 	enableMcpServerCreation: boolean
 
@@ -402,6 +519,12 @@ export interface ClineSayTool {
 		| "finishTask"
 		| "searchAndReplace"
 		| "insertContent"
+		| "storeMemory"
+		| "searchMemory"
+		| "export_memories" // aincrok_change
+		| "import_memories" // aincrok_change
+		| "get_connected_memories" // aincrok_change
+		| "link_memories" // aincrok_change
 	path?: string
 	diff?: string
 	content?: string
@@ -412,6 +535,33 @@ export interface ClineSayTool {
 	isOutsideWorkspace?: boolean
 	isProtected?: boolean
 	additionalFileCount?: number // Number of additional files in the same read_file request
+	// aincrok_change start - memory tool properties
+	count?: number
+	imported?: number
+	updated?: number
+	skipped?: number
+	errors?: number
+	memoryId?: string
+	sourceId?: string
+	targetId?: string
+	relationship?: string
+	success?: boolean
+	message?: string // aincrok_change - Add message field for test results
+	details?:
+		| string[]
+		| {
+				llm?: { success: boolean; message: string; error?: string }
+				embedding?: { success: boolean; message: string; error?: string }
+				vectorStore?: { success: boolean; message: string; error?: string }
+				knowledgeGraph?: { success: boolean; message: string; error?: string }
+				mcp?: { success: boolean; message: string; error?: string }
+				api?: { success: boolean; message: string; error?: string }
+		  } // aincrok_change - Support both string array and component details object
+	timestamp?: number // aincrok_change - Add timestamp field for test results
+	types?: string
+	query?: string
+	type?: string
+	// aincrok_change end
 	search?: string
 	replace?: string
 	useRegex?: boolean
@@ -419,7 +569,6 @@ export interface ClineSayTool {
 	startLine?: number
 	endLine?: number
 	lineNumber?: number
-	query?: string
 	batchFiles?: Array<{
 		path: string
 		lineSnippet: string

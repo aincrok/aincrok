@@ -1,6 +1,6 @@
 import { Anthropic } from "@anthropic-ai/sdk"
 import { rooDefaultModelId, rooModels, type RooModelId } from "@roo-code/types"
-import { CloudService } from "@roo-code/cloud"
+// aincrok_change - @roo-code/cloud removed for aincrok fork
 
 import type { ApiHandlerOptions } from "../../shared/api"
 import { ApiStream } from "../transform/stream"
@@ -10,21 +10,14 @@ import { BaseOpenAiCompatibleProvider } from "./base-openai-compatible-provider"
 
 export class RooHandler extends BaseOpenAiCompatibleProvider<RooModelId> {
 	constructor(options: ApiHandlerOptions) {
-		// Get the session token if available, but don't throw if not.
-		// The server will handle authentication errors and return appropriate status codes.
-		let sessionToken = ""
-
-		if (CloudService.hasInstance()) {
-			sessionToken = CloudService.instance.authService?.getSessionToken() || ""
-		}
-
-		// Always construct the handler, even without a valid token.
-		// The provider-proxy server will return 401 if authentication fails.
+		// aincrok_change - CloudService removed, no session token available
+		// Always construct the handler without authentication
+		// The provider-proxy server will return 401 if authentication fails
 		super({
 			...options,
 			providerName: "Roo Code Cloud",
 			baseURL: process.env.ROO_CODE_PROVIDER_URL ?? "https://api.roocode.com/proxy/v1",
-			apiKey: sessionToken || "unauthenticated", // Use a placeholder if no token
+			apiKey: "unauthenticated", // No token available without CloudService
 			defaultProviderModelId: rooDefaultModelId,
 			providerModels: rooModels,
 			defaultTemperature: 0.7,

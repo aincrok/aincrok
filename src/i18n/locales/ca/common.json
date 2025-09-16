@@ -128,7 +128,9 @@
 		"roo": {
 			"authenticationRequired": "El proveïdor Roo requereix autenticació al núvol. Si us plau, inicieu sessió a Roo Code Cloud."
 		},
-		"mode_import_failed": "Ha fallat la importació del mode: {{error}}"
+		"mode_import_failed": "Ha fallat la importació del mode: {{error}}",
+		"invalid_line_limit": "El límit de línies de sortida del terminal ha de ser un nombre positiu",
+		"invalid_character_limit": "El límit de caràcters de sortida del terminal ha de ser un nombre positiu"
 	},
 	"warnings": {
 		"no_terminal_content": "No s'ha seleccionat contingut de terminal",

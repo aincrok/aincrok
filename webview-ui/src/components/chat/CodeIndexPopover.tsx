@@ -296,6 +296,11 @@ export const CodeIndexPopover: React.FC<CodeIndexPopoverProps> = ({
 				// Update settings to show placeholders for existing secrets
 				const secretStatus = event.data.values
 
+				// aincrok_change - Add null check for secretStatus
+				if (!secretStatus) {
+					return
+				}
+
 				// Update both current and initial settings based on what secrets exist
 				const updateWithSecrets = (prev: LocalCodeIndexSettings): LocalCodeIndexSettings => {
 					const updated = { ...prev }

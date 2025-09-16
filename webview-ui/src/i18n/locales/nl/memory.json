@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Automatisch vastleggen",
+		"reasoningExtraction": "Redenering extractie",
+		"workspace": "Team werkruimte delen"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Geheugenconfiguratie",
+		"saveButtonTooltip": "Huidige geheugenconfiguratie opslaan",
+		"doneButtonTooltip": "Geheugenconfiguratie sluiten en terug naar chat"
+	},
+	"common": {
+		"save": "Opslaan",
+		"done": "Voltooid",
+		"optional": "optioneel",
+		"configuring": "Configuring"
+	},
+	"description": "Configureer geheugenproviders en instellingen om AI-contextbewustzijn en efficiëntie te verbeteren. Geheugensystemen helpen conversatiecontext tussen sessies te behouden.",
+	"llmProfile": {
+		"title": "LLM-profiel",
+		"selectProfile": "Selecteer een profiel",
+		"selectedProfileInfo": "Geselecteerd profiel: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Vectoropslag Configuratie",
+		"type": "Vectoropslagtype",
+		"selectType": "Selecteer vectoropslagtype",
+		"url": "Vectoropslag URL",
+		"urlPlaceholder": "bijv. http://localhost:6333",
+		"collection": "Collectienaam",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Vectordimensies",
+		"apiKey": "API-sleutel",
+		"apiKeyPlaceholder": "Voer API-sleutel in"
+	},
+	"graphStore": {
+		"title": "Grafiekopslag Configuratie",
+		"type": "Grafiekopslagtype",
+		"selectType": "Selecteer grafiekopslagtype",
+		"url": "Grafiekopslag URL",
+		"urlPlaceholder": "bijv. bolt://localhost:7687",
+		"username": "Gebruikersnaam",
+		"usernamePlaceholder": "neo4j",
+		"password": "Wachtwoord",
+		"passwordPlaceholder": "Voer wachtwoord in"
+	},
+	"embedder": {
+		"title": "Embedder Configuratie",
+		"type": "Embeddertype",
+		"selectType": "Selecteer embeddertype",
+		"model": "Embedding Model",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "Basis URL",
+		"apiKey": "API-sleutel",
+		"apiKeyPlaceholder": "Voer API-sleutel in"
+	},
+	"general": {
+		"title": "Algemene Instellingen",
+		"userId": "Gebruikers-ID",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Maximale Geheugengrootte",
+		"searchThreshold": "Zoekdrempelwaarde",
+		"enablePersistence": "Persistentie Inschakelen"
+	},
+	"sections": {
+		"memory": "Geheugen"
+	}
+}

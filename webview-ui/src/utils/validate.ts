@@ -116,13 +116,11 @@ function validateModelsAndKeysProvided(apiConfiguration: ProviderSettings): stri
 				return i18next.t("settings:validation.modelSelector")
 			}
 			break
-		// kilocode_change start
+		// aincrok_change - Removed kilocode token validation
 		case "kilocode":
-			if (!apiConfiguration.kilocodeToken) {
-				return i18next.t("settings:validation.apiKey")
-			}
+			// No authentication required
 			break
-		// kilocode_change end
+		// aincrok_change end
 		case "huggingface":
 			if (!apiConfiguration.huggingFaceApiKey) {
 				return i18next.t("settings:validation.apiKey")
@@ -165,6 +163,11 @@ function validateProviderAgainstOrganizationSettings(
 	apiConfiguration: ProviderSettings,
 	organizationAllowList?: OrganizationAllowList,
 ): ValidationError | undefined {
+	// aincrok_change - Handle undefined organizationAllowList gracefully
+	if (!organizationAllowList || !organizationAllowList.providers) {
+		return undefined // No restrictions if organizationAllowList is not available
+	}
+
 	if (organizationAllowList && !organizationAllowList.allowAll) {
 		const provider = apiConfiguration.apiProvider
 		if (!provider) return undefined

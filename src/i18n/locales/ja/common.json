@@ -124,7 +124,9 @@
 		},
 		"roo": {
 			"authenticationRequired": "Rooプロバイダーはクラウド認証が必要です。Roo Code Cloudにサインインしてください。"
-		}
+		},
+		"invalid_line_limit": "ターミナル出力の行数制限は正の数である必要があります",
+		"invalid_character_limit": "ターミナル出力の文字数制限は正の数である必要があります"
 	},
 	"warnings": {
 		"no_terminal_content": "選択されたターミナルコンテンツがありません",

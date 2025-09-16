@@ -33,3 +33,4 @@ export { ZAi } from "./ZAi"
 export { LiteLLM } from "./LiteLLM"
 export { Fireworks } from "./Fireworks"
 export { Featherless } from "./Featherless"
+// aincrok_change: Mem0 moved to memory configuration (no longer a provider)

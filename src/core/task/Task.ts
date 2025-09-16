@@ -35,7 +35,7 @@ import {
 	isResumableAsk,
 } from "@roo-code/types"
 import { TelemetryService } from "@roo-code/telemetry"
-import { CloudService, ExtensionBridgeService } from "@roo-code/cloud"
+// aincrok_change - @roo-code/cloud removed for aincrok fork
 
 // api
 import { ApiHandler, ApiHandlerCreateMessageMetadata, buildApiHandler } from "../../api"
@@ -109,6 +109,17 @@ import { ensureLocalKilorulesDirExists } from "../context/instructions/kilo-rule
 import { restoreTodoListForTask } from "../tools/updateTodoListTool"
 import { reportExcessiveRecursion, yieldPromise } from "../kilocode" // kilocode_change
 import { AutoApprovalHandler } from "./AutoApprovalHandler"
+
+// aincrok_change start - LSP integration
+import { InternalSymbolicLSP } from "../lsp/InternalSymbolicLSP"
+// aincrok_change start - Cipher memory system imports
+import { MemoryProviderFactory } from "../memory/MemoryProviderFactory"
+import { Memory, ReasoningStep } from "../memory/IMemoryProvider"
+// aincrok_change end
+import { LSPClientManager } from "../lsp/LSPClientManager"
+import { StabilityManager } from "../lsp/StabilityManager"
+import { BatchManager } from "../lsp/BatchManager"
+// aincrok_change end
 
 const MAX_EXPONENTIAL_BACKOFF_SECONDS = 600 // 10 minutes
 const DEFAULT_USAGE_COLLECTION_TIMEOUT_MS = 5000 // 5 seconds
@@ -265,9 +276,22 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	checkpointService?: RepoPerTaskCheckpointService
 	checkpointServiceInitializing = false
 
-	// Task Bridge
+	// Task Bridge - aincrok_change: ExtensionBridgeService removed
 	enableTaskBridge: boolean
-	bridgeService: ExtensionBridgeService | null = null
+	bridgeService: null = null
+
+	// aincrok_change start - LSP integration
+	lspManager?: LSPClientManager
+	symbolicLSP?: InternalSymbolicLSP
+	stabilityManager?: StabilityManager
+	// aincrok_change start - Cipher memory integration
+	memoryProvider?: any // IMemoryProvider from factory
+	currentMemories: Memory[] = []
+	currentWorkingDirectory?: string
+	sessionId: string
+	// aincrok_change end
+	batchManager?: BatchManager
+	// aincrok_change end
 
 	// Streaming
 	isWaitingForFirstChunk = false
@@ -326,6 +350,8 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			: getWorkspacePath(path.join(os.homedir(), "Documents")) // kilocode_change: use Documents instead of Desktop as default
 
 		this.instanceId = crypto.randomUUID().slice(0, 8)
+		this.sessionId = this.instanceId
+		this.currentWorkingDirectory = this.cwd
 		this.taskNumber = -1
 
 		this.rooIgnoreController = new RooIgnoreController(this.cwd)
@@ -392,6 +418,44 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 
 		this.toolRepetitionDetector = new ToolRepetitionDetector(this.consecutiveMistakeLimit)
 
+		// aincrok_change start - Initialize LSP components
+		try {
+			// Initialize LSP managers for semantic tool capabilities
+			this.lspManager = LSPClientManager.getInstance(this.context)
+			this.symbolicLSP = InternalSymbolicLSP.getInstance(this.context)
+
+			// Initialize memory provider - defer settings loading to async initialization
+			// Get memory provider type from settings (default to cipher if not specified)
+			const memorySettings = this.context.globalState.get("aincrok.memory", { primaryProvider: "cipher" })
+			const providerType = memorySettings.primaryProvider === "cipher" ? "cipher" : "cipher" // For now only cipher is supported
+
+			// Create memory provider with default config, will be updated in async initialization
+			this.memoryProvider = MemoryProviderFactory.create(providerType as any, undefined)
+
+			this.stabilityManager = StabilityManager.getInstance(this.context, this.memoryProvider, this.lspManager)
+			this.batchManager = BatchManager.getInstance(this.context, this.symbolicLSP, this.memoryProvider)
+
+			// Initialize all LSP components asynchronously
+			Promise.all([
+				this.lspManager.initialize(),
+				this.initializeMemoryProviderWithSettings(provider),
+				this.symbolicLSP.initializeSymbolicAnalysis(),
+				this.stabilityManager.initialize(),
+				this.batchManager.initialize(),
+			]).catch((error) => {
+				console.warn("[Aincrok] LSP initialization failed, continuing without LSP capabilities:", error)
+				// Clear references if initialization fails
+				this.lspManager = undefined
+				this.memoryProvider = undefined
+				this.symbolicLSP = undefined
+				this.stabilityManager = undefined
+				this.batchManager = undefined
+			})
+		} catch (error) {
+			console.warn("[Aincrok] LSP setup failed, continuing without LSP capabilities:", error)
+		}
+		// aincrok_change end
+
 		// Initialize todo list if provided
 		if (initialTodos && initialTodos.length > 0) {
 			this.todoList = initialTodos
@@ -411,7 +475,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	}
 
 	// kilocode_change start
-	private getContext(): vscode.ExtensionContext {
+	public getContext(): vscode.ExtensionContext {
 		const context = this.context
 		if (!context) {
 			throw new Error("Unable to access extension context")
@@ -625,16 +689,8 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		await provider?.postMessageToWebview({ type: "messageUpdated", clineMessage: message })
 		this.emit(RooCodeEventName.Message, { action: "updated", message })
 
-		const shouldCaptureMessage = message.partial !== true && CloudService.isEnabled()
-
-		// kilocode_change start: no cloud service
-		// if (shouldCaptureMessage) {
-		// 	CloudService.instance.captureEvent({
-		// 		event: TelemetryEventName.TASK_MESSAGE,
-		// 		properties: { taskId: this.taskId, message },
-		// 	})
-		// }
-		// kilocode_change end
+		// aincrok_change - CloudService removed, no message capture
+		// No cloud service telemetry available
 	}
 
 	private async saveClineMessages() {
@@ -1095,11 +1151,9 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	private async startTask(task?: string, images?: string[]): Promise<void> {
 		if (this.enableTaskBridge) {
 			try {
-				this.bridgeService = this.bridgeService || ExtensionBridgeService.getInstance()
-
-				if (this.bridgeService) {
-					await this.bridgeService.subscribeToTask(this as any)
-				}
+				// aincrok_change - ExtensionBridgeService removed, no task bridge available
+				this.bridgeService = null
+				// Bridge service is disabled, no subscription needed
 			} catch (error) {
 				console.error(
 					`[Task#startTask] subscribeToTask failed - ${error instanceof Error ? error.message : String(error)}`,
@@ -1127,6 +1181,114 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		let imageBlocks: Anthropic.ImageBlockParam[] = formatResponse.imageBlocks(images)
 
 		console.log(`[subtasks] task ${this.taskId}.${this.instanceId} starting`)
+
+		// aincrok_change start - Cipher memory integration with transparent logging
+		// Retrieve relevant memories for task context using Cipher memory provider
+		if (this.memoryProvider && task) {
+			try {
+				// Show user that memory system is active
+				await this.say(
+					"text",
+					"🧠 **Memory System Active**: Retrieving relevant memories for task context...",
+					undefined,
+					false,
+					undefined,
+					undefined,
+					{ isNonInteractive: true },
+				)
+
+				// Search for memories relevant to the task and current context
+				this.currentMemories = await this.memoryProvider.searchRelevantMemories(task, 5)
+
+				// Also get context memories for current directory/files
+				const contextMemories = await this.memoryProvider.getContextMemories(this.cwd)
+
+				// Merge and deduplicate memories
+				const allMemories = [...this.currentMemories, ...contextMemories]
+				const uniqueMemories = allMemories.filter(
+					(memory, index, arr) => arr.findIndex((m) => m.id === memory.id) === index,
+				)
+
+				this.currentMemories = uniqueMemories.slice(0, 10) // Limit to top 10 most relevant
+
+				console.log(`[Aincrok] Retrieved ${this.currentMemories.length} relevant memories for task`)
+
+				// Show user what memories were found transparently
+				if (this.currentMemories.length > 0) {
+					const memoryList = this.currentMemories
+						.slice(0, 3) // Show first 3 memories to avoid clutter
+						.map(
+							(memory, index) =>
+								`${index + 1}. ${memory.content.slice(0, 100)}${memory.content.length > 100 ? "..." : ""} (${memory.timeAgo || "recent"})`,
+						)
+						.join("\n")
+
+					await this.say(
+						"text",
+						`📚 **Retrieved ${this.currentMemories.length} relevant memories:**\n${memoryList}${this.currentMemories.length > 3 ? `\n... and ${this.currentMemories.length - 3} more memories` : ""}`,
+						undefined,
+						false,
+						undefined,
+						undefined,
+						{ isNonInteractive: true },
+					)
+				} else {
+					await this.say(
+						"text",
+						"💡 **No relevant memories found** - starting with fresh context",
+						undefined,
+						false,
+						undefined,
+						undefined,
+						{ isNonInteractive: true },
+					)
+				}
+
+				// Store task initiation as knowledge with transparent logging
+				if (this.memoryProvider) {
+					await this.say(
+						"text",
+						"💾 **Storing task initiation** in memory system...",
+						undefined,
+						false,
+						undefined,
+						undefined,
+						{ isNonInteractive: true },
+					)
+
+					await this.memoryProvider.storeKnowledge(`Task started: ${task}`, {
+						type: "task_start",
+						task_id: this.taskId,
+						file_context: [this.cwd],
+						session_id: this.instanceId,
+						timestamp: Date.now(),
+					})
+				}
+			} catch (error) {
+				console.warn("[Aincrok] Error retrieving memories for task:", error)
+				await this.say(
+					"text",
+					"⚠️ **Memory system error**: Could not retrieve memories, proceeding without memory context",
+					undefined,
+					false,
+					undefined,
+					undefined,
+					{ isNonInteractive: true },
+				)
+				this.currentMemories = []
+			}
+		} else {
+			await this.say(
+				"text",
+				"ℹ️ **Memory system disabled** or no task provided",
+				undefined,
+				false,
+				undefined,
+				undefined,
+				{ isNonInteractive: true },
+			)
+		}
+		// aincrok_change end
 
 		await this.initiateTaskLoop([
 			{
@@ -1167,11 +1329,9 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	private async resumeTaskFromHistory() {
 		if (this.enableTaskBridge) {
 			try {
-				this.bridgeService = this.bridgeService || ExtensionBridgeService.getInstance()
-
-				if (this.bridgeService) {
-					await this.bridgeService.subscribeToTask(this as any)
-				}
+				// aincrok_change - ExtensionBridgeService removed, no task bridge available
+				this.bridgeService = null
+				// Bridge service is disabled, no subscription needed
 			} catch (error) {
 				console.error(
 					`[Task#resumeTaskFromHistory] subscribeToTask failed - ${error instanceof Error ? error.message : String(error)}`,
@@ -1415,7 +1575,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		await this.initiateTaskLoop(newUserContent)
 	}
 
-	public dispose(): void {
+	public async dispose(): Promise<void> {
 		console.log(`[Task] disposing task ${this.taskId}.${this.instanceId}`)
 
 		// Remove all event listeners to prevent memory leaks
@@ -1431,11 +1591,9 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			this.pauseInterval = undefined
 		}
 
-		// Unsubscribe from TaskBridge service.
+		// aincrok_change - ExtensionBridgeService removed, no unsubscription needed
+		// TaskBridge service is disabled
 		if (this.bridgeService) {
-			this.bridgeService
-				.unsubscribeFromTask(this.taskId)
-				.catch((error: unknown) => console.error("Error unsubscribing from task bridge:", error))
 			this.bridgeService = null
 		}
 
@@ -1483,7 +1641,192 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		} catch (error) {
 			console.error("Error reverting diff changes:", error)
 		}
+
+		// aincrok_change start - Clean up LSP components
+		try {
+			if (this.stabilityManager) {
+				this.stabilityManager.cancelAllOperations()
+			}
+		} catch (error) {
+			console.error("Error disposing stability manager:", error)
+		}
+
+		// Memory manager disposal is now handled above with memoryProvider
+
+		try {
+			if (this.lspManager) {
+				this.lspManager.dispose().catch((error: unknown) => {
+					console.error("Error disposing LSP manager:", error)
+				})
+			}
+		} catch (error) {
+			console.error("Error disposing LSP manager:", error)
+		}
+
+		try {
+			if (this.batchManager) {
+				this.batchManager.dispose().catch((error: unknown) => {
+					console.error("Error disposing batch manager:", error)
+				})
+			}
+		} catch (error) {
+			console.error("Error disposing batch manager:", error)
+		}
+
+		// Dispose memory provider first
+		if (this.memoryProvider) {
+			try {
+				await this.memoryProvider.dispose()
+			} catch (error) {
+				console.error("Error disposing memory provider:", error)
+			}
+			this.memoryProvider = undefined
+		}
+
+		// Clear LSP references
+		this.symbolicLSP = undefined
+		this.lspManager = undefined
+		this.stabilityManager = undefined
+		this.batchManager = undefined
+		// aincrok_change end
 	}
+
+	// aincrok_change start - LSP utility methods for tools
+	/**
+	 * Get semantic context for the current task with LSP capabilities
+	 */
+	public async getSemanticContext(query: string, maxTokens: number = 4000): Promise<string | null> {
+		if (!this.symbolicLSP || !this.memoryProvider) {
+			return null
+		}
+
+		try {
+			return await this.symbolicLSP.getSemanticContextForAI(query, maxTokens)
+		} catch (error) {
+			console.warn("[Aincrok] Failed to get semantic context:", error)
+			return null
+		}
+	}
+
+	/**
+	 * Execute an operation with stability and error recovery
+	 */
+	public async executeWithStability<T>(
+		operation: string,
+		operationFn: () => Promise<T>,
+		options?: any,
+	): Promise<T | null> {
+		if (!this.stabilityManager) {
+			// Fallback to direct execution if stability manager is not available
+			try {
+				return await operationFn()
+			} catch (error) {
+				console.warn(`[Aincrok] Operation ${operation} failed without stability manager:`, error)
+				return null
+			}
+		}
+
+		try {
+			const result = await this.stabilityManager.executeWithStability(
+				operation,
+				operationFn,
+				undefined, // context
+				options,
+			)
+
+			return result.success ? (result.result as T) : null
+		} catch (error) {
+			console.warn(`[Aincrok] Stable execution of ${operation} failed:`, error)
+			return null
+		}
+	}
+
+	/**
+	 * Store operation result in memory for future context
+	 */
+	public async storeOperationInMemory(
+		operation: string,
+		result: string,
+		context?: { language?: string; filePath?: string },
+	): Promise<void> {
+		if (!this.memoryProvider) {
+			return
+		}
+
+		try {
+			await this.memoryProvider.storeKnowledge(
+				`Operation: ${operation} - Result: ${result.substring(0, 500)}${result.length > 500 ? "..." : ""}`,
+				{
+					language: context?.language || "typescript",
+					projectType: "vscode-extension",
+					filePath: context?.filePath,
+				},
+			)
+		} catch (error) {
+			console.warn("[Aincrok] Failed to store operation in memory:", error)
+		}
+	}
+
+	/**
+	 * Execute an operation with batch optimization
+	 */
+	public async executeBatchedOperation<T>(operation: string, data: T, priority: number = 1): Promise<any | null> {
+		if (!this.batchManager) {
+			// Fallback to direct execution if batch manager is not available
+			console.warn(`[Aincrok] BatchManager not available for operation: ${operation}`)
+			return null
+		}
+
+		try {
+			return await this.batchManager.batchOperation(operation, data, priority)
+		} catch (error) {
+			console.warn(`[Aincrok] Batched operation ${operation} failed:`, error)
+			return null
+		}
+	}
+
+	/**
+	 * Get batch operation statistics
+	 */
+	public getBatchStats(): any {
+		if (!this.batchManager) {
+			return null
+		}
+		return this.batchManager.getBatchStats()
+	}
+
+	/**
+	 * Check if LSP capabilities are available for tools
+	 */
+	public hasLSPCapabilities(): boolean {
+		return !!(
+			this.lspManager &&
+			this.memoryProvider &&
+			this.symbolicLSP &&
+			this.stabilityManager &&
+			this.batchManager
+		)
+	}
+
+	/**
+	 * Get LSP managers for tools that need direct access
+	 */
+	public getLSPManagers(): {
+		lspManager?: LSPClientManager
+		symbolicLSP?: InternalSymbolicLSP
+		stabilityManager?: StabilityManager
+		batchManager?: BatchManager
+		memoryProvider?: any // aincrok_change - IMemoryProvider
+	} {
+		return {
+			lspManager: this.lspManager,
+			symbolicLSP: this.symbolicLSP,
+			stabilityManager: this.stabilityManager,
+			batchManager: this.batchManager,
+			memoryProvider: this.memoryProvider, // aincrok_change
+		}
+	}
+	// aincrok_change end
 
 	public async abortTask(isAbandoned = false) {
 		console.log(`[subtasks] aborting task ${this.taskId}.${this.instanceId}`)
@@ -2388,6 +2731,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 				undefined, // todoList
 				this.api.getModel().id,
 				await provider.getState(), // kilocode_change
+				this.currentMemories, // aincrok_change - Add memory context
 			)
 		})()
 	}
@@ -2857,4 +3201,428 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	public get taskAsk(): ClineMessage | undefined {
 		return this.idleAsk || this.resumableAsk || this.interactiveAsk
 	}
+
+	// aincrok_change start - Memory helper methods
+	/**
+	 * Extract keywords from text for memory storage and retrieval
+	 */
+	private extractKeywords(text: string): string[] {
+		if (!text) return []
+
+		// Simple keyword extraction - remove punctuation, split by spaces, filter common words
+		const words = text
+			.toLowerCase()
+			.replace(/[^\w\s]/g, " ")
+			.split(/\s+/)
+			.filter((word) => word.length > 2)
+			.filter((word) => !this.isStopWord(word))
+
+		// Remove duplicates and return
+		return [...new Set(words)]
+	}
+
+	/**
+	 * Check if word is a stop word (common words with little semantic value)
+	 */
+	private isStopWord(word: string): boolean {
+		const stopWords = new Set([
+			"the",
+			"a",
+			"an",
+			"and",
+			"or",
+			"but",
+			"in",
+			"on",
+			"at",
+			"to",
+			"for",
+			"of",
+			"with",
+			"by",
+			"from",
+			"up",
+			"about",
+			"into",
+			"through",
+			"during",
+			"before",
+			"after",
+			"above",
+			"below",
+			"between",
+			"among",
+			"is",
+			"am",
+			"are",
+			"was",
+			"were",
+			"be",
+			"been",
+			"being",
+			"have",
+			"has",
+			"had",
+			"do",
+			"does",
+			"did",
+			"will",
+			"would",
+			"could",
+			"should",
+			"may",
+			"might",
+			"must",
+			"can",
+			"this",
+			"that",
+			"these",
+			"those",
+			"use",
+			"used",
+			"using",
+			"get",
+			"got",
+			"make",
+			"made",
+			"take",
+			"taken",
+		])
+		return stopWords.has(word.toLowerCase())
+	}
+
+	/**
+	 * Store task outcome in episodic memory
+	 */
+	/**
+	 * Store task outcome in episodic memory
+	 */
+	private async storeTaskOutcome(success: boolean, outcome: string, context?: string): Promise<void> {
+		if (!this.memoryProvider) return
+
+		try {
+			// Transparent logging for user visibility
+			await this.say(
+				"text",
+				`💾 **Storing task ${success ? "completion" : "failure"}** in memory system...`,
+				undefined,
+				false,
+				undefined,
+				undefined,
+				{ isNonInteractive: true },
+			)
+
+			await this.memoryProvider.storeKnowledge(
+				`Task ${success ? "completed" : "failed"}: ${outcome}${context ? ` Context: ${context}` : ""}`,
+				{
+					type: success ? "task_success" : "task_failure",
+					task_id: this.taskId,
+					file_context: [this.cwd],
+					session_id: this.instanceId,
+				},
+			)
+		} catch (error) {
+			console.warn("[Aincrok] Failed to store task outcome:", error)
+			await this.say(
+				"text",
+				"⚠️ **Memory system error**: Could not store task outcome",
+				undefined,
+				false,
+				undefined,
+				undefined,
+				{ isNonInteractive: true },
+			)
+		}
+	}
+
+	/**
+	 * Store error pattern in procedural memory for learning
+	 */
+	/**
+	 * Store error pattern in procedural memory for learning
+	 */
+	private async storeErrorPattern(error: string, solution?: string, context?: string): Promise<void> {
+		if (!this.memoryProvider) return
+
+		try {
+			// Transparent logging for user visibility
+			await this.say(
+				"text",
+				`🔍 **Learning from error pattern** - storing in memory system...`,
+				undefined,
+				false,
+				undefined,
+				undefined,
+				{ isNonInteractive: true },
+			)
+
+			const content = `Error pattern: ${error}${solution ? ` Solution: ${solution}` : ""}${context ? ` Context: ${context}` : ""}`
+			await this.memoryProvider.storeKnowledge(content, {
+				type: "error_pattern",
+				task_id: this.taskId,
+				file_context: [this.cwd],
+				session_id: this.instanceId,
+				error_type: "pattern_learning",
+			})
+		} catch (error) {
+			console.warn("[Aincrok] Failed to store error pattern:", error)
+			await this.say(
+				"text",
+				"⚠️ **Memory system error**: Could not store error pattern",
+				undefined,
+				false,
+				undefined,
+				undefined,
+				{ isNonInteractive: true },
+			)
+		}
+	}
+
+	// aincrok_change start - Cipher reasoning/reflection memory integration
+	/**
+	 * Store AI reasoning steps in reflection memory for pattern learning
+	 */
+	private async storeReasoningSteps(
+		context: string,
+		reasoning: string[],
+		decision: string,
+		outcome?: string,
+	): Promise<void> {
+		if (!this.memoryProvider) return
+
+		try {
+			// Transparent logging for user visibility
+			await this.say(
+				"text",
+				`🧠 **Storing reasoning pattern** - learning from decision-making process...`,
+				undefined,
+				false,
+				undefined,
+				undefined,
+				{ isNonInteractive: true },
+			)
+
+			const reasoningSteps = reasoning.map((step, index) => ({
+				stepNumber: index + 1,
+				description: step,
+				timestamp: Date.now(),
+			}))
+
+			// Use storeReasoning if available, otherwise fallback to storeKnowledge
+			if (typeof this.memoryProvider.storeReasoning === "function") {
+				await this.memoryProvider.storeReasoning(reasoningSteps)
+			} else {
+				await this.memoryProvider.storeKnowledge(
+					`Reasoning pattern - Context: ${context} | Steps: ${reasoning.join(" → ")} | Decision: ${decision}${outcome ? ` | Outcome: ${outcome}` : ""}`,
+					{
+						type: "reasoning_pattern",
+						context,
+						reasoning_steps: reasoningSteps,
+						decision,
+						outcome,
+						task_id: this.taskId,
+						session_id: this.instanceId,
+					},
+				)
+			}
+		} catch (error) {
+			console.warn("[Aincrok] Failed to store reasoning pattern:", error)
+			await this.say(
+				"text",
+				"⚠️ **Memory system error**: Could not store reasoning pattern",
+				undefined,
+				false,
+				undefined,
+				undefined,
+				{ isNonInteractive: true },
+			)
+		}
+	}
+
+	/**
+	 * Create knowledge graph relationships for code elements
+	 */
+	private async createCodeRelationships(filePath: string, symbols: any[]): Promise<void> {
+		if (!this.memoryProvider) return
+		if (typeof this.memoryProvider.addGraphNode !== "function") return
+
+		try {
+			// Transparent logging
+			await this.say(
+				"text",
+				`🔗 **Building knowledge graph** - mapping code relationships for ${filePath}...`,
+				undefined,
+				false,
+				undefined,
+				undefined,
+				{ isNonInteractive: true },
+			)
+
+			// Create file node
+			const fileNodeId = await this.memoryProvider.addGraphNode("file", {
+				path: filePath,
+				name: filePath.split("/").pop(),
+				timestamp: Date.now(),
+				task_id: this.taskId,
+			})
+
+			// Create nodes for code symbols and establish relationships
+			for (const symbol of symbols) {
+				const symbolNodeId = await this.memoryProvider.addGraphNode("code_symbol", {
+					name: symbol.name,
+					kind: symbol.kind,
+					filePath: filePath,
+					location: symbol.location,
+					timestamp: Date.now(),
+					task_id: this.taskId,
+				})
+
+				// Connect symbol to file
+				if (typeof this.memoryProvider.addGraphEdge === "function") {
+					await this.memoryProvider.addGraphEdge(symbolNodeId, fileNodeId, "DEFINED_IN", {
+						timestamp: Date.now(),
+					})
+				}
+			}
+		} catch (error) {
+			console.warn("[Aincrok] Failed to create code relationships:", error)
+		}
+	}
+
+	/**
+	 * Store tool usage patterns for learning
+	 */
+	private async storeToolUsagePattern(
+		toolName: string,
+		context: string,
+		success: boolean,
+		reasoning?: string,
+	): Promise<void> {
+		if (!this.memoryProvider) return
+
+		try {
+			await this.say(
+				"text",
+				`🔧 **Learning tool usage pattern** - ${toolName} (${success ? "success" : "failure"})...`,
+				undefined,
+				false,
+				undefined,
+				undefined,
+				{ isNonInteractive: true },
+			)
+
+			await this.memoryProvider.storeKnowledge(
+				`Tool usage: ${toolName} in context "${context}" - ${success ? "succeeded" : "failed"}${reasoning ? ` | Reasoning: ${reasoning}` : ""}`,
+				{
+					type: "tool_usage_pattern",
+					tool_name: toolName,
+					context,
+					success,
+					reasoning,
+					task_id: this.taskId,
+					timestamp: Date.now(),
+				},
+			)
+
+			// Create knowledge graph relationship for tool usage
+			if (typeof this.memoryProvider.addGraphNode === "function") {
+				const toolNodeId = await this.memoryProvider.addGraphNode("tool_usage", {
+					toolName,
+					context,
+					success,
+					reasoning,
+					timestamp: Date.now(),
+					task_id: this.taskId,
+				})
+			}
+		} catch (error) {
+			console.warn("[Aincrok] Failed to store tool usage pattern:", error)
+		}
+	}
+	// aincrok_change end
+
+	/**
+	 * Store user preference or correction in semantic memory
+	 */
+	private async storeUserPreference(preference: string, context?: string): Promise<void> {
+		if (!this.memoryProvider) return
+
+		try {
+			await this.memoryProvider.storeKnowledge(
+				`User preference: ${preference}${context ? ` Context: ${context}` : ""}`,
+				{
+					tags: ["user_preference", "learning"],
+					keywords: this.extractKeywords(preference),
+					task_id: this.taskId,
+					file_context: [this.cwd],
+					session_id: this.instanceId,
+				},
+			)
+		} catch (error) {
+			console.warn("[Aincrok] Failed to store user preference:", error)
+		}
+	}
+
+	/**
+	 * Store subtask result in working memory
+	 */
+	private async storeSubtaskResult(subtask: string, result: string, success: boolean): Promise<void> {
+		if (!this.memoryProvider) return
+
+		try {
+			await this.memoryProvider.storeKnowledge(
+				`Subtask ${success ? "completed" : "failed"}: ${subtask} -> ${result}`,
+				{
+					tags: [success ? "subtask_success" : "subtask_failure", "working"],
+					keywords: this.extractKeywords(subtask + " " + result),
+					task_id: this.taskId,
+					file_context: [this.cwd],
+					session_id: this.instanceId,
+				},
+			)
+		} catch (error) {
+			console.warn("[Aincrok] Failed to store subtask result:", error)
+		}
+	}
+
+	/**
+	 * Initialize memory provider with actual provider settings
+	 */
+	private async initializeMemoryProviderWithSettings(provider: ClineProvider): Promise<void> {
+		if (!this.memoryProvider) return
+
+		try {
+			// Get the actual provider settings
+			const state = await provider.getState()
+			// apiConfiguration contains both provider settings and global settings including cipher fields
+			const allSettings = state.apiConfiguration as any
+
+			// Update memory provider configuration
+			const memorySettings = this.context.globalState.get("aincrok.memory", { primaryProvider: "cipher" })
+			const providerType = memorySettings.primaryProvider === "cipher" ? "cipher" : "cipher" // For now only cipher is supported
+
+			// Recreate the memory provider with proper settings
+			await this.memoryProvider.dispose()
+			this.memoryProvider = MemoryProviderFactory.create(providerType as any, allSettings)
+
+			// Initialize the new provider
+			await this.memoryProvider.initialize()
+
+			console.log(
+				`[Aincrok] Memory provider initialized with provider settings (mode: ${allSettings.cipherMode || "embedded"})`,
+			)
+		} catch (error) {
+			console.warn("[Aincrok] Failed to initialize memory provider with settings, using defaults:", error)
+
+			// Fallback to basic initialization
+			try {
+				await this.memoryProvider.initialize()
+			} catch (fallbackError) {
+				console.error("[Aincrok] Failed to initialize memory provider with fallback:", fallbackError)
+				this.memoryProvider = undefined
+			}
+		}
+	}
+
+	// aincrok_change end
 }

@@ -1,7 +1,8 @@
 // npx vitest run src/shared/__tests__/ProfileValidator.spec.ts
 
 import { type ProviderSettings } from "@roo-code/types"
-import { type OrganizationAllowList } from "@roo-code/cloud"
+// aincrok_change - @roo-code/cloud removed, define type locally
+type OrganizationAllowList = "*" | string[] | { allowAll?: boolean; [key: string]: any }
 
 import { ProfileValidator } from "../ProfileValidator"
 

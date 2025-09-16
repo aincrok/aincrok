@@ -1,5 +1,11 @@
 import { SECRET_STATE_KEYS, ProviderSettings } from "@roo-code/types"
 
+// aincrok_change start - Filter out cipher keys since they're not part of ProviderSettings
+const PROVIDER_SECRET_KEYS = SECRET_STATE_KEYS.filter(
+	(key) => !key.startsWith("cipher"),
+) as readonly (keyof ProviderSettings)[]
+// aincrok_change end
+
 export function checkExistKey(config: ProviderSettings | undefined) {
 	if (!config) {
 		return false
@@ -20,8 +26,9 @@ export function checkExistKey(config: ProviderSettings | undefined) {
 		return true
 	}
 
-	// Check all secret keys from the centralized SECRET_STATE_KEYS array.
-	const hasSecretKey = SECRET_STATE_KEYS.some((key) => config[key] !== undefined)
+	// aincrok_change - Use filtered provider keys instead of all SECRET_STATE_KEYS
+	// Check provider-related secret keys only (cipher keys are in GlobalSettings)
+	const hasSecretKey = PROVIDER_SECRET_KEYS.some((key) => config[key] !== undefined)
 
 	// Check additional non-secret configuration properties
 	const hasOtherConfig = [

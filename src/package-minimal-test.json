@@ -1,0 +1,904 @@
+{
+	"name": "aincrok",
+	"displayName": "%extension.displayName%",
+	"description": "%extension.description%",
+	"publisher": "aincrok",
+	"version": "0.0.1",
+	"icon": "assets/icons/logo-outline-black.png",
+	"galleryBanner": {
+		"color": "#FFFFFF",
+		"theme": "light"
+	},
+	"engines": {
+		"vscode": "^1.85.0",
+		"node": "20.19.2"
+	},
+	"extensionKind": ["workspace"],
+	"author": {
+		"name": "aincrok"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/aincrok/aincrok"
+	},
+	"homepage": "https://aincrok.dev",
+	"license": "Apache-2.0",
+	"bugs": {
+		"url": "https://github.com/aincrok/aincrok/issues"
+	},
+	"qna": "marketplace",
+	"categories": ["AI", "Chat", "Programming Languages", "Education", "Snippets", "Testing"],
+	"keywords": [
+		"aincrok",
+		"Aincrok",
+		"cline",
+		"kilocode",
+		"roo code",
+		"roocode",
+		"ai",
+		"claude",
+		"coding",
+		"assistant",
+		"dev",
+		"mcp",
+		"openrouter",
+		"agent",
+		"autonomous",
+		"chatgpt",
+		"sonnet",
+		"llama"
+	],
+	"activationEvents": ["onCommand:aincrok.activate"],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"walkthroughs": [
+			{
+				"id": "aincrokWalkthrough",
+				"title": "5 ways Aincrok helps you code",
+				"description": "You now have a personal AI coding assistant.",
+				"steps": [
+					{
+						"id": "welcome",
+						"title": "Write code for you",
+						"description": "Describe what you want to build. Aincrok will write it from scratch, generate the files, and run them for you.",
+						"media": {
+							"markdown": "./dist/walkthrough/step1.md"
+						}
+					},
+					{
+						"id": "getting-started",
+						"title": "Understand your codebase",
+						"description": "Need clarity on how something works? Ask Aincrok about any part of your files and get a clear explanation.",
+						"media": {
+							"markdown": "./dist/walkthrough/step2.md"
+						},
+						"content": {
+							"path": "./dist/walkthrough/step2.md"
+						}
+					},
+					{
+						"id": "modes",
+						"title": "Get things working again",
+						"description": "Stuck on an error? Aincrok can find the issue, fix it, and get your code running.",
+						"media": {
+							"markdown": "./dist/walkthrough/step3.md"
+						}
+					},
+					{
+						"id": "code-actions",
+						"title": "Plan your logic",
+						"description": "Not sure where to start? Map out your logic and structure before writing a single line of code.",
+						"media": {
+							"markdown": "./dist/walkthrough/step4.md"
+						}
+					},
+					{
+						"id": "advanced-features",
+						"title": "And more",
+						"description": "Improve your prompt, add context, or create your own custom modes.",
+						"media": {
+							"markdown": "./dist/walkthrough/step5.md"
+						}
+					}
+				]
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "aincrok-ActivityBar",
+					"title": "%views.activitybar.title%",
+					"icon": "assets/icons/icon-light.svg",
+					"darkIcon": "assets/icons/icon-dark.svg",
+					"when": "isMac"
+				}
+			]
+		},
+		"views": {
+			"aincrok-ActivityBar": [
+				{
+					"type": "webview",
+					"id": "aincrok.SidebarProvider",
+					"name": "%views.sidebar.name%"
+				}
+			]
+		},
+		"commands": [
+			{
+				"command": "aincrok.plusButtonClicked",
+				"title": "%command.newTask.title%",
+				"icon": "$(add)"
+			},
+			{
+				"command": "aincrok.mcpButtonClicked",
+				"title": "%command.mcpServers.title%",
+				"icon": "$(server)"
+			},
+			{
+				"command": "aincrok.importSettings",
+				"title": "%command.importSettings.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.exportSettings",
+				"title": "Export Settings",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.promptsButtonClicked",
+				"title": "%command.prompts.title%",
+				"icon": "$(organization)"
+			},
+			{
+				"command": "aincrok.historyButtonClicked",
+				"title": "%command.history.title%",
+				"icon": "$(history)"
+			},
+			{
+				"command": "aincrok.marketplaceButtonClicked",
+				"title": "%command.marketplace.title%",
+				"icon": "$(extensions)"
+			},
+			{
+				"command": "aincrok.popoutButtonClicked",
+				"title": "%command.openInEditor.title%",
+				"icon": "$(link-external)"
+			},
+			{
+				"command": "aincrok.settingsButtonClicked",
+				"title": "%command.settings.title%",
+				"icon": "$(settings-gear)"
+			},
+			{
+				"command": "aincrok.helpButtonClicked",
+				"title": "%command.documentation.title%",
+				"icon": "$(question)"
+			},
+			{
+				"command": "aincrok.memoryDashboardButtonClicked",
+				"title": "Memory Dashboard",
+				"icon": "$(database)"
+			},
+			{
+				"command": "aincrok.openInNewTab",
+				"title": "%command.openInNewTab.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.explainCode",
+				"title": "%command.explainCode.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.fixCode",
+				"title": "%command.fixCode.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.improveCode",
+				"title": "%command.improveCode.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.addToContext",
+				"title": "%command.addToContext.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.newTask",
+				"title": "%command.newTask.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.terminalAddToContext",
+				"title": "%command.terminal.addToContext.title%",
+				"category": "%extension.displayName%"
+			},
+			{
+				"command": "aincrok.terminalFixCommand",
+				"title": "%command.terminal.fixCommand.title%",
+				"category": "%extension.displayName%"
+			},
+			{
+				"command": "aincrok.terminalExplainCommand",
+				"title": "%command.terminal.explainCommand.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.generateTerminalCommand",
+				"title": "%command.terminal.generateCommand.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.setCustomStoragePath",
+				"title": "%command.setCustomStoragePath.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.focusChatInput",
+				"title": "%command.focusInput.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.acceptInput",
+				"title": "%command.acceptInput.title%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.profileButtonClicked",
+				"title": "%command.profile.title%",
+				"icon": "$(account)",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.generateCommitMessage",
+				"title": "%command.generateCommitMessage.title%",
+				"icon": {
+					"light": "assets/icons/icon-light.svg",
+					"dark": "assets/icons/icon-dark.svg"
+				},
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.ghost.generateSuggestions",
+				"title": "%ghost.commands.generateSuggestions%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.ghost.cancelSuggestions",
+				"title": "%ghost.commands.cancelSuggestions%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.ghost.applyCurrentSuggestions",
+				"title": "%ghost.commands.applyCurrentSuggestion%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.ghost.applyAllSuggestions",
+				"title": "%ghost.commands.applyAllSuggestions%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.ghost.promptCodeSuggestion",
+				"title": "%ghost.commands.promptCodeSuggestion%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.ghost.goToNextSuggestion",
+				"title": "%ghost.commands.goToNextSuggestion%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.ghost.goToPreviousSuggestion",
+				"title": "%ghost.commands.goToPreviousSuggestion%",
+				"category": "%configuration.title%"
+			},
+			{
+				"command": "aincrok.memory.switchContext",
+				"title": "Switch Memory Context",
+				"category": "Memory"
+			},
+			{
+				"command": "aincrok.memory.showCurrentContext",
+				"title": "Show Current Memory Context",
+				"category": "Memory"
+			},
+			{
+				"command": "aincrok.memory.toggleContextSwitching",
+				"title": "Toggle Context Switching",
+				"category": "Memory"
+			},
+			{
+				"command": "aincrok.memory.showContextInsights",
+				"title": "Show Context Insights",
+				"category": "Memory"
+			},
+			{
+				"command": "aincrok.memory.cleanupContexts",
+				"title": "Cleanup Old Contexts",
+				"category": "Memory"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "aincrok.focusChatInput",
+				"key": "ctrl+shift+a",
+				"mac": "cmd+shift+a",
+				"when": "true"
+			},
+			{
+				"command": "editor.action.inlineSuggest.commit",
+				"key": "tab",
+				"when": "inlineSuggestionVisible && editorTextFocus && !editorTabMovesFocus && !inSnippetMode && !suggestWidgetVisible && editorLangId != 'markdown'"
+			},
+			{
+				"command": "aincrok.ghost.applyAllSuggestions",
+				"key": "shift+tab",
+				"when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && aincrok.ghost.hasSuggestions"
+			},
+			{
+				"command": "aincrok.ghost.applyCurrentSuggestions",
+				"key": "tab",
+				"when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && aincrok.ghost.hasSuggestions"
+			},
+			{
+				"command": "aincrok.ghost.cancelRequest",
+				"key": "escape",
+				"when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && aincrok.ghost.isProcessing"
+			},
+			{
+				"command": "aincrok.ghost.cancelSuggestions",
+				"key": "escape",
+				"when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && aincrok.ghost.hasSuggestions"
+			},
+			{
+				"command": "aincrok.ghost.goToNextSuggestion",
+				"key": "down",
+				"when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && aincrok.ghost.hasSuggestions"
+			},
+			{
+				"command": "aincrok.ghost.goToPreviousSuggestion",
+				"key": "up",
+				"when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && aincrok.ghost.hasSuggestions"
+			},
+			{
+				"command": "aincrok.ghost.promptCodeSuggestion",
+				"key": "ctrl+i",
+				"mac": "cmd+i",
+				"when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && aincrok.ghost.enableQuickInlineTaskKeybinding && !github.copilot.completions.enabled"
+			},
+			{
+				"command": "aincrok.ghost.generateSuggestions",
+				"key": "ctrl+l",
+				"mac": "cmd+l",
+				"when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && aincrok.ghost.enableSmartInlineTaskKeybinding && !github.copilot.completions.enabled"
+			},
+			{
+				"command": "aincrok.ghost.showIncompatibilityExtensionPopup",
+				"key": "ctrl+l",
+				"mac": "cmd+l",
+				"when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && aincrok.ghost.enableSmartInlineTaskKeybinding && github.copilot.completions.enabled"
+			},
+			{
+				"command": "aincrok.ghost.showIncompatibilityExtensionPopup",
+				"key": "ctrl+i",
+				"mac": "cmd+i",
+				"when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && aincrok.ghost.enableQuickInlineTaskKeybinding && github.copilot.completions.enabled"
+			},
+			{
+				"command": "aincrok.generateTerminalCommand",
+				"key": "ctrl+shift+g",
+				"mac": "cmd+shift+g"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"submenu": "aincrok.contextMenu",
+					"group": "1"
+				}
+			],
+			"aincrok.contextMenu": [
+				{
+					"command": "aincrok.explainCode",
+					"group": "1_actions@1"
+				},
+				{
+					"command": "aincrok.fixCode",
+					"group": "1_actions@2"
+				},
+				{
+					"command": "aincrok.improveCode",
+					"group": "1_actions@3"
+				},
+				{
+					"command": "aincrok.addToContext",
+					"group": "1_actions@4"
+				}
+			],
+			"terminal/context": [
+				{
+					"submenu": "aincrok.terminalMenu",
+					"group": "2"
+				}
+			],
+			"aincrok.terminalMenu": [
+				{
+					"command": "aincrok.terminalAddToContext",
+					"group": "1_actions@1"
+				},
+				{
+					"command": "aincrok.terminalFixCommand",
+					"group": "1_actions@2"
+				},
+				{
+					"command": "aincrok.terminalExplainCommand",
+					"group": "1_actions@3"
+				}
+			],
+			"view/title": [
+				{
+					"command": "aincrok.plusButtonClicked",
+					"group": "navigation@1",
+					"when": "view == aincrok.SidebarProvider"
+				},
+				{
+					"command": "aincrok.mcpButtonClicked",
+					"group": "navigation@2",
+					"when": "view == aincrok.SidebarProvider"
+				},
+				{
+					"command": "aincrok.marketplaceButtonClicked",
+					"group": "navigation@3",
+					"when": "view == aincrok.SidebarProvider"
+				},
+				{
+					"command": "aincrok.historyButtonClicked",
+					"group": "navigation@4",
+					"when": "view == aincrok.SidebarProvider"
+				},
+				{
+					"command": "aincrok.profileButtonClicked",
+					"group": "navigation@5",
+					"when": "view == aincrok.SidebarProvider"
+				},
+				{
+					"command": "aincrok.memoryDashboardButtonClicked",
+					"group": "navigation@6",
+					"when": "view == aincrok.SidebarProvider"
+				},
+				{
+					"command": "aincrok.settingsButtonClicked",
+					"group": "navigation@7",
+					"when": "view == aincrok.SidebarProvider"
+				},
+				{
+					"command": "aincrok.popoutButtonClicked",
+					"group": "navigation@8",
+					"when": "view == aincrok.SidebarProvider"
+				},
+				{
+					"command": "aincrok.helpButtonClicked",
+					"group": "navigation@9",
+					"when": "false && view == aincrok.SidebarProvider"
+				}
+			],
+			"editor/title": [
+				{
+					"command": "aincrok.plusButtonClicked",
+					"group": "navigation@1",
+					"when": "activeWebviewPanelId == aincrok.TabPanelProvider"
+				},
+				{
+					"command": "aincrok.mcpButtonClicked",
+					"group": "navigation@2",
+					"when": "activeWebviewPanelId == aincrok.TabPanelProvider"
+				},
+				{
+					"command": "aincrok.historyButtonClicked",
+					"group": "navigation@3",
+					"when": "activeWebviewPanelId == aincrok.TabPanelProvider"
+				},
+				{
+					"command": "aincrok.popoutButtonClicked",
+					"group": "navigation@4",
+					"when": "activeWebviewPanelId == aincrok.TabPanelProvider"
+				},
+				{
+					"command": "aincrok.settingsButtonClicked",
+					"group": "navigation@5",
+					"when": "activeWebviewPanelId == aincrok.TabPanelProvider"
+				},
+				{
+					"command": "aincrok.memoryDashboardButtonClicked",
+					"group": "navigation@6",
+					"when": "activeWebviewPanelId == aincrok.TabPanelProvider"
+				},
+				{
+					"command": "aincrok.helpButtonClicked",
+					"group": "navigation@7",
+					"when": "activeWebviewPanelId == aincrok.TabPanelProvider"
+				}
+			],
+			"scm/input": [
+				{
+					"command": "aincrok.generateCommitMessage",
+					"group": "navigation"
+				}
+			],
+			"scm/title": [
+				{
+					"command": "aincrok.generateCommitMessage",
+					"when": "scmProvider == git",
+					"group": "navigation"
+				}
+			]
+		},
+		"submenus": [
+			{
+				"id": "aincrok.contextMenu",
+				"label": "%views.contextMenu.label%"
+			},
+			{
+				"id": "aincrok.terminalMenu",
+				"label": "%views.terminalMenu.label%"
+			}
+		],
+		"configuration": {
+			"title": "%configuration.title%",
+			"properties": {
+				"aincrok.allowedCommands": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": ["npm test", "npm install", "tsc", "git log", "git diff", "git show"],
+					"description": "%commands.allowedCommands.description%"
+				},
+				"aincrok.deniedCommands": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"description": "%commands.deniedCommands.description%"
+				},
+				"aincrok.commandExecutionTimeout": {
+					"type": "number",
+					"default": 0,
+					"minimum": 0,
+					"maximum": 600,
+					"description": "%commands.commandExecutionTimeout.description%"
+				},
+				"aincrok.vsCodeLmModelSelector": {
+					"type": "object",
+					"properties": {
+						"vendor": {
+							"type": "string",
+							"description": "%settings.vsCodeLmModelSelector.vendor.description%"
+						},
+						"family": {
+							"type": "string",
+							"description": "%settings.vsCodeLmModelSelector.family.description%"
+						}
+					},
+					"description": "%settings.vsCodeLmModelSelector.description%"
+				},
+				"aincrok.customStoragePath": {
+					"type": "string",
+					"default": "",
+					"description": "%settings.customStoragePath.description%"
+				},
+				"aincrok.enableCodeActions": {
+					"type": "boolean",
+					"default": true,
+					"description": "%settings.enableCodeActions.description%"
+				},
+				"aincrok.autoImportSettingsPath": {
+					"type": "string",
+					"default": "",
+					"description": "%settings.autoImportSettingsPath.description%"
+				},
+				"aincrok.useAgentRules": {
+					"type": "boolean",
+					"default": true,
+					"description": "%settings.useAgentRules.description%"
+				},
+				"aincrok.apiRequestTimeout": {
+					"type": "number",
+					"default": 600,
+					"minimum": 0,
+					"maximum": 3600,
+					"description": "%settings.apiRequestTimeout.description%"
+				},
+				"aincrok.newTaskRequireTodos": {
+					"type": "boolean",
+					"default": false,
+					"description": "%settings.newTaskRequireTodos.description%"
+				},
+				"aincrok.memory.mem0LlmProfileId": {
+					"type": "string",
+					"description": "Aincrok profile ID to use for Mem0's LLM operations"
+				},
+				"aincrok.memory.mem0VectorStore": {
+					"type": "string",
+					"enum": ["qdrant", "chroma", "pinecone", "faiss", "pgvector", "milvus", "weaviate"],
+					"description": "Vector store type for Mem0"
+				},
+				"aincrok.memory.mem0VectorStoreUrl": {
+					"type": "string",
+					"description": "Vector store connection URL"
+				},
+				"aincrok.memory.mem0VectorStoreCollection": {
+					"type": "string",
+					"description": "Vector store collection/index name"
+				},
+				"aincrok.memory.mem0VectorStoreDimensions": {
+					"type": "number",
+					"description": "Vector dimensions (optional, auto-detected from embedder)"
+				},
+				"aincrok.memory.mem0VectorStoreApiKey": {
+					"type": "string",
+					"description": "Vector store API key (for cloud services like Pinecone)"
+				},
+				"aincrok.memory.mem0GraphStore": {
+					"type": "string",
+					"enum": ["neo4j", "memgraph", "arangodb", "nebula", "falkordb"],
+					"description": "Graph store type for Mem0 (optional)"
+				},
+				"aincrok.memory.mem0GraphStoreUrl": {
+					"type": "string",
+					"description": "Graph store connection URL"
+				},
+				"aincrok.memory.mem0GraphStoreUsername": {
+					"type": "string",
+					"description": "Graph store username"
+				},
+				"aincrok.memory.mem0GraphStorePassword": {
+					"type": "string",
+					"description": "Graph store password"
+				},
+				"aincrok.memory.mem0Embedder": {
+					"type": "string",
+					"enum": ["openai", "ollama", "huggingface", "azure", "together"],
+					"description": "Embedder type for Mem0"
+				},
+				"aincrok.memory.mem0EmbedderModel": {
+					"type": "string",
+					"description": "Specific embedder model to use"
+				},
+				"aincrok.memory.mem0EmbedderBaseUrl": {
+					"type": "string",
+					"description": "Custom base URL for embedder (e.g., Ollama server)"
+				},
+				"aincrok.memory.mem0EmbedderApiKey": {
+					"type": "string",
+					"description": "API key for embedder service (optional if using profile)"
+				},
+				"aincrok.memory.mem0UserId": {
+					"type": "string",
+					"description": "User ID for memory organization"
+				},
+				"aincrok.memory.mem0MaxMemorySize": {
+					"type": "number",
+					"minimum": 100,
+					"maximum": 100000,
+					"description": "Maximum number of memories to store (optional)"
+				},
+				"aincrok.memory.mem0SearchThreshold": {
+					"type": "number",
+					"minimum": 0,
+					"maximum": 1,
+					"description": "Similarity threshold for memory search (optional)"
+				},
+				"aincrok.memory.mem0EnablePersistence": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable persistent memory storage"
+				},
+				"aincrok.memory.contextSwitching.enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable memory-aware context switching"
+				},
+				"aincrok.memory.contextSwitching.autoSwitchOnFileOpen": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically switch context when opening files"
+				},
+				"aincrok.memory.contextSwitching.autoSwitchOnProjectChange": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically switch context when changing projects"
+				},
+				"aincrok.memory.contextSwitching.contextDepth": {
+					"type": "string",
+					"enum": ["file", "directory", "project"],
+					"default": "directory",
+					"description": "Level of context granularity for memory switching"
+				},
+				"aincrok.memory.contextSwitching.memoryRetentionMinutes": {
+					"type": "number",
+					"default": 60,
+					"minimum": 5,
+					"maximum": 1440,
+					"description": "How long to retain context memories (in minutes)"
+				},
+				"aincrok.memory.contextSwitching.maxContextMemories": {
+					"type": "number",
+					"default": 50,
+					"minimum": 10,
+					"maximum": 200,
+					"description": "Maximum number of memories per context"
+				},
+				"aincrok.memory.contextSwitching.showNotifications": {
+					"type": "boolean",
+					"default": false,
+					"description": "Show notifications when switching memory contexts"
+				},
+				"aincrok.taskHistory.maxTasks": {
+					"type": "number",
+					"default": 100,
+					"minimum": 10,
+					"maximum": 1000,
+					"description": "Maximum number of tasks to keep in history"
+				},
+				"aincrok.taskHistory.retentionDays": {
+					"type": "number",
+					"default": 30,
+					"minimum": 1,
+					"maximum": 365,
+					"description": "Number of days to retain task history"
+				},
+				"aincrok.taskHistory.autoCleanup": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically cleanup old tasks based on retention policy"
+				}
+			}
+		},
+		"codeActions": [
+			{
+				"languages": ["*"],
+				"providedCodeActionKinds": ["vscode.CodeActionKind.QuickFix"]
+			}
+		]
+	},
+	"scripts": {
+		"lint": "eslint . --ext=ts --max-warnings=0",
+		"check-types": "tsc --noEmit",
+		"pretest": "turbo run bundle --cwd ..",
+		"test": "vitest run",
+		"format": "prettier --write .",
+		"bundle": "node esbuild.mjs",
+		"vscode:prepublish": "pnpm bundle --production",
+		"vsix": "mkdirp ../bin && npx @vscode/vsce package --no-dependencies --out ../bin",
+		"publish:marketplace": "npx @vscode/vsce publish --no-dependencies -p \"$VSCE_PAT\" && npx ovsx publish --no-dependencies -p \"$OVSX_PAT\"",
+		"watch:bundle": "pnpm bundle --watch",
+		"watch:tsc": "cd .. && tsc --noEmit --watch --project src/tsconfig.json",
+		"clean": "rimraf README.md CHANGELOG.md LICENSE dist logs mock .turbo"
+	},
+	"dependencies": {
+		"@anthropic-ai/bedrock-sdk": "^0.22.0",
+		"@anthropic-ai/sdk": "^0.51.0",
+		"@anthropic-ai/vertex-sdk": "^0.11.3",
+		"@aws-sdk/client-bedrock-runtime": "^3.812.0",
+		"@aws-sdk/credential-providers": "^3.806.0",
+		"@cerebras/cerebras_cloud_sdk": "^1.35.0",
+		"@dotenvx/dotenvx": "^1.44.2",
+		"@google/genai": "^1.0.0",
+		"@langchain/langgraph": "^0.4.9",
+		"@lmstudio/sdk": "^1.1.1",
+		"@mistralai/mistralai": "^1.3.6",
+		"@modelcontextprotocol/sdk": "^1.9.0",
+		"@qdrant/js-client-rest": "^1.14.0",
+		"@roo-code/cloud": "^0.19.0",
+		"@roo-code/ipc": "workspace:^",
+		"@roo-code/telemetry": "workspace:^",
+		"@roo-code/types": "workspace:^",
+		"@types/lodash.debounce": "^4.0.9",
+		"@vscode/codicons": "^0.0.36",
+		"async-mutex": "^0.5.0",
+		"axios": "^1.7.4",
+		"cheerio": "^1.0.0",
+		"chokidar": "^4.0.1",
+		"clone-deep": "^4.0.1",
+		"default-shell": "^2.2.0",
+		"delay": "^6.0.0",
+		"diff": "^5.2.0",
+		"diff-match-patch": "^1.0.5",
+		"exceljs": "^4.4.0",
+		"fast-deep-equal": "^3.1.3",
+		"fast-xml-parser": "^5.0.0",
+		"fastest-levenshtein": "^1.0.16",
+		"fuse.js": "^7.1.0",
+		"fzf": "^0.5.2",
+		"get-folder-size": "^5.0.0",
+		"google-auth-library": "^9.15.1",
+		"gray-matter": "^4.0.3",
+		"i18next": "^25.0.0",
+		"ignore": "^7.0.3",
+		"is-wsl": "^3.1.0",
+		"isbinaryfile": "^5.0.2",
+		"lodash.debounce": "^4.0.8",
+		"lru-cache": "^11.1.0",
+		"mammoth": "^1.9.1",
+		"monaco-vscode-textmate-theme-converter": "^0.1.7",
+		"node-cache": "^5.1.2",
+		"node-ipc": "^12.0.0",
+		"ollama": "^0.5.17",
+		"openai": "^5.0.0",
+		"os-name": "^6.0.0",
+		"p-limit": "^6.2.0",
+		"p-wait-for": "^5.0.2",
+		"pdf-parse": "^1.1.1",
+		"pkce-challenge": "^5.0.0",
+		"pretty-bytes": "^7.0.0",
+		"proper-lockfile": "^4.1.2",
+		"ps-tree": "^1.2.0",
+		"puppeteer-chromium-resolver": "^24.0.0",
+		"puppeteer-core": "^23.4.0",
+		"reconnecting-eventsource": "^1.6.4",
+		"sanitize-filename": "^1.6.3",
+		"say": "^0.16.0",
+		"serialize-error": "^12.0.0",
+		"simple-git": "^3.27.0",
+		"socket.io-client": "^4.8.1",
+		"sound-play": "^1.1.0",
+		"stream-json": "^1.8.0",
+		"string-similarity": "^4.0.4",
+		"strip-ansi": "^7.1.0",
+		"strip-bom": "^5.0.0",
+		"tiktoken": "^1.0.21",
+		"tmp": "^0.2.3",
+		"tree-sitter-wasms": "^0.1.12",
+		"turndown": "^7.2.0",
+		"undici": "^7.13.0",
+		"uri-js": "^4.4.1",
+		"uuid": "^11.1.0",
+		"vscode-languageclient": "^9.0.0",
+		"vscode-languageserver": "^9.0.0",
+		"vscode-material-icons": "^0.1.1",
+		"web-tree-sitter": "^0.25.6",
+		"workerpool": "^9.2.0",
+		"yaml": "^2.8.0",
+		"zod": "^3.25.61"
+	},
+	"devDependencies": {
+		"@roo-code/build": "workspace:^",
+		"@roo-code/config-eslint": "workspace:^",
+		"@roo-code/config-typescript": "workspace:^",
+		"@types/clone-deep": "^4.0.4",
+		"@types/debug": "^4.1.12",
+		"@types/diff": "^5.2.1",
+		"@types/diff-match-patch": "^1.0.36",
+		"@types/glob": "^8.1.0",
+		"@types/mocha": "^10.0.10",
+		"@types/node": "20.x",
+		"@types/node-cache": "^4.1.3",
+		"@types/node-ipc": "^9.2.3",
+		"@types/proper-lockfile": "^4.1.4",
+		"@types/ps-tree": "^1.1.6",
+		"@types/stream-json": "^1.7.8",
+		"@types/string-similarity": "^4.0.2",
+		"@types/tmp": "^0.2.6",
+		"@types/turndown": "^5.0.5",
+		"@types/vscode": "^1.84.0",
+		"@vscode/test-electron": "^2.5.2",
+		"@vscode/vsce": "3.3.2",
+		"esbuild": "^0.25.0",
+		"execa": "^9.5.2",
+		"glob": "^11.0.1",
+		"mkdirp": "^3.0.1",
+		"nock": "^14.0.10",
+		"npm-run-all2": "^8.0.1",
+		"ovsx": "0.10.4",
+		"rimraf": "^6.0.1",
+		"tsup": "^8.4.0",
+		"tsx": "^4.19.3",
+		"typescript": "5.8.3",
+		"vitest": "^3.2.3",
+		"zod-to-ts": "^1.2.0"
+	}
+}

@@ -1,4 +1,4 @@
-import { type ProviderName, type ProviderSettings } from "@roo-code/types"
+import { type ProviderName, type ProviderSettings, vscodeLlmModels } from "@roo-code/types"
 
 export const getModelIdKey = ({
 	provider,
@@ -67,9 +67,20 @@ export const getSelectedModelId = ({
 	const modelIdKey = getModelIdKey({ provider })
 	switch (provider) {
 		case "vscode-lm": {
-			return apiConfiguration?.vsCodeLmModelSelector
-				? `${apiConfiguration.vsCodeLmModelSelector.vendor}/${apiConfiguration.vsCodeLmModelSelector.family}`
-				: defaultModelId
+			if (apiConfiguration?.vsCodeLmModelSelector) {
+				const selector = apiConfiguration.vsCodeLmModelSelector
+				// For chat interface, try to find matching static model
+				// Priority: id field first, then family
+				if (selector.id && Object.keys(vscodeLlmModels).includes(selector.id)) {
+					return selector.id
+				}
+				if (selector.family && Object.keys(vscodeLlmModels).includes(selector.family)) {
+					return selector.family
+				}
+				// Fallback: use family or id
+				return selector.family || selector.id || defaultModelId
+			}
+			return defaultModelId
 		}
 		default: {
 			return (apiConfiguration?.[modelIdKey] as string) ?? defaultModelId

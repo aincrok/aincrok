@@ -31,6 +31,7 @@
 		"prompts": "프롬프트",
 		"experimental": "실험적",
 		"language": "언어",
+		"memory": "메모리",
 		"about": "Kilo Code 정보",
 		"display": "디스플레이"
 	},

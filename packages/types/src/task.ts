@@ -20,7 +20,7 @@ export interface TaskProviderLike {
 
 	getCurrentTask(): TaskLike | undefined
 	getCurrentTaskStack(): string[]
-	getRecentTasks(): string[]
+	getRecentTasks(): Promise<string[]>
 
 	createTask(text?: string, images?: string[], parentTask?: TaskLike): Promise<TaskLike>
 	cancelTask(): Promise<void>

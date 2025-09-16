@@ -72,6 +72,24 @@ export const toolParamNames = [
 	"query",
 	"args",
 	"todos",
+	// aincrok_change start - memory tool parameters
+	"type",
+	"keywords",
+	"tags",
+	"task_id",
+	"source_id",
+	"target_id",
+	"memory_id",
+	"include_details",
+	"types",
+	"format",
+	"merge_strategy",
+	"validate",
+	"relationship",
+	"limit",
+	"threshold",
+	"recent_only",
+	// aincrok_change end
 ] as const
 
 export type ToolParamName = (typeof toolParamNames)[number]
@@ -212,6 +230,18 @@ export const TOOL_DISPLAY_NAMES: Record<ToolName, string> = {
 	report_bug: "report bug", // kilocode_change
 	condense: "condense the current context window", // kilocode_change
 	codebase_search: "codebase search",
+	// aincrok_change start - semantic tools
+	semantic_read_file: "read files with semantic understanding",
+	semantic_symbol_search: "search for symbols using LSP",
+	// aincrok_change end
+	// aincrok_change start - memory tools
+	store_memory: "store memories",
+	search_memory: "search memories",
+	link_memories: "link memories",
+	get_connected_memories: "get connected memories",
+	export_memories: "export memories",
+	import_memories: "import memories",
+	// aincrok_change end
 	update_todo_list: "update todo list",
 } as const
 
@@ -225,6 +255,10 @@ export const TOOL_GROUPS: Record<ToolGroup, ToolGroupConfig> = {
 			"list_files",
 			"list_code_definition_names",
 			"codebase_search",
+			// aincrok_change start - semantic tools
+			"semantic_read_file",
+			"semantic_symbol_search",
+			// aincrok_change end
 		],
 	},
 	edit: {
@@ -249,6 +283,9 @@ export const TOOL_GROUPS: Record<ToolGroup, ToolGroupConfig> = {
 	modes: {
 		tools: ["switch_mode", "new_task"],
 		alwaysAvailable: true,
+	},
+	memory: {
+		tools: ["store_memory", "search_memory", "link_memories", "get_connected_memories"],
 	},
 }
 

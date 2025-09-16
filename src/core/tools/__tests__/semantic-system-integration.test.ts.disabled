@@ -1,0 +1,857 @@
+// aincrok_change - new file: System integration tests for semantic tools with existing Aincrok features
+import { describe, it, expect, beforeEach, vi, afterEach } from "vitest"
+import * as vscode from "vscode"
+
+import { semanticReadFileTool } from "../semanticReadFileTool"
+import { semanticSymbolSearchTool } from "../semanticSymbolSearchTool"
+import { InternalSymbolicLSP } from "../../lsp/InternalSymbolicLSP"
+import { SemanticAgentIntegration } from "../../lsp/SemanticAgentIntegration"
+import { toolDescriptionMap } from "../../prompts/tools"
+import { Task } from "../../task/Task"
+import { ToolUse } from "../../../shared/tools"
+import { ToolName } from "@roo-code/types"
+
+/**
+ * System Integration Tests for Semantic Tools
+ * 
+ * These tests verify that semantic tools integrate correctly with:
+ * - Existing tool system and approval workflows
+ * - Task management and progress tracking
+ * - Error handling and user feedback
+ * - System prompt integration
+ * - Performance monitoring and token tracking
+ */
+
+// Mock VS Code APIs with comprehensive coverage
+vi.mock("vscode", () => ({
+	SymbolKind: {
+		File: 1,
+		Module: 2,
+		Namespace: 3,
+		Package: 4,
+		Class: 5,
+		Method: 6,
+		Property: 7,
+		Field: 8,
+		Constructor: 9,
+		Enum: 10,
+		Interface: 11,
+		Function: 12,
+		Variable: 13,
+		Constant: 14,
+		String: 15,
+		Number: 16,
+		Boolean: 17,
+		Array: 18,
+		Object: 19,
+		Key: 20,
+		Null: 21,
+		EnumMember: 22,
+		Struct: 23,
+		Event: 24,
+		Operator: 25,
+		TypeParameter: 26,
+	},
+	Range: vi.fn().mockImplementation((startLine, startChar, endLine, endChar) => ({
+		start: { line: startLine, character: startChar },
+		end: { line: endLine, character: endChar },
+		isEmpty: vi.fn().mockReturnValue(startLine === endLine && startChar === endChar),
+		isSingleLine: vi.fn().mockReturnValue(startLine === endLine),
+		contains: vi.fn(),
+		intersection: vi.fn(),
+		union: vi.fn(),
+		with: vi.fn(),
+	})),
+	Position: vi.fn().mockImplementation((line, char) => ({ 
+		line, 
+		character: char,
+		isAfter: vi.fn(),
+		isAfterOrEqual: vi.fn(),
+		isBefore: vi.fn(),
+		isBeforeOrEqual: vi.fn(),
+		isEqual: vi.fn(),
+		translate: vi.fn(),
+		with: vi.fn(),
+	})),
+	Uri: {
+		file: vi.fn().mockImplementation((path: string) => ({
+			fsPath: path,
+			scheme: "file",
+			path,
+			authority: "",
+			query: "",
+			fragment: "",
+			toString: () => `file://${path}`,
+			toJSON: () => ({ fsPath: path }),
+			with: vi.fn(),
+		})),
+		parse: vi.fn(),
+		joinPath: vi.fn(),
+	},
+	workspace: {
+		findFiles: vi.fn().mockResolvedValue([]),
+		workspaceFolders: [
+			{
+				uri: {
+					fsPath: "/test/workspace",
+					scheme: "file",
+					path: "/test/workspace",
+				},
+				name: "test-workspace",
+				index: 0,
+			},
+		],
+		onDidDeleteFiles: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		onDidRenameFiles: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		onDidCreateFiles: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		onDidChangeTextDocument: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		onDidOpenTextDocument: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		onDidCloseTextDocument: vi.fn().mockReturnValue({ dispose: vi.fn() }),
+		openTextDocument: vi.fn(),
+		getWorkspaceFolder: vi.fn(),
+		textDocuments: [],
+		fs: {
+			readFile: vi.fn(),
+			writeFile: vi.fn(),
+			stat: vi.fn(),
+			readDirectory: vi.fn(),
+		},
+	},
+	commands: {
+		executeCommand: vi.fn(),
+		registerCommand: vi.fn(),
+		getCommands: vi.fn().mockResolvedValue([]),
+	},
+	languages: {
+		registerDocumentSymbolProvider: vi.fn(),
+		registerWorkspaceSymbolProvider: vi.fn(),
+		registerDefinitionProvider: vi.fn(),
+		registerReferenceProvider: vi.fn(),
+		registerHoverProvider: vi.fn(),
+		registerCompletionItemProvider: vi.fn(),
+		getDiagnostics: vi.fn().mockReturnValue([]),
+	},
+	window: {
+		activeTextEditor: undefined,
+		showInformationMessage: vi.fn(),
+		showWarningMessage: vi.fn(),
+		showErrorMessage: vi.fn(),
+		createOutputChannel: vi.fn().mockReturnValue({
+			appendLine: vi.fn(),
+			show: vi.fn(),
+			dispose: vi.fn(),
+		}),
+	},
+	ConfigurationTarget: {
+		Global: 1,
+		Workspace: 2,
+		WorkspaceFolder: 3,
+	},
+}))
+
+// Mock semantic components
+vi.mock("../lsp/InternalSymbolicLSP")
+vi.mock("../lsp/SemanticAgentIntegration")
+
+describe("Semantic Tools System Integration", () => {
+	let mockTask: Task
+	let mockLSP: any
+	let mockSemanticAgent: any
+	let askApproval: any
+	let handleError: any
+	let pushToolResult: any
+	let removeClosingTag: any
+
+	// Mock tool execution tracking
+	let toolExecutionHistory: Array<{
+		toolName: ToolName
+		timestamp: number
+		duration: number
+		tokensUsed: number
+		success: boolean
+	}>
+
+	beforeEach(() => {
+		vi.clearAllMocks()
+		toolExecutionHistory = []
+
+		mockTask = {
+			id: "semantic-integration-test",
+			taskId: "semantic-integration-test",
+			createdAt: Date.now(),
+			type: "task" as const,
+			status: "in_progress",
+			params: {},
+			environmentDetails: {
+				cwd: "/test/workspace",
+				shell: "/bin/bash",
+				os: "linux",
+			},
+		} as Task
+
+		mockLSP = {
+			findSymbolByName: vi.fn().mockResolvedValue([]),
+			getSymbolRelations: vi.fn().mockResolvedValue([]),
+			retrieveSemanticContext: vi.fn().mockResolvedValue({
+				relevantSymbols: [],
+				relationships: [],
+				codeSnippets: [],
+			}),
+			analyzeFileSemantics: vi.fn().mockResolvedValue({
+				filePath: "/test/workspace/src/test.ts",
+				symbols: [],
+				relationships: [],
+				diagnostics: [],
+				isLSPAvailable: true,
+			}),
+			searchWorkspaceSymbols: vi.fn().mockResolvedValue({
+				symbols: [],
+				isLSPAvailable: true,
+				searchQuery: "",
+				totalResults: 0,
+			}),
+			initialize: vi.fn().mockResolvedValue(true),
+			dispose: vi.fn().mockResolvedValue(undefined),
+		}
+
+		mockSemanticAgent = {
+			enhanceUserRequest: vi.fn().mockResolvedValue({
+				enhancedRequest: "enhanced request",
+				semanticContext: [],
+				suggestedTools: ["semantic_read_file"],
+			}),
+			validateSemanticResult: vi.fn().mockResolvedValue({
+				isValid: true,
+				confidence: 0.9,
+				suggestions: [],
+			}),
+			optimizePromptContext: vi.fn().mockResolvedValue({
+				optimizedContext: "optimized context",
+				tokenSavings: 500,
+				relevanceScore: 0.85,
+			}),
+		}
+
+		// Mock tool callbacks with tracking
+		askApproval = vi.fn().mockImplementation(async (toolName: ToolName) => {
+			const startTime = Date.now()
+			return {
+				approved: true,
+				onComplete: (success: boolean, tokensUsed: number = 0) => {
+					toolExecutionHistory.push({
+						toolName,
+						timestamp: startTime,
+						duration: Date.now() - startTime,
+						tokensUsed,
+						success,
+					})
+				},
+			}
+		})
+
+		handleError = vi.fn().mockImplementation((error: string | Error) => {
+			console.error("Tool error:", error)
+		})
+
+		pushToolResult = vi.fn().mockImplementation((result: string, details?: string) => {
+			console.log("Tool result:", result)
+			if (details) console.log("Details:", details)
+		})
+
+		removeClosingTag = vi.fn().mockImplementation(() => {})
+
+		// Set up mocks
+		vi.mocked(InternalSymbolicLSP.getInstance).mockResolvedValue(mockLSP)
+		vi.mocked(SemanticAgentIntegration.getInstance).mockResolvedValue(mockSemanticAgent)
+	})
+
+	afterEach(() => {
+		vi.restoreAllMocks()
+	})
+
+	describe("Tool Registration and Discovery", () => {
+		it("should register semantic tools in the tool description system", () => {
+			// Check that semantic tools are registered
+			expect(toolDescriptionMap).toHaveProperty("semantic_read_file")
+			expect(toolDescriptionMap).toHaveProperty("semantic_symbol_search")
+
+			// Verify tool descriptions are functions
+			expect(typeof toolDescriptionMap.semantic_read_file).toBe("function")
+			expect(typeof toolDescriptionMap.semantic_symbol_search).toBe("function")
+		})
+
+		it("should provide comprehensive tool descriptions", () => {
+			const mockArgs = {
+				cwd: "/test/workspace",
+				supportsComputerUse: false,
+				diffStrategy: undefined,
+				browserViewportSize: undefined,
+				mcpHub: undefined,
+				partialReadsEnabled: true,
+				settings: {},
+				experiments: {},
+			}
+
+			const semanticReadDescription = toolDescriptionMap.semantic_read_file(mockArgs)
+			const semanticSearchDescription = toolDescriptionMap.semantic_symbol_search(mockArgs)
+
+			// Verify descriptions contain essential information
+			expect(semanticReadDescription).toContain("Language Server Protocol")
+			expect(semanticReadDescription).toContain("semantic understanding")
+			expect(semanticReadDescription).toContain("symbol_query")
+
+			expect(semanticSearchDescription).toContain("workspace")
+			expect(semanticSearchDescription).toContain("symbol_kinds")
+			expect(semanticSearchDescription).toContain("references")
+		})
+	})
+
+	describe("Task Integration and Workflow", () => {
+		it("should integrate with existing task approval workflow", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/components/Button.tsx",
+				},
+			}
+
+			mockLSP.analyzeFileSemantics.mockResolvedValue({
+				filePath: "/test/workspace/src/components/Button.tsx",
+				symbols: [
+					{
+						id: "component-Button",
+						name: "Button",
+						kind: 5, // Class (React component)
+						filePath: "/test/workspace/src/components/Button.tsx",
+						range: new vscode.Range(5, 0, 25, 1),
+						selectionRange: new vscode.Range(5, 13, 5, 19),
+						detail: "const Button: React.FC<ButtonProps>",
+						documentation: "Reusable button component",
+					},
+				],
+				relationships: [],
+				diagnostics: [],
+				isLSPAvailable: true,
+			})
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Verify approval was requested
+			expect(askApproval).toHaveBeenCalledWith("semantic_read_file")
+
+			// Verify tool execution was tracked
+			expect(toolExecutionHistory).toHaveLength(1)
+			expect(toolExecutionHistory[0].toolName).toBe("semantic_read_file")
+			expect(toolExecutionHistory[0].success).toBe(true)
+
+			// Verify results were pushed
+			expect(pushToolResult).toHaveBeenCalled()
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("Button"),
+				expect.stringContaining("React.FC")
+			)
+		})
+
+		it("should handle task errors and provide meaningful feedback", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "invalid/path.ts",
+				},
+			}
+
+			// Mock LSP error
+			mockLSP.analyzeFileSemantics.mockRejectedValue(new Error("File not found"))
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Verify error was handled gracefully
+			expect(handleError).toHaveBeenCalledWith(expect.stringContaining("File not found"))
+
+			// Verify tool execution was tracked as failed
+			expect(toolExecutionHistory).toHaveLength(1)
+			expect(toolExecutionHistory[0].success).toBe(false)
+		})
+
+		it("should work correctly with task context and environment", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_symbol_search",
+				params: {
+					query: "TestComponent",
+					file_pattern: "*.test.tsx",
+				},
+			}
+
+			mockLSP.searchWorkspaceSymbols.mockResolvedValue({
+				symbols: [
+					{
+						id: "function-TestComponent",
+						name: "TestComponent",
+						kind: 12, // Function
+						filePath: "/test/workspace/src/__tests__/Button.test.tsx",
+						range: new vscode.Range(10, 0, 20, 1),
+						selectionRange: new vscode.Range(10, 15, 10, 28),
+						detail: "function TestComponent(): JSX.Element",
+					},
+				],
+				isLSPAvailable: true,
+				searchQuery: "TestComponent",
+				totalResults: 1,
+			})
+
+			await semanticSymbolSearchTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Verify LSP was called with correct context
+			expect(mockLSP.searchWorkspaceSymbols).toHaveBeenCalledWith(
+				"TestComponent",
+				expect.objectContaining({
+					filePattern: "*.test.tsx",
+					workspaceRoot: "/test/workspace",
+				})
+			)
+
+			// Verify results include context information
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("Found 1 symbols"),
+				expect.stringContaining("Button.test.tsx")
+			)
+		})
+	})
+
+	describe("Performance Monitoring and Token Tracking", () => {
+		it("should track token usage and provide performance metrics", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/large-file.ts",
+				},
+			}
+
+			// Mock large file analysis
+			const largeSymbol = {
+				id: "class-LargeClass",
+				name: "LargeClass",
+				kind: 5,
+				filePath: "/test/workspace/src/large-file.ts",
+				range: new vscode.Range(0, 0, 500, 1),
+				selectionRange: new vscode.Range(10, 6, 10, 16),
+				children: Array.from({ length: 50 }, (_, i) => ({
+					id: `method-${i}`,
+					name: `method${i}`,
+					kind: 6,
+					filePath: "/test/workspace/src/large-file.ts",
+					range: new vscode.Range(i * 10 + 20, 2, i * 10 + 25, 3),
+					selectionRange: new vscode.Range(i * 10 + 20, 2, i * 10 + 20, 10),
+				})),
+			}
+
+			mockLSP.analyzeFileSemantics.mockResolvedValue({
+				filePath: "/test/workspace/src/large-file.ts",
+				symbols: [largeSymbol],
+				relationships: [],
+				diagnostics: [],
+				isLSPAvailable: true,
+				performanceMetrics: {
+					analysisTime: 850,
+					symbolsProcessed: 51,
+					tokensSaved: 2500, // Compared to traditional reading
+				},
+			})
+
+			// Enable semantic agent optimization
+			mockSemanticAgent.optimizePromptContext.mockResolvedValue({
+				optimizedContext: "optimized large file context",
+				tokenSavings: 2500,
+				relevanceScore: 0.92,
+			})
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Verify performance tracking
+			expect(toolExecutionHistory).toHaveLength(1)
+			expect(toolExecutionHistory[0].duration).toBeGreaterThan(0)
+
+			// Verify semantic optimization was used
+			expect(mockSemanticAgent.optimizePromptContext).toHaveBeenCalled()
+
+			// Verify performance metrics are included in results
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("Performance"),
+				expect.stringContaining("2500 tokens saved")
+			)
+		})
+
+		it("should compare performance with traditional tools", async () => {
+			// Simulate traditional vs semantic tool performance
+			const traditionalMetrics = {
+				tokensUsed: 3000,
+				duration: 1200,
+				accuracy: 0.75,
+			}
+
+			const semanticMetrics = {
+				tokensUsed: 450, // 85% reduction
+				duration: 800,
+				accuracy: 0.92,
+			}
+
+			const toolUse: ToolUse = {
+				name: "semantic_symbol_search",
+				params: {
+					query: "AuthService",
+				},
+			}
+
+			mockLSP.searchWorkspaceSymbols.mockResolvedValue({
+				symbols: [
+					{
+						id: "class-AuthService",
+						name: "AuthService",
+						kind: 5,
+						filePath: "/test/workspace/src/services/AuthService.ts",
+						range: new vscode.Range(5, 0, 50, 1),
+						selectionRange: new vscode.Range(5, 6, 5, 17),
+					},
+				],
+				isLSPAvailable: true,
+				searchQuery: "AuthService",
+				totalResults: 1,
+				performanceComparison: {
+					traditional: traditionalMetrics,
+					semantic: semanticMetrics,
+					improvement: {
+						tokenReduction: 85,
+						speedIncrease: 33,
+						accuracyIncrease: 17,
+					},
+				},
+			})
+
+			await semanticSymbolSearchTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Verify performance comparison is included
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("Performance Improvement"),
+				expect.stringContaining("85% token reduction")
+			)
+		})
+	})
+
+	describe("Semantic Agent Integration", () => {
+		it("should enhance user requests with semantic context", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/api/UserController.ts",
+				},
+			}
+
+			mockSemanticAgent.enhanceUserRequest.mockResolvedValue({
+				enhancedRequest: "Analyze UserController with focus on API endpoints and authentication methods",
+				semanticContext: [
+					{
+						type: "class",
+						name: "UserController",
+						relevance: 0.95,
+					},
+					{
+						type: "methods",
+						pattern: "authenticate*",
+						relevance: 0.88,
+					},
+				],
+				suggestedTools: ["semantic_read_file"],
+				confidence: 0.92,
+			})
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Verify semantic enhancement was applied
+			expect(mockSemanticAgent.enhanceUserRequest).toHaveBeenCalled()
+
+			// Verify enhanced context influenced LSP analysis
+			expect(mockLSP.analyzeFileSemantics).toHaveBeenCalledWith(
+				"/test/workspace/src/api/UserController.ts",
+				expect.objectContaining({
+					semanticContext: expect.arrayContaining([
+						expect.objectContaining({
+							type: "class",
+							name: "UserController",
+						}),
+					]),
+				})
+			)
+		})
+
+		it("should validate semantic results and provide confidence scores", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_symbol_search",
+				params: {
+					query: "DatabaseConnection",
+					include_references: true,
+				},
+			}
+
+			const searchResults = [
+				{
+					id: "class-DatabaseConnection",
+					name: "DatabaseConnection",
+					kind: 5,
+					filePath: "/test/workspace/src/db/Connection.ts",
+					range: new vscode.Range(10, 0, 100, 1),
+					selectionRange: new vscode.Range(10, 6, 10, 22),
+					references: [
+						{
+							filePath: "/test/workspace/src/services/UserService.ts",
+							range: new vscode.Range(5, 15, 5, 31),
+							context: "private dbConnection: DatabaseConnection",
+						},
+					],
+				},
+			]
+
+			mockLSP.searchWorkspaceSymbols.mockResolvedValue({
+				symbols: searchResults,
+				isLSPAvailable: true,
+				searchQuery: "DatabaseConnection",
+				totalResults: 1,
+			})
+
+			mockSemanticAgent.validateSemanticResult.mockResolvedValue({
+				isValid: true,
+				confidence: 0.94,
+				suggestions: [
+					"Consider also searching for related connection patterns",
+					"Check for connection pool implementations",
+				],
+				qualityMetrics: {
+					completeness: 0.89,
+					relevance: 0.96,
+					accuracy: 0.91,
+				},
+			})
+
+			await semanticSymbolSearchTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Verify result validation was performed
+			expect(mockSemanticAgent.validateSemanticResult).toHaveBeenCalledWith(
+				searchResults,
+				expect.objectContaining({
+					query: "DatabaseConnection",
+					includeReferences: true,
+				})
+			)
+
+			// Verify validation results are included
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("Confidence: 94%"),
+				expect.stringContaining("Consider also searching for related")
+			)
+		})
+	})
+
+	describe("Error Recovery and Fallback Mechanisms", () => {
+		it("should gracefully handle LSP service failures", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: {
+					path: "src/components/Modal.tsx",
+				},
+			}
+
+			// Mock LSP service failure
+			mockLSP.analyzeFileSemantics.mockResolvedValue({
+				filePath: "/test/workspace/src/components/Modal.tsx",
+				symbols: [],
+				relationships: [],
+				diagnostics: [],
+				isLSPAvailable: false,
+				fallbackContent: "// Modal component implementation\nconst Modal = () => { /* ... */ }",
+				fallbackReason: "TypeScript language server not responding",
+			})
+
+			await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Verify graceful fallback occurred
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("LSP Unavailable"),
+				expect.stringContaining("fallback"),
+				expect.stringContaining("Modal component implementation")
+			)
+
+			// Verify no critical error was thrown
+			expect(handleError).not.toHaveBeenCalled()
+
+			// Verify execution still completed successfully
+			expect(toolExecutionHistory[0].success).toBe(true)
+		})
+
+		it("should handle partial LSP functionality", async () => {
+			const toolUse: ToolUse = {
+				name: "semantic_symbol_search",
+				params: {
+					query: "ApiEndpoint",
+					include_references: true,
+				},
+			}
+
+			// Mock partial LSP functionality (symbols work, references don't)
+			mockLSP.searchWorkspaceSymbols.mockResolvedValue({
+				symbols: [
+					{
+						id: "interface-ApiEndpoint",
+						name: "ApiEndpoint",
+						kind: 11,
+						filePath: "/test/workspace/src/types/api.ts",
+						range: new vscode.Range(15, 0, 25, 1),
+						selectionRange: new vscode.Range(15, 10, 15, 21),
+					},
+				],
+				isLSPAvailable: true,
+				searchQuery: "ApiEndpoint",
+				totalResults: 1,
+				partialFunctionality: {
+					symbolSearch: true,
+					referenceSearch: false,
+					reason: "Reference provider not available for this file type",
+				},
+			})
+
+			await semanticSymbolSearchTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Verify partial functionality is reported
+			expect(pushToolResult).toHaveBeenCalledWith(
+				expect.stringContaining("Found 1 symbols"),
+				expect.stringContaining("Reference search unavailable"),
+				expect.stringContaining("ApiEndpoint interface")
+			)
+		})
+	})
+
+	describe("Multi-Language Support", () => {
+		it("should handle different programming languages appropriately", async () => {
+			const languages = [
+				{ file: "src/utils.py", language: "python", expectedSymbols: ["function", "class"] },
+				{ file: "src/handlers.go", language: "go", expectedSymbols: ["func", "struct", "interface"] },
+				{ file: "src/models.rs", language: "rust", expectedSymbols: ["struct", "impl", "trait"] },
+				{ file: "src/Service.java", language: "java", expectedSymbols: ["class", "method", "interface"] },
+			]
+
+			for (const lang of languages) {
+				const toolUse: ToolUse = {
+					name: "semantic_read_file",
+					params: {
+						path: lang.file,
+					},
+				}
+
+				mockLSP.analyzeFileSemantics.mockResolvedValue({
+					filePath: `/test/workspace/${lang.file}`,
+					symbols: [
+						{
+							id: `${lang.language}-symbol`,
+							name: `${lang.language}Symbol`,
+							kind: 5,
+							filePath: `/test/workspace/${lang.file}`,
+							range: new vscode.Range(5, 0, 15, 1),
+							selectionRange: new vscode.Range(5, 0, 5, 10),
+							detail: `${lang.language} symbol definition`,
+						},
+					],
+					relationships: [],
+					diagnostics: [],
+					isLSPAvailable: true,
+					languageInfo: {
+						language: lang.language,
+						features: lang.expectedSymbols,
+						lspVersion: "1.0.0",
+					},
+				})
+
+				await semanticReadFileTool(mockTask, toolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+				// Verify language-specific analysis
+				expect(pushToolResult).toHaveBeenCalledWith(
+					expect.stringContaining(lang.language),
+					expect.stringContaining(`${lang.language}Symbol`)
+				)
+			}
+		})
+	})
+
+	describe("Caching and Performance Optimization", () => {
+		it("should benefit from intelligent caching across tool invocations", async () => {
+			const filePath = "src/shared/constants.ts"
+			
+			// First invocation
+			const firstToolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: { path: filePath },
+			}
+
+			mockLSP.analyzeFileSemantics.mockResolvedValueOnce({
+				filePath: `/test/workspace/${filePath}`,
+				symbols: [
+					{
+						id: "const-API_ENDPOINTS",
+						name: "API_ENDPOINTS",
+						kind: 14,
+						filePath: `/test/workspace/${filePath}`,
+						range: new vscode.Range(5, 0, 20, 1),
+						selectionRange: new vscode.Range(5, 6, 5, 19),
+					},
+				],
+				relationships: [],
+				diagnostics: [],
+				isLSPAvailable: true,
+				fromCache: false,
+				cacheInfo: {
+					cached: true,
+					expiresAt: Date.now() + 300000, // 5 minutes
+				},
+			})
+
+			await semanticReadFileTool(mockTask, firstToolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Second invocation should use cache
+			const secondToolUse: ToolUse = {
+				name: "semantic_read_file",
+				params: { path: filePath },
+			}
+
+			mockLSP.analyzeFileSemantics.mockResolvedValueOnce({
+				filePath: `/test/workspace/${filePath}`,
+				symbols: [
+					{
+						id: "const-API_ENDPOINTS",
+						name: "API_ENDPOINTS",
+						kind: 14,
+						filePath: `/test/workspace/${filePath}`,
+						range: new vscode.Range(5, 0, 20, 1),
+						selectionRange: new vscode.Range(5, 6, 5, 19),
+					},
+				],
+				relationships: [],
+				diagnostics: [],
+				isLSPAvailable: true,
+				fromCache: true,
+				cacheInfo: {
+					cached: true,
+					hitRatio: 0.75,
+				},
+			})
+
+			await semanticReadFileTool(mockTask, secondToolUse, askApproval, handleError, pushToolResult, removeClosingTag)
+
+			// Verify caching improved performance
+			expect(toolExecutionHistory).toHaveLength(2)
+			expect(toolExecutionHistory[1].duration).toBeLessThanOrEqual(toolExecutionHistory[0].duration)
+
+			// Verify cache hit is reported
+			expect(pushToolResult).toHaveBeenLastCalledWith(
+				expect.stringContaining("cached"),
+				expect.stringContaining("API_ENDPOINTS")
+			)
+		})
+	})
+})

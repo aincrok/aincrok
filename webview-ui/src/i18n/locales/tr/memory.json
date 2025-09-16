@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Otomatik Yakalama",
+		"reasoningExtraction": "Akıl Yürütme Çıkarımı",
+		"workspace": "Takım Çalışma Alanı Paylaşımı"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Bellek Yapılandırması",
+		"saveButtonTooltip": "Mevcut bellek yapılandırmasını kaydet",
+		"doneButtonTooltip": "Bellek yapılandırmasını kapat ve sohbete dön"
+	},
+	"common": {
+		"save": "Kaydet",
+		"done": "Tamamlandı",
+		"optional": "isteğe bağlı",
+		"configuring": "Configuring"
+	},
+	"description": "AI bağlam farkındalığı ve verimliliği artırmak için bellek sağlayıcıları ve ayarları yapılandırın. Bellek sistemleri, oturumlar arasında konuşma bağlamını korumaya yardımcı olur.",
+	"llmProfile": {
+		"title": "LLM Profili",
+		"selectProfile": "Profil seçin",
+		"selectedProfileInfo": "Seçilen profil: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Vektör Depolama Yapılandırması",
+		"type": "Vektör Depolama Türü",
+		"selectType": "Vektör depolama türü seçin",
+		"url": "Vektör Depolama URL'si",
+		"urlPlaceholder": "örn. http://localhost:6333",
+		"collection": "Koleksiyon Adı",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Vektör Boyutları",
+		"apiKey": "API Anahtarı",
+		"apiKeyPlaceholder": "API anahtarı girin"
+	},
+	"graphStore": {
+		"title": "Graf Depolama Yapılandırması",
+		"type": "Graf Depolama Türü",
+		"selectType": "Graf depolama türü seçin",
+		"url": "Graf Depolama URL'si",
+		"urlPlaceholder": "örn. bolt://localhost:7687",
+		"username": "Kullanıcı Adı",
+		"usernamePlaceholder": "neo4j",
+		"password": "Şifre",
+		"passwordPlaceholder": "Şifre girin"
+	},
+	"embedder": {
+		"title": "Gömme Yapılandırması",
+		"type": "Gömme Türü",
+		"selectType": "Gömme türü seçin",
+		"model": "Gömme Modeli",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "Temel URL",
+		"apiKey": "API Anahtarı",
+		"apiKeyPlaceholder": "API anahtarı girin"
+	},
+	"general": {
+		"title": "Genel Ayarlar",
+		"userId": "Kullanıcı ID'si",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Maksimum Bellek Boyutu",
+		"searchThreshold": "Arama Eşiği",
+		"enablePersistence": "Kalıcılığı Etkinleştir"
+	},
+	"sections": {
+		"memory": "Bellek"
+	}
+}

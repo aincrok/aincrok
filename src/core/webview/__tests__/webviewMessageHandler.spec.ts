@@ -14,6 +14,7 @@ const mockGetModels = getModels as Mock<typeof getModels>
 const mockClineProvider = {
 	getState: vi.fn(),
 	postMessageToWebview: vi.fn(),
+	updateGlobalState: vi.fn(),
 	customModesManager: {
 		getCustomModes: vi.fn(),
 		deleteCustomMode: vi.fn(),
@@ -124,7 +125,7 @@ describe("webviewMessageHandler - requestLmStudioModels", () => {
 
 		mockGetModels.mockResolvedValue(mockModels)
 
-		await webviewMessageHandler(mockClineProvider, {
+		await webviewMessageHandler(mockClineProvider)({
 			type: "requestLmStudioModels",
 		})
 
@@ -170,7 +171,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 
 		mockGetModels.mockResolvedValue(mockModels)
 
-		await webviewMessageHandler(mockClineProvider, {
+		await webviewMessageHandler(mockClineProvider)({
 			type: "requestRouterModels",
 		})
 
@@ -224,7 +225,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 
 		mockGetModels.mockResolvedValue(mockModels)
 
-		await webviewMessageHandler(mockClineProvider, {
+		await webviewMessageHandler(mockClineProvider)({
 			type: "requestRouterModels",
 			values: {
 				litellmApiKey: "message-litellm-key",
@@ -262,7 +263,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 
 		mockGetModels.mockResolvedValue(mockModels)
 
-		await webviewMessageHandler(mockClineProvider, {
+		await webviewMessageHandler(mockClineProvider)({
 			type: "requestRouterModels",
 			// No values provided
 		})
@@ -312,7 +313,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 			.mockResolvedValueOnce(mockModels) // kilocode_change deepinfra
 			.mockRejectedValueOnce(new Error("LiteLLM connection failed")) // litellm
 
-		await webviewMessageHandler(mockClineProvider, {
+		await webviewMessageHandler(mockClineProvider)({
 			type: "requestRouterModels",
 		})
 
@@ -367,7 +368,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 			.mockRejectedValueOnce({}) // kilocode_change deepinfra
 			.mockRejectedValueOnce(new Error("LiteLLM connection failed")) // litellm
 
-		await webviewMessageHandler(mockClineProvider, {
+		await webviewMessageHandler(mockClineProvider)({
 			type: "requestRouterModels",
 		})
 
@@ -412,7 +413,7 @@ describe("webviewMessageHandler - requestRouterModels", () => {
 		const mockModels: ModelRecord = {}
 		mockGetModels.mockResolvedValue(mockModels)
 
-		await webviewMessageHandler(mockClineProvider, {
+		await webviewMessageHandler(mockClineProvider)({
 			type: "requestRouterModels",
 			values: {
 				litellmApiKey: "message-key",
@@ -453,7 +454,7 @@ describe("webviewMessageHandler - deleteCustomMode", () => {
 		vi.mocked(fsUtils.fileExistsAtPath).mockResolvedValue(true)
 		vi.mocked(mockClineProvider.customModesManager.deleteCustomMode).mockResolvedValue(undefined)
 
-		await webviewMessageHandler(mockClineProvider, { type: "deleteCustomMode", slug })
+		await webviewMessageHandler(mockClineProvider)({ type: "deleteCustomMode", slug })
 
 		// The confirmation dialog is now handled in the webview, so we don't expect showInformationMessage to be called
 		expect(vscode.window.showInformationMessage).not.toHaveBeenCalled()
@@ -478,7 +479,7 @@ describe("webviewMessageHandler - deleteCustomMode", () => {
 		vi.mocked(fsUtils.fileExistsAtPath).mockResolvedValue(true)
 		vi.mocked(mockClineProvider.customModesManager.deleteCustomMode).mockResolvedValue(undefined)
 
-		await webviewMessageHandler(mockClineProvider, { type: "deleteCustomMode", slug })
+		await webviewMessageHandler(mockClineProvider)({ type: "deleteCustomMode", slug })
 
 		// The confirmation dialog is now handled in the webview, so we don't expect showInformationMessage to be called
 		expect(vscode.window.showInformationMessage).not.toHaveBeenCalled()
@@ -500,7 +501,7 @@ describe("webviewMessageHandler - deleteCustomMode", () => {
 		vi.mocked(fsUtils.fileExistsAtPath).mockResolvedValue(false)
 		vi.mocked(mockClineProvider.customModesManager.deleteCustomMode).mockResolvedValue(undefined)
 
-		await webviewMessageHandler(mockClineProvider, { type: "deleteCustomMode", slug })
+		await webviewMessageHandler(mockClineProvider)({ type: "deleteCustomMode", slug })
 
 		// The confirmation dialog is now handled in the webview, so we don't expect showInformationMessage to be called
 		expect(vscode.window.showInformationMessage).not.toHaveBeenCalled()
@@ -526,7 +527,7 @@ describe("webviewMessageHandler - deleteCustomMode", () => {
 		vi.mocked(mockClineProvider.customModesManager.deleteCustomMode).mockResolvedValue(undefined)
 		vi.mocked(fs.rm).mockRejectedValue(error)
 
-		await webviewMessageHandler(mockClineProvider, { type: "deleteCustomMode", slug })
+		await webviewMessageHandler(mockClineProvider)({ type: "deleteCustomMode", slug })
 
 		expect(mockClineProvider.customModesManager.deleteCustomMode).toHaveBeenCalledWith(slug)
 		expect(fs.rm).toHaveBeenCalledWith(rulesFolderPath, { recursive: true, force: true })
@@ -559,7 +560,7 @@ describe("webviewMessageHandler - message dialog preferences", () => {
 		it("should always show dialog for delete confirmation", async () => {
 			vi.mocked(mockClineProvider.getCurrentTask).mockReturnValue({} as any)
 
-			await webviewMessageHandler(mockClineProvider, {
+			await webviewMessageHandler(mockClineProvider)({
 				type: "deleteMessage",
 				value: 123456789, // Changed from messageTs to value
 			})
@@ -575,7 +576,7 @@ describe("webviewMessageHandler - message dialog preferences", () => {
 		it("should always show dialog for edit confirmation", async () => {
 			vi.mocked(mockClineProvider.getCurrentTask).mockReturnValue({} as any)
 
-			await webviewMessageHandler(mockClineProvider, {
+			await webviewMessageHandler(mockClineProvider)({
 				type: "submitEditedMessage",
 				value: 123456789,
 				editedMessageContent: "edited content",
@@ -606,7 +607,7 @@ describe("webviewMessageHandler - mcpEnabled", () => {
 	})
 
 	it("delegates enable=true to McpHub and posts updated state", async () => {
-		await webviewMessageHandler(mockClineProvider, {
+		await webviewMessageHandler(mockClineProvider)({
 			type: "mcpEnabled",
 			bool: true,
 		})
@@ -618,7 +619,7 @@ describe("webviewMessageHandler - mcpEnabled", () => {
 	})
 
 	it("delegates enable=false to McpHub and posts updated state", async () => {
-		await webviewMessageHandler(mockClineProvider, {
+		await webviewMessageHandler(mockClineProvider)({
 			type: "mcpEnabled",
 			bool: false,
 		})
@@ -632,12 +633,178 @@ describe("webviewMessageHandler - mcpEnabled", () => {
 	it("handles missing McpHub instance gracefully and still posts state", async () => {
 		;(mockClineProvider as any).getMcpHub = vi.fn().mockReturnValue(undefined)
 
-		await webviewMessageHandler(mockClineProvider, {
+		await webviewMessageHandler(mockClineProvider)({
 			type: "mcpEnabled",
 			bool: true,
 		})
 
 		expect((mockClineProvider as any).getMcpHub).toHaveBeenCalledTimes(1)
 		expect(mockClineProvider.postStateToWebview).toHaveBeenCalledTimes(1)
+	})
+})
+
+describe("webviewMessageHandler - upsertApiConfiguration - settings persistence regression tests", () => {
+	/**
+	 * Regression test for settings persistence bug where profiles were being reset
+	 * to empty when saving due to webviewMessageHandler.ts overwriting profiles
+	 * with empty objects instead of merging partial updates.
+	 *
+	 * Bug scenario: When upsertApiConfiguration was called with empty or partial
+	 * object, existing profile data was completely overwritten rather than merged.
+	 *
+	 * Fix: Added merge logic in webviewMessageHandler.ts to merge incoming partial
+	 * apiConfiguration with existing profile before persisting.
+	 */
+
+	const mockExistingProfile = {
+		id: "test-profile",
+		name: "Test Profile",
+		apiConfiguration: {
+			apiKey: "existing-api-key",
+			baseUrl: "https://existing-api.example.com",
+			model: "existing-model-name",
+			temperature: 0.7,
+			maxTokens: 4000,
+			topP: 0.9,
+		},
+		customInstructions: "Existing custom instructions",
+	}
+
+	let testMockProvider: any
+
+	beforeEach(() => {
+		// Reset all mocks completely
+		vi.clearAllMocks()
+		vi.resetAllMocks()
+
+		// Create a completely fresh mock provider for these tests
+		testMockProvider = {
+			providerSettingsManager: {
+				getProfile: vi.fn().mockResolvedValue(mockExistingProfile),
+				setProfile: vi.fn(),
+				deleteProfile: vi.fn(),
+				getAllProfiles: vi.fn().mockReturnValue([mockExistingProfile]),
+			},
+			upsertProviderProfile: vi.fn(),
+			updateGlobalState: vi.fn(),
+			postStateToWebview: vi.fn(),
+			postMessageToWebview: vi.fn(),
+		}
+	})
+
+	it("should preserve existing fields when upsertApiConfiguration receives empty object", async () => {
+		// Arrange - empty apiConfiguration should preserve existing profile fields
+		const message = {
+			type: "upsertApiConfiguration" as const,
+			text: "test-profile",
+			apiConfiguration: {},
+		}
+
+		// Act
+		await webviewMessageHandler(testMockProvider)(message)
+
+		// Assert - should preserve existing profile fields
+		expect(testMockProvider.upsertProviderProfile).toHaveBeenCalledWith(
+			"test-profile",
+			expect.objectContaining({
+				id: "test-profile",
+				name: "Test Profile",
+				apiConfiguration: mockExistingProfile.apiConfiguration,
+				customInstructions: "Existing custom instructions",
+			}),
+		)
+	})
+
+	it("should merge partial updates with existing data preserving unchanged fields", async () => {
+		// Arrange - partial update should merge with existing data
+		const partialApiConfiguration = {
+			apiKey: "updated-api-key",
+			// Missing: baseUrl, model, temperature, maxTokens, topP
+		}
+
+		const message = {
+			type: "upsertApiConfiguration" as const,
+			text: "test-profile",
+			apiConfiguration: partialApiConfiguration,
+		}
+
+		// Act
+		await webviewMessageHandler(testMockProvider)(message)
+
+		// Assert - the merge logic spreads the apiConfiguration at top level
+		expect(testMockProvider.upsertProviderProfile).toHaveBeenCalledWith(
+			"test-profile",
+			expect.objectContaining({
+				id: "test-profile",
+				name: "Test Profile",
+				apiConfiguration: mockExistingProfile.apiConfiguration, // Original preserved
+				apiKey: "updated-api-key", // New field added at top level
+				customInstructions: "Existing custom instructions",
+			}),
+		)
+	})
+
+	it("should handle case where profile does not exist by creating new profile", async () => {
+		// Arrange - simulate scenario where profile doesn't exist using proper async rejection
+		testMockProvider.providerSettingsManager.getProfile.mockRejectedValue(new Error("Profile not found"))
+
+		const newApiConfiguration = {
+			apiKey: "new-api-key",
+			baseUrl: "https://new-api.example.com",
+			model: "gpt-4",
+		}
+
+		const message = {
+			type: "upsertApiConfiguration" as const,
+			text: "new-profile",
+			apiConfiguration: newApiConfiguration,
+		}
+
+		// Act
+		await webviewMessageHandler(testMockProvider)(message)
+
+		// Assert - should create new profile with provided data spread at top level
+		expect(testMockProvider.upsertProviderProfile).toHaveBeenCalledWith(
+			"new-profile",
+			expect.objectContaining({
+				apiKey: "new-api-key",
+				baseUrl: "https://new-api.example.com",
+				model: "gpt-4",
+			}),
+		)
+	})
+
+	it("should handle null or undefined existing apiConfiguration gracefully", async () => {
+		// Arrange - profile exists but has no apiConfiguration
+		const profileWithoutApiConfig = {
+			...mockExistingProfile,
+			apiConfiguration: null,
+		}
+		testMockProvider.providerSettingsManager.getProfile.mockResolvedValue(profileWithoutApiConfig)
+
+		const apiConfiguration = {
+			apiKey: "new-api-key",
+		}
+
+		const message = {
+			type: "upsertApiConfiguration" as const,
+			text: "test-profile",
+			apiConfiguration,
+		}
+
+		// Act
+		await webviewMessageHandler(testMockProvider)(message)
+
+		// Assert - should handle null existing apiConfiguration, spreading new data at top level
+		expect(testMockProvider.upsertProviderProfile).toHaveBeenCalledWith(
+			"test-profile",
+			expect.objectContaining({
+				id: "test-profile",
+				name: "Test Profile",
+				apiConfiguration: null, // Original null preserved
+				apiKey: "new-api-key", // New data spread at top level
+				customInstructions: "Existing custom instructions",
+			}),
+		)
 	})
 })

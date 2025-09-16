@@ -9,7 +9,8 @@ import {
 	marketplaceItemSchema,
 	CommitRange, // kilocode_change
 } from "@roo-code/types"
-import type { ShareVisibility } from "@roo-code/cloud"
+// aincrok_change: CloudService removed, using type stub
+type ShareVisibility = any
 
 import { Mode } from "./modes"
 
@@ -33,6 +34,7 @@ export interface WebviewMessage {
 		| "updateTodoList"
 		| "deleteMultipleTasksWithIds"
 		| "currentApiConfigName"
+		| "apiConfiguration"
 		| "saveApiConfiguration"
 		| "upsertApiConfiguration"
 		| "deleteApiConfiguration"
@@ -238,6 +240,7 @@ export interface WebviewMessage {
 		| "filterMarketplaceItems"
 		| "mcpButtonClicked"
 		| "marketplaceButtonClicked"
+		| "memoryButtonClicked" // aincrok_change
 		| "installMarketplaceItem"
 		| "installMarketplaceItemWithParameters"
 		| "cancelMarketplaceInstall"
@@ -265,9 +268,160 @@ export interface WebviewMessage {
 		| "createCommand"
 		| "insertTextIntoTextarea"
 		| "showMdmAuthRequiredNotification"
+		// aincrok_change start - Memory system operations
+		| "getMemoryConfig"
+		| "saveMemoryConfig"
+		| "testMemoryConnection"
+		| "testMemoryComponent" // aincrok_change
+		| "memoryConfigResponse"
+		| "memoryConnectionTestResult"
+		// Memory configuration fields
+		| "memoryMode"
+		| "autoCapture"
+		| "extractReasoning"
+		| "teamSharing"
+		| "llmProvider"
+		| "llmModel"
+		| "llmApiKey"
+		| "llmBaseUrl"
+		| "vectorStore"
+		| "vectorStoreUrl"
+		| "vectorStoreApiKey"
+		| "embeddingProvider"
+		| "embeddingModel"
+		| "embeddingDimensions"
+		| "embeddingApiKey"
+		| "embeddingBaseUrl"
+		| "knowledgeGraphEnabled"
+		| "knowledgeGraphType"
+		| "neo4jHost"
+		| "neo4jPort"
+		| "neo4jUsername"
+		| "neo4jPassword"
+		| "neo4jDatabase"
+		| "neo4jEnableAutoIndexing"
+		| "neo4jEnableMetrics"
+		| "neo4jEnableQueryCache"
+		| "neo4jMaxRetries"
+		| "neo4jTimeout"
+		| "inMemoryMaxNodes"
+		| "inMemoryMaxEdges"
+		| "inMemoryEnableIndexing"
+		| "inMemoryEnableGarbageCollection"
+		| "inMemoryEnableAutoIndexing"
+		| "inMemoryDefaultBatchSize"
+		| "maxSessions"
+		| "sessionTTL"
+		| "maxIterations"
+		| "mcpConnectionType"
+		| "mcpCommand"
+		| "mcpArgs"
+		| "mcpTimeout"
+		| "mcpStrictMode"
+		| "apiUrl"
+		| "apiKey"
+		| "apiTimeout"
+		| "apiRetries"
+		| "apiVerifySSL"
+		// aincrok_change start - Memory configuration
+		| "updateMemoryConfiguration"
+		| "getMemoryConfiguration"
+		// aincrok_change end
+		// aincrok_change start - Memory management operations
+		| "searchMemory"
+		| "getMemoryStats"
+		| "getMemoryGraph"
+		| "getMemoryInsights"
+		| "linkMemories"
+		| "unlinkMemories"
+		| "exportMemories"
+		| "importMemories"
+		| "getConnectedMemories"
+		| "deleteMemory"
+		| "showInfo"
+		| "memorySearchResults"
+		| "memoryStats"
+		| "memoryGraph"
+		| "memoryConnected"
+		| "memoryDisconnected"
+		| "connectedMemories"
+		| "memoryDeleted"
+		// aincrok_change - onboarding workflow messages
+		| "startMemoryOnboarding"
+		| "getOnboardingStatus"
+		| "onboardingStatus"
+		| "onboardingProgress"
+		| "onboardingComplete"
+		// aincrok_change end
+		// aincrok_change start - Missing message types
+		| "requestBalanceData"
+		| "condenseTaskContext"
+		| "clearCodebaseIndex"
+		| "buildCodebaseIndex"
+		| "codebaseIndexConfig"
+		| "requestRulesData"
+		| "removeMarketplaceItem"
+		| "requestMarketplaceData"
+		| "requestMermaidFix"
+		| "shareTask"
+		| "codeIndexSecret"
+		| "showDeleteMessageDialog"
+		| "showEditMessageDialog"
+		| "kilocodeNotifications"
+		| "usageData"
+		// aincrok_change end
+		// aincrok_change start - Additional missing message types
+		| "singleRouterModelFetch"
+		| "getExtensionId"
+		| "requestGitDiff"
+		| "requestGitLog"
+		| "pinApiConfig"
+		| "fetchMcpMarketplaceCatalog"
+		| "fetchMcpDownloadDetails"
+		| "navigateToMcpSettings"
+		| "switchTabAndOpenSettings" // aincrok_change - memory settings navigation
+		| "requestInsertTextToChatArea"
+		| "focusChatInput"
+		| "requestProfileData"
+		// aincrok_change start - Additional webview message types
+		| "modeApiConfigs"
+		| "customModes"
+		| "customModePrompts"
+		| "customSupportPrompts"
+		| "customCondensingPrompt"
+		| "codebaseIndexModels"
+		| "localWorkflowToggles"
+		| "globalRulesToggles"
+		| "localRulesToggles"
+		| "globalWorkflowToggles"
+		| "dismissedNotificationIds"
+		| "apiRequestResumeTask"
+		| "exportCustomMode"
+		| "importCustomMode"
+		| "showChangelog"
+		| "searchFilesTool"
+		| "fileSearch"
+		| "cancelCurrentRequest"
+		| "refreshOpenRouterModels"
+		| "refreshOpenAiModels"
+		| "refreshOllamaModels"
+		| "refreshVsCodeLmModels"
+		| "testBrowserConnectionHost"
+		| "getOpenTabs"
+		| "getTheme"
+		// aincrok_change start - Additional missing webview message types from error logs
+		| "healthCheck"
+		// aincrok_change start - Memory connection testing
+		| "testMemoryConnection"
+		| "testMemoryComponent" // aincrok_change
+	// aincrok_change end
+	// aincrok_change end
+	// aincrok_change end
+	// aincrok_change end
 	text?: string
 	editedMessageContent?: string
 	tab?: "settings" | "history" | "mcp" | "modes" | "chat" | "marketplace" | "account"
+	section?: string // aincrok_change - section parameter for settings navigation
 	disabled?: boolean
 	context?: string
 	dataUri?: string
@@ -304,6 +458,8 @@ export interface WebviewMessage {
 	customPrompt?: PromptComponent
 	dataUrls?: string[]
 	values?: Record<string, any>
+	// aincrok_change - Memory configuration properties
+	key?: string
 	query?: string
 	setting?: string
 	slug?: string
@@ -348,6 +504,22 @@ export interface WebviewMessage {
 	level?: "moderate" | "high" | "critical"
 	heapUsedMb?: number
 	emergency?: boolean
+	// aincrok_change start - Memory management message properties
+	memoryId?: string
+	sourceId?: string
+	targetId?: string
+	relationship?: string
+	types?: string
+	limit?: number
+	typeFilter?: string
+	includeConnections?: boolean
+	memories?: any[]
+	stats?: any
+	graph?: any
+	connections?: any[]
+	success?: boolean
+	timeRange?: "day" | "week" | "month" | "all"
+	// aincrok_change end
 }
 
 // kilocode_change begin
@@ -376,6 +548,9 @@ export interface ProfileDataResponsePayload {
 	success: boolean
 	data?: ProfileData
 	error?: string
+	baseUri?: string | null
+	profileData?: ProfileData | null
+	errorMessage?: string | null
 }
 
 export interface BalanceDataResponsePayload {
@@ -383,6 +558,9 @@ export interface BalanceDataResponsePayload {
 	success: boolean
 	data?: any // Replace 'any' with a more specific type if known for balance
 	error?: string
+	baseUri?: string | null
+	balanceData?: any | null
+	errorMessage?: string | null
 }
 
 export interface SeeNewChangesPayload {
@@ -426,6 +604,106 @@ export type InstallMarketplaceItemWithParametersPayload = z.infer<
 	typeof installMarketplaceItemWithParametersPayloadSchema
 >
 
+// aincrok_change start - Memory REST API message payloads
+// aincrok_change - Updated for Memory system
+export interface MemoryConfigPayload {
+	mode: "embedded" | "mcp" | "api"
+	embeddedConfigMethod?: "ui" | "yaml" // Configuration method for embedded mode
+	autoCapture: boolean
+	extractReasoning?: boolean // aincrok_change - Alternative name used by component
+	reasoningExtraction?: boolean // aincrok_change - Keep for backward compatibility
+	teamSharing?: boolean // aincrok_change - Alternative name for workspace.enabled
+	configPath?: string // Path to cipher.yml for MCP/API mode or embedded YAML mode
+	// aincrok_change - Session configuration
+	sessionPersistence?: boolean
+	maxMemorySize?: number
+	// aincrok_change - MCP specific fields
+	mcpCommand?: string
+	mcpArgs?: string
+	// aincrok_change - API specific fields
+	apiUrl?: string
+	apiKey?: string
+	workspace?: {
+		enabled: boolean
+		syncInterval?: number
+	}
+	llm?: {
+		provider?:
+			| "openai"
+			| "anthropic"
+			| "openrouter"
+			| "ollama"
+			| "openai-compatible"
+			| "gemini"
+			| "voyage"
+			| "qwen"
+			| "bedrock"
+		model?: string
+		apiKey?: string
+		baseUrl?: string
+		maxIterations?: number
+	}
+	embedding?: {
+		type: "openai" | "openai-compatible" | "gemini" | "ollama" | "voyage" | "qwen" | "bedrock"
+		model?: string
+		apiKey?: string
+		baseUrl?: string
+		dimensions?: number
+	}
+	vectorStore?: {
+		type: "in-memory" | "qdrant" | "milvus" | "chroma" | "pinecone" | "weaviate"
+		url?: string
+		apiKey?: string
+		collection?: string
+	}
+	knowledgeGraph?: {
+		enabled: boolean
+		type?: "in-memory" | "neo4j"
+		// Neo4j configuration
+		host?: string
+		port?: number
+		username?: string
+		password?: string
+		database?: string
+		// In-memory configuration
+		maxNodes?: number
+		maxEdges?: number
+	}
+}
+
+// aincrok_change - Updated for Memory system
+export interface SaveMemoryConfigPayload {
+	config: MemoryConfigPayload
+}
+
+// aincrok_change - Updated for Memory system
+export interface TestMemoryConnectionPayload {
+	config: MemoryConfigPayload
+}
+
+// aincrok_change - Updated for Memory system
+export interface MemoryConfigResponsePayload {
+	config: MemoryConfigPayload | null
+}
+
+// aincrok_change - Updated for Memory system
+export interface MemoryConnectionTestResultPayload {
+	success: boolean
+	error?: string
+	message?: string
+	details?: {
+		llm?: { success: boolean; message: string; error?: string }
+		embedding?: { success: boolean; message: string; error?: string }
+		vectorStore?: { success: boolean; message: string; error?: string }
+		knowledgeGraph?: { success: boolean; message: string; error?: string }
+		mcp?: { success: boolean; message: string; error?: string }
+		api?: { success: boolean; message: string; error?: string }
+		// aincrok_change - Add embedded field for embedded mode testing
+		embedded?: { success: boolean; message: string; error?: string }
+	}
+}
+// aincrok_change end
+
 export type WebViewMessagePayload =
 	// kilocode_change start
 	| ProfileDataResponsePayload
@@ -438,3 +716,10 @@ export type WebViewMessagePayload =
 	| IndexClearedPayload
 	| InstallMarketplaceItemWithParametersPayload
 	| UpdateTodoListPayload
+	// aincrok_change start - Memory system payloads
+	| SaveMemoryConfigPayload
+	| TestMemoryConnectionPayload
+	| MemoryConfigResponsePayload
+	| MemoryConnectionTestResultPayload
+	| MemoryConfigPayload
+// aincrok_change end

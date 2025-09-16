@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "स्वचालित कैप्चर",
+		"reasoningExtraction": "तर्क निष्कर्षण",
+		"workspace": "टीम कार्यक्षेत्र साझाकरण"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "मेमोरी कॉन्फिगरेशन",
+		"saveButtonTooltip": "वर्तमान मेमोरी कॉन्फिगरेशन सेव करें",
+		"doneButtonTooltip": "मेमोरी कॉन्फिगरेशन बंद करें और चैट पर वापस जाएं"
+	},
+	"common": {
+		"save": "सेव करें",
+		"done": "पूर्ण",
+		"optional": "वैकल्पिक",
+		"configuring": "Configuring"
+	},
+	"description": "AI संदर्भ जागरूकता और दक्षता बढ़ाने के लिए मेमोरी प्रदाता और सेटिंग्स को कॉन्फिगर करें। मेमोरी सिस्टम सेशन्स के बीच बातचीत के संदर्भ को बनाए रखने में मदद करते हैं।",
+	"llmProfile": {
+		"title": "LLM प्रोफाइल",
+		"selectProfile": "प्रोफाइल चुनें",
+		"selectedProfileInfo": "चुना गया प्रोफाइल: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "वेक्टर स्टोर कॉन्फिगरेशन",
+		"type": "वेक्टर स्टोर प्रकार",
+		"selectType": "वेक्टर स्टोर प्रकार चुनें",
+		"url": "वेक्टर स्टोर URL",
+		"urlPlaceholder": "उदाहरण: http://localhost:6333",
+		"collection": "संग्रह का नाम",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "वेक्टर आयाम",
+		"apiKey": "API की",
+		"apiKeyPlaceholder": "API की दर्ज करें"
+	},
+	"graphStore": {
+		"title": "ग्राफ स्टोर कॉन्फिगरेशन",
+		"type": "ग्राफ स्टोर प्रकार",
+		"selectType": "ग्राफ स्टोर प्रकार चुनें",
+		"url": "ग्राफ स्टोर URL",
+		"urlPlaceholder": "उदाहरण: bolt://localhost:7687",
+		"username": "उपयोगकर्ता नाम",
+		"usernamePlaceholder": "neo4j",
+		"password": "पासवर्ड",
+		"passwordPlaceholder": "पासवर्ड दर्ज करें"
+	},
+	"embedder": {
+		"title": "एम्बेडर कॉन्फिगरेशन",
+		"type": "एम्बेडर प्रकार",
+		"selectType": "एम्बेडर प्रकार चुनें",
+		"model": "एम्बेडिंग मॉडल",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "बेस URL",
+		"apiKey": "API की",
+		"apiKeyPlaceholder": "API की दर्ज करें"
+	},
+	"general": {
+		"title": "सामान्य सेटिंग्स",
+		"userId": "उपयोगकर्ता ID",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "अधिकतम मेमोरी आकार",
+		"searchThreshold": "खोज सीमा",
+		"enablePersistence": "निरंतरता सक्षम करें"
+	},
+	"sections": {
+		"memory": "मेमोरी"
+	}
+}

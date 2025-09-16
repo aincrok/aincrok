@@ -4,7 +4,7 @@ import { z } from "zod"
  * ToolGroup
  */
 
-export const toolGroups = ["read", "edit", "browser", "command", "mcp", "modes"] as const
+export const toolGroups = ["read", "edit", "browser", "command", "mcp", "modes", "memory"] as const
 
 export const toolGroupsSchema = z.enum(toolGroups)
 
@@ -39,6 +39,18 @@ export const toolNames = [
 	"report_bug",
 	"condense",
 	// kilocode_change end
+	// aincrok_change start - semantic tools
+	"semantic_read_file",
+	"semantic_symbol_search",
+	// aincrok_change end
+	// aincrok_change start - memory tools
+	"store_memory",
+	"search_memory",
+	"link_memories",
+	"get_connected_memories",
+	"export_memories",
+	"import_memories",
+	// aincrok_change end
 	"update_todo_list",
 ] as const
 

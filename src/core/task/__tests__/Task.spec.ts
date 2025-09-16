@@ -1666,7 +1666,7 @@ describe("Cline", () => {
 			const emitSpy = vi.spyOn(task, "emit")
 
 			// Mock the dispose method to avoid actual cleanup
-			vi.spyOn(task, "dispose").mockImplementation(() => {})
+			vi.spyOn(task, "dispose").mockImplementation(async () => {})
 
 			// Call abortTask
 			await task.abortTask()
@@ -1688,7 +1688,7 @@ describe("Cline", () => {
 			})
 
 			// Mock the dispose method to track cleanup
-			const disposeSpy = vi.spyOn(task, "dispose").mockImplementation(() => {})
+			const disposeSpy = vi.spyOn(task, "dispose").mockImplementation(async () => {})
 
 			// Call abortTask
 			await task.abortTask()
@@ -1714,7 +1714,7 @@ describe("Cline", () => {
 			expect(typeof taskLike.abortTask).toBe("function")
 
 			// Mock the dispose method to avoid actual cleanup
-			vi.spyOn(task, "dispose").mockImplementation(() => {})
+			vi.spyOn(task, "dispose").mockImplementation(async () => {})
 
 			// Call abortTask through interface
 			await taskLike.abortTask()

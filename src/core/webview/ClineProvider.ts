@@ -39,7 +39,9 @@ import {
 	DEFAULT_WRITE_DELAY_MS,
 } from "@roo-code/types"
 import { TelemetryService } from "@roo-code/telemetry"
-import { type CloudUserInfo, CloudService, ORGANIZATION_ALLOW_ALL, getRooCodeApiUrl } from "@roo-code/cloud"
+// aincrok_change - @roo-code/cloud removed for aincrok fork
+type CloudUserInfo = { user?: { email?: string } }
+const ORGANIZATION_ALLOW_ALL = "*"
 
 import { Package } from "../../shared/package"
 import { findLast } from "../../shared/array"
@@ -48,6 +50,7 @@ import { GlobalFileNames } from "../../shared/globalFileNames"
 import { ExtensionMessage, MarketplaceInstalledMetadata } from "../../shared/ExtensionMessage"
 import { Mode, defaultModeSlug, getModeBySlug } from "../../shared/modes"
 import { experimentDefault } from "../../shared/experiments"
+import { TaskHistoryManager } from "../storage/TaskHistoryManager" // aincrok_change
 import { formatLanguage } from "../../shared/language"
 import { WebviewMessage } from "../../shared/WebviewMessage"
 import { EMBEDDING_MODEL_PROFILES } from "../../shared/embeddingModels"
@@ -130,6 +133,8 @@ export class ClineProvider
 	private taskEventListeners: WeakMap<Task, Array<() => void>> = new WeakMap()
 
 	private recentTasksCache?: string[]
+	private taskHistoryManager?: TaskHistoryManager // aincrok_change
+	public memoryConfiguration?: any // aincrok_change - stores memory configuration
 
 	public isViewLaunched = false
 	public settingsImportedAt?: number
@@ -151,6 +156,93 @@ export class ClineProvider
 
 		this.mdmService = mdmService
 		this.updateGlobalState("codebaseIndexModels", EMBEDDING_MODEL_PROFILES)
+
+		// aincrok_change start - Initialize memoryConfiguration early with Cipher defaults
+		// Load memoryConfiguration synchronously from global state to avoid race conditions
+		try {
+			const memoryConfig = this.context.globalState.get<any>("memoryConfiguration")
+			if (memoryConfig) {
+				this.memoryConfiguration = memoryConfig
+				this.log("[constructor] Memory configuration loaded from global state")
+			} else {
+				// Set default Cipher-based configuration
+				this.memoryConfiguration = {
+					mode: "disabled" as const,
+					autoCapture: false,
+					extractReasoning: false,
+					teamSharing: false,
+					llmProvider: "openai" as const,
+					llmModel: "",
+					llmApiKey: "",
+					llmBaseUrl: "",
+					vectorStore: "in-memory" as const,
+					vectorStoreUrl: "",
+					vectorStoreApiKey: "",
+					embeddingProvider: "openai" as const,
+					embeddingModel: "",
+					embeddingDimensions: 1536,
+					embeddingApiKey: "",
+					embeddingBaseUrl: "",
+					knowledgeGraphEnabled: false,
+					knowledgeGraphType: "disabled" as const,
+					neo4jHost: "localhost",
+					neo4jPort: "7687",
+					neo4jUsername: "",
+					neo4jPassword: "",
+					neo4jDatabase: "neo4j",
+					inMemoryMaxNodes: 10000,
+					inMemoryMaxEdges: 50000,
+					maxSessions: 5,
+					sessionTTL: 3600,
+					maxIterations: 10,
+					mcpConnectionType: "stdio" as const,
+					mcpCommand: "",
+					mcpArgs: "",
+					apiUrl: "",
+					apiKey: "",
+				}
+				this.log("[constructor] Using default Cipher memory configuration")
+			}
+		} catch (error: any) {
+			this.log(`[constructor] Failed to load memory configuration: ${error?.message || error}`)
+			// Set minimal defaults on error
+			this.memoryConfiguration = {
+				mode: "disabled" as const,
+				autoCapture: false,
+				extractReasoning: false,
+				teamSharing: false,
+				llmProvider: "openai" as const,
+				llmModel: "",
+				llmApiKey: "",
+				llmBaseUrl: "",
+				vectorStore: "in-memory" as const,
+				vectorStoreUrl: "",
+				vectorStoreApiKey: "",
+				embeddingProvider: "openai" as const,
+				embeddingModel: "",
+				embeddingDimensions: 1536,
+				embeddingApiKey: "",
+				embeddingBaseUrl: "",
+				knowledgeGraphEnabled: false,
+				knowledgeGraphType: "disabled" as const,
+				neo4jHost: "localhost",
+				neo4jPort: "7687",
+				neo4jUsername: "",
+				neo4jPassword: "",
+				neo4jDatabase: "neo4j",
+				inMemoryMaxNodes: 10000,
+				inMemoryMaxEdges: 50000,
+				maxSessions: 5,
+				sessionTTL: 3600,
+				maxIterations: 10,
+				mcpConnectionType: "stdio" as const,
+				mcpCommand: "",
+				mcpArgs: "",
+				apiUrl: "",
+				apiKey: "",
+			}
+		}
+		// aincrok_change end
 
 		// Start configuration loading (which might trigger indexing) in the background.
 		// Don't await, allowing activation to continue immediately.
@@ -249,65 +341,24 @@ export class ClineProvider
 	 * Initialize cloud profile synchronization
 	 */
 	private async initializeCloudProfileSync() {
-		try {
-			// Check if authenticated and sync profiles
-			if (CloudService.hasInstance() && CloudService.instance.isAuthenticated()) {
-				await this.syncCloudProfiles()
-			}
-
-			// Set up listener for future updates
-			if (CloudService.hasInstance()) {
-				CloudService.instance.on("settings-updated", this.handleCloudSettingsUpdate)
-			}
-		} catch (error) {
-			this.log(`Error in initializeCloudProfileSync: ${error}`)
-		}
+		// aincrok_change - CloudService removed, no cloud profile sync available
+		this.log("Cloud profile sync disabled - CloudService not available in aincrok fork")
 	}
 
 	/**
 	 * Handle cloud settings updates
 	 */
 	private handleCloudSettingsUpdate = async () => {
-		try {
-			await this.syncCloudProfiles()
-		} catch (error) {
-			this.log(`Error handling cloud settings update: ${error}`)
-		}
+		// aincrok_change - CloudService removed, no cloud settings updates
+		this.log("Cloud settings update disabled - CloudService not available in aincrok fork")
 	}
 
 	/**
 	 * Synchronize cloud profiles with local profiles
 	 */
 	private async syncCloudProfiles() {
-		try {
-			const settings = CloudService.instance.getOrganizationSettings()
-			if (!settings?.providerProfiles) {
-				return
-			}
-
-			const currentApiConfigName = this.getGlobalState("currentApiConfigName")
-			const result = await this.providerSettingsManager.syncCloudProfiles(
-				settings.providerProfiles,
-				currentApiConfigName,
-			)
-
-			if (result.hasChanges) {
-				// Update list
-				await this.updateGlobalState("listApiConfigMeta", await this.providerSettingsManager.listConfig())
-
-				if (result.activeProfileChanged && result.activeProfileId) {
-					// Reload full settings for new active profile
-					const profile = await this.providerSettingsManager.getProfile({
-						id: result.activeProfileId,
-					})
-					await this.activateProviderProfile({ name: profile.name })
-				}
-
-				await this.postStateToWebview()
-			}
-		} catch (error) {
-			this.log(`Error syncing cloud profiles: ${error}`)
-		}
+		// aincrok_change - CloudService removed, no cloud profile sync available
+		this.log("Cloud profile sync disabled - CloudService not available in aincrok fork")
 	}
 
 	// Adds a new Task instance to clineStack, marking the start of a new task.
@@ -421,6 +472,8 @@ export class ClineProvider
 	// This is used when the user cancels a task that is not a subtask
 	async clearTask() {
 		await this.removeClineFromStack()
+		// aincrok_change - Ensure state is properly posted after clearing task
+		await this.postStateToWebview()
 	}
 
 	resumeTask(taskId: string): void {
@@ -430,12 +483,14 @@ export class ClineProvider
 		})
 	}
 
-	getRecentTasks(): string[] {
+	async getRecentTasks(): Promise<string[]> {
 		if (this.recentTasksCache) {
 			return this.recentTasksCache
 		}
 
-		const history = this.getGlobalState("taskHistory") ?? []
+		// aincrok_change - Use TaskHistoryManager instead of globalState
+		await this.initializeTaskHistoryManager()
+		const history = await this.taskHistoryManager!.getAllTasksHistoryItems()
 		const workspaceTasks: HistoryItem[] = []
 
 		for (const item of history) {
@@ -489,6 +544,38 @@ export class ClineProvider
 		}
 	}
 
+	// aincrok_change start - Memory context management methods
+	async switchMemoryContext(contextName: string): Promise<void> {
+		// Implementation would interface with memory provider
+		// For now, store in global state
+		await this.updateGlobalState("memoryContext", contextName)
+		await this.postStateToWebview()
+	}
+
+	async getCurrentMemoryContext(): Promise<string | undefined> {
+		return this.getGlobalState("memoryContext") as string | undefined
+	}
+
+	async toggleMemoryContextSwitching(): Promise<boolean> {
+		const current = (this.getGlobalState("memoryContextSwitchingEnabled") as boolean) ?? false
+		const newState = !current
+		await this.updateGlobalState("memoryContextSwitchingEnabled", newState)
+		return newState
+	}
+
+	async getAvailableMemoryContexts(): Promise<string[]> {
+		// This would interface with the memory provider
+		// For now, return default contexts
+		return ["Default", "Project", "Workspace", "Session"]
+	}
+
+	async cleanupMemoryContexts(): Promise<number> {
+		// This would interface with the memory provider to cleanup unused contexts
+		// For now, return a placeholder count
+		return 0
+	}
+	// aincrok_change end
+
 	async dispose() {
 		this.log("Disposing ClineProvider...")
 
@@ -506,10 +593,7 @@ export class ClineProvider
 
 		this.clearWebviewResources()
 
-		// Clean up cloud service event listener
-		if (CloudService.hasInstance()) {
-			CloudService.instance.off("settings-updated", this.handleCloudSettingsUpdate)
-		}
+		// aincrok_change - CloudService removed, no event listeners to clean up
 
 		while (this.disposables.length) {
 			const x = this.disposables.pop()
@@ -543,7 +627,7 @@ export class ClineProvider
 
 		// If no visible provider, try to show the sidebar view
 		if (!visibleProvider) {
-			await vscode.commands.executeCommand(`${Package.name}.SidebarProvider.focus`)
+			await vscode.commands.executeCommand(`${Package.name}.sidebarProviderFocus`)
 			// Wait briefly for the view to become visible
 			await delay(100)
 			visibleProvider = ClineProvider.getVisibleInstance()
@@ -633,34 +717,43 @@ export class ClineProvider
 	}
 
 	async resolveWebviewView(webviewView: vscode.WebviewView | vscode.WebviewPanel) {
-		this.log("Resolving webview view")
+		try {
+			this.log("[resolveWebviewView] Starting webview resolution")
+			const startTime = Date.now()
 
-		this.view = webviewView
+			this.view = webviewView
+			this.log("[resolveWebviewView] View assigned")
 
-		// kilocode_change start: extract constant inTabMode
-		// Set panel reference according to webview type
-		const inTabMode = "onDidChangeViewState" in webviewView
+			// kilocode_change start: extract constant inTabMode
+			// Set panel reference according to webview type
+			const inTabMode = "onDidChangeViewState" in webviewView
 
-		if (inTabMode) {
-			setPanel(webviewView, "tab")
-		} else if ("onDidChangeVisibility" in webviewView) {
-			setPanel(webviewView, "sidebar")
-		}
-		// kilocode_change end
+			if (inTabMode) {
+				setPanel(webviewView, "tab")
+				this.log("[resolveWebviewView] Set panel mode: tab")
+			} else if ("onDidChangeVisibility" in webviewView) {
+				setPanel(webviewView, "sidebar")
+				this.log("[resolveWebviewView] Set panel mode: sidebar")
+			}
+			// kilocode_change end
 
-		// Initialize out-of-scope variables that need to receive persistent
-		// global state values.
-		this.getState().then(
-			({
-				terminalShellIntegrationTimeout = Terminal.defaultShellIntegrationTimeout,
-				terminalShellIntegrationDisabled = true, // kilocode_change: default
-				terminalCommandDelay = 0,
-				terminalZshClearEolMark = true,
-				terminalZshOhMy = false,
-				terminalZshP10k = false,
-				terminalPowershellCounter = false,
-				terminalZdotdir = false,
-			}) => {
+			// Initialize out-of-scope variables that need to receive persistent
+			// global state values.
+			try {
+				const state = await this.getState()
+				const {
+					terminalShellIntegrationTimeout = Terminal.defaultShellIntegrationTimeout,
+					terminalShellIntegrationDisabled = true, // kilocode_change: default
+					terminalCommandDelay = 0,
+					terminalZshClearEolMark = true,
+					terminalZshOhMy = false,
+					terminalZshP10k = false,
+					terminalPowershellCounter = false,
+					terminalZdotdir = false,
+					ttsEnabled = false,
+					ttsSpeed = 1,
+				} = state
+
 				Terminal.setShellIntegrationTimeout(terminalShellIntegrationTimeout)
 				Terminal.setShellIntegrationDisabled(terminalShellIntegrationDisabled)
 				Terminal.setCommandDelay(terminalCommandDelay)
@@ -669,96 +762,174 @@ export class ClineProvider
 				Terminal.setTerminalZshP10k(terminalZshP10k)
 				Terminal.setPowershellCounter(terminalPowershellCounter)
 				Terminal.setTerminalZdotdir(terminalZdotdir)
-			},
-		)
-
-		this.getState().then(({ ttsEnabled }) => {
-			setTtsEnabled(ttsEnabled ?? false)
-		})
-
-		this.getState().then(({ ttsSpeed }) => {
-			setTtsSpeed(ttsSpeed ?? 1)
-		})
-
-		webviewView.webview.options = {
-			enableScripts: true,
-			localResourceRoots: [this.contextProxy.extensionUri],
-		}
-
-		webviewView.webview.html =
-			this.contextProxy.extensionMode === vscode.ExtensionMode.Development
-				? await this.getHMRHtmlContent(webviewView.webview)
-				: this.getHtmlContent(webviewView.webview)
-
-		// Sets up an event listener to listen for messages passed from the webview view context
-		// and executes code based on the message that is received.
-		this.setWebviewMessageListener(webviewView.webview)
-
-		// Initialize code index status subscription for the current workspace.
-		this.updateCodeIndexStatusSubscription()
-
-		// Listen for active editor changes to update code index status for the
-		// current workspace.
-		const activeEditorSubscription = vscode.window.onDidChangeActiveTextEditor(() => {
-			// Update subscription when workspace might have changed.
-			this.updateCodeIndexStatusSubscription()
-		})
-		this.webviewDisposables.push(activeEditorSubscription)
-
-		// Listen for when the panel becomes visible.
-		// https://github.com/microsoft/vscode-discussions/discussions/840
-		if ("onDidChangeViewState" in webviewView) {
-			// WebviewView and WebviewPanel have all the same properties except
-			// for this visibility listener panel.
-			const viewStateDisposable = webviewView.onDidChangeViewState(() => {
-				if (this.view?.visible) {
-					this.postMessageToWebview({ type: "action", action: "didBecomeVisible" })
-				}
-			})
-
-			this.webviewDisposables.push(viewStateDisposable)
-		} else if ("onDidChangeVisibility" in webviewView) {
-			// sidebar
-			const visibilityDisposable = webviewView.onDidChangeVisibility(() => {
-				if (this.view?.visible) {
-					this.postMessageToWebview({ type: "action", action: "didBecomeVisible" })
-				}
-			})
-
-			this.webviewDisposables.push(visibilityDisposable)
-		}
-
-		// Listen for when the view is disposed
-		// This happens when the user closes the view or when the view is closed programmatically
-		webviewView.onDidDispose(
-			async () => {
-				if (inTabMode) {
-					this.log("Disposing ClineProvider instance for tab view")
-					await this.dispose()
-				} else {
-					this.log("Clearing webview resources for sidebar view")
-					this.clearWebviewResources()
-					// Reset current workspace manager reference when view is disposed
-					this.currentWorkspaceManager = undefined
-				}
-			},
-			null,
-			this.disposables,
-		)
-
-		// Listen for when color changes
-		const configDisposable = vscode.workspace.onDidChangeConfiguration(async (e) => {
-			if (e && e.affectsConfiguration("workbench.colorTheme")) {
-				// Sends latest theme name to webview
-				await this.postMessageToWebview({ type: "theme", text: JSON.stringify(await getTheme()) })
+				setTtsEnabled(ttsEnabled)
+				setTtsSpeed(ttsSpeed)
+				this.log("[resolveWebviewView] Terminal and TTS settings initialized")
+			} catch (error: any) {
+				this.log(
+					`[resolveWebviewView] Failed to initialize settings: ${error?.message || error}. Using defaults.`,
+				)
+				// Use defaults if loading fails - non-critical error
+				Terminal.setShellIntegrationTimeout(Terminal.defaultShellIntegrationTimeout)
+				Terminal.setShellIntegrationDisabled(true)
+				Terminal.setCommandDelay(0)
+				Terminal.setTerminalZshClearEolMark(true)
+				Terminal.setTerminalZshOhMy(false)
+				Terminal.setTerminalZshP10k(false)
+				Terminal.setPowershellCounter(false)
+				Terminal.setTerminalZdotdir(false)
+				setTtsEnabled(false)
+				setTtsSpeed(1)
 			}
-		})
-		this.webviewDisposables.push(configDisposable)
 
-		// If the extension is starting a new session, clear previous task state.
-		await this.removeClineFromStack()
+			// aincrok_change - Initialize memoryConfiguration from global state
+			try {
+				const memoryConfig = await this.context.globalState.get<any>("memoryConfiguration")
+				if (memoryConfig) {
+					this.memoryConfiguration = memoryConfig
+					this.log("[resolveWebviewView] Memory configuration loaded")
+				} else {
+					this.log("[resolveWebviewView] No memory configuration found, using defaults")
+				}
+			} catch (error: any) {
+				this.log(
+					`[resolveWebviewView] Failed to load memoryConfiguration: ${error?.message || error}. Using defaults.`,
+				)
+				// Continue with default values if loading fails - non-critical error
+			}
 
-		this.log("Webview view resolved")
+			try {
+				webviewView.webview.options = {
+					enableScripts: true,
+					localResourceRoots: [this.contextProxy.extensionUri],
+				}
+				this.log("[resolveWebviewView] Webview options set")
+
+				// Generate HTML content with error handling
+				try {
+					webviewView.webview.html =
+						this.contextProxy.extensionMode === vscode.ExtensionMode.Development
+							? await this.getHMRHtmlContent(webviewView.webview)
+							: this.getHtmlContent(webviewView.webview)
+					this.log("[resolveWebviewView] HTML content set successfully")
+				} catch (htmlError: any) {
+					this.log(
+						`[resolveWebviewView] Failed to generate HTML: ${htmlError?.message || htmlError}. Using fallback.`,
+					)
+					// Use minimal fallback HTML
+					webviewView.webview.html = this.getMinimalFallbackHtml()
+				}
+			} catch (error: any) {
+				this.log(`[resolveWebviewView] Critical error setting webview options: ${error?.message || error}`)
+				throw error // This is critical, re-throw
+			}
+
+			// Sets up an event listener to listen for messages passed from the webview view context
+			// and executes code based on the message that is received.
+			try {
+				this.setWebviewMessageListener(webviewView.webview)
+				this.log("[resolveWebviewView] Message listener set")
+			} catch (error: any) {
+				this.log(`[resolveWebviewView] Failed to set message listener: ${error?.message || error}`)
+				// Non-critical, continue
+			}
+
+			// Initialize code index status subscription for the current workspace.
+			try {
+				this.updateCodeIndexStatusSubscription()
+				this.log("[resolveWebviewView] Code index subscription updated")
+			} catch (error: any) {
+				this.log(`[resolveWebviewView] Failed to update code index subscription: ${error?.message || error}`)
+				// Non-critical, continue
+			}
+
+			// Listen for active editor changes to update code index status for the
+			// current workspace.
+			try {
+				const activeEditorSubscription = vscode.window.onDidChangeActiveTextEditor(() => {
+					// Update subscription when workspace might have changed.
+					this.updateCodeIndexStatusSubscription()
+				})
+				this.webviewDisposables.push(activeEditorSubscription)
+			} catch (error: any) {
+				this.log(`[resolveWebviewView] Failed to set up editor listener: ${error?.message || error}`)
+				// Non-critical, continue
+			}
+
+			// Listen for when the panel becomes visible.
+			// https://github.com/microsoft/vscode-discussions/discussions/840
+			if ("onDidChangeViewState" in webviewView) {
+				// WebviewView and WebviewPanel have all the same properties except
+				// for this visibility listener panel.
+				const viewStateDisposable = webviewView.onDidChangeViewState(() => {
+					if (this.view?.visible) {
+						this.postMessageToWebview({ type: "action", action: "didBecomeVisible" })
+					}
+				})
+
+				this.webviewDisposables.push(viewStateDisposable)
+			} else if ("onDidChangeVisibility" in webviewView) {
+				// sidebar
+				const visibilityDisposable = webviewView.onDidChangeVisibility(() => {
+					if (this.view?.visible) {
+						this.postMessageToWebview({ type: "action", action: "didBecomeVisible" })
+					}
+				})
+
+				this.webviewDisposables.push(visibilityDisposable)
+			}
+
+			// Listen for when the view is disposed
+			// This happens when the user closes the view or when the view is closed programmatically
+			webviewView.onDidDispose(
+				async () => {
+					if (inTabMode) {
+						this.log("Disposing ClineProvider instance for tab view")
+						await this.dispose()
+					} else {
+						this.log("Clearing webview resources for sidebar view")
+						this.clearWebviewResources()
+						// Reset current workspace manager reference when view is disposed
+						this.currentWorkspaceManager = undefined
+					}
+				},
+				null,
+				this.disposables,
+			)
+
+			// Listen for when color changes
+			const configDisposable = vscode.workspace.onDidChangeConfiguration(async (e) => {
+				if (e && e.affectsConfiguration("workbench.colorTheme")) {
+					// Sends latest theme name to webview
+					await this.postMessageToWebview({ type: "theme", text: JSON.stringify(await getTheme()) })
+				}
+			})
+			this.webviewDisposables.push(configDisposable)
+
+			// If the extension is starting a new session, clear previous task state.
+			try {
+				await this.removeClineFromStack()
+				this.log("[resolveWebviewView] Previous task state cleared")
+			} catch (error: any) {
+				this.log(`[resolveWebviewView] Failed to clear previous task state: ${error?.message || error}`)
+				// Non-critical, continue
+			}
+
+			const elapsed = Date.now() - startTime
+			this.log(`[resolveWebviewView] Webview view resolved successfully in ${elapsed}ms`)
+		} catch (error: any) {
+			this.log(`[resolveWebviewView] CRITICAL ERROR: Failed to resolve webview: ${error?.message || error}`)
+			this.log(`[resolveWebviewView] Stack trace: ${error?.stack || "No stack trace"}`)
+			// Try to show error in webview if possible
+			if (webviewView?.webview) {
+				try {
+					webviewView.webview.html = this.getErrorHtml(error?.message || String(error))
+				} catch {
+					// Last resort failed
+				}
+			}
+			throw error // Re-throw to signal failure to VS Code
+		}
 	}
 
 	// When initializing a new task, (not from history but from a tool command
@@ -948,7 +1119,9 @@ export class ClineProvider
 
 		const nonce = getNonce()
 
+		// aincrok_change - Fix webview asset paths in HMR
 		const stylesUri = getUri(webview, this.contextProxy.extensionUri, [
+			"src",
 			"webview-ui",
 			"build",
 			"assets",
@@ -962,7 +1135,7 @@ export class ClineProvider
 			"icons",
 		])
 		const imagesUri = getUri(webview, this.contextProxy.extensionUri, ["assets", "images"])
-		const audioUri = getUri(webview, this.contextProxy.extensionUri, ["webview-ui", "audio"])
+		const audioUri = getUri(webview, this.contextProxy.extensionUri, ["src", "webview-ui", "audio"])
 
 		const file = "src/index.tsx"
 		const scriptUri = `http://${localServerUrl}/${file}`
@@ -1001,7 +1174,7 @@ export class ClineProvider
 						window.AUDIO_BASE_URI = "${audioUri}"
 						window.MATERIAL_ICONS_BASE_URI = "${materialIconsUri}"
 					</script>
-					<title>Kilo Code</title>
+					<title>Aincrok</title>
 				</head>
 				<body>
 					<div id="root"></div>
@@ -1027,15 +1200,23 @@ export class ClineProvider
 		// Get the local path to main script run in the webview,
 		// then convert it to a uri we can use in the webview.
 
+		// aincrok_change - Fix webview asset paths
 		// The CSS file from the React build output
 		const stylesUri = getUri(webview, this.contextProxy.extensionUri, [
+			"src",
 			"webview-ui",
 			"build",
 			"assets",
 			"index.css",
 		])
 
-		const scriptUri = getUri(webview, this.contextProxy.extensionUri, ["webview-ui", "build", "assets", "index.js"])
+		const scriptUri = getUri(webview, this.contextProxy.extensionUri, [
+			"src",
+			"webview-ui",
+			"build",
+			"assets",
+			"index.js",
+		])
 		const codiconsUri = getUri(webview, this.contextProxy.extensionUri, ["assets", "codicons", "codicon.css"])
 		const materialIconsUri = getUri(webview, this.contextProxy.extensionUri, [
 			"assets",
@@ -1043,7 +1224,7 @@ export class ClineProvider
 			"icons",
 		])
 		const imagesUri = getUri(webview, this.contextProxy.extensionUri, ["assets", "images"])
-		const audioUri = getUri(webview, this.contextProxy.extensionUri, ["webview-ui", "audio"])
+		const audioUri = getUri(webview, this.contextProxy.extensionUri, ["src", "webview-ui", "audio"])
 
 		// Use a nonce to only allow a specific script to be run.
 		/*
@@ -1075,7 +1256,7 @@ export class ClineProvider
 				window.AUDIO_BASE_URI = "${audioUri}"
 				window.MATERIAL_ICONS_BASE_URI = "${materialIconsUri}"
 			</script>
-            <title>Kilo Code</title>
+            <title>Aincrok</title>
           </head>
           <body>
             <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -1086,6 +1267,107 @@ export class ClineProvider
       `
 	}
 
+	// aincrok_change start - Add fallback HTML methods for error handling
+	private getMinimalFallbackHtml(): string {
+		return /*html*/ `
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1">
+			<title>Aincrok</title>
+			<style>
+				body {
+					margin: 0;
+					padding: 20px;
+					font-family: var(--vscode-font-family);
+					background-color: var(--vscode-editor-background);
+					color: var(--vscode-editor-foreground);
+				}
+				.loading {
+					text-align: center;
+					margin-top: 50px;
+				}
+				.error {
+					color: var(--vscode-errorForeground);
+					margin-top: 20px;
+				}
+			</style>
+		</head>
+		<body>
+			<div class="loading">
+				<h2>Loading Aincrok...</h2>
+				<p>If this message persists, please try:</p>
+				<ul style="text-align: left; display: inline-block;">
+					<li>Reloading the window (Cmd/Ctrl+R)</li>
+					<li>Restarting VS Code</li>
+					<li>Checking the output panel for errors</li>
+				</ul>
+			</div>
+		</body>
+		</html>
+		`
+	}
+
+	private getErrorHtml(errorMessage: string): string {
+		return /*html*/ `
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1">
+			<title>Aincrok - Error</title>
+			<style>
+				body {
+					margin: 0;
+					padding: 20px;
+					font-family: var(--vscode-font-family);
+					background-color: var(--vscode-editor-background);
+					color: var(--vscode-editor-foreground);
+				}
+				.error-container {
+					text-align: center;
+					margin-top: 50px;
+				}
+				.error-message {
+					color: var(--vscode-errorForeground);
+					margin: 20px;
+					padding: 10px;
+					border: 1px solid var(--vscode-errorForeground);
+					border-radius: 4px;
+					background-color: var(--vscode-inputValidation-errorBackground);
+				}
+				.suggestions {
+					text-align: left;
+					display: inline-block;
+					margin-top: 20px;
+				}
+			</style>
+		</head>
+		<body>
+			<div class="error-container">
+				<h2>Failed to Load Aincrok</h2>
+				<div class="error-message">
+					<strong>Error:</strong> ${errorMessage}
+				</div>
+				<div class="suggestions">
+					<h3>Troubleshooting Steps:</h3>
+					<ol>
+						<li>Check the Output panel (View → Output → Aincrok) for detailed error logs</li>
+						<li>Try reloading the window with Cmd/Ctrl+R</li>
+						<li>Restart VS Code</li>
+						<li>Ensure the extension is properly installed</li>
+						<li>Report the issue if it persists</li>
+					</ol>
+				</div>
+			</div>
+		</body>
+		</html>
+		`
+	}
+
+	// aincrok_change end
+
 	/**
 	 * Sets up an event listener to listen for messages passed from the webview context and
 	 * executes code based on the message that is received.
@@ -1093,8 +1375,7 @@ export class ClineProvider
 	 * @param webview A reference to the extension webview
 	 */
 	private setWebviewMessageListener(webview: vscode.Webview) {
-		const onReceiveMessage = async (message: WebviewMessage) =>
-			webviewMessageHandler(this, message, this.marketplaceManager)
+		const onReceiveMessage = webviewMessageHandler(this, this.marketplaceManager)
 
 		const messageDisposable = webview.onDidReceiveMessage(onReceiveMessage)
 		this.webviewDisposables.push(messageDisposable)
@@ -1183,6 +1464,18 @@ export class ClineProvider
 		return !!this.getProviderProfileEntry(name)
 	}
 
+	// aincrok_change start - add missing updateApiConfiguration method
+	async updateApiConfiguration(
+		providerSettings: ProviderSettings,
+		apiConfigName?: string,
+		apiConfigId?: string,
+	): Promise<string | undefined> {
+		const { currentApiConfigName } = await this.getState()
+		const name = apiConfigName || currentApiConfigName
+		return await this.upsertProviderProfile(name, providerSettings, true)
+	}
+	// aincrok_change end
+
 	async upsertProviderProfile(
 		name: string,
 		providerSettings: ProviderSettings,
@@ -1209,12 +1502,37 @@ export class ClineProvider
 				// this.contextProxy.setValues({ ...providerSettings, listApiConfigMeta: ..., currentApiConfigName: ... })
 				// We should probably switch to that and verify that it works.
 				// I left the original implementation in just to be safe.
+
+				// DEBUG: Log before updating provider settings
+				console.log(
+					"[DEBUG upsertProviderProfile] Before setProviderSettings, apiConfiguration keys:",
+					Object.keys(providerSettings),
+				)
+				console.log("[DEBUG upsertProviderProfile] Sample provider settings:", {
+					apiProvider: providerSettings.apiProvider,
+					apiModelId: providerSettings.apiModelId,
+				})
+
+				// FIX: Update listApiConfigMeta first separately to avoid nested await in Promise.all
+				const listApiConfigMeta = await this.providerSettingsManager.listConfig()
+
 				await Promise.all([
-					this.updateGlobalState("listApiConfigMeta", await this.providerSettingsManager.listConfig()),
+					this.updateGlobalState("listApiConfigMeta", listApiConfigMeta),
 					this.updateGlobalState("currentApiConfigName", name),
 					this.providerSettingsManager.setModeConfig(mode, id),
 					this.contextProxy.setProviderSettings(providerSettings),
 				])
+
+				// DEBUG: Verify the settings were saved
+				const verifySettings = this.contextProxy.getProviderSettings()
+				console.log(
+					"[DEBUG upsertProviderProfile] After setProviderSettings, retrieved apiConfiguration keys:",
+					Object.keys(verifySettings),
+				)
+				console.log("[DEBUG upsertProviderProfile] Verified settings sample:", {
+					apiProvider: verifySettings.apiProvider,
+					apiModelId: verifySettings.apiModelId,
+				})
 
 				// Change the provider for the current task.
 				// TODO: We should rename `buildApiHandler` for clarity (e.g. `getProviderClient`).
@@ -1229,7 +1547,10 @@ export class ClineProvider
 				await this.updateGlobalState("listApiConfigMeta", await this.providerSettingsManager.listConfig())
 			}
 
+			// No need for delay or reload - the contextProxy should now have the correct data
+			console.log("[DEBUG upsertProviderProfile] About to post state to webview")
 			await this.postStateToWebview()
+			console.log("[DEBUG upsertProviderProfile] Posted state to webview")
 			return id
 		} catch (error) {
 			this.log(
@@ -1481,8 +1802,29 @@ export class ClineProvider
 		uiMessagesFilePath: string
 		apiConversationHistory: Anthropic.MessageParam[]
 	}> {
-		const history = this.getGlobalState("taskHistory") ?? []
-		const historyItem = history.find((item) => item.id === id)
+		// Initialize task history manager to ensure we can access newer tasks
+		await this.initializeTaskHistoryManager()
+
+		// First check the new TaskHistoryManager
+		let historyItem: HistoryItem | undefined
+		let taskFile = null
+
+		if (this.taskHistoryManager) {
+			try {
+				taskFile = await this.taskHistoryManager.getTask(id)
+				if (taskFile) {
+					historyItem = taskFile.metadata
+				}
+			} catch (error) {
+				console.warn(`[ClineProvider] TaskHistoryManager failed to get task ${id}:`, error)
+			}
+		}
+
+		// Fallback to old globalState method if not found in TaskHistoryManager
+		if (!historyItem) {
+			const history = this.getGlobalState("taskHistory") ?? []
+			historyItem = history.find((item) => item.id === id)
+		}
 
 		if (historyItem) {
 			const { getTaskDirectoryPath } = await import("../../utils/storage")
@@ -1490,7 +1832,24 @@ export class ClineProvider
 			const taskDirPath = await getTaskDirectoryPath(globalStoragePath, id)
 			const apiConversationHistoryFilePath = path.join(taskDirPath, GlobalFileNames.apiConversationHistory)
 			const uiMessagesFilePath = path.join(taskDirPath, GlobalFileNames.uiMessages)
-			const fileExists = await fileExistsAtPath(apiConversationHistoryFilePath)
+
+			// Add retry logic for file existence check to handle race conditions
+			let fileExists = false
+			let retryCount = 0
+			const maxRetries = 3
+			const retryDelay = 200 // ms
+
+			while (retryCount < maxRetries && !fileExists) {
+				fileExists = await fileExistsAtPath(apiConversationHistoryFilePath)
+
+				if (!fileExists && retryCount < maxRetries - 1) {
+					retryCount++
+					console.warn(`[ClineProvider] Task file not found on attempt ${retryCount}, retrying for ${id}`)
+					await new Promise((resolve) => setTimeout(resolve, retryDelay * retryCount))
+				} else {
+					break
+				}
+			}
 
 			if (fileExists) {
 				const apiConversationHistory = JSON.parse(await fs.readFile(apiConversationHistoryFilePath, "utf8"))
@@ -1607,15 +1966,37 @@ export class ClineProvider
 	}
 
 	async deleteTaskFromState(id: string) {
-		const taskHistory = this.getGlobalState("taskHistory") ?? []
-		const updatedTaskHistory = taskHistory.filter((task) => task.id !== id)
-		await this.updateGlobalState("taskHistory", updatedTaskHistory)
+		// aincrok_change - Use TaskHistoryManager instead of globalState
+		await this.initializeTaskHistoryManager()
+		await this.taskHistoryManager!.deleteTask(id)
 		this.recentTasksCache = undefined
 		await this.postStateToWebview()
 	}
 
+	// aincrok_change - Initialize TaskHistoryManager for file-based storage
+	private async initializeTaskHistoryManager(): Promise<void> {
+		if (!this.taskHistoryManager) {
+			this.taskHistoryManager = TaskHistoryManager.getInstance(this.context, {
+				maxTasks: 100,
+				retentionDays: 30,
+				autoCleanup: true,
+			})
+			await this.taskHistoryManager.initialize()
+			await this.taskHistoryManager.migrateFromGlobalState()
+		}
+	}
+
 	async postStateToWebview() {
+		// Initialize TaskHistoryManager if not already done
+		await this.initializeTaskHistoryManager()
+
+		// DEBUG: Log when posting state back
+		console.log("[DEBUG postStateToWebview] Getting state to post...")
 		const state = await this.getStateToPostToWebview()
+		console.log(
+			"[DEBUG postStateToWebview] apiConfiguration keys being sent back:",
+			Object.keys(state.apiConfiguration ?? {}),
+		)
 
 		// aincrok_change: State transfer monitoring for grey screen debugging (Phase 1 Critical Fix)
 		const stateJson = JSON.stringify(state)
@@ -1626,6 +2007,13 @@ export class ClineProvider
 		// Log state transfer metrics for hypothesis testing
 		console.log(
 			`[STATE_TRANSFER] Size: ${stateSizeKB}KB, Messages: ${messageCount}/${totalMessageCount} (${totalMessageCount > 150 ? "SLIDING_WINDOW_ACTIVE" : "FULL_ARRAY"})`,
+		)
+		// aincrok_change - Debug logging for blank screen
+		console.log(
+			"[postStateToWebview] Posting state with messages:",
+			messageCount,
+			"currentTaskItem:",
+			!!state.currentTaskItem,
 		)
 
 		// Warning for large state transfers (indicates potential memory pressure)
@@ -1770,6 +2158,10 @@ export class ClineProvider
 	}
 
 	async getStateToPostToWebview() {
+		// aincrok_change - Get task history from TaskHistoryManager instead of globalState
+		await this.initializeTaskHistoryManager()
+		const taskHistory = await this.taskHistoryManager!.getAllTasksHistoryItems()
+
 		const {
 			apiConfiguration,
 			customInstructions,
@@ -1795,7 +2187,6 @@ export class ClineProvider
 			ttsSpeed,
 			diffEnabled,
 			enableCheckpoints,
-			taskHistory,
 			soundVolume,
 			browserViewportSize,
 			screenshotQuality,
@@ -2001,7 +2392,7 @@ export class ClineProvider
 			// undefined means no MDM policy, true means compliant, false means non-compliant
 			mdmCompliant: this.mdmService?.requiresCloudAuth() ? this.checkMdmCompliance() : undefined,
 			profileThresholds: profileThresholds ?? {},
-			cloudApiUrl: getRooCodeApiUrl(),
+			cloudApiUrl: "", // aincrok_change - CloudService removed, no API URL available
 			hasOpenedModeSelector: this.getGlobalState("hasOpenedModeSelector") ?? false,
 			systemNotificationsEnabled: systemNotificationsEnabled ?? false, // kilocode_change
 			dismissedNotificationIds: dismissedNotificationIds ?? [], // kilocode_change
@@ -2012,6 +2403,43 @@ export class ClineProvider
 			maxDiagnosticMessages: maxDiagnosticMessages ?? 50,
 			includeTaskHistoryInEnhance: includeTaskHistoryInEnhance ?? true,
 			remoteControlEnabled: remoteControlEnabled ?? false,
+			// aincrok_change - Return actual memoryConfiguration from state or provider
+			memoryConfiguration: this.memoryConfiguration ||
+				(await this.context.globalState.get<any>("memoryConfiguration")) || {
+					mode: "disabled" as const,
+					autoCapture: false,
+					extractReasoning: false,
+					teamSharing: false,
+					llmProvider: "openai" as const,
+					llmModel: "",
+					llmApiKey: "",
+					llmBaseUrl: "",
+					vectorStore: "in-memory" as const,
+					vectorStoreUrl: "",
+					vectorStoreApiKey: "",
+					embeddingProvider: "openai" as const,
+					embeddingModel: "",
+					embeddingDimensions: 1536,
+					embeddingApiKey: "",
+					embeddingBaseUrl: "",
+					knowledgeGraphEnabled: false,
+					knowledgeGraphType: "disabled" as const,
+					neo4jHost: "localhost",
+					neo4jPort: "7687",
+					neo4jUsername: "",
+					neo4jPassword: "",
+					neo4jDatabase: "neo4j",
+					inMemoryMaxNodes: 10000,
+					inMemoryMaxEdges: 50000,
+					maxSessions: 5,
+					sessionTTL: 3600,
+					maxIterations: 10,
+					mcpConnectionType: "stdio" as const,
+					mcpCommand: "",
+					mcpArgs: "",
+					apiUrl: "",
+					apiKey: "",
+				},
 		}
 	}
 
@@ -2045,68 +2473,72 @@ export class ClineProvider
 
 		// Build the apiConfiguration object combining state values and secrets.
 		const providerSettings = this.contextProxy.getProviderSettings()
+		console.log("[DEBUG getState] Retrieved provider settings:", {
+			keys: Object.keys(providerSettings),
+			apiProvider: providerSettings.apiProvider,
+			apiModelId: providerSettings.apiModelId,
+		})
 
 		// Ensure apiProvider is set properly if not already in state
 		if (!providerSettings.apiProvider) {
 			providerSettings.apiProvider = apiProvider
 		}
 
+		// aincrok_change start - Load memory configuration from global state or use defaults
+		const storedMemoryConfig = await this.context.globalState.get<any>("memoryConfiguration")
+		const memoryConfiguration = storedMemoryConfig || {
+			mode: "disabled" as const,
+			autoCapture: false,
+			extractReasoning: false,
+			teamSharing: false,
+			llmProvider: "openai" as const,
+			llmModel: "",
+			llmApiKey: "",
+			llmBaseUrl: "",
+			vectorStore: "in-memory" as const,
+			vectorStoreUrl: "",
+			vectorStoreApiKey: "",
+			embeddingProvider: "openai" as const,
+			embeddingModel: "",
+			embeddingDimensions: 1536,
+			embeddingApiKey: "",
+			embeddingBaseUrl: "",
+			knowledgeGraphEnabled: false,
+			knowledgeGraphType: "in-memory" as const,
+			neo4jHost: "localhost",
+			neo4jPort: "7687",
+			neo4jUsername: "",
+			neo4jPassword: "",
+			neo4jDatabase: "neo4j",
+			inMemoryMaxNodes: 10000,
+			inMemoryMaxEdges: 50000,
+			maxSessions: 5,
+			sessionTTL: 3600,
+			maxIterations: 10,
+			mcpConnectionType: "stdio" as const,
+			mcpCommand: "",
+			mcpArgs: "",
+			apiUrl: "",
+			apiKey: "",
+		}
+
+		// Create combined settings object with provider settings and clean memoryConfiguration
+		const combinedSettings: any = {
+			...providerSettings,
+			memoryConfiguration,
+		}
+		// aincrok_change end
+
+		// aincrok_change - CloudService removed, using default values
 		let organizationAllowList = ORGANIZATION_ALLOW_ALL
-
-		try {
-			organizationAllowList = await CloudService.instance.getAllowList()
-		} catch (error) {
-			console.error(
-				`[getState] failed to get organization allow list: ${error instanceof Error ? error.message : String(error)}`,
-			)
-		}
-
 		let cloudUserInfo: CloudUserInfo | null = null
-
-		try {
-			cloudUserInfo = CloudService.instance.getUserInfo()
-		} catch (error) {
-			console.error(
-				`[getState] failed to get cloud user info: ${error instanceof Error ? error.message : String(error)}`,
-			)
-		}
-
 		let cloudIsAuthenticated: boolean = false
-
-		try {
-			cloudIsAuthenticated = CloudService.instance.isAuthenticated()
-		} catch (error) {
-			console.error(
-				`[getState] failed to get cloud authentication state: ${error instanceof Error ? error.message : String(error)}`,
-			)
-		}
-
 		let sharingEnabled: boolean = false
-
-		try {
-			sharingEnabled = await CloudService.instance.canShareTask()
-		} catch (error) {
-			console.error(
-				`[getState] failed to get sharing enabled state: ${error instanceof Error ? error.message : String(error)}`,
-			)
-		}
-
 		let organizationSettingsVersion: number = -1
-
-		try {
-			if (CloudService.hasInstance()) {
-				const settings = CloudService.instance.getOrganizationSettings()
-				organizationSettingsVersion = settings?.version ?? -1
-			}
-		} catch (error) {
-			console.error(
-				`[getState] failed to get organization settings version: ${error instanceof Error ? error.message : String(error)}`,
-			)
-		}
 
 		// Return the same structure as before
 		return {
-			apiConfiguration: providerSettings,
+			apiConfiguration: combinedSettings,
 			lastShownAnnouncementId: stateValues.lastShownAnnouncementId,
 			customInstructions: stateValues.customInstructions,
 			apiModelId: stateValues.apiModelId,
@@ -2230,29 +2662,30 @@ export class ClineProvider
 			includeTaskHistoryInEnhance: stateValues.includeTaskHistoryInEnhance ?? true,
 			// Add remoteControlEnabled setting
 			remoteControlEnabled: stateValues.remoteControlEnabled ?? false,
+			// aincrok_change - Include memoryConfiguration from combinedSettings
+			memoryConfiguration: combinedSettings.memoryConfiguration,
 		}
 	}
 
 	async updateTaskHistory(item: HistoryItem): Promise<HistoryItem[]> {
-		const history = (this.getGlobalState("taskHistory") as HistoryItem[] | undefined) || []
-		const existingItemIndex = history.findIndex((h) => h.id === item.id)
+		// aincrok_change - Use TaskHistoryManager instead of globalState
+		await this.initializeTaskHistoryManager()
 
-		if (existingItemIndex !== -1) {
-			history[existingItemIndex] = item
-		} else {
-			history.push(item)
-		}
+		// Get current task messages for storage
+		const currentTask = this.getCurrentTask()
+		const messages = currentTask?.taskId === item.id ? currentTask.clineMessages : undefined
 
-		await this.updateGlobalState("taskHistory", history)
+		await this.taskHistoryManager!.saveTask(item, messages)
 		this.recentTasksCache = undefined
 
-		return history
+		return await this.taskHistoryManager!.getAllTasksHistoryItems()
 	}
 
 	// ContextProxy
 
 	// @deprecated - Use `ContextProxy#setValue` instead.
-	private async updateGlobalState<K extends keyof GlobalState>(key: K, value: GlobalState[K]) {
+	// aincrok_change - made public for webviewMessageHandler access
+	public async updateGlobalState<K extends keyof GlobalState>(key: K, value: GlobalState[K]) {
 		await this.contextProxy.setValue(key, value)
 	}
 
@@ -2357,57 +2790,60 @@ export class ClineProvider
 		return true
 	}
 
+	// aincrok_change - Disabled remote control functionality (no @roo-code/cloud)
 	public async handleRemoteControlToggle(enabled: boolean) {
-		const { CloudService: CloudServiceImport, ExtensionBridgeService } = await import("@roo-code/cloud")
+		// const { CloudService: CloudServiceImport, ExtensionBridgeService } = await import("@roo-code/cloud")
 
-		const userInfo = CloudServiceImport.instance.getUserInfo()
+		// const userInfo = CloudServiceImport.instance.getUserInfo()
 
-		const bridgeConfig = await CloudServiceImport.instance.cloudAPI?.bridgeConfig().catch(() => undefined)
+		// const bridgeConfig = await CloudServiceImport.instance.cloudAPI?.bridgeConfig().catch(() => undefined)
 
-		if (!bridgeConfig) {
-			this.log("[ClineProvider#handleRemoteControlToggle] Failed to get bridge config")
-			return
-		}
+		// if (!bridgeConfig) {
+		// 	this.log("[ClineProvider#handleRemoteControlToggle] Failed to get bridge config")
+		// 	return
+		// }
 
-		await ExtensionBridgeService.handleRemoteControlState(
-			userInfo,
-			enabled,
-			{ ...bridgeConfig, provider: this as any, sessionId: vscode.env.sessionId },
-			(message: string) => this.log(message),
-		)
+		// await ExtensionBridgeService.handleRemoteControlState(
+		// 	userInfo,
+		// 	enabled,
+		// 	{ ...bridgeConfig, provider: this as any, sessionId: vscode.env.sessionId },
+		// 	(message: string) => this.log(message),
+		// )
 
-		if (isRemoteControlEnabled(userInfo, enabled)) {
-			const currentTask = this.getCurrentTask()
+		// if (isRemoteControlEnabled(userInfo, enabled)) {
+		// 	const currentTask = this.getCurrentTask()
 
-			if (currentTask && !currentTask.bridgeService) {
-				try {
-					currentTask.bridgeService = ExtensionBridgeService.getInstance()
+		// 	if (currentTask && !currentTask.bridgeService) {
+		// 		try {
+		// 			currentTask.bridgeService = ExtensionBridgeService.getInstance()
 
-					if (currentTask.bridgeService) {
-						await currentTask.bridgeService.subscribeToTask(currentTask as any)
-					}
-				} catch (error) {
-					const message = `[ClineProvider#handleRemoteControlToggle] subscribeToTask failed - ${error instanceof Error ? error.message : String(error)}`
-					this.log(message)
-					console.error(message)
-				}
-			}
-		} else {
-			for (const task of this.clineStack) {
-				if (task.bridgeService) {
-					try {
-						await task.bridgeService.unsubscribeFromTask(task.taskId)
-						task.bridgeService = null
-					} catch (error) {
-						const message = `[ClineProvider#handleRemoteControlToggle] unsubscribeFromTask failed - ${error instanceof Error ? error.message : String(error)}`
-						this.log(message)
-						console.error(message)
-					}
-				}
-			}
+		// 			if (currentTask.bridgeService) {
+		// 				await currentTask.bridgeService.subscribeToTask(currentTask as any)
+		// 			}
+		// 		} catch (error) {
+		// 			const message = `[ClineProvider#handleRemoteControlToggle] subscribeToTask failed - ${error instanceof Error ? error.message : String(error)}`
+		// 			this.log(message)
+		// 			console.error(message)
+		// 		}
+		// 	}
+		// } else {
+		// 	for (const task of this.clineStack) {
+		// 		if (task.bridgeService) {
+		// 			try {
+		// 				await task.bridgeService.unsubscribeFromTask(task.taskId)
+		// 				task.bridgeService = null
+		// 			} catch (error) {
+		// 				const message = `[ClineProvider#handleRemoteControlToggle] unsubscribeFromTask failed - ${error instanceof Error ? error.message : String(error)}`
+		// 				this.log(message)
+		// 				console.error(message)
+		// 			}
+		// 		}
+		// 	}
 
-			ExtensionBridgeService.resetInstance()
-		}
+		// 	ExtensionBridgeService.resetInstance()
+		// }
+
+		this.log("[ClineProvider#handleRemoteControlToggle] Remote control disabled in aincrok fork")
 	}
 
 	private _appProperties?: StaticAppProperties
@@ -2433,16 +2869,8 @@ export class ClineProvider
 	}
 
 	private getCloudProperties(): CloudAppProperties {
-		let cloudIsAuthenticated: boolean | undefined
-
-		try {
-			if (CloudService.hasInstance()) {
-				cloudIsAuthenticated = CloudService.instance.isAuthenticated()
-			}
-		} catch (error) {
-			// Silently handle errors to avoid breaking telemetry collection.
-			this.log(`[getTelemetryProperties] Failed to get cloud auth state: ${error}`)
-		}
+		// aincrok_change - CloudService removed, no cloud authentication available
+		let cloudIsAuthenticated: boolean | undefined = false
 
 		return {
 			cloudIsAuthenticated,
@@ -2745,45 +3173,44 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 	// kilocode_change start
 	// Add new methods for favorite functionality
 	async toggleTaskFavorite(id: string) {
-		const history = this.getGlobalState("taskHistory") ?? []
-		const updatedHistory = history.map((item) => {
-			if (item.id === id) {
-				return { ...item, isFavorited: !item.isFavorited }
-			}
-			return item
-		})
-		await this.updateGlobalState("taskHistory", updatedHistory)
+		// aincrok_change - Use TaskHistoryManager instead of globalState
+		await this.initializeTaskHistoryManager()
+		await this.taskHistoryManager!.toggleTaskFavorite(id)
 		await this.postStateToWebview()
 	}
 
 	async getFavoriteTasks(): Promise<HistoryItem[]> {
-		const history = this.getGlobalState("taskHistory") ?? []
+		// aincrok_change - Use TaskHistoryManager instead of globalState
+		await this.initializeTaskHistoryManager()
+		const history = await this.taskHistoryManager!.getAllTasksHistoryItems()
 		return history.filter((item) => item.isFavorited)
 	}
 
 	// Modify batch delete to respect favorites
 	async deleteMultipleTasks(taskIds: string[]) {
-		const history = this.getGlobalState("taskHistory") ?? []
+		// aincrok_change - Use TaskHistoryManager instead of globalState
+		await this.initializeTaskHistoryManager()
+		const history = await this.taskHistoryManager!.getAllTasksHistoryItems()
 		const favoritedTaskIds = taskIds.filter((id) => history.find((item) => item.id === id)?.isFavorited)
 
 		if (favoritedTaskIds.length > 0) {
 			throw new Error("Cannot delete favorited tasks. Please unfavorite them first.")
 		}
 
-		for (const id of taskIds) {
-			await this.deleteTaskWithId(id)
-		}
+		// Use efficient batch delete
+		await this.taskHistoryManager!.deleteMultipleTasks(taskIds)
+		this.recentTasksCache = undefined
+		await this.postStateToWebview()
 	}
 
 	async setTaskFileNotFound(id: string) {
-		const history = this.getGlobalState("taskHistory") ?? []
-		const updatedHistory = history.map((item) => {
-			if (item.id === id) {
-				return { ...item, fileNotfound: true }
-			}
-			return item
-		})
-		await this.updateGlobalState("taskHistory", updatedHistory)
+		// aincrok_change - Use TaskHistoryManager instead of globalState
+		await this.initializeTaskHistoryManager()
+		const taskFile = await this.taskHistoryManager!.getTask(id)
+		if (taskFile) {
+			taskFile.metadata.fileNotfound = true
+			await this.taskHistoryManager!.saveTask(taskFile.metadata, taskFile.messages)
+		}
 		await this.postStateToWebview()
 	}
 

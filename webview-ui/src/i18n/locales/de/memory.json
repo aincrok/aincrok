@@ -1,0 +1,103 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Automatische Erfassung",
+		"reasoningExtraction": "Argumentationsextraktion",
+		"workspace": "Team-Arbeitsbereich Teilen"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Speicher-Konfiguration",
+		"saveButtonTooltip": "Aktuelle Speicher-Konfiguration speichern",
+		"doneButtonTooltip": "Speicher-Konfiguration schließen und zum Chat zurückkehren"
+	},
+	"common": {
+		"save": "Speichern",
+		"done": "Fertig",
+		"optional": "optional",
+		"configuring": "Configuring"
+	},
+	"description": "Konfigurieren Sie Speicher-Anbieter und Einstellungen, um das KI-Kontextbewusstsein und die Effizienz zu verbessern. Speichersysteme helfen dabei, den Gesprächskontext zwischen Sitzungen aufrechtzuerhalten.",
+	"llmProfile": {
+		"title": "LLM-Profil",
+		"selectProfile": "Profil auswählen",
+		"selectedProfileInfo": "Ausgewähltes Profil: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Vektor-Speicher-Konfiguration",
+		"type": "Vektor-Speicher-Typ",
+		"selectType": "Vektor-Speicher-Typ auswählen",
+		"url": "Vektor-Speicher-URL",
+		"urlPlaceholder": "z.B. http://localhost:6333",
+		"collection": "Collection-Name",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Vektor-Dimensionen",
+		"apiKey": "API-Schlüssel",
+		"apiKeyPlaceholder": "API-Schlüssel eingeben"
+	},
+	"graphStore": {
+		"title": "Graph-Speicher-Konfiguration",
+		"type": "Graph-Speicher-Typ",
+		"selectType": "Graph-Speicher-Typ auswählen",
+		"url": "Graph-Speicher-URL",
+		"urlPlaceholder": "z.B. bolt://localhost:7687",
+		"username": "Benutzername",
+		"usernamePlaceholder": "neo4j",
+		"password": "Passwort",
+		"passwordPlaceholder": "Passwort eingeben"
+	},
+	"embedder": {
+		"title": "Embedder-Konfiguration",
+		"type": "Embedder-Typ",
+		"selectType": "Embedder-Typ auswählen",
+		"model": "Einbettungsmodell",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "Basis-URL",
+		"apiKey": "API-Schlüssel",
+		"apiKeyPlaceholder": "API-Schlüssel eingeben"
+	},
+	"general": {
+		"title": "Allgemeine Einstellungen",
+		"userId": "Benutzer-ID",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Maximale Speichergröße",
+		"searchThreshold": "Suchschwelle",
+		"enablePersistence": "Persistenz aktivieren"
+	},
+	"sections": {
+		"memory": "Speicher"
+	},
+	"modes": {
+		"title": "Speicher-Anbieter-Modus",
+		"disabled": "Deaktiviert",
+		"embedded": "Eingebettet (Lokal)",
+		"mcp": "MCP-Server",
+		"api": "Externe API"
+	},
+	"llm": {
+		"title": "LLM-Konfiguration",
+		"provider": "LLM-Anbieter",
+		"selectProvider": "Anbieter auswählen",
+		"model": "Modell",
+		"apiKey": "API-Schlüssel",
+		"apiKeyPlaceholder": "API-Schlüssel eingeben",
+		"baseUrl": "Basis-URL",
+		"baseUrlPlaceholder": "Basis-URL eingeben",
+		"providers": {
+			"openai": "OpenAI",
+			"anthropic": "Anthropic",
+			"ollama": "Ollama (Lokal)"
+		}
+	},
+	"validation": {
+		"configurationIncomplete": "Konfiguration unvollständig - erforderliche Felder fehlen"
+	},
+	"actions": {
+		"testConnection": "Verbindung testen",
+		"testing": "Testen...",
+		"save": "Konfiguration speichern"
+	}
+}

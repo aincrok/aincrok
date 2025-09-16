@@ -13,12 +13,13 @@ import { initializeSourceMaps, exposeSourceMapsForDebugging } from "./utils/sour
 import { ExtensionStateContextProvider, useExtensionState } from "./context/ExtensionStateContext"
 import ChatView, { ChatViewRef } from "./components/chat/ChatView"
 import HistoryView from "./components/history/HistoryView"
-import SettingsView, { SettingsViewRef } from "./components/settings/SettingsView"
-import WelcomeView from "./components/aincrok/Welcome/WelcomeView" // kilocode_change
+import SettingsView from "./components/settings/SettingsView"
+// aincrok_change - Removed kilocode WelcomeView import
 import ProfileView from "./components/aincrok/profile/ProfileView" // kilocode_change
 import McpView from "./components/mcp/McpView"
 import { MarketplaceView } from "./components/marketplace/MarketplaceView"
 import ModesView from "./components/modes/ModesView"
+import MemoryDashboardView from "./components/memory/MemoryDashboardView" // aincrok_change - dedicated dashboard
 import { HumanRelayDialog } from "./components/human-relay/HumanRelayDialog"
 import BottomControls from "./components/aincrok/BottomControls" // kilocode_change
 import { MemoryService, type MemoryUsageInfo } from "./services/MemoryService" // aincrok_change
@@ -32,7 +33,7 @@ import { TooltipProvider } from "./components/ui/tooltip"
 import { STANDARD_TOOLTIP_DELAY } from "./components/ui/standard-tooltip"
 import { useKiloIdentity } from "./utils/aincrok/useKiloIdentity"
 
-type Tab = "settings" | "history" | "mcp" | "modes" | "chat" | "marketplace" | "account" | "profile" // kilocode_change: add "profile"
+type Tab = "settings" | "history" | "mcp" | "modes" | "chat" | "marketplace" | "account" | "profile" | "memory" // aincrok_change: add memory tab // kilocode_change: add "profile", aincrok_change: removed "memory" as it's now in settings
 
 interface HumanRelayDialogState {
 	isOpen: boolean
@@ -66,6 +67,8 @@ const tabsByMessageAction: Partial<Record<NonNullable<ExtensionMessage["action"]
 	profileButtonClicked: "profile",
 	marketplaceButtonClicked: "marketplace",
 	accountButtonClicked: "account",
+	memoryButtonClicked: "memory", // aincrok_change: add memory button action
+	memoryDashboardButtonClicked: "memory", // aincrok_change: add memory dashboard button action
 }
 
 const App = () => {
@@ -107,7 +110,7 @@ const App = () => {
 		images: [],
 	})
 
-	const settingsRef = useRef<SettingsViewRef>(null)
+	const settingsRef = useRef(null)
 	const chatViewRef = useRef<ChatViewRef & { focusInput: () => void }>(null) // kilocode_change
 
 	const switchTab = useCallback(
@@ -123,11 +126,7 @@ const App = () => {
 			setCurrentSection(undefined)
 			setCurrentMarketplaceTab(undefined)
 
-			if (settingsRef.current?.checkUnsaveChanges) {
-				settingsRef.current.checkUnsaveChanges(() => setTab(newTab))
-			} else {
-				setTab(newTab)
-			}
+			setTab(newTab)
 		},
 		[mdmCompliant],
 	)
@@ -164,7 +163,7 @@ const App = () => {
 				if (message.action === "switchTab" && message.tab) {
 					const targetTab = message.tab as Tab
 					switchTab(targetTab)
-					setCurrentSection(undefined)
+					setCurrentSection(message.section) // aincrok_change - Pass section parameter for memory settings navigation
 					setCurrentMarketplaceTab(undefined)
 				} else {
 					// Handle other actions using the mapping
@@ -327,7 +326,11 @@ const App = () => {
 	// kilocode_change end
 
 	// Tell the extension that we are ready to receive messages.
-	useEffect(() => vscode.postMessage({ type: "webviewDidLaunch" }), [])
+	// aincrok_change - Debug logging for webview launch
+	useEffect(() => {
+		console.log("[App] Webview launching, sending webviewDidLaunch message")
+		vscode.postMessage({ type: "webviewDidLaunch" })
+	}, [])
 
 	// Initialize source map support for better error reporting
 	useEffect(() => {
@@ -359,15 +362,26 @@ const App = () => {
 		}
 	}, [tab])
 
+	// aincrok_change - Debug logging for blank screen
+	console.log("[App] Render state:", {
+		didHydrateState,
+		tab,
+		showWelcome,
+		hasApiConfig: !!apiConfiguration,
+		mdmCompliant,
+		renderContext,
+	})
+
 	if (!didHydrateState) {
+		console.log("[App] Not hydrated yet, returning null")
 		return null
 	}
 
 	// Do not conditionally load ChatView, it's expensive and there's state we
 	// don't want to lose (user input, disableInput, askResponse promise, etc.)
-	return showWelcome ? (
-		<WelcomeView />
-	) : (
+	// aincrok_change - Remove welcome/authentication blocking
+	console.log("[App] Rendering main App component with tab:", tab)
+	return (
 		<>
 			{tab === "modes" && <ModesView onDone={() => switchTab("chat")} />}
 			{tab === "mcp" && <McpView onDone={() => switchTab("chat")} />}
@@ -377,6 +391,8 @@ const App = () => {
 			)}
 			{/* kilocode_change: add profileview */}
 			{tab === "profile" && <ProfileView onDone={() => switchTab("chat")} />}
+			{/* aincrok_change: add memory dashboard view */}
+			{tab === "memory" && <MemoryDashboardView onDone={() => switchTab("chat")} />}
 			{tab === "marketplace" && (
 				<MarketplaceView
 					stateManager={marketplaceStateManager}
@@ -389,6 +405,11 @@ const App = () => {
 			{/* {tab === "account" && (
 				<AccountView userInfo={cloudUserInfo} isAuthenticated={false} onDone={() => switchTab("chat")} />
 			)} */}
+			{/* aincrok_change - Debug logging for ChatView render */}
+			{(() => {
+				console.log("[App] Rendering ChatView with isHidden:", tab !== "chat", "tab:", tab)
+				return null
+			})()}
 			<ChatView
 				ref={chatViewRef}
 				isHidden={tab !== "chat"}
@@ -428,7 +449,8 @@ const App = () => {
 				}}
 			/>
 			{/* kilocode_change */}
-			{/* Chat, modes and history view contain their own bottom controls */}
+			{/* Chat, modes, history, and memory view contain their own bottom controls */}
+			{/* aincrok_change - Removed "memory" as it's now in settings */}
 			{!["chat", "modes", "history"].includes(tab) && (
 				<div className="fixed inset-0 top-auto">
 					<BottomControls />

@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "自動擷取",
+		"reasoningExtraction": "推理擷取",
+		"workspace": "團隊工作區共享"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "記憶體配置",
+		"saveButtonTooltip": "儲存目前的記憶體配置",
+		"doneButtonTooltip": "關閉記憶體配置並返回聊天"
+	},
+	"common": {
+		"save": "儲存",
+		"done": "完成",
+		"optional": "可選",
+		"configuring": "Configuring"
+	},
+	"description": "配置記憶體提供商和設定以增強AI上下文感知和效率。記憶體系統有助於在會話間維護對話上下文。",
+	"llmProfile": {
+		"title": "LLM配置文件",
+		"selectProfile": "選擇配置文件",
+		"selectedProfileInfo": "已選擇的配置文件: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "向量儲存配置",
+		"type": "向量儲存類型",
+		"selectType": "選擇向量儲存類型",
+		"url": "向量儲存URL",
+		"urlPlaceholder": "例如: http://localhost:6333",
+		"collection": "集合名稱",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "向量維度",
+		"apiKey": "API金鑰",
+		"apiKeyPlaceholder": "輸入API金鑰"
+	},
+	"graphStore": {
+		"title": "圖形儲存配置",
+		"type": "圖形儲存類型",
+		"selectType": "選擇圖形儲存類型",
+		"url": "圖形儲存URL",
+		"urlPlaceholder": "例如: bolt://localhost:7687",
+		"username": "使用者名稱",
+		"usernamePlaceholder": "neo4j",
+		"password": "密碼",
+		"passwordPlaceholder": "輸入密碼"
+	},
+	"embedder": {
+		"title": "嵌入器配置",
+		"type": "嵌入器類型",
+		"selectType": "選擇嵌入器類型",
+		"model": "嵌入模型",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "基礎URL",
+		"apiKey": "API金鑰",
+		"apiKeyPlaceholder": "輸入API金鑰"
+	},
+	"general": {
+		"title": "一般設定",
+		"userId": "使用者ID",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "最大記憶體大小",
+		"searchThreshold": "搜尋閾值",
+		"enablePersistence": "啟用持久化"
+	},
+	"sections": {
+		"memory": "記憶體"
+	}
+}

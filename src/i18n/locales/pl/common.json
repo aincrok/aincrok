@@ -124,7 +124,9 @@
 		},
 		"roo": {
 			"authenticationRequired": "Dostawca Roo wymaga uwierzytelnienia w chmurze. Zaloguj się do Roo Code Cloud."
-		}
+		},
+		"invalid_line_limit": "Limit linii wyjścia terminala musi być liczbą dodatnią",
+		"invalid_character_limit": "Limit znaków wyjścia terminala musi być liczbą dodatnią"
 	},
 	"warnings": {
 		"no_terminal_content": "Nie wybrano zawartości terminala",

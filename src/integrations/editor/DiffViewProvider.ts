@@ -347,14 +347,14 @@ export class DiffViewProvider {
 			indentBy: "",
 			suppressEmptyNode: true,
 			processEntities: false,
-			tagValueProcessor: (name, value) => {
+			tagValueProcessor: (name: string, value: any) => {
 				if (typeof value === "string") {
 					// Only escape <, >, and & characters
 					return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
 				}
 				return value
 			},
-			attributeValueProcessor: (name, value) => {
+			attributeValueProcessor: (name: string, value: any) => {
 				if (typeof value === "string") {
 					// Only escape <, >, and & characters
 					return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")

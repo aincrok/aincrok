@@ -19,6 +19,7 @@ Once you're comfortable with Aincrok's basic features, these advanced techniques
 - [**Memory Bank**](./memory-bank.md) - Persistent context across sessions
 - [**Large Projects**](./large-projects.md) - Working with enterprise codebases
 - [**Codebase Indexing**](../features/codebase-indexing.md) - Enhanced code understanding
+- [**Semantic Code Understanding**](./semantic-code-understanding.md) - LSP-powered code analysis
 
 ### Cost and Performance Optimization
 

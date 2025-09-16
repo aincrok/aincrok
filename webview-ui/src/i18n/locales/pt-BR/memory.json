@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "Captura Automática",
+		"reasoningExtraction": "Extração de Raciocínio",
+		"workspace": "Compartilhamento de Área de Trabalho"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "Configuração de Memória",
+		"saveButtonTooltip": "Salvar a configuração de memória atual",
+		"doneButtonTooltip": "Fechar configuração de memória e voltar ao chat"
+	},
+	"common": {
+		"save": "Salvar",
+		"done": "Concluído",
+		"optional": "opcional",
+		"configuring": "Configuring"
+	},
+	"description": "Configure provedores de memória e configurações para aprimorar a consciência contextual da IA e eficiência. Os sistemas de memória ajudam a manter o contexto da conversa entre sessões.",
+	"llmProfile": {
+		"title": "Perfil LLM",
+		"selectProfile": "Selecionar um perfil",
+		"selectedProfileInfo": "Perfil selecionado: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "Configuração do Armazenamento Vetorial",
+		"type": "Tipo de Armazenamento Vetorial",
+		"selectType": "Selecionar tipo de armazenamento vetorial",
+		"url": "URL do Armazenamento Vetorial",
+		"urlPlaceholder": "ex., http://localhost:6333",
+		"collection": "Nome da Coleção",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "Dimensões Vetoriais",
+		"apiKey": "Chave da API",
+		"apiKeyPlaceholder": "Inserir chave da API"
+	},
+	"graphStore": {
+		"title": "Configuração do Armazenamento de Grafos",
+		"type": "Tipo de Armazenamento de Grafos",
+		"selectType": "Selecionar tipo de armazenamento de grafos",
+		"url": "URL do Armazenamento de Grafos",
+		"urlPlaceholder": "ex., bolt://localhost:7687",
+		"username": "Nome de Usuário",
+		"usernamePlaceholder": "neo4j",
+		"password": "Senha",
+		"passwordPlaceholder": "Inserir senha"
+	},
+	"embedder": {
+		"title": "Configuração do Embedder",
+		"type": "Tipo de Embedder",
+		"selectType": "Selecionar tipo de embedder",
+		"model": "Modelo de Incorporação",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "URL Base",
+		"apiKey": "Chave da API",
+		"apiKeyPlaceholder": "Inserir chave da API"
+	},
+	"general": {
+		"title": "Configurações Gerais",
+		"userId": "ID do Usuário",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "Tamanho Máximo da Memória",
+		"searchThreshold": "Limiar de Busca",
+		"enablePersistence": "Habilitar Persistência"
+	},
+	"sections": {
+		"memory": "Memória"
+	}
+}

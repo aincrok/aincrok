@@ -124,7 +124,9 @@
 		},
 		"roo": {
 			"authenticationRequired": "Penyedia Roo memerlukan autentikasi cloud. Silakan masuk ke Roo Code Cloud."
-		}
+		},
+		"invalid_line_limit": "Batas baris output terminal harus berupa angka positif",
+		"invalid_character_limit": "Batas karakter output terminal harus berupa angka positif"
 	},
 	"warnings": {
 		"no_terminal_content": "Tidak ada konten terminal yang dipilih",

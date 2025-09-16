@@ -8,6 +8,8 @@ coverage/
 mock/
 .DS_Store
 *.orig
+rooadmap.xml
+detailed_implementation_plan.xml
 
 # Builds
 bin/
@@ -58,3 +60,5 @@ context_portal/
 .claude
 CLAUDE.md
 .serena
+apps/vscode-e2e/package.json
+memory_upgrade.md

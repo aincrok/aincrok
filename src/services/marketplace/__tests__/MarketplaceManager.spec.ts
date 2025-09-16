@@ -188,27 +188,8 @@ describe("MarketplaceManager", () => {
 			expect(result.errors).toEqual(["API request failed"])
 		})
 
-		it("should return organization MCPs when available", async () => {
-			const { CloudService } = await import("@roo-code/cloud")
-
-			// Mock CloudService to return organization settings
-			vi.mocked(CloudService.hasInstance).mockReturnValue(true)
-			vi.mocked(CloudService.instance.isAuthenticated).mockReturnValue(true)
-			vi.mocked(CloudService.instance.getOrganizationSettings).mockReturnValue({
-				version: 1,
-				mcps: [
-					{
-						id: "org-mcp-1",
-						name: "Organization MCP",
-						description: "An organization MCP",
-						url: "https://example.com/org-mcp",
-						content: '{"command": "node", "args": ["org-server.js"]}',
-					},
-				],
-				hiddenMcps: [],
-				allowList: { allowAll: true, providers: {} },
-				defaultSettings: {},
-			})
+		it("should return marketplace items without organization MCPs", async () => {
+			// aincrok_change - CloudService removed, no organization MCPs available
 
 			// Mock the config loader to return test data
 			const mockItems: MarketplaceItem[] = [
@@ -226,27 +207,14 @@ describe("MarketplaceManager", () => {
 
 			const result = await manager.getMarketplaceItems()
 
-			expect(result.organizationMcps).toHaveLength(1)
-			expect(result.organizationMcps[0].name).toBe("Organization MCP")
+			expect(result.organizationMcps).toHaveLength(0)
 			expect(result.marketplaceItems).toHaveLength(1)
 			expect(result.marketplaceItems[0].name).toBe("Test MCP")
 		})
 
-		it("should filter out hidden MCPs from marketplace results", async () => {
-			const { CloudService } = await import("@roo-code/cloud")
+		it("should return all marketplace items without filtering", async () => {
+			// aincrok_change - CloudService removed, no hidden MCP filtering available
 
-			// Mock CloudService to return organization settings with hidden MCPs
-			vi.mocked(CloudService.hasInstance).mockReturnValue(true)
-			vi.mocked(CloudService.instance.isAuthenticated).mockReturnValue(true)
-			vi.mocked(CloudService.instance.getOrganizationSettings).mockReturnValue({
-				version: 1,
-				mcps: [],
-				hiddenMcps: ["hidden-mcp"],
-				allowList: { allowAll: true, providers: {} },
-				defaultSettings: {},
-			})
-
-			// Mock the config loader to return test data including a hidden MCP
 			const mockItems: MarketplaceItem[] = [
 				{
 					id: "visible-mcp",
@@ -257,12 +225,12 @@ describe("MarketplaceManager", () => {
 					content: '{"command": "node", "args": ["visible.js"]}',
 				},
 				{
-					id: "hidden-mcp",
-					name: "Hidden MCP",
-					description: "A hidden MCP",
+					id: "another-mcp",
+					name: "Another MCP",
+					description: "Another MCP",
 					type: "mcp",
-					url: "https://example.com/hidden-mcp",
-					content: '{"command": "node", "args": ["hidden.js"]}',
+					url: "https://example.com/another-mcp",
+					content: '{"command": "node", "args": ["another.js"]}',
 				},
 			]
 
@@ -270,16 +238,12 @@ describe("MarketplaceManager", () => {
 
 			const result = await manager.getMarketplaceItems()
 
-			expect(result.marketplaceItems).toHaveLength(1)
-			expect(result.marketplaceItems[0].name).toBe("Visible MCP")
+			expect(result.marketplaceItems).toHaveLength(2)
 			expect(result.organizationMcps).toHaveLength(0)
 		})
 
-		it("should handle CloudService not being available", async () => {
-			const { CloudService } = await import("@roo-code/cloud")
-
-			// Mock CloudService to not be available
-			vi.mocked(CloudService.hasInstance).mockReturnValue(false)
+		it("should handle normal operation without cloud service", async () => {
+			// aincrok_change - CloudService removed, normal operation without cloud
 
 			// Mock the config loader to return test data
 			const mockItems: MarketplaceItem[] = [

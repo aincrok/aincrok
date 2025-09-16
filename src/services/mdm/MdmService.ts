@@ -4,7 +4,9 @@ import * as os from "os"
 import * as vscode from "vscode"
 import { z } from "zod"
 
-import { CloudService, getClerkBaseUrl, PRODUCTION_CLERK_BASE_URL } from "@roo-code/cloud"
+// aincrok_change: CloudService removed
+const getClerkBaseUrl = () => "https://api.clerk.com"
+const PRODUCTION_CLERK_BASE_URL = "https://api.clerk.com"
 import { Package } from "../../shared/package"
 import { t } from "../../i18n"
 
@@ -67,52 +69,12 @@ export class MdmService {
 			return { compliant: true }
 		}
 
-		// Check if cloud service is available and has active or attempting session
-		if (!CloudService.hasInstance() || !CloudService.instance.hasOrIsAcquiringActiveSession()) {
-			return {
-				compliant: false,
-				reason: t("mdm.errors.cloud_auth_required"),
-			}
+		// aincrok_change - CloudService removed, cloud auth is not available
+		// If MDM requires cloud auth but CloudService is not available, not compliant
+		return {
+			compliant: false,
+			reason: t("mdm.errors.cloud_auth_required"),
 		}
-
-		// Check organization match if specified
-		const requiredOrgId = this.getRequiredOrganizationId()
-		if (requiredOrgId) {
-			try {
-				// First try to get from active session
-				let currentOrgId = CloudService.instance.getOrganizationId()
-
-				// If no active session, check stored credentials
-				if (!currentOrgId) {
-					const storedOrgId = CloudService.instance.getStoredOrganizationId()
-
-					// null means personal account, which is not compliant for org requirements
-					if (storedOrgId === null || storedOrgId !== requiredOrgId) {
-						return {
-							compliant: false,
-							reason: t("mdm.errors.organization_mismatch"),
-						}
-					}
-
-					currentOrgId = storedOrgId
-				}
-
-				if (currentOrgId !== requiredOrgId) {
-					return {
-						compliant: false,
-						reason: t("mdm.errors.organization_mismatch"),
-					}
-				}
-			} catch (error) {
-				this.log("[MDM] Error checking organization ID:", error)
-				return {
-					compliant: false,
-					reason: t("mdm.errors.verification_failed"),
-				}
-			}
-		}
-
-		return { compliant: true }
 	}
 
 	/**

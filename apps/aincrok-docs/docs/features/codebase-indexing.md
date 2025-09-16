@@ -219,6 +219,39 @@ You can control the number of search results returned by adjusting the **Max Sea
 - **Local option**: Use Ollama for completely local processing
 - **Access control**: Respects existing file permissions
 
+## Comparison with Semantic LSP Tools
+
+Aincrok provides two complementary approaches to code understanding:
+
+| Feature              | Codebase Search                                                      | Semantic LSP Tools                                                                                                             |
+| -------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Purpose**          | AI-powered semantic search across entire codebase                    | Real-time code structure analysis using Language Server Protocol                                                               |
+| **Scope**            | Project-wide search and discovery                                    | Individual file or symbol-level analysis                                                                                       |
+| **Setup Required**   | External services (embeddings + Qdrant)                              | Built-in LSP integration (no external services)                                                                                |
+| **Search Method**    | Natural language queries with AI embeddings                          | Symbol names, types, and relationships                                                                                         |
+| **Best For**         | "Find authentication code", "error handling patterns"                | "Show UserService methods", "find all User interfaces"                                                                         |
+| **Tools**            | [`codebase_search`](/advanced-usage/available-tools/codebase-search) | [`semantic_read_file`](/features/tools/semantic-read-file), [`semantic_symbol_search`](/features/tools/semantic-symbol-search) |
+| **Performance**      | Slower initial setup, fast search                                    | Instant analysis, real-time results                                                                                            |
+| **Language Support** | All languages via Tree-sitter                                        | TypeScript, JavaScript, Python, Java, Go, Rust, C++                                                                            |
+
+### When to Use Each
+
+**Use Codebase Search when:**
+
+- Exploring unfamiliar codebases
+- Finding conceptual patterns ("how is caching handled?")
+- Searching across large codebases
+- Looking for similar implementations
+
+**Use Semantic LSP Tools when:**
+
+- Analyzing specific files or symbols
+- Understanding code structure and relationships
+- Working with strongly-typed languages
+- Needing immediate, precise symbol information
+
+Both tools work together to provide comprehensive code understanding capabilities.
+
 ## Future Enhancements
 
 Planned improvements:

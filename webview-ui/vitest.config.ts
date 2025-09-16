@@ -10,6 +10,27 @@ export default defineConfig({
 		silent: true,
 		environment: "jsdom",
 		include: ["src/**/*.spec.ts", "src/**/*.spec.tsx"],
+		coverage: {
+			provider: "v8",
+			reporter: ["text", "json", "html", "lcov"],
+			exclude: [
+				"**/__tests__/**",
+				"**/__mocks__/**",
+				"**/dist/**",
+				"**/node_modules/**",
+				"**/*.spec.ts",
+				"**/*.spec.tsx",
+				"**/*.test.ts",
+				"**/*.test.tsx",
+				"**/vitest.*.ts",
+			],
+			thresholds: {
+				lines: 98,
+				functions: 98,
+				branches: 95,
+				statements: 98,
+			},
+		},
 	},
 	resolve: {
 		alias: {

@@ -10,6 +10,11 @@ export const filterProviders = (
 		return providers
 	}
 
+	// aincrok_change - Handle undefined providers property
+	if (!organizationAllowList.providers) {
+		return providers // No restrictions if providers list is undefined
+	}
+
 	return providers.filter((provider) => {
 		const providerConfig = organizationAllowList.providers[provider.value]
 		if (!providerConfig) {
@@ -31,6 +36,11 @@ export const filterModels = (
 
 	if (!providerId) {
 		return {}
+	}
+
+	// aincrok_change - Handle undefined providers property
+	if (!organizationAllowList.providers) {
+		return models // No restrictions if providers list is undefined
 	}
 
 	const providerConfig = organizationAllowList.providers[providerId]

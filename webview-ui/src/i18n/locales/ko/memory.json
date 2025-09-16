@@ -1,0 +1,73 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "자동 캡처",
+		"reasoningExtraction": "추론 추출",
+		"workspace": "팀 작업 공간 공유"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "메모리 설정",
+		"saveButtonTooltip": "현재 메모리 설정 저장",
+		"doneButtonTooltip": "메모리 설정을 닫고 채팅으로 돌아가기"
+	},
+	"common": {
+		"save": "저장",
+		"done": "완료",
+		"optional": "선택사항",
+		"configuring": "Configuring"
+	},
+	"description": "메모리 프로바이더와 설정을 구성하여 AI 컨텍스트 인식과 효율성을 향상시킵니다. 메모리 시스템은 세션 간 대화 컨텍스트를 유지하는 데 도움이 됩니다.",
+	"llmProfile": {
+		"title": "LLM 프로필",
+		"selectProfile": "프로필 선택",
+		"selectedProfileInfo": "선택된 프로필: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "벡터 스토어 설정",
+		"type": "벡터 스토어 유형",
+		"selectType": "벡터 스토어 유형 선택",
+		"url": "벡터 스토어 URL",
+		"urlPlaceholder": "예: http://localhost:6333",
+		"collection": "컬렉션 이름",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "벡터 차원",
+		"apiKey": "API 키",
+		"apiKeyPlaceholder": "API 키 입력"
+	},
+	"graphStore": {
+		"title": "그래프 스토어 설정",
+		"type": "그래프 스토어 유형",
+		"selectType": "그래프 스토어 유형 선택",
+		"url": "그래프 스토어 URL",
+		"urlPlaceholder": "예: bolt://localhost:7687",
+		"username": "사용자명",
+		"usernamePlaceholder": "neo4j",
+		"password": "비밀번호",
+		"passwordPlaceholder": "비밀번호 입력"
+	},
+	"embedder": {
+		"title": "임베더 설정",
+		"type": "임베더 유형",
+		"selectType": "임베더 유형 선택",
+		"model": "임베딩 모델",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "기본 URL",
+		"apiKey": "API 키",
+		"apiKeyPlaceholder": "API 키 입력"
+	},
+	"general": {
+		"title": "일반 설정",
+		"userId": "사용자 ID",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "최대 메모리 크기",
+		"searchThreshold": "검색 임계값",
+		"enablePersistence": "지속성 활성화"
+	},
+	"sections": {
+		"memory": "메모리"
+	}
+}

@@ -164,6 +164,83 @@ export const globalSettingsSchema = z.object({
 	hasOpenedModeSelector: z.boolean().optional(),
 	lastModeExportPath: z.string().optional(),
 	lastModeImportPath: z.string().optional(),
+
+	// aincrok_change start - additional settings
+	memoryPressure: z.number().optional(),
+	updateExperimental: z.boolean().optional(),
+	updateCondensingPrompt: z.string().optional(),
+	updateSupportPrompt: z.string().optional(),
+	memoryContext: z.string().optional(),
+	memoryContextSwitchingEnabled: z.boolean().optional(),
+
+	// Memory Provider Settings (kept in GlobalSettings for backward compatibility)
+	// These are duplicated in memoryConfiguration for the new structure
+	cipherMode: z.enum(["disabled", "embedded", "mcp", "api"]).optional(),
+	cipherAutoCapture: z.boolean().optional(),
+
+	// Cipher LLM Settings
+	cipherLlmProvider: z.enum(["openai", "anthropic", "ollama", "openrouter", "gemini"]).optional(),
+	cipherLlmModel: z.string().optional(),
+	cipherLlmApiKey: z.string().optional(),
+	cipherLlmBaseUrl: z.string().optional(),
+
+	// Cipher Embedding Settings
+	cipherEmbeddingProvider: z.enum(["openai", "gemini", "ollama", "voyage", "qwen", "bedrock", "azure"]).optional(),
+	cipherEmbeddingModel: z.string().optional(),
+	cipherEmbeddingApiKey: z.string().optional(),
+	cipherEmbeddingBaseUrl: z.string().optional(),
+	cipherEmbeddingDimensions: z.string().optional(),
+
+	// Cipher Vector Store Settings
+	cipherVectorStore: z.enum(["in-memory", "qdrant", "milvus"]).optional(),
+	cipherVectorStoreUrl: z.string().optional(),
+	cipherVectorStoreApiKey: z.string().optional(),
+
+	// Cipher Features
+	cipherExtractReasoning: z.boolean().optional(),
+	cipherTeamSharing: z.boolean().optional(),
+	cipherKnowledgeGraphEnabled: z.boolean().optional(),
+	cipherKnowledgeGraphType: z.enum(["in-memory", "neo4j"]).optional(),
+
+	// Cipher Neo4j Settings
+	cipherNeo4jHost: z.string().optional(),
+	cipherNeo4jPort: z.string().optional(),
+	cipherNeo4jUsername: z.string().optional(),
+	cipherNeo4jPassword: z.string().optional(),
+	cipherNeo4jDatabase: z.string().optional(),
+	cipherNeo4jEnableAutoIndexing: z.boolean().optional(),
+	cipherNeo4jEnableMetrics: z.boolean().optional(),
+	cipherNeo4jEnableQueryCache: z.boolean().optional(),
+	cipherNeo4jMaxRetries: z.string().optional(),
+	cipherNeo4jTimeout: z.string().optional(),
+
+	// Cipher In-Memory Settings
+	cipherInMemoryMaxNodes: z.string().optional(),
+	cipherInMemoryMaxEdges: z.string().optional(),
+	cipherInMemoryEnableIndexing: z.boolean().optional(),
+	cipherInMemoryEnableGarbageCollection: z.boolean().optional(),
+	cipherInMemoryEnableAutoIndexing: z.boolean().optional(),
+	cipherInMemoryDefaultBatchSize: z.string().optional(),
+
+	// Cipher Session Settings
+	cipherSessionTTL: z.string().optional(),
+	cipherMaxSessions: z.string().optional(),
+	cipherMaxIterations: z.string().optional(),
+
+	// Cipher MCP Settings
+	cipherMcpConnectionType: z.enum(["stdio", "sse", "http"]).optional(),
+	cipherMcpCommand: z.string().optional(),
+	cipherMcpArgs: z.string().optional(),
+	cipherMcpTimeout: z.string().optional(),
+	cipherMcpStrictMode: z.boolean().optional(),
+
+	// Cipher API Settings
+	cipherApiUrl: z.string().optional(),
+	cipherApiKey: z.string().optional(),
+	cipherApiTimeout: z.string().optional(),
+	cipherApiRetries: z.string().optional(),
+	cipherApiVerifySSL: z.boolean().optional(),
+	// aincrok_change end
 })
 
 export type GlobalSettings = z.infer<typeof globalSettingsSchema>
@@ -218,8 +295,16 @@ export const SECRET_STATE_KEYS = [
 	"fireworksApiKey",
 	"featherlessApiKey",
 	"ioIntelligenceApiKey",
-] as const satisfies readonly (keyof ProviderSettings)[]
-export type SecretState = Pick<ProviderSettings, (typeof SECRET_STATE_KEYS)[number]>
+	// aincrok_change start - cipher secret keys
+	"cipherLlmApiKey",
+	"cipherEmbeddingApiKey",
+	"cipherVectorStoreApiKey",
+	"cipherNeo4jPassword",
+	"cipherApiKey",
+	// aincrok_change end
+] as const satisfies readonly (keyof ProviderSettings | keyof GlobalSettings)[]
+// aincrok_change - updated to include GlobalSettings keys
+export type SecretState = Pick<RooCodeSettings, (typeof SECRET_STATE_KEYS)[number]>
 
 export const isSecretStateKey = (key: string): key is Keys<SecretState> =>
 	SECRET_STATE_KEYS.includes(key as Keys<SecretState>)

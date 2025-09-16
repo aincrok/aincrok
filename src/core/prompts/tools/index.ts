@@ -25,6 +25,10 @@ import { getSwitchModeDescription } from "./switch-mode"
 import { getNewTaskDescription } from "./new-task"
 import { getCodebaseSearchDescription } from "./codebase-search"
 import { getUpdateTodoListDescription } from "./update-todo-list"
+// aincrok_change start - semantic tools
+import { getSemanticReadFileDescription } from "./semantic-read-file"
+import { getSemanticSymbolSearchDescription } from "./semantic-symbol-search"
+// aincrok_change end
 import { CodeIndexManager } from "../../../services/code-index/manager"
 import { isMorphAvailable } from "../../tools/editFileTool"
 
@@ -34,7 +38,7 @@ import { type ClineProviderState } from "../../webview/ClineProvider"
 // kilocode_change end
 
 // Map of tool names to their description functions
-const toolDescriptionMap: Record<string, (args: ToolArgs) => string | undefined> = {
+export const toolDescriptionMap: Record<string, (args: ToolArgs) => string | undefined> = {
 	execute_command: (args) => getExecuteCommandDescription(args),
 	read_file: (args) => {
 		// Check if the current model should use the simplified read_file tool
@@ -63,6 +67,10 @@ const toolDescriptionMap: Record<string, (args: ToolArgs) => string | undefined>
 	apply_diff: (args) =>
 		args.diffStrategy ? args.diffStrategy.getToolDescription({ cwd: args.cwd, toolOptions: args.toolOptions }) : "",
 	update_todo_list: (args) => getUpdateTodoListDescription(args),
+	// aincrok_change start - semantic tools
+	semantic_read_file: (args) => getSemanticReadFileDescription(args),
+	semantic_symbol_search: (args) => getSemanticSymbolSearchDescription(args),
+	// aincrok_change end
 }
 
 export function getToolDescriptionsForMode(
@@ -183,4 +191,8 @@ export {
 	getSearchAndReplaceDescription,
 	getEditFileDescription, // kilocode_change: Morph fast apply
 	getCodebaseSearchDescription,
+	// aincrok_change start - semantic tools
+	getSemanticReadFileDescription,
+	getSemanticSymbolSearchDescription,
+	// aincrok_change end
 }

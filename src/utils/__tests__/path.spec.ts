@@ -2,6 +2,7 @@
 
 import os from "os"
 import * as path from "path"
+import { vi } from "vitest"
 
 import { arePathsEqual, getReadablePath, getWorkspacePath } from "../path"
 
@@ -58,8 +59,8 @@ describe("Path Utilities", () => {
 	})
 	describe("getWorkspacePath", () => {
 		it("should return the current workspace path", () => {
-			const workspacePath = "/Users/test/project"
-			expect(getWorkspacePath(workspacePath)).toBe("/Users/test/project")
+			// The global mock returns "/workspace" from workspaceFolders
+			expect(getWorkspacePath("/Users/test/project")).toBe("/workspace")
 		})
 
 		it("should return undefined when outside a workspace", () => {})

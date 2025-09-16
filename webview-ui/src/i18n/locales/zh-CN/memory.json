@@ -1,0 +1,103 @@
+{
+	"settings": {
+		"title": "Memory",
+		"description": "Configure memory providers and settings to enhance AI context awareness and efficiency.",
+		"autoCapture": "自动捕获",
+		"reasoningExtraction": "推理提取",
+		"workspace": "团队工作区共享"
+	},
+	"tabs": {
+		"memory": "Memory"
+	},
+	"header": {
+		"title": "内存配置",
+		"saveButtonTooltip": "保存当前内存配置",
+		"doneButtonTooltip": "关闭内存配置并返回聊天"
+	},
+	"common": {
+		"save": "保存",
+		"done": "完成",
+		"optional": "可选",
+		"configuring": "Configuring"
+	},
+	"description": "配置内存提供商和设置以增强AI上下文感知和效率。内存系统有助于在会话之间维护对话上下文。",
+	"llmProfile": {
+		"title": "LLM配置文件",
+		"selectProfile": "选择配置文件",
+		"selectedProfileInfo": "已选择的配置文件: {{profileName}} ({{model}})"
+	},
+	"vectorStore": {
+		"title": "向量存储配置",
+		"type": "向量存储类型",
+		"selectType": "选择向量存储类型",
+		"url": "向量存储URL",
+		"urlPlaceholder": "例如: http://localhost:6333",
+		"collection": "集合名称",
+		"collectionPlaceholder": "aincrok-memories",
+		"dimensions": "向量维度",
+		"apiKey": "API密钥",
+		"apiKeyPlaceholder": "输入API密钥"
+	},
+	"graphStore": {
+		"title": "图存储配置",
+		"type": "图存储类型",
+		"selectType": "选择图存储类型",
+		"url": "图存储URL",
+		"urlPlaceholder": "例如: bolt://localhost:7687",
+		"username": "用户名",
+		"usernamePlaceholder": "neo4j",
+		"password": "密码",
+		"passwordPlaceholder": "输入密码"
+	},
+	"embedder": {
+		"title": "嵌入器配置",
+		"type": "嵌入器类型",
+		"selectType": "选择嵌入器类型",
+		"model": "嵌入模型",
+		"modelPlaceholder": "text-embedding-3-small",
+		"baseUrl": "基础URL",
+		"apiKey": "API密钥",
+		"apiKeyPlaceholder": "输入API密钥"
+	},
+	"general": {
+		"title": "常规设置",
+		"userId": "用户ID",
+		"userIdPlaceholder": "user123",
+		"maxMemorySize": "最大内存大小",
+		"searchThreshold": "搜索阈值",
+		"enablePersistence": "启用持久化"
+	},
+	"sections": {
+		"memory": "内存"
+	},
+	"modes": {
+		"title": "内存提供程序模式",
+		"disabled": "禁用",
+		"embedded": "嵌入式（本地）",
+		"mcp": "MCP 服务器",
+		"api": "外部 API"
+	},
+	"llm": {
+		"title": "LLM 配置",
+		"provider": "LLM 提供程序",
+		"selectProvider": "选择提供程序",
+		"model": "模型",
+		"apiKey": "API 密钥",
+		"apiKeyPlaceholder": "输入 API 密钥",
+		"baseUrl": "基础 URL",
+		"baseUrlPlaceholder": "输入基础 URL",
+		"providers": {
+			"openai": "OpenAI",
+			"anthropic": "Anthropic",
+			"ollama": "Ollama（本地）"
+		}
+	},
+	"validation": {
+		"configurationIncomplete": "配置不完整 - 缺少必需字段"
+	},
+	"actions": {
+		"testConnection": "测试连接",
+		"testing": "测试中...",
+		"save": "保存配置"
+	}
+}
